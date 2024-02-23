@@ -1,7 +1,7 @@
 footer p{
     text-align: center;
     padding: calc(var(--padding-primary)/2);
-    color: var(--color-light);
+    color: var(--color-gold);
     font-weight: 300;
 }
 footer p a {

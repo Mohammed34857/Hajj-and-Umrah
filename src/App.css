@@ -2,7 +2,7 @@
     --color-dark:#27292a;
     --color-darkest:#1f2122;
     --color-light:white;
-  
+     --color-gold: #EBCD94;
     --color-bg-body:var(--color-darkest);
     --distance-primary:50px;
     --padding-primary:var(--distance-primary);
