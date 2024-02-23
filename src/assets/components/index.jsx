@@ -1,0 +1,1 @@
+export {default as SectionMain} from './SectionMain/SectionMain'
