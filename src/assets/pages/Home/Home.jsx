@@ -1,11 +1,15 @@
 import './Home.css'
 import React from 'react'
 
-import { SectionMain } from '../../components'
+import { Hotel, SectionMain, UmrahPrograms } from '../../sections/index'
 
-function Home() {
+const Home = () => {
   return (
+    <div >
     <SectionMain/>
+    <UmrahPrograms/>
+    <Hotel/>
+    </div> 
   )
 }
 

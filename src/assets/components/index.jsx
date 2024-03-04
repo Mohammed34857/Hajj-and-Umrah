@@ -1,1 +1,1 @@
-export {default as SectionMain} from './SectionMain/SectionMain'
+export {default as Card} from './Card/Card'

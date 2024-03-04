@@ -1,7 +1,0 @@
-.section-main{
-    height: 150vh;
-    background-image: url('../../images/Kaaba.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-color: var(--color-dark);
-}

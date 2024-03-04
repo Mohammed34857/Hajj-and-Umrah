@@ -1,20 +1,19 @@
 :root{
     --color-dark:#27292a;
     --color-darkest:#1f2122;
+    --color-silver:#6f6a60;
+    --color-dark-gold:#e09814;
     --color-light:white;
-     --color-gold: #EBCD94;
+    --color-gold: #EBCD94;
     --color-bg-body:var(--color-darkest);
     --distance-primary:50px;
     --padding-primary:var(--distance-primary);
     --margin-primary:var(--distance-primary);
     --border-radius-primary:calc(var(--distance-primary)/2);
-  
-    --font-family-primary: 'poppins', sans-serif ;
   } 
-  
-  @import url('https://fonts.googleapis.com/css2?family=poppins:wght@400&display=swap');
-  
+ 
   body{
     background-color: var(--color-bg-body);
-    font-family:var(--font-family-primary);
+    font-family:'Times New Roman', Times, serif;
   }
+  

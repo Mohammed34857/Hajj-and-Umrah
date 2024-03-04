@@ -1,3 +1,6 @@
+footer{
+    background-color: #010000;
+}
 footer p{
     text-align: center;
     padding: calc(var(--padding-primary)/2);

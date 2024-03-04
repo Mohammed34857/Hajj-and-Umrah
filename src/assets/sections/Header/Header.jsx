@@ -4,6 +4,7 @@ import React from 'react'
 
 const Header = () => {
 
+  
   window.addEventListener('scroll', function() {
     let navbar = document.getElementById('navbar');
     let navLinks = document.querySelectorAll('#navbar a');
@@ -18,17 +19,23 @@ const Header = () => {
         link.style.color = 'white';
     });
     }
-  });
+  }
+  );
+
 
   return (
-    <header id='navbar' >
-        <img src={logo} alt="" />
-        <nav>
+    <header  >
+        <nav id='navbar'>
+            <div id='logo'>
+             <p>AJNIHAT ALDIYAFA</p>
+             <img src={logo} alt="" />
+            </div>
             <ul>
-                <li><a href="#">الصفحة الرئيسية</a></li>
-                <li><a href="#">من نحن</a></li>
-                <li><a href="#">خدماتنا</a></li>
-                <li><a href="#">اتصل بنا</a></li>
+                <li><a href="">Home</a></li>
+                <li><a href="#">Hajj Programs</a></li>
+                <li><a href="#">Umrah programs</a></li>
+                <li><a href="#">Hotels</a></li>
+                <li><a href="#">Transport</a></li>
             </ul>
         </nav>
     </header>
