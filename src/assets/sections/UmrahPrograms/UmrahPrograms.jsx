@@ -7,7 +7,7 @@ import UmrahProgramsData from '../../Data/UmrahProgramsData'
 const UmrahPrograms = () => {
 
   const Cards=UmrahProgramsData.map(card =>{
-    return <Card id={card.id} image={card.image} ProgramName={card.ProgramName} Duration={card.Duration} DurationInMakaa={card.DurationInMakaa} DurationInMedina={card.DurationInMedina} />
+    return <Card key={card.id} id={card.id} image={card.image} ProgramName={card.ProgramName} Duration={card.Duration} DurationInMakaa={card.DurationInMakaa} DurationInMedina={card.DurationInMedina} />
  })
 
   return (
