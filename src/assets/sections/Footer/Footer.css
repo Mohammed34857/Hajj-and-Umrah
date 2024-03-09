@@ -1,17 +1,108 @@
-footer{
+footer {
     background-color: #010000;
 }
-footer p{
+
+footer .p-2 {
     text-align: center;
     padding: calc(var(--padding-primary)/2);
     color: var(--color-gold);
     font-weight: 300;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
 }
+
+footer .col-lg-12 {
+    background-color: rgba(85, 85, 85, 0.342);
+}
+
 footer p a {
     color: var(--color-light);
     text-decoration: none;
     transition: all 0.3s;
 }
-footer a:hover{
+
+footer a:hover {
     color: var(--padding-primary);
+}
+
+footer .parent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    color: white;
+    height: 300px;
+
+
+
+}
+
+footer .parent h2 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    text-transform: capitalize;
+    font-size: 25px;
+}
+
+footer .info p {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+footer .address ul,
+.links ul {
+    list-style: none;
+
+
+}
+
+footer .address ul li,
+.ul-two li {
+    padding: 7px;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+footer .ul-two {
+    margin-left: -40px;
+
+}
+
+footer .ul-two li a {
+    color: white;
+    text-decoration: none;
+}
+
+
+footer .subscribe input {
+
+    margin-bottom: 30px;
+    margin-top: 10px;
+    width: 190px;
+ 
+    height: 20px;
+    text-transform: capitalize;
+    background-color: transparent;
+    border: none;
+    color: white;
+
+
+}
+footer .line{
+    width: 200px;
+    height: 1px;
+    margin-bottom: 10px;
+    background-color: white;
+    margin-top: -20px;
+    
+}
+
+footer .subscribe button {
+   
+    border: none;
+    width: 200px;
+    height: 40px;
+    text-align: center;
+    font-size: 15px;
+    color: white;
+    background-color: rgb(160, 112, 8);
 }
