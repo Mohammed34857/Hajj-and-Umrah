@@ -1,5 +1,6 @@
 import React from 'react'
 import './Card.css'
+import { Link } from 'react-router-dom'
 
 const Card = (props) => {
   return (
@@ -14,7 +15,7 @@ const Card = (props) => {
                      <p>{props.DurationInMakaa}</p>
                      <p>{props.DurationInMedina}</p>
                    </div>
-                    <a href=""> Details </a>
+                   <Link className='details' to={`/Programs/${props.id}`}> تفاصيل </Link>
                 </div>
             </div>
         </div>

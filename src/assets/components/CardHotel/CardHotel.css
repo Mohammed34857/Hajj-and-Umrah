@@ -1,0 +1,47 @@
+
+.hotel-information{
+    height: 275px;
+    width: 100%;
+    direction: rtl;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 150px;
+  }
+  .hotel-information h1 {
+      margin: 0;
+      padding: 10px;
+      color: var(--color-gold);
+  }
+  .hotel-information p{
+    margin: 0;
+    padding: 10px;
+    font-size: 28px;
+    color: var(--color-gold);
+}
+  .star{
+    bottom: 0;
+    padding: 20px;
+  }
+  
+  .hotel-image{
+      border-top-left-radius: 10px;
+      border-top-right-radius: 150px;
+      width: 100%;
+      height: 500px;
+  }
+
+  .hotel-information a{
+    position: absolute;
+    background: linear-gradient(to right, #e09814 , var(--color-gold), #e09814);
+    color: black;
+    padding: 10px 30px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 26px;
+}
+.hotel-information a:hover{
+   background: linear-gradient(to right,var(--color-gold), #e09814 , var(--color-gold));
+   box-shadow: 10px 7px 10px;
+}
