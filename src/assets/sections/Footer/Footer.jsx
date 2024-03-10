@@ -10,37 +10,49 @@ function Footer() {
           <ul>
             <h2>address</h2>
             <li>
-              <i className="fa fa-location"></i>location
+              <i></i>location
             </li>
             <li>call +963 993642776</li>
             <li>demo@gmail.com</li>
-            <li>
-              <i></i>
-              <i></i>
-              <i></i>
-            </li>
+            <li></li>
           </ul>
         </div>
         <div className="info">
           <h2>info</h2>
-          <p>through our superior services and international parenter <br />we offer you multiplr options for program to visit the two holy <br />
-          mosgues in mahwi al-afida.</p>
+          <p>
+            through our superior services and international parenter <br />
+            we offer you multiplr options for program to visit the two holy{" "}
+            <br />
+            mosgues in mahwi al-afida.
+          </p>
         </div>
         <div className="links">
           <h2>links</h2>
           <ul className="ul-two">
-                <li><a href="">Home</a></li>
-                <li><a href="#">Hajj Programs</a></li>
-                <li><a href="#">Umrah programs</a></li>
-                <li><a href="#">Hotels</a></li>
-                <li><a href="#">Transport</a></li>
-            </ul>
+            <li>
+              <a href="">Home</a>
+            </li>
+            <li>
+              <a href="#">Hajj Programs</a>
+            </li>
+            <li>
+              <a href="#">Umrah programs</a>
+            </li>
+            <li>
+              <a href="#">Hotels</a>
+            </li>
+            <li>
+              <a href="#">Transport</a>
+            </li>
+          </ul>
         </div>
-        <div className="subscribe"> <h2>subscribe</h2>
-        <input type="email" placeholder="enter email" />
-        <br />
-        <div className="line"></div>
-        <button>subscribe</button>
+        <div className="subscribe">
+          {" "}
+          <h2>subscribe</h2>
+          <input type="email" placeholder="enter email" />
+          <br />
+          <div className="line"></div>
+          <button>subscribe</button>
         </div>
       </div>
 
