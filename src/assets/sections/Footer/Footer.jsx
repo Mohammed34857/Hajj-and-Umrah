@@ -6,15 +6,12 @@ function Footer() {
   return (
     <footer>
       <div className="parent">
-        <div className="address">
+        <div className="addres">
+          <h2>addres</h2>
           <ul>
-            <h2>address</h2>
-            <li>
-              <i></i>location
-            </li>
-            <li>call +963 993642776</li>
-            <li>demo@gmail.com</li>
-            <li></li>
+            <li>location</li>
+            <li>call +9630993642776</li>
+            <li>demo@gamil.com</li>
           </ul>
         </div>
         <div className="info">
