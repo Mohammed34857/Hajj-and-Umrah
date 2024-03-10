@@ -18,7 +18,7 @@ function Footer() {
           <h2>info</h2>
           <p>
             through our superior services and international parenter <br />
-            we offer you multiplr options for program to visit the two holy{" "}
+            we offer you multiplr options for program to visit the two holy
             <br />
             mosgues in mahwi al-afida.
           </p>
@@ -44,7 +44,6 @@ function Footer() {
           </ul>
         </div>
         <div className="subscribe">
-          {" "}
           <h2>subscribe</h2>
           <input type="email" placeholder="enter email" />
           <br />
