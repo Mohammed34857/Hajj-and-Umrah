@@ -75,6 +75,24 @@ b {
     display: flex;
     margin-left: 15px;
 }
+.butt-bus{
+display: flex;
+width: 100%;
+justify-content: center;
+}
+
+.butt-bus button {
+    border: none;
+    padding: 5px;
+    margin: 10px;
+    border-radius: 50%;
+    width: 280px;
+    height: 50px;
+    background-color: #E09814;
+    font-size: 15px;
+    font-weight: 800;
+    margin-top: 30px;
+}
 
 .butt-bus button:hover {
     border: none;
@@ -85,7 +103,6 @@ b {
     height: 50px;
     background-color: #E09814;
     font-size: 18px;
-    margin-left: 390px;
     font-weight: 800;
 
 }
@@ -120,6 +137,9 @@ b {
 .buttons ul li {
     display: inline;
 }
+.buttons ul li a:hover {
+    background-color: var(--color-gold);
+}
 
 .Hotels,.Buses {
     text-decoration: none;
@@ -128,16 +148,28 @@ b {
     transition: 0.2s ease-in-out;
     -webkit-transition: 0.2s ease-in;
 }
-.Hotels.active {
+.buttons ul li a.active {
     background-color: var(--color-gold);
     color: var(--color-dark); 
   }
   
-  .Buses.active {
-    background-color: var(--color-gold);
-    color: var(--color-dark);
-  }
-  
 
+  @media  (max-width: 1100px) {
+  
+    .parent {
+        flex-direction: column;
+    }
+    .trip-details {
+        margin-top: 25px; 
+        margin-left: 0; 
+        width: 100%;
+        height: max-content;
+        box-shadow: 0px 0px 16px rgb(255, 247, 247);
+    }
+    .parent img{
+        margin: 0;
+        width: 100%;
+    }
+  }
 
 
