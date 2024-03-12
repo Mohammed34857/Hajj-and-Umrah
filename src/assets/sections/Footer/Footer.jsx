@@ -43,12 +43,12 @@ function Footer() {
         <button>subscribe</button>
         </div>
       </div>
-
+      
       <div className="container">
         <div className="row">
           <div className="col-lg-12">
             <p className="p-2">
-              Copyright © 2036 <a href="#">Cyborg Gaming</a> Company. All rights
+              Copyright © 2036 <a href="#">Cyborg Hajj</a> Company. All rights
               reserved.
               <br />
               Design: <a href="#">TemplateMo</a>
