@@ -1,6 +1,7 @@
 import React from 'react'
 import './CardHotel.css'
 import { FaStar } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 
 
@@ -16,7 +17,7 @@ const starsArray = Array.from({ length: props.StartNumber }, (_, index) => <FaSt
                              <h1>فندق {props.HotelName} </h1>
                              <p>الموقع {props.location}</p>
                             <div className='star'> {starsArray}</div>
-                            <a href=""> تفاصيل </a>
+                            <Link to={`./Hotel/${props.id}`} onClick={() => window.scrollTo(0, 0)}> تفاصيل </Link>
                          </div>
     </div>
   )

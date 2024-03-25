@@ -6,7 +6,7 @@ import { HotelBusInUmrahProgram } from '../../components';
 import img11 from '../../images/umrahprog.jpg'
 
 const UmrahPrograms = () => {
-  let content = null;
+  
   const { id } = useParams();
   const program = UmrahProgramsDetailsData.find((program) => program.id === parseInt(id));
 
@@ -19,10 +19,11 @@ const UmrahPrograms = () => {
   const handleLinkClick = (link) => {
     setActiveLink(link);
   }
-
+  
+    let content = null;
   if (activeLink === 'Hotels') {
     content = (
-      <div className='hotel'>
+      <div className='hotels'>
        <HotelBusInUmrahProgram key={program.id} image1={program.image4} image2={program.image5} image3={program.image6} image4={program.image7} HotelName1={program.HotelName1} HotelName2={program.HotelName2} HotelName3={program.HotelName3} HotelName4={program.HotelName4} location1={program.location1} location2={program.location2} location3={program.location3} location4={program.location4}/>
       </div>
     );
@@ -35,9 +36,10 @@ const UmrahPrograms = () => {
   }
   return (
     <div className='umrah-programs'>
-
+      <div className='frame-umrah-programs'>
          <h1 class='titel-program'>the distinctive umrah al-barr <span>1445 -2024 </span></h1>
-        <div className='details-trip2'>
+
+           <div className='details-trip2'>
             <h3>trip programme</h3>
             <div className='parent'>
                  <img className='img-program' src={img11} alt='' />
@@ -66,27 +68,29 @@ const UmrahPrograms = () => {
                     </div>
                 </div>
             </div>
-         </div>
+          </div>
+            </div>
 
+           <div className='content-hotel'>
+             <div className='buttons'>
+               <ul>
+                 <li><Link className={activeLink === 'Hotels' ? 'Hotels active' : 'Hotels'} to="#" onClick={() => handleLinkClick('Hotels')}>Hotels</Link></li>
+                 <li><Link className={activeLink === 'Buses' ? 'Buses active' : 'Buses'} to="#" onClick={() => handleLinkClick('Buses')}>Buses</Link></li>
+               </ul>
+             </div>
 
+                {content}
 
-      <div className='content-hotel'>
-        <div className='buttons'>
-          <ul>
-            <li><Link className={activeLink === 'Hotels' ? 'Hotels active' : 'Hotels'} to="#" onClick={() => handleLinkClick('Hotels')}>Hotels</Link></li>
-            <li><Link className={activeLink === 'Buses' ? 'Buses active' : 'Buses'} to="#" onClick={() => handleLinkClick('Buses')}>Buses</Link></li>
-         </ul>
-        </div>
-         {content}
-      </div>
+            </div>
 
            <div className="butt-bus">
                 <button>learn more</button>
             </div>
+
             <div className="book-trip">
                 <button>book your trip now</button>
+            </div>
        </div>
-     </div>
     </div>      
   )
 }

@@ -1,7 +1,5 @@
 .Umrah-programs{
     height:max-content;
-    width:100%;
-    background-color:var(--color-darkset);
     display: flex;
     justify-content:space-around;
     flex-wrap: wrap;

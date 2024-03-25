@@ -17,7 +17,7 @@ const Hotel = () => {
           speed: 500,
           slidesToShow: 1,
           slidesToScroll: 1,
-          autoplay: true,
+          autoplay: false,
           autoplaySpeed: 5000,
           pauseOnHover: true,
           beforeChange: ( current , index ) => {
@@ -28,7 +28,7 @@ const Hotel = () => {
          
     
   return (
-    <div className='Hotel' style={{ backgroundImage: `url(${backgroundImage})` }}>
+    <div id='hotel' className='Hotel' style={{ backgroundImage: `url(${backgroundImage})` }}>
      <div className='hotel-slider'>
         <Slider {...settings}>
           {HotelData.map((card) => (

@@ -1,12 +1,10 @@
 import {BrowserRouter as Router , Route , Routes} from 'react-router-dom'
-import { useState } from 'react'
 import './App.css'
 
 import { Header,Footer } from './assets/sections'
-import { Home , UmrahPrograms} from './assets/pages'
+import { Home , UmrahPrograms , Hotel} from './assets/pages'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
@@ -14,7 +12,8 @@ function App() {
          <Header/>
              <Routes>
                 <Route path='/' element={<Home/>}/>
-                <Route path='/Programs/:id' element={<UmrahPrograms/> }/>               
+                <Route path='/Programs/:id' element={<UmrahPrograms/> }/>   
+                <Route path='Hotel/:id' element={<Hotel/>} />            
              </Routes>
           <Footer/>
        </Router> 

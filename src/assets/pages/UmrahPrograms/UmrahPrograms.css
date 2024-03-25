@@ -1,10 +1,12 @@
 .umrah-programs {
+    padding: 100px 30px;
+}
+
+.frame-umrah-programs{
     background-color: #2a2b29;
     border-radius: 10px;
     box-shadow: 0px 0px 16px rgb(255, 247, 247);
     padding: 90px 30px;
-    margin-left: 60px;
-    width: 90%;
     margin: auto;
     color: white;
 }

@@ -1,4 +1,7 @@
 import "./Footer.css";
+import { FaLocationDot } from "react-icons/fa6";
+import { MdAddIcCall ,MdOutlineAlternateEmail } from "react-icons/md";
+
 
 import React from "react";
 
@@ -9,9 +12,9 @@ function Footer() {
         <div className="addres">
           <h2>addres</h2>
           <ul>
-            <li>location</li>
-            <li>call +9630993642776</li>
-            <li>demo@gamil.com</li>
+            <li>  <FaLocationDot /> <span>location</span></li>
+            <li><MdAddIcCall/><span>call +9630993642776</span></li>
+            <li><MdOutlineAlternateEmail/><span>demo@gamil.com</span></li>
           </ul>
         </div>
         <div className="info">
@@ -27,16 +30,16 @@ function Footer() {
           <h2>links</h2>
           <ul className="ul-two">
             <li>
-              <a href="">Home</a>
+              <a href="#">Home</a>
             </li>
             <li>
               <a href="#">Hajj Programs</a>
             </li>
             <li>
-              <a href="#">Umrah programs</a>
+              <a href="#UmrahPrograms">Umrah programs</a>
             </li>
             <li>
-              <a href="#">Hotels</a>
+              <a href="#hotel">Hotels</a>
             </li>
             <li>
               <a href="#">Transport</a>

@@ -16,4 +16,9 @@
     background-color: var(--color-bg-body);
     font-family:'Times New Roman', Times, serif;
   }
+
+  *::selection{
+    background-color: var(--color-dark-gold);
+    color: var(--color-darkest);
+  }
   

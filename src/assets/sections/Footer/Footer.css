@@ -30,10 +30,9 @@ footer .parent {
     flex-direction: row;
     justify-content: space-evenly;
     color: white;
-    height: 300px;
-
-
-
+    height: max-content;
+    margin: 0;
+    padding: 20px;
 }
 
 footer .parent h2 {
@@ -48,24 +47,18 @@ footer .info p {
 
 }
 
-footer .addres ul,
-.links ul {
-    list-style: none;
-
-
-}
-
 footer .addres ul li,
 .ul-two li {
+    list-style: none;
     padding: 7px;
     font-size: 20px;
     font-family: Arial, Helvetica, sans-serif;
-}
-
-footer .ul-two {
     margin-left: -40px;
-
 }
+footer .addres span{
+    margin-left: 10px;
+}
+
 
 footer .ul-two li a {
     color: white;
@@ -78,7 +71,6 @@ footer .subscribe input {
     margin-bottom: 30px;
     margin-top: 10px;
     width: 190px;
- 
     height: 20px;
     text-transform: capitalize;
     background-color: transparent;

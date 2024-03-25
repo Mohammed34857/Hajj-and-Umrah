@@ -1,0 +1,91 @@
+.about{
+    background-color: #27292a;
+    min-height: 520px;
+    height: max-content;
+    display: flex;
+    padding: 5%;
+}
+.about-us {
+    margin-left: 100px;
+}
+
+.about-us h1 {
+    text-transform: capitalize;
+    padding: 3px;
+    margin-top: 100px;
+    color: #967a1d;
+    font-size: 48px;
+}
+
+.about-us .lin {
+    width: 200px;
+    height: 3px;
+    background-color:#E09814;
+    margin-top: -20px;
+   
+}
+
+.about-us p {
+    width: 700px;
+    font-size: 24px;
+    color: rgb(248, 224, 197);
+}
+
+.photo {
+    margin-left: 200px;
+    margin-top: 50px;
+    position: relative;
+}
+
+.photo img {
+    position: absolute;
+    width: 300px;
+    height: 350px;
+    border-radius: 10px;
+
+}
+
+.photo .circel1 {
+
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #967a1d;
+    margin-top: 300px;
+    margin-left: 240px;
+
+}
+
+.photo .circel2 {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #fae6a3;
+   margin-left: 305px;
+   margin-top: -200px;
+
+}
+
+.photo  .circel3{
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background-color: #ccb158;
+    margin-top: 85px;
+}
+.photo  .circel4{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #6b5a20;
+    margin-left: -20px;
+    margin-top: -350px;
+}
+.photo  .circel5{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #6b5a20;
+    margin-left: 250px;
+    margin-top: -200px;
+}
