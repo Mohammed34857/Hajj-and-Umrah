@@ -9,7 +9,9 @@ const HajjPrograms = () => {
   return (
     <div className='hajj-programs'>
 
-      <CardHajj name={"ddfds"} />
+      <CardHajj />
+      <CardHajj />
+      <CardHajj />
 
     </div>
   )
