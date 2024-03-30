@@ -141,6 +141,7 @@ justify-content: center;
 }
 .buttons ul li a:hover {
     background-color: var(--color-gold);
+    
 }
 
 .Hotels,.Buses {
