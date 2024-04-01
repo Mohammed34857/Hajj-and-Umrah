@@ -4,8 +4,9 @@ import { useParams , Link } from 'react-router-dom';
 import HotelDetailsPageData from '../../Data/HotelDetailsPageData'
 import { IoHome , IoEarth , IoChatbubbles  } from "react-icons/io5";
 import { GiPositionMarker } from "react-icons/gi";
-import { FaStar , FaBell } from "react-icons/fa";
-import { MdOutlineSettingsSuggest } from "react-icons/md";
+import { FaStar , FaBell , FaCar  } from "react-icons/fa";
+import { MdOutlineSettingsSuggest , MdKeyboardDoubleArrowRight } from "react-icons/md";
+import { ImSpinner } from "react-icons/im";
 import { SliderHotel } from '../../components';
 
 const Hotel = () => {
@@ -51,6 +52,7 @@ const Hotel = () => {
     return (
         <div className="hotel">
             <div className="frame-hotel">
+            <div className='img-filter'><h1>Hotel</h1><h2>Home <MdKeyboardDoubleArrowRight/> Hotel </h2></div>
                 <div className='image-hotel'>
                     <img src={hotel.photos[5]} alt="" />
                 </div>
@@ -82,8 +84,8 @@ const Hotel = () => {
                      <div className="round">
                        <div className='butt'>
                          <ul>
-                          <li><Link className={activeLink === 'around1' ? 'around1 active' : 'around1'} to="#" onClick={() => handleLinkClick('around1')}>المعالم السياحية</Link></li>
-                          <li><Link className={activeLink === 'around2' ? 'around2 active' : 'around2'} to="#" onClick={() => handleLinkClick('around2')}>مايوجد في الجوار</Link></li>
+                          <li><Link className={activeLink === 'around1' ? 'around1 active' : 'around1'} to="#" onClick={() => handleLinkClick('around1')}> <ImSpinner/> المعالم السياحية</Link></li>
+                          <li><Link className={activeLink === 'around2' ? 'around2 active' : 'around2'} to="#" onClick={() => handleLinkClick('around2')}> <FaCar/> مايوجد في الجوار </Link></li>
                          </ul>
                        </div>
                      

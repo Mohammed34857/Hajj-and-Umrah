@@ -26,6 +26,7 @@
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
     margin: 0;
+    direction: rtl;
 }
 .umrah-programs-image{
     width: 100%;
@@ -52,12 +53,13 @@
     border-bottom-right-radius: 10px;
     position: relative;
     display:flex;
-    justify-content: center;    
+    justify-content: center;   
 }
 .umrah-programs-content p{
     color: aliceblue;
     font-size:25px;
     height: max-content;
+    direction: rtl;
 }
 .details{
         position: absolute;

@@ -1,22 +1,23 @@
-.hotel{
+.transport{
     padding: 100px 30px;
 }
 
-.frame-hotel{
+.frame-transport{
     background-image: linear-gradient(346deg, rgba(225,134,30, 0) 0%, rgba(225,134,30, 0) 22%,rgba(140, 140, 140,0.04) 22%, rgba(140, 140, 140,0.04) 69%,rgba(225, 225, 225,0.04) 69%, rgba(225, 225, 225,0.04) 100%),linear-gradient(31deg, rgba(225,134,30, 0) 0%, rgba(225,134,30, 0) 42%,rgba(140, 140, 140,0.04) 42%, rgba(140, 140, 140,0.04) 85%,rgba(225, 225, 225,0.04) 85%, rgba(225, 225, 225,0.04) 100%),linear-gradient(55deg, rgba(225,134,30, 0) 0%, rgba(225,134,30, 0) 13%,rgba(140, 140, 140,0.04) 13%, rgba(140, 140, 140,0.04) 72%,rgba(225, 225, 225,0.04) 72%, rgba(225, 225, 225,0.04) 100%),linear-gradient(90deg, rgb(22,18,14),rgb(22,18,14));
     border-radius: 10px;
     box-shadow: 0px 0px 16px var(--color-dark-gold);
     padding: 10px;
     color: white;
 }
-.image-hotel img{
+.image-transport img{
     position: relative;
     width: 100%;
     height: 100vh;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     margin-bottom: 20px;
-    filter: contrast(0.7);
+    filter: contrast(0.6);
+    -webkit-filter: contrast(0.6);
 }
 .img-filter{
     display: flex;

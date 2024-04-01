@@ -6,7 +6,7 @@ window.onload = function() {
   let image = document.getElementById("ImageMain");
   cont.style.marginLeft = "5px";  
   setTimeout(function(){
-    image.style.filter = " brightness(80%)";
+    image.style.filter = " brightness(0.5)";
     image.style.transform = "scale(1)"
 },500);  
 

@@ -49,7 +49,7 @@ const Header = () => {
                 <li><a href="#">Hajj Programs</a></li>
                 <li><a href="#UmrahPrograms">Umrah programs</a></li>
                 <li><a href="#hotel">Hotels</a></li>
-                <li><a href="#">Transport</a></li>
+                <li><a href="/Transport">Transport</a></li>
             </ul>
             <div id='menu' onClick={toggleMenu}>
               <CiMenuFries id='bars'/>
