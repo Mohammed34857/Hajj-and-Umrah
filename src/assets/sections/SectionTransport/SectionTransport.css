@@ -1,0 +1,48 @@
+.information{
+    direction: rtl;
+    font-size: 30px;
+ }
+ 
+ 
+ .servise h1{
+     text-align: center;
+     padding-top: 20px;
+     color: white;
+     font-size: 35px;
+ }
+ .servise .lines {
+     display: flex;
+     justify-content: center;
+     margin-top: -8px;
+ }
+ .servise .lines .line{
+     width: 100px;
+     height: 3px;
+     background-color:antiquewhite;
+ } 
+ .servise .lines .circle{
+     margin: 0;
+     margin-top: -6px;
+     width: 8px;
+     height: 8px;
+     border: 3px solid rgb(238, 234, 234);
+     border-radius: 50%;
+     background-color: var(--color-dark-gold);
+ }
+ .servise .servises{
+     display: grid;
+     grid-template-columns: repeat(2,50%);
+     text-align: right;
+     font-size: 20px;
+     margin-top: 30px;
+     color: aliceblue;
+ }
+ .servises ul li{
+   list-style: none;
+   margin-right: 30px;
+ }
+ .servises p{
+     margin-right: 50px;
+     margin-bottom: 30px;
+     font-size: 28px;
+ }

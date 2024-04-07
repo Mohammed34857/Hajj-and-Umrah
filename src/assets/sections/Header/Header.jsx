@@ -2,6 +2,7 @@ import './Header.css'
 import logo from '../../images/logo.png'
 import React, {useState} from 'react'
 import { CiMenuFries } from "react-icons/ci";
+import { Link } from 'react-router-dom';
 
 const Header = () => {
 
@@ -45,11 +46,11 @@ const Header = () => {
              <img src={logo} alt="" />
             </div>
             <ul  style={{ top: isMenuOpen ? '90px' : '-350px' }}>
-                <li><a href="/">Home</a></li>
-                <li><a href="#">Hajj Programs</a></li>
-                <li><a href="#UmrahPrograms">Umrah programs</a></li>
-                <li><a href="#hotel">Hotels</a></li>
-                <li><a href="/Transport">Transport</a></li>
+                <li><Link to="/">Home</Link></li>
+                <li><Link to="#">Hajj Programs</Link></li>
+                <li><Link to="#UmrahPrograms">Umrah programs</Link></li>
+                <li><Link to="#hotel">Hotels</Link></li>
+                <li><Link to="/Transport">Transport</Link></li>
             </ul>
             <div id='menu' onClick={toggleMenu}>
               <CiMenuFries id='bars'/>

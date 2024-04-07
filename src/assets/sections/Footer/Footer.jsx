@@ -55,7 +55,7 @@ function Footer() {
         </div>
       </div>
       
-      <div className="container">
+      <div>
         <div className="row">
           <div className="col-lg-12">
             <p className="p-2">

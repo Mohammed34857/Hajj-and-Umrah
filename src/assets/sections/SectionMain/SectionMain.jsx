@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './SectionMain.css'
 import React from 'react'
 
@@ -19,7 +20,7 @@ const SectionMain = () => {
       <div className='overlay'>
        <div id='content'>
           <p>اجنحة الضيافة للحج والعمرة</p>
-          <a href="#" className='button'> احجز رحلتك الخاصة</a>
+          <Link to="/RegisterProgramUmrah" className='button'> احجز رحلتك الخاصة</Link>
         </div>
       </div>
    

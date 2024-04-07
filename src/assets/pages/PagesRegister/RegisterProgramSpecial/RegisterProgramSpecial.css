@@ -1,0 +1,271 @@
+.register-program-special{
+    background-image: url('../../../images/register.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 100px 0;
+    background-attachment: fixed;
+}
+
+.container {
+    width: 70%;
+    background: transparent;
+    backdrop-filter: blur(18px);
+    margin: auto;
+    padding: 20px;
+    box-shadow: 0px 0px 20px rgb(255, 247, 247);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+}
+.container label{
+    font-size: 22px;
+}
+
+.container h1 {
+    color: white;
+    background-color: rgb(133 158 206 / 26%);
+    border-radius: 10px;
+    padding: 15px;
+    width: max-content;
+    margin: auto;
+}
+.table1 , .table2{
+    float: right;
+}
+.table1 input {
+    text-align: right;
+    margin: 10px 35px;
+    padding: 10px;
+    font-size: 15px;
+    background-color: #00000024;
+    color: white;
+    border-radius: 30px;
+    box-shadow: 4px 6px 10px 2px rgb(255, 247, 247);
+    width: 400px;
+    height: 25px;
+    border:2px solid white;
+}
+.table1 input:hover {
+    background-color: rgba(0, 0, 0, 0.158);
+    box-shadow: 0px 0px 3px 3px rgb(255, 247, 247);
+    border:1px solid rgb(0, 0, 0);
+}
+::placeholder{
+    color: white;
+    font-size: large;
+}
+.end-float{
+    clear: both;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.special-register  {
+    text-align: right;
+    color: antiquewhite;
+    margin-left: 0;
+    animation: slide 2s forwards;
+    animation-delay: 0.1s;
+}
+
+.container h3 {
+    padding: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 24px;
+    color: var(--color-text);
+    text-align: right;
+}
+
+.container .paperwork {
+    margin-left: 0;
+    animation: slide 2s forwards;
+    animation-delay: 1.2s;
+    transform: translateX(-200%);
+}
+
+.container .child-paper {
+    background-color: rgb(133 158 206 / 26%);
+    padding: 10px;
+    border-radius: 20px;
+    color:var(--color-dark);
+    font-size: 20px;
+    height: 200px;
+    text-align: right;
+}
+
+.container .child-paper input {
+    padding: 10px;
+    font-size: 19px;
+    direction: rtl;
+    color: white;
+}
+.duration{
+    margin-left: 0;
+    color: white;
+    text-align: right;
+    animation: slide 2s forwards;
+    animation-delay: 1.8s;
+    transform: translateX(-200%);
+}
+.transfer{
+    animation: slide 2s forwards;
+    animation-delay: 2.8s;
+    transform: translateX(-200%);
+    margin: 60px 0;
+}
+
+.child-transfer {
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center; 
+    font-size: 22px;
+    color: white;
+}
+
+.table2 input[type="file"]{
+   display: none;
+}
+
+.label-file {
+    display: inline-block;
+    background-color: #00000024; 
+    color:white; 
+    padding: 10px 15px; 
+    margin: 20px;
+    border: 2px solid rgb(39, 37, 31); 
+    box-shadow: 2px 2px 14px 1px rgb(255, 247, 247);
+    border-radius: 5px; 
+    cursor: pointer;
+}
+
+.label-file:hover {
+    background-color:rgba(253, 252, 252, 0.459);
+    color: black;
+    box-shadow: 4px 4px 9px 5px rgb(255, 247, 247);
+
+}
+.path{
+    display: inline-block;
+}
+
+.input-date{
+    background-color: #00000024;
+    color: white;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 3px 3px 8px 4px rgb(255, 247, 247);
+    cursor: pointer;
+}
+.select-hotel h2{
+    color: white;
+    padding-top: 20px;
+}
+
+.select-hotel{
+    animation: slide 2s forwards;
+    animation-delay: 2.8s;
+    transform: translateX(-200%);
+    padding: 20px;
+    direction: rtl;
+    color:var(--color-dark);
+    background-color: rgb(133 158 206 / 26%);
+    border-radius: 20px;
+}
+.radio-hotel , .radio-room{
+    margin: 20px  50px 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.radio-hotel select{
+    padding: 20px;
+    background-color: #00000024;
+    color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+    box-shadow: 3px 3px 9px 2px;
+    cursor: pointer;
+    font-size: 18px;
+}
+.radio-hotel select option{
+    color: aliceblue;
+    background-color: #00000070;
+    padding: 10px;
+    margin: 10px;
+}
+
+
+.order-send{
+    display: flex;
+    justify-content: center;
+}
+
+.order-send button {
+    margin: 50px 0;
+    border: none;
+    border-radius: 20px 50px;
+    width: 200px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    background-color: rgb(235, 215, 149);
+}
+
+.order-send button:hover {
+    background-color: rgb(41, 46, 41);
+    color: white;
+    width: 210px;
+    height: 60px;
+}
+input[type="radio"] {
+    display: none;
+  }
+  
+  .radio-container {
+    position: relative;
+    padding-left: 40px; 
+    margin-right: 20px; 
+    cursor: pointer;
+  }
+  
+.radio-container .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: transparent;
+    border-radius: 50%;
+    border:1px solid snow ;
+    box-shadow: 0px 0px 4px 2px rgb(0, 0, 0);
+    
+}
+  
+  
+.radio-container input:checked ~ .checkmark:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 10px;
+    height: 10px;
+    background-color: #fff8f8;
+    filter: blur(1.5px);
+    border-radius: 50%;
+}
+  
+.radio-container input:checked ~ .checkmark {
+    background-color: transparent;
+    box-shadow: 0px 0px 4px 2px rgb(255, 255, 255);
+    
+  }
