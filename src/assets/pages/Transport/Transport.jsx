@@ -17,7 +17,7 @@ const Transport=() => {
               <img src={transport.photos[5]} alt="" />
           </div>
            {TransportData.map((transport) => (
-                <div key={transport.id}>
+                <div className='information-transport' key={transport.id}>
                     <SectionTransport transport={transport} />   
                 </div>
             ))}

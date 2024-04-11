@@ -1,0 +1,39 @@
+.register-program-hajj{
+    background-image: url('../../../images/register.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 100px 0;
+    background-attachment: fixed;
+}
+.good-container , .helpless-container{
+    width: 70%;
+    margin: auto;
+    padding: 20px;
+    box-shadow: 0px 0px 20px rgb(255, 247, 247);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+}
+.good-container{
+    height: 80vh;
+}
+.helpless-container{
+    height: 160vh;
+}
+.amenities h2{
+    direction: rtl;
+    color: var(--color-text);
+}
+
+.health , .paying {
+    margin: 20px  50px 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.seat-on-plane , .amenities{
+    margin: 40px  0;
+}
+.table1 input[type="file"]{
+    display: none;
+}
+

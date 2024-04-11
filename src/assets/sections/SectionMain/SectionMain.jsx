@@ -1,18 +1,22 @@
 import { Link } from 'react-router-dom';
 import './SectionMain.css'
-import React from 'react'
+import React , { useEffect } from 'react'
 
-window.onload = function() {
-  let cont = document.getElementById("content");
-  let image = document.getElementById("ImageMain");
-  cont.style.marginLeft = "5px";  
-  setTimeout(function(){
-    image.style.filter = " brightness(0.5)";
-    image.style.transform = "scale(1)"
-},500);  
 
-}
 const SectionMain = () => {
+
+  useEffect(() => {
+    let cont = document.getElementById("content");
+    let image = document.getElementById("ImageMain");
+    if (cont && image) {
+      cont.style.marginLeft = "5px";
+      setTimeout(function () {
+        image.style.filter = "brightness(0.5)";
+        image.style.transform = "scale(1)";
+      }, 500);
+    }
+  }, []);
+
   return (
     <>
     <div id='ImageMain' className='section-main'>

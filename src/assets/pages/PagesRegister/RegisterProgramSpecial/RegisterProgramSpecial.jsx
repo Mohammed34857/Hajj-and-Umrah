@@ -44,8 +44,8 @@ const RegisterProgramSpecial = () => {
     
   return (
     <div className='register-program-special'>
-        <form action="post">
-          <div className="container">
+      <form action="post">
+        <div className="container">
            <h1> انضم إلى قافلة عباد الرحمن عن طريق انشاء برنامجك الخاص </h1>
             <div className="special-register">
                <h3> :التسجيل <FaPencilAlt/></h3>
@@ -75,7 +75,8 @@ const RegisterProgramSpecial = () => {
                <tbody>
                 <tr>
                     <th>
-                         <div className='path' id='file-path'> لم يتم اختيار ملف </div>
+                         <div className='path' id='file-path'> لم يتم اختيار ملف 
+                         </div>
                          <label className='label-file' htmlFor="file-img"><span>اختر ملف</span></label>
                          <input id='file-img' name='image' type="file" />
                     </th>
@@ -128,7 +129,7 @@ const RegisterProgramSpecial = () => {
                 )}
                 <label  className="radio-container" onClick={() => handleTransferChange('land')}>
                     <input type="radio" name="transfer" value={"land"} readOnly />
-                    <span class="checkmark"></span>
+                    <span className="checkmark"></span>
                     بري
                 </label>
                 
@@ -140,19 +141,19 @@ const RegisterProgramSpecial = () => {
                 )}
                 <label className="radio-container" onClick={() => handleTransferChange('air')}>
                     <input type="radio" name="transfer" value={"air"} readOnly />
-                    <span class="checkmark"></span>
+                    <span className="checkmark"></span>
                     جوي
                 </label>
             </div>
-        </div>
+          </div>
     
-        <div className="select-hotel">
+          <div className="select-hotel">
             <h3><FaHotel  />   اختر الفندق : </h3>
             <h2> موقع الفندق : </h2> 
             <div className="radio-hotel">
                 <label className="radio-container" onClick={()=> handlePositionChange("inMakaa")}>
                 <input type="radio" name='positionHotel' value={"inMakaa"}  />
-                <span class="checkmark"></span>
+                <span className="checkmark"></span>
                   في مكة 
                 </label>
                 {selectedPosition === "inMakaa" && (
@@ -167,7 +168,7 @@ const RegisterProgramSpecial = () => {
                 )}
                 <label className="radio-container" onClick={()=> handlePositionChange("inMadena")}>
                 <input type="radio" name='positionHotel' value={"inMadena"} />
-                <span class="checkmark"></span>
+                <span className="checkmark"></span>
                  في المدينة 
                 </label>
                 {selectedPosition === "inMadena" && (
@@ -183,24 +184,24 @@ const RegisterProgramSpecial = () => {
             <h2> عدد الغرف :</h2> <br />
             <div className="radio-room">
                     <label className="radio-container"><input type="radio" name="roomNumber" value={1} />
-                    <span class="checkmark"></span>
+                    <span className="checkmark"></span>
                     غرفة ثنائية
                     </label>
                     <label className="radio-container"><input type="radio" name="roomNumber" value={2} />
-                    <span class="checkmark"></span>
+                    <span className="checkmark"></span>
                      غرفة ثلاثية 
                     </label>
                     <label className="radio-container"><input type="radio" name="roomNumber" value={3} />
-                    <span class="checkmark"></span>
+                    <span className="checkmark"></span>
                      غرفة رباعية 
                     </label>
             </div>
-        </div>
+          </div>
 
-        <div className='order-send'>
+         <div className='order-send'>
             <button >ارسال الطلب</button>
+         </div>
         </div>
-       </div>
      </form>
     </div>
   )
