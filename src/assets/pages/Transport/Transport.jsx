@@ -1,24 +1,44 @@
 import './Transport.css';
-import React  from 'react';
-import TransportData from '../../Data/TransportData'
+import React, { useState, useEffect } from 'react';
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import { ImSpinner } from "react-icons/im";
 import { SectionTransport } from '../../sections';
+import axios from 'axios';
 
 const Transport=() => {
 
-  const transport = TransportData.find((transport) => transport.id === parseInt("1"));
+  const [trans, setTrans] = useState(null);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-bus');
+            setTrans(response.data);
+            setLoading(false);
+        } catch (error) {
+            console.error('Error fetching Bus data:', error);
+            setLoading(false);
+        }
+    };
+    fetchData();
+    }, []);
 
+    if (loading) {
+        return <div className='loading'> Loading... <span><ImSpinner /></span>  </div>;
+    }
+  
  
     return (
       <div className="transport">
       <div className="frame-transport">
       <div className='img-filter'><h1>Bus</h1><h2>Home <MdKeyboardDoubleArrowRight/> Bus </h2></div>
           <div className='image-transport'>
-              <img src={transport.photos[5]} alt="" />
+          {trans?.[2] && <img src={trans[2].urlImageCompany} alt="" />}
           </div>
-           {TransportData.map((transport) => (
+           {trans?.map((transport) => (
                 <div className='information-transport' key={transport.id}>
-                    <SectionTransport transport={transport} />   
+                    <SectionTransport companyName={transport.name_company}  goals={transport.goals_company} typeBus={transport.type_bus}  ImageSlider={transport.urlImage} Services={transport.Services} />   
                 </div>
             ))}
       </div>

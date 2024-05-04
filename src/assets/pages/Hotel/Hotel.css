@@ -1,6 +1,28 @@
 .hotel{
     padding: 100px 30px;
 }
+@keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg); 
+    }
+  }
+.loading{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    z-index: 99;
+    left: 45%;
+    top: 50vh;
+    font-size: 48px;
+    color: var(--color-gold);
+}
+.loading svg{
+    animation: rotate 2s linear infinite;
+}
+
 .hotel svg{
 color: var(--color-gold);
 margin-left: 10px;
@@ -52,23 +74,23 @@ margin-left: 10px;
 }
 
 
-.servise h1{
+.service h1{
     text-align: center;
     padding-top: 20px;
     color: white;
     font-size: 35px;
 }
-.servise .lines {
+.service .lines {
     display: flex;
     justify-content: center;
     margin-top: -8px;
 }
-.servise .lines .line{
+.service .lines .line{
     width: 100px;
     height: 3px;
     background-color:antiquewhite;
 } 
-.servise .lines .circle{
+.service .lines .circle{
     margin: 0;
     margin-top: -6px;
     width: 8px;
@@ -77,7 +99,7 @@ margin-left: 10px;
     border-radius: 50%;
     background-color: var(--color-dark-gold);
 }
-.servise .servises{
+.service .services{
     display: grid;
     grid-template-columns: repeat(2,50%);
     text-align: right;
@@ -85,11 +107,11 @@ margin-left: 10px;
     margin-top: 30px;
     color: aliceblue;
 }
-.servises ul li{
+.services ul li{
   list-style: none;
   margin-right: 30px;
 }
-.servises p{
+.services p {
     margin-right: 50px;
     margin-bottom: 30px;
     font-size: 28px;
@@ -107,24 +129,12 @@ margin-left: 10px;
    list-style: none;
    display: inline;
 }
-.around .ul li {
-    display: inline;
-    color: rgb(255, 255, 255);
-    font-weight: 800;
-    font-size: 18px;
-    margin-left: 35px;
-    text-transform: capitalize;
+.around ul li {
+   padding: 20px;
 }
-@keyframes rotate {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg); 
-    }
-  }
+
 .around1 svg{
-    animation: rotate 2s linear infinite;
+    animation: rotate 1s linear infinite;
 }
 
 .butt ul{

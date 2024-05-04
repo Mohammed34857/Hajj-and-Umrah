@@ -44,6 +44,7 @@ const RegisterProgramSpecial = () => {
     
   return (
     <div className='register-program-special'>
+     <div className>
       <form action="post">
         <div className="container">
            <h1> انضم إلى قافلة عباد الرحمن عن طريق انشاء برنامجك الخاص </h1>
@@ -203,6 +204,7 @@ const RegisterProgramSpecial = () => {
          </div>
         </div>
      </form>
+     </div>
     </div>
   )
 }

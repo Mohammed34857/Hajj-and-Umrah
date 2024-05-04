@@ -24,7 +24,7 @@ const SliderHotel=(props) => {
     };
 
     const getDimensions = (index) => {
-        const centerIndex = currentSlide % props.hotel.photos.length;
+        const centerIndex = currentSlide % props.hotel.length;
         const distanceFromCenter = Math.abs(index - centerIndex);
 
         switch (distanceFromCenter) {
@@ -40,7 +40,7 @@ const SliderHotel=(props) => {
   return (
     <div className="slider">
     <Slider {...settings}>
-        {props.hotel.photos.map((photo, index) => (
+        {props.hotel.map((photo, index) => (
             <div key={index}>
                 <div className="slider-image-wrapper">
                     <div

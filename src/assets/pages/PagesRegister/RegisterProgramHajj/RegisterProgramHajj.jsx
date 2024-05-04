@@ -1,15 +1,17 @@
-import React, {  useState} from 'react'
+import React, { useState , useEffect } from 'react'
 import './RegisterProgramHajj.css'
 import { FaPencilAlt, FaHotel  } from "react-icons/fa";
 import { MdEmojiTransportation , MdOutlineHealthAndSafety , MdOutlineAirplanemodeActive } from "react-icons/md";
 
 const RegisterProgramHajj = () => {
 
+ 
 
   const [BirthDateAmenities, setBirthDateAmenities] = useState('');
-  const [errorAmenities, setErrorAmenities] = useState('');
+  const [ErrorAmenities, setErrorAmenities] = useState('');
   
-
+  const [BirthDateAmenities2, setBirthDateAmenities2] = useState('');
+  const [ErrorAmenities2, setErrorAmenities2] = useState('');
 
   const [birthdate, setBirthdate] = useState('');
   const [error, setError] = useState('');
@@ -34,7 +36,17 @@ const RegisterProgramHajj = () => {
       return;
     }
     setErrorAmenities(''); 
+
+    const selectedAmenitiesDate2 = new Date(BirthDateAmenities2);
+    const AmenitiesAge2 = currentDate.getFullYear() - selectedAmenitiesDate2.getFullYear();
+    if (AmenitiesAge2 < 18) {
+      setErrorAmenities2("يجب أن يكون عمر المرافق 18 عامًا أو أكثر.");
+      return;
+    }
+    setErrorAmenities2(''); 
   }
+
+ 
  
 
     const [selectedHealthState, setSelectedHealthState] = useState(null);
@@ -45,7 +57,7 @@ const RegisterProgramHajj = () => {
     
   return (
     <div className='register-program-hajj'>
-      <form action="post" onSubmit={validateAge}>
+        <form action="post" onSubmit={validateAge}>
         <div className="container">
            <h1> انضم إلى قافلة عباد الرحمن في برنامج الحج </h1>
             <div className="hajj-register">
@@ -65,7 +77,7 @@ const RegisterProgramHajj = () => {
                     <th><label> : رقم الهاتف</label></th>
                 </tr>  
                 <tr>
-                    <th><input type="date" value={birthdate} onChange={(e) => setBirthdate(e.target.value)} placeholder=" ادخل  تاريخ ميلادك "/></th>
+                    <th><input type="date" name='birthDate' value={birthdate} onChange={(e) => setBirthdate(e.target.value)} placeholder=" ادخل  تاريخ ميلادك "/></th>
                     <th><label> :  تاريخ الميلاد</label></th>
                 </tr> 
                 <tr>
@@ -89,56 +101,7 @@ const RegisterProgramHajj = () => {
                     </label>
                 </div>
                 <div className='amenities'>
-                {selectedHealthState === 'good' && (
-                    <div className='good-container'>
-                         <table className='table1'>
-                            <tbody>
-                            <tr>
-                                <td colSpan="2"><h2> ادخل معلومات المرافق  </h2></td>
-                            </tr>
-                            <tr>
-                                <th><input type="text" name='amenitiesName'   required placeholder=" أدخل الأسم "/></th>
-                                <th><label> : الاسم</label></th>
-                            </tr>
-                            <tr>
-                                <th><input type="email" name='amenitiesEmail'  placeholder=" ادخل البريد الالكتروني "/></th>
-                                <th><label> : البريد الالكتروني</label></th>
-                            </tr>
-                            <tr>
-                                <th><input type="number" name='amenitiesPhone'  placeholder=" ادخل رقم الهاتف "/></th>
-                                <th><label> : رقم الهاتف</label></th>
-                            </tr>  
-                            <tr>
-                                <th><input type="date" value={BirthDateAmenities} onChange={(e) => setBirthDateAmenities(e.target.value)} placeholder=" ادخل  تاريخ ميلادك "/></th>
-                                <th><label> :  تاريخ الميلاد</label></th>
-                            </tr> 
-                            <tr>
-                                <td colSpan="2">{errorAmenities && <span style={{ color: '#fff' }}>{ErrorAmenities}</span>}</td>
-                            </tr>
-                            <tr>
-                                <th><input type="text" name='relativeRelation'  placeholder=" أدخل صلة القرابة "/></th>
-                                <th><label> : صلة القرابة</label></th>
-                            </tr>
-                            <tr>
-                                <th>
-                                   <div className='path' id='file-path'> لم يتم اختيار ملف   </div>
-                                   <label className='label-file' htmlFor="file-img"><span>اختر ملف</span></label>
-                                   <input id='file-img' name='amenitiesImage' type="file" />
-                                 </th>
-                                 <th><label> : الصورة الشخصية</label></th>
-                            </tr>
-                            <tr>
-                                 <th>
-                                     <div className='path' id='passport-path'> لم يتم اختيار ملف  </div>
-                                     <label className='label-file' htmlFor="passport">اختر ملف</label>
-                                     <input id='passport' name='amenitiesPassport' type="file" />
-                                 </th>
-                                <th><label> : ادخل صورة جواز السفر</label></th>
-                           </tr>                       
-                            </tbody>  
-                          </table>
-                    </div>
-                )}
+              
                 {selectedHealthState === 'helpless' && (
                     <div className='helpless-container'>
                          <table className='table1'>
@@ -159,11 +122,11 @@ const RegisterProgramHajj = () => {
                                 <th><label> : رقم الهاتف</label></th>
                             </tr>  
                             <tr>
-                                <th><input type="date" value={BirthDateAmenities} onChange={(e) => setBirthDateAmenities(e.target.value)} placeholder=" ادخل  تاريخ ميلادك "/></th>
-                                <th><label> :  تاريخ الميلاد</label></th>
+                                <th><input type="date" name='BirthDateAmenities' value={BirthDateAmenities} onChange={(e) => setBirthDateAmenities(e.target.value)} placeholder=" ادخل  تاريخ ميلاد المرافق الاول "/></th>
+                                <th><label> :  تاريخ ميلاد المرافق</label></th>
                             </tr> 
                             <tr>
-                                <td colSpan="2">{errorAmenities && <span style={{ color: '#fff' }}>{ErrorAmenities}</span>}</td>
+                                <td colSpan="2">{ErrorAmenities && <span style={{ color: '#fff' }}>{ErrorAmenities}</span>}</td>
                             </tr>
                             <tr>
                                 <th><input type="text" name='relativeRelation'  placeholder=" أدخل صلة القرابة "/></th>
@@ -201,11 +164,11 @@ const RegisterProgramHajj = () => {
                                 <th><label> : رقم الهاتف</label></th>
                             </tr>  
                             <tr>
-                                <th><input type="date" value={BirthDateAmenities} onChange={(e) => setBirthDateAmenities(e.target.value)} placeholder=" ادخل  تاريخ ميلادك "/></th>
-                                <th><label> :  تاريخ الميلاد</label></th>
+                                <th><input type="date" name='BirthDateAmenities2' value={BirthDateAmenities2} onChange={(e) => setBirthDateAmenities2(e.target.value)} placeholder=" ادخل  تاريخ ميلاد المرافق الثاني "/></th>
+                                <th><label> :  تاريخ ميلاد المرافق</label></th>
                             </tr> 
                             <tr>
-                                <td colSpan="2">{errorAmenities && <span style={{ color: '#fff' }}>{ErrorAmenities}</span>}</td>
+                                <td colSpan="2">{ErrorAmenities2 && <span style={{ color: '#fff' }}>{ErrorAmenities2}</span>}</td>
                             </tr>
                             <tr>
                                 <th><input type="text" name='relativeRelation2'  placeholder=" أدخل صلة القرابة "/></th>
@@ -216,6 +179,56 @@ const RegisterProgramHajj = () => {
                                    <div className='path' id='file-path'> لم يتم اختيار ملف   </div>
                                    <label className='label-file' htmlFor="file-img"><span>اختر ملف</span></label>
                                    <input id='file-img' name='amenitiesimage2' type="file" />
+                                 </th>
+                                 <th><label> : الصورة الشخصية</label></th>
+                            </tr>
+                            <tr>
+                                 <th>
+                                     <div className='path' id='passport-path'> لم يتم اختيار ملف  </div>
+                                     <label className='label-file' htmlFor="passport">اختر ملف</label>
+                                     <input id='passport' name='amenitiesPassport' type="file" />
+                                 </th>
+                                <th><label> : ادخل صورة جواز السفر</label></th>
+                           </tr>
+                            </tbody>  
+                          </table>
+                         </div>
+                )}
+                  {selectedHealthState === 'good' && (
+                    <div className='good-container'>
+                         <table className='table1'>
+                            <tbody>
+                            <tr>
+                                <td colSpan="2"><h2> ادخل معلومات المرافق الاول </h2></td>
+                            </tr>
+                            <tr>
+                                <th><input type="text" name='amenitiesName'  required placeholder=" أدخل الأسم "/></th>
+                                <th><label> : الاسم</label></th>
+                            </tr>
+                            <tr>
+                                <th><input type="email" name='amenitiesEmail'  placeholder=" ادخل البريد الالكتروني "/></th>
+                                <th><label> : البريد الالكتروني</label></th>
+                            </tr>
+                            <tr>
+                                <th><input type="number" name='amenitiesPhone'   placeholder=" ادخل رقم الهاتف "/></th>
+                                <th><label> : رقم الهاتف</label></th>
+                            </tr>  
+                            <tr>
+                                <th><input type="date" name='BirthDateAmenities' value={BirthDateAmenities} onChange={(e) => setBirthDateAmenities(e.target.value)} placeholder=" ادخل  تاريخ ميلاد المرافق الاول "/></th>
+                                <th><label> :  تاريخ ميلاد المرافق</label></th>
+                            </tr> 
+                            <tr>
+                                <td colSpan="2">{ErrorAmenities && <span style={{ color: '#fff' }}>{ErrorAmenities}</span>}</td>
+                            </tr>
+                            <tr>
+                                <th><input type="text" name='relativeRelation'  placeholder=" أدخل صلة القرابة "/></th>
+                                <th><label> : صلة القرابة</label></th>
+                            </tr>
+                            <tr>
+                                <th>
+                                   <div className='path' id='file-path'> لم يتم اختيار ملف   </div>
+                                   <label className='label-file' htmlFor="file-img"><span>اختر ملف</span></label>
+                                   <input id='file-img' name='amenitiesImage' type="file" />
                                  </th>
                                  <th><label> : الصورة الشخصية</label></th>
                             </tr>
@@ -290,9 +303,9 @@ const RegisterProgramHajj = () => {
             <button >ارسال الطلب</button>
          </div>
         </div>
-     </form>
+        </form>
     </div>
   )
-}
 
+}
 export default RegisterProgramHajj
