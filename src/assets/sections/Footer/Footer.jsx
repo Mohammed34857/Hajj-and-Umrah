@@ -10,44 +10,44 @@ function Footer() {
     <footer>
       <div className="parent">
         <div className="addres">
-          <h2>addres</h2>
+          <h2> عنوان</h2>
           <ul>
-            <li>  <FaLocationDot /> <span>location</span></li>
-            <li><MdAddIcCall/><span>call +9630993642776</span></li>
+            <li>  <FaLocationDot /> <span>الموقع</span></li>
+            <li><MdAddIcCall/><span>اتصال +9630993642776</span></li>
             <li><MdOutlineAlternateEmail/><span>demo@gamil.com</span></li>
           </ul>
         </div>
         <div className="info">
-          <h2>info</h2>
+          <h2>معلومات</h2>
           <p>
-            through our superior services and international parenter <br />
-            we offer you multiplr options for program to visit the two holy
+          من خلال خدماتنا المتميزة والأهل الدوليين <br />
+          نقدم لكم خيارات متعددة لبرنامج زيارة الحرمين الشريفين
             <br />
-            mosgues in mahwi al-afida.
+            مساجد في محوي العفيدة.
           </p>
         </div>
         <div className="links">
-          <h2>links</h2>
+          <h2>روابط</h2>
           <ul className="ul-two">
             <li>
-              <a href="#">Home</a>
+              <a href="#">الرئيسية</a>
             </li>
             <li>
-              <a href="#">Hajj Programs</a>
+              <a href="#">برامج الحج</a>
             </li>
             <li>
-              <a href="#UmrahPrograms">Umrah programs</a>
+              <a href="#UmrahPrograms">برامج العمرة</a>
             </li>
             <li>
-              <a href="#hotel">Hotels</a>
+              <a href="#hotel">الفنادق</a>
             </li>
             <li>
-              <a href="#">Transport</a>
+              <a href="#">النقل</a>
             </li>
           </ul>
         </div>
         <div className="subscribe">
-          <h2>subscribe</h2>
+          <h2>تواصل معنا </h2>
           <input type="email" placeholder="enter email" />
           <br />
           <div className="line"></div>
@@ -59,10 +59,8 @@ function Footer() {
         <div className="row">
           <div className="col-lg-12">
             <p className="p-2">
-              Copyright © 2036 <a href="#">Cyborg Hajj</a> Company. All rights
-              reserved.
-              <br />
-              Design: <a href="#">TemplateMo</a>
+           
+              حقوق النشر © 2036 شركة <a href="">اجنحة الضيافة للحج</a> . كل الحقوق محفوظة.
             </p>
           </div>
         </div>

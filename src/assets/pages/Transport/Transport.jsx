@@ -13,7 +13,7 @@ const Transport=() => {
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-bus');
+            const response = await axios.get('https://officealhajandalumrah.adaptable.app/BusCompany/allBusCompany');
             setTrans(response.data);
             setLoading(false);
         } catch (error) {
@@ -34,15 +34,15 @@ const Transport=() => {
       <div className="frame-transport">
       <div className='img-filter'><h1>Bus</h1><h2>Home <MdKeyboardDoubleArrowRight/> Bus </h2></div>
           <div className='image-transport'>
-          {trans?.[2] && <img src={trans[2].urlImageCompany} alt="" />}
+          {trans?.[0] && <img src={trans[0].urlImageCompany} alt="" />}
           </div>
-           {trans?.map((transport) => (
-                <div className='information-transport' key={transport.id}>
+            {trans?.map((transport) => (
+                <div className='information-transport' key={transport._id}>
                     <SectionTransport companyName={transport.name_company}  goals={transport.goals_company} typeBus={transport.type_bus}  ImageSlider={transport.urlImage} Services={transport.Services} />   
                 </div>
             ))}
       </div>
   </div>
-  )
-}
+ )
+} 
 export default Transport

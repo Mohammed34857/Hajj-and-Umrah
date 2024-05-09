@@ -23,12 +23,14 @@ function Transport(props) {
                    <div className="circle"> </div>
                    <div className="line"></div>
              </div> 
-
+            <div className="services">
              { props.Services.map((service , index) =>(
-             <div className="services" key={index}>
+             <div  key={index}>
                 <p><TbAirConditioning/> {service} </p>
                </div>
                ))} 
+            </div>
+            
          </div>
       </section>
     </div>

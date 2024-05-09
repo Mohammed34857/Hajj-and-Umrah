@@ -11,11 +11,11 @@ const CardUmrahProgram=(props) =>{
                  <img className='umrah-programs-image' src={props.image} />
                  <div className='umrah-programs-content'>
                    <div>
-                     <p>{props.Duration}</p>
-                     <p>{props.DurationInMakaa}</p>
-                     <p>{props.DurationInMedina}</p>
+                     <p> {props.Duration} يوم </p>
+                     <p> {props.DurationInMakaa} ليالي في مكة </p>
+                     <p> {props.DurationInMedina} ليالي في المدينة </p>
                    </div>
-                   <Link className='details' to={`/Programs/${props.id}`} onClick={() => window.scrollTo(0, 0)}> تفاصيل  </Link>
+                   <Link className='details' to={`/UmrahPrograms/${props.id}`} onClick={() => window.scrollTo(0, 0)}> تفاصيل  </Link>
                 </div>
             </div>
         </div>

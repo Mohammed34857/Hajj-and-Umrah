@@ -3,16 +3,17 @@
     min-height: 520px;
     height: max-content;
     display: flex;
-    padding: 5%;
+    justify-content: space-evenly;
+    padding: 100px 50px;
 }
 .about-us {
-    margin-left: 100px;
+    direction: rtl;
 }
 
 .about-us h1 {
+    margin-top: 0;
     text-transform: capitalize;
     padding: 3px;
-    margin-top: 100px;
     color: #967a1d;
     font-size: 48px;
 }
@@ -27,13 +28,12 @@
 
 .about-us p {
     width: 700px;
-    font-size: 24px;
+    font-size: 34px;
     color: rgb(248, 224, 197);
 }
 
 .photo {
-    margin-left: 200px;
-    margin-top: 50px;
+   
     position: relative;
 }
 

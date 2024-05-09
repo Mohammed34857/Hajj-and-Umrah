@@ -46,11 +46,11 @@ const Header = () => {
              <img src={logo} alt="" />
             </div>
             <ul  style={{ top: isMenuOpen ? '90px' : '-350px' }}>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="#">Hajj Programs</Link></li>
-                <li><Link to="#UmrahPrograms">Umrah programs</Link></li>
-                <li><Link to="#hotel">Hotels</Link></li>
-                <li><Link to="/Transport">Transport</Link></li>
+                <li><Link to="/"> الرئيسية </Link></li>
+                <li><a href="#HajjPrograms"> برامج الحج </a></li>
+                <li><a href="#UmrahPrograms"> برامج العمرة </a></li>
+                <li><a href="#hotel"> الفنادق </a></li>
+                <li><Link to="/Transport"> النقل </Link></li>
             </ul>
             <div id='menu' onClick={toggleMenu}>
               <CiMenuFries id='bars'/>

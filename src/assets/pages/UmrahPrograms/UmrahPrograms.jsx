@@ -1,20 +1,39 @@
-import React ,  { useState } from 'react'
-import './UmrahPrograms.css'
+import React, { useState, useEffect } from 'react';
+import './UmrahPrograms.css';
 import { useParams ,Link } from 'react-router-dom';
-import UmrahProgramsDetailsData from '../../Data/UmrahProgramsDetailsData';
+import { ImSpinner } from 'react-icons/im';
 import { HotelBusInUmrahProgram } from '../../components';
-import img11 from '../../images/umrahprog.jpg'
+import img11 from '../../images/umrahprog.jpg';
+import axios from 'axios';
 
 const UmrahPrograms = () => {
   
   const { id } = useParams();
-  const program = UmrahProgramsDetailsData.find((program) => program.id === parseInt(id));
+  const [program , setProgram] = useState(null);
+  const [loading , setLoading] = useState(true);
+  const [activeLink, setActiveLink] = useState('Hotels');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-umrah');
+        setProgram( response.data.find((program) => program._id === (id)));
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching Umrah Programs data:', error);
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [id ]);
+
+  if (loading) {
+    return <div className='loading'> Loading... <ImSpinner /></div>;
+ }
 
   if (!program) {
     return <div>برنامج غير موجود</div>
   }
-
-  const [activeLink, setActiveLink] = useState('Hotels');
 
   const handleLinkClick = (link) => {
     setActiveLink(link);
@@ -24,20 +43,20 @@ const UmrahPrograms = () => {
   if (activeLink === 'Hotels') {
     content = (
       <div className='hotels'>
-       <HotelBusInUmrahProgram key={program.id} image1={program.image4} image2={program.image5} image3={program.image6} image4={program.image7} HotelName1={program.HotelName1} HotelName2={program.HotelName2} HotelName3={program.HotelName3} HotelName4={program.HotelName4} location1={program.location1} location2={program.location2} location3={program.location3} location4={program.location4}/>
+       {/* <HotelBusInUmrahProgram key={program.id} image1={program.image4} image2={program.image5} image3={program.image6} image4={program.image7} HotelName1={program.HotelName1} HotelName2={program.HotelName2} HotelName3={program.HotelName3} HotelName4={program.HotelName4} location1={program.location1} location2={program.location2} location3={program.location3} location4={program.location4}/> */}
       </div>
     );
   } else if (activeLink === 'Buses') {
     content = (
       <div className='buses'>
-        <HotelBusInUmrahProgram key={program.id} image1={program.image1} image2={program.image2} image3={program.image3} image4={program.image7} HotelName1={program.HotelName1} HotelName2={program.HotelName2} HotelName3={program.HotelName3} HotelName4={program.HotelName4} location1={program.location1} location2={program.location2} location3={program.location3} location4={program.location4}/>
+        {/* <HotelBusInUmrahProgram key={program.id} image1={program.image1} image2={program.image2} image3={program.image3} image4={program.image7} HotelName1={program.HotelName1} HotelName2={program.HotelName2} HotelName3={program.HotelName3} HotelName4={program.HotelName4} location1={program.location1} location2={program.location2} location3={program.location3} location4={program.location4}/> */}
       </div>
     );
   }
   return (
     <div className='umrah-programs'>
       <div className='frame-umrah-programs'>
-         <h1 class='titel-program'>the distinctive umrah al-barr <span>1445 -2024 </span></h1>
+         <h1 className='titel-program'>the distinctive umrah al-barr <span>1445 -2024 </span></h1>
 
            <div className='details-trip2'>
             <h3>trip programme</h3>
