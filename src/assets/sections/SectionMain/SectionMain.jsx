@@ -24,7 +24,7 @@ const SectionMain = () => {
       <div className='overlay'>
        <div id='content'>
           <p>اجنحة الضيافة للحج والعمرة</p>
-          <Link to="/RegisterProgramUmrah" className='button'> احجز رحلتك الخاصة</Link>
+          <Link to="/RegisterProgramSpecial" className='button'> احجز رحلتك الخاصة</Link>
         </div>
       </div>
    

@@ -1,8 +1,7 @@
-import React ,{useState,useEffect} from 'react'
-import  './UmrahPrograms.css'
-import {CardUmrahProgram} from '../../components'
-import makka1 from '../../images/makka1.jpg'
-import axios from 'axios'
+import React ,{useState,useEffect} from 'react';
+import  './UmrahPrograms.css';
+import {CardUmrahProgram} from '../../components';
+import axios from 'axios';
 
 const UmrahPrograms = () => {
 
@@ -21,7 +20,7 @@ const UmrahPrograms = () => {
     }, []);
 
   const Cards=umrahProgramsData.map(Card =>{
-    return <CardUmrahProgram key={Card._id} id={Card._id} image={makka1} ProgramName={Card.name_program} Duration={Card.total_stay} DurationInMakaa={Card.stay_in_macca} DurationInMedina={Card.stay_in_madina} />
+    return <CardUmrahProgram key={Card._id} id={Card._id} image={Card.image} ProgramName={Card.name_program} Duration={Card.total_stay} DurationInMakaa={Card.stay_in_macca} DurationInMedina={Card.stay_in_madina} />
  })
 
   return (

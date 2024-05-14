@@ -13,7 +13,7 @@ const Transport=() => {
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await axios.get('https://officealhajandalumrah.adaptable.app/BusCompany/allBusCompany');
+            const response = await axios.get('https://officealhajandalumrah.adaptable.app/BusCompany');
             setTrans(response.data);
             setLoading(false);
         } catch (error) {

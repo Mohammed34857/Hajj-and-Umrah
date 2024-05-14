@@ -57,8 +57,8 @@ const Hotel = () => {
         content = (
             <div className='around'>
                 <ul>
-                  {hotel.Services.map((service, index) => (
-                      <li key={index}>{service}</li>
+                  {hotel.Places_available_visit.map((Places, index) => (
+                      <li key={index}>{Places}</li>
                   ))}
                 </ul>
             </div>
@@ -89,7 +89,7 @@ const Hotel = () => {
                         </div>
                         <div className="services">
                             {hotel.Services.map((service , index) => (
-                                  <p key={index}>{service} <MdOutlineSettingsSuggest/></p>
+                                  <p key={index}> <MdOutlineSettingsSuggest/> {service}</p>
                              ))}
                         </div>
                         <div className="round">

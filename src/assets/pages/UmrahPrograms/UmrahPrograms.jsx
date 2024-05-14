@@ -1,23 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import './UmrahPrograms.css';
+import {HotelInUmrahProgram} from '../../components'
 import { useParams ,Link } from 'react-router-dom';
 import { ImSpinner } from 'react-icons/im';
-import { HotelBusInUmrahProgram } from '../../components';
 import img11 from '../../images/umrahprog.jpg';
 import axios from 'axios';
 
 const UmrahPrograms = () => {
   
   const { id } = useParams();
-  const [program , setProgram] = useState(null);
+  const [hotel, setHotel] = useState([]);
+  const [bus, setBus] = useState([]);
   const [loading , setLoading] = useState(true);
   const [activeLink, setActiveLink] = useState('Hotels');
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-umrah');
-        setProgram( response.data.find((program) => program._id === (id)));
+        const programHotelResponse = await axios.get('https://officealhajandalumrah.adaptable.app/prog-umrah-hotel');
+        const fetchedHotelRooms = await Promise.all(programHotelResponse.data.filter((p)=> p.id_ProgramUmrah === (id)).map(async (programHotel) => {
+          const hotelRoomResponse = await axios.get(`https://officealhajandalumrah.adaptable.app/hotel-room/${programHotel.id_HotelRoom}`);
+          return hotelRoomResponse.data;
+        }));
+        const hotelData = await Promise.all(fetchedHotelRooms.map(hotel => hotel.id_hotel).map(async (hotelId) => {
+          const response = await axios.get(`https://officealhajandalumrah.adaptable.app/Hotel/${hotelId}`);
+          return response.data; 
+        }));
+        setHotel(hotelData);
+        const newHotelData=hotelData[0];
+        setHotel(prevHotel => [...prevHotel, newHotelData]);
+
+        const programBusResponse = await axios.get('https://officealhajandalumrah.adaptable.app/program-bus/findAll');
+        setBus(await Promise.all(programBusResponse.data.filter((p)=> p.id_ProgramUmrah === (id)).map(async (busCompany) => {
+          const BusCompanyResponse = await axios.get(`https://officealhajandalumrah.adaptable.app/BusCompany/${busCompany.id_busCompany}`);
+          return BusCompanyResponse.data;
+        }))) 
         setLoading(false);
       } catch (error) {
         console.error('Error fetching Umrah Programs data:', error);
@@ -25,16 +42,17 @@ const UmrahPrograms = () => {
       }
     };
     fetchData();
-  }, [id ]);
+  }, [id]);
+
+ 
+   console.log(bus);
+   console.log(hotel);
 
   if (loading) {
     return <div className='loading'> Loading... <ImSpinner /></div>;
  }
 
-  if (!program) {
-    return <div>برنامج غير موجود</div>
-  }
-
+  
   const handleLinkClick = (link) => {
     setActiveLink(link);
   }
@@ -43,13 +61,13 @@ const UmrahPrograms = () => {
   if (activeLink === 'Hotels') {
     content = (
       <div className='hotels'>
-       {/* <HotelBusInUmrahProgram key={program.id} image1={program.image4} image2={program.image5} image3={program.image6} image4={program.image7} HotelName1={program.HotelName1} HotelName2={program.HotelName2} HotelName3={program.HotelName3} HotelName4={program.HotelName4} location1={program.location1} location2={program.location2} location3={program.location3} location4={program.location4}/> */}
+       <HotelInUmrahProgram hotels={hotel} />
       </div>
     );
   } else if (activeLink === 'Buses') {
     content = (
       <div className='buses'>
-        {/* <HotelBusInUmrahProgram key={program.id} image1={program.image1} image2={program.image2} image3={program.image3} image4={program.image7} HotelName1={program.HotelName1} HotelName2={program.HotelName2} HotelName3={program.HotelName3} HotelName4={program.HotelName4} location1={program.location1} location2={program.location2} location3={program.location3} location4={program.location4}/> */}
+        {/* <HotelBusInUmrahProgram hotels={bus} /> */}
       </div>
     );
   }
@@ -63,28 +81,22 @@ const UmrahPrograms = () => {
             <div className='parent'>
                  <img className='img-program' src={img11} alt='' />
                 <div className='trip-details'>
-                    <p><b>umrah programme</b> we are keen to desigen the best umrah programs with suprior service
-                        paying attention to the smallest aetails and aspect</p>
-
+                <p><b> برنامج العمرة </b>  نحرص على تصميم أفضل برامج العمرة مع خدمة متميزة مع الاهتمام بأدق التفاصيل والجوانب </p>
                     <div className='circle-trip'>
                         <div className='circle'>01</div>
-                        <div className='trip-details1'>accommodation 3 nights in mecca among distinguished hotel </div>
+                        <div className='trip-details1'> الإقامة 3 ليالي في مكة ضمن الفنادق المميزة </div>
                     </div>
                     <div className='circle-trip'>
                         <div className='circle'>02</div>
-                        <div className='trip-details2'>accommodation 9 nights in madina among distinguished hotel</div>
+                        <div className='trip-details2'> الإقامة 9 ليالي بالمدينة المنورة بين الفنادق المميزة </div>
                     </div>
                     <div className='circle-trip'>
                         <div className='circle'>03</div>
-                        <div className='trip-details3'>visting the blessed places in the two holy mosgues accompanied by a
-                            guid
-                        </div>
+                        <div className='trip-details3'> - زيارة الأماكن المباركة في الحرمين الشريفين برفقة مرشد </div>
                     </div>
                     <div className='circle-trip'>
-
                         <div className='circle'>04</div>
-                        <div className='trip-details4'>traveling by land with modern saudi buses within VIP buses
-                    </div>
+                        <div className='trip-details4'> السفر براً بحافلات سعودية حديثة ضمن حافلات VIP </div>
                 </div>
             </div>
           </div>

@@ -27,30 +27,35 @@
     text-transform: capitalize;
     font-size: 25px;
 }
+
 b {
     color: #dbac13;
 }
+
 .parent{
     display: flex;
     flex-direction: row;
     margin: 70px;
+    direction: rtl;
 }
-
+.details-trip2{
+    position: relative;
+}
 .parent img {
-    width: 600px;
+    width: 700px;
     height: 550px;
     box-shadow: 0px 0px 16px rgb(255, 247, 247);
-    margin-left: 75px;
-    margin-top: 100px;
+    margin-right: 100px;
+    margin-top: 150px;
 }
-
 .trip-details {
+    position: absolute;
+    left: 50px;
+    bottom: 75px;
     background-color: #2a2b29;
     width: 800px;
     height: 400px;
     font-size: 20px;
-    margin-top: 175px;
-    margin-left: -100px;
     color: rgb(255, 255, 252);
 }
 

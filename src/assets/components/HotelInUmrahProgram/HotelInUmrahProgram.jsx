@@ -1,10 +1,23 @@
 import React from 'react'
-import './HotelBusInUmrahProgram.css'
+import './HotelInUmrahProgram.css'
 
-const HotelBusInUmrahProgram = (props) => {
+const HotelInUmrahProgram = ({hotels}) => {
   return (
-    <div className='HotelBusInUmrahProgram'>
-         <div className='colum1'>
+    <div className='HotelInUmrahProgram'>
+        <div className='HotelContent'>
+          {hotels.map((hotel, index) => (
+           <div className='col' id={`hotel-${index}`} key={index} style={{backgroundImage:`url(${hotel.urlImagehotel})`}}>
+             <div className='content'>
+              <h2>{hotel.name}</h2>
+              <p>{hotel.location}</p>
+             </div>
+           </div>
+          ))} 
+        </div> 
+          
+
+ 
+         {/* <div className='colum1'>
          <div className='col' id='col1' style={{ backgroundImage: `url(${props.image1})` }}>
                <div className='content'>
                  <h1>{props.HotelName1}</h1>
@@ -31,9 +44,9 @@ const HotelBusInUmrahProgram = (props) => {
                    <p>{props.location4}</p>
                  </div>
               </div>
-          </div>
+          </div> */}
     </div>
   )
 }
 
-export default HotelBusInUmrahProgram
+export default HotelInUmrahProgram
