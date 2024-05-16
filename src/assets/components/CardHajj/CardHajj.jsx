@@ -1,38 +1,56 @@
 import React from 'react'
 import './CardHajj.css'
-import hajj from '../../images/makka1.jpg'
-
+import { ImAirplane } from "react-icons/im";
+import { ImHeart } from "react-icons/im";
+import { FaHotel } from "react-icons/fa";
+import { FaAppleAlt } from "react-icons/fa";
 const CardHajj = () => {
   return (
-    <div className='card-hajj-item'>
-        <div className='card-hajj-program'>
-           <div className="front">
-                <img src={hajj} alt="" />
-                <div className="tex">
-                    <div className="left">
-                        <span>الحج 5 نجوم مستوي اول </span>  
-                    </div>
-                </div>
-            </div>
-            <div className="back">
-                <h2>الحج 5 نجوم مستوي اول</h2>
-                <div className="detiles">
-                    <span>5-نجوم</span> 
-                </div>
-                <p>احجز معنا الان رحلات الحج 5 نجوم للعام الجديد من أجنحة الضيافة للسياحة
-                    <br/>
-                    <br/> استمتع بقضاء مناسك الحج بفندق أنوار المدينة <br/>
-                    
-
-                    اقم بفندق الصفوة بمكة المكرمة واحصل على اعلى الخصومات
-
-                    <br/>
-                    <b>يوم 14 / ليلة 13</b>
-                </p>
-                <button>المزيد من التفاصيل</button>
+    <div className='card-hajj-item   '>
+        <div className='card-hajj-program card-news'>
+        <div class="left">
+            <h2>برنامج الحج الاكبر</h2>
+            <span>1445-2024</span>
+            <p class="my-4"> تتشرف إدارة مجموعة اجنحة الضيافة بإشراف مديرها الحاج هشام محمد نادر عنبي وكادرها الديني والإداري بتقديم افضل برامج الحج 1445</p>
+            <ul>
+                <li> ( تاشيرة الحج , تذكرة طيران من مطار دمشق الى مطار جدة وبالعكس )  <i> <ImAirplane /></i></li>
+                <li> (الاقامة بمكة المكرمة والمدينة المنورة بفنادق فئة ثلاث نجوم )     
+              <i> <FaHotel /></i> 
+                </li>
+                <li> (وجبتي فطور وعشاء يوميا لكل حاج) <i ><FaAppleAlt /></i></li>
+                <li> (هدايا ورحلات متنوعة )  <i>  <ImHeart /></i></li>
+            </ul>
+            <button class="btn btn-dark btn-1">تفاصيل البرنامج</button>
+          
+            <span>الاسعار تبدأ من $4900</span>
+       
+        </div>
+        <div class="right">
+        </div>
               </div>
+              <div class="card2-news">
+        <div class="right" >
+        </div>
+        <div class="left">
+            <h2>VIP برنامج الحج </h2>
+            <span>1445-2024</span>
+            <p class="my-4">تتشرف إدارة مجموعة اجنحة الضيافة بإشراف مديرها الحاج هشام محمد نادر عنبي وكادرها الديني والإداري بتقديم افضل برامج الحج 1445</p>
+            <ul>
+                <li> ( تاشيرة الحج , تذكرة طيران من مطار دمشق الى مطار جدة وبالعكس )<i> <ImAirplane /></i></li>
+                <li> (     الاقامة بمكة المكرمة والمدينة المنورة بفنادق فئة خمس نجوم مطلة على الحرم والمدينة المنورة)
+                <i> <FaHotel /></i>
+                </li>
+                <li> (ثلاث وجبات فطور وغداء وعشاء يوميا لكل حاج) <i ><FaAppleAlt /></i></li>
+                <li> (هدايا ورحلات متنوعة ) <i>  <ImHeart /></i></li>
+            </ul>
+            <button class="btn btn-dark btn-1">تفاصيل البرنامج</button>
+           
+            <span>الاسعار تبدأ من $5000</span>
+        </div>
+    </div>
             </div>
-         </div>
+            
+
   )
 }
 
