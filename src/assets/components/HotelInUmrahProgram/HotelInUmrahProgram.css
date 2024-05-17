@@ -1,117 +1,162 @@
-.HotelInUmrahProgram{
-    
+.HotelInUmrahProgram {
     width: 100%;
-    margin: auto;
-    height: 130vh;
     padding-top: 20px;
 }
-#hotel-1{
-   position: absolute;
-   top: 0;
-   left: 10%;
-}
-#hotel-0{
-    position: absolute;
-    top: 39%;
-    left: 34.8%;
- }
-#hotel-2{
-    position: absolute;
-    top: 77%;
-    left: 59.6%;
- }
-#hotel-3{
-    position: absolute;
-    top: 14px;
-    left: 60%;
- }
-#hotel-0 , #hotel-1 , #hotel-2 , #hotel-3{
-    width: 450px;
-    height: 450px;
-    border-radius:50% ;
-    background-size: cover;
-} 
 
-
-.HotelContent{
-    position: relative;
-    width: 100%;
-    height: 80vh;
+.HotelContent {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, auto);
+    width: 80%;
+    margin: 20px auto;
 }
 
-.HotelBusInUmrahProgram p,h2{
-    color: transparent;  
+#hotel-1 {
+    grid-column: 1;
+    grid-row: 1;
+    margin-left: 50px;
 }
 
-.col{
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+#hotel-0 {
+    grid-column: 2;
+    grid-row: 1 / span 2; 
+    top: 25%;
+}
+
+#hotel-2 {
+    grid-column: 3;
+    grid-row: 2;
+    margin-left: -50px;
+}
+
+#hotel-3  {
+    grid-column: 3;
+    grid-row: 1;
+    margin-left: -50px;
+}
+
+#hotel-4  {
+    grid-column: 1;
+    grid-row: 2;
+    margin-left: 50px;
+}
+
+
+
+.hotelImg {
+    position: relative;    
     background-position: center;
     background-size: cover;
     overflow: hidden;
-
+    width: 100%;
+    height: 400px;
+    border-radius: 50%;
 }
 
-.col:hover h2{
-  color:white; 
-}
-.col:hover p{
-    color:var(--color-gold);
-    font-size: 24px;
-    font-weight: 600;
-    margin: 20px;
-    list-style: initial;
-}
-
- .content{
+.content {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+}
 
- }
+.content h2 {
+    color: transparent;
+    font-size: 46px;
+    font-style: italic;
+    font-weight: 100;
+    margin: 0;
+}
 
- .col:hover .content{
+.content p {
+    color: transparent;
+    padding: 10px 0;
+}
+
+.btnHotelDetails {
+    display: none;
+}
+
+.hotelImg:hover .content {
     width: 100%;
     height: 100%;
-    background-color:rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(3px);
+}
 
+.hotelImg:hover h2 {
+    color: antiquewhite;
+}
+
+.hotelImg:hover p {
+    color: var(--color-gold);
+    font-size: 24px;
+    font-weight: 600;
+    margin: 20px;
+}
+
+.hotelImg:hover .btnHotelDetails {
+    display: block;
 }
 
 
- @media (max-width: 767px) {
-   
-   }
 
-   @media (min-width: 768px) and (max-width: 1100px) {
-    .col{
-        width: 400px;
-        height: 400px;
-        margin: 10px;
-       }
-   
-  }
-
-  @media (min-width: 1101px) and (max-width: 1300px) {
-    .col{
-     width: 350px;
-     height: 350px;
-     margin: 0 -22px;
+@media (max-width: 1100px)  {
+    .HotelContent {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+         width: 100%;
+        margin: 20px auto;
     }
-   
-  }
-  
-  @media (min-width: 1301px) and (max-width: 1450px) {
-       .col{
-        width: 400px;
-        height: 400px;
-        margin: 0 -25px;
-       }
-  }
- 
-  
-  
+    .hotelImg {
+        position:inherit;    
+        background-position: center;
+        background-size: cover;
+        overflow: hidden;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+    }
+    #hotel-1 {
+        margin-left: 0px;
+    }
+    
+    #hotel-0 { 
+        top: 0;
+    }
+    
+    #hotel-2 {
+        margin-left: 0px;
+    }
+    
+    #hotel-3  {
+        margin-left: 0px;
+        margin-top: -40px;
+    }
+    
+    #hotel-4  {
+        margin-left: 0px;
+        margin-top: -40px;
+    }
+}
+
+@media (min-width: 1101px) and (max-width: 1320px) {
+    .hotelImg {
+        width: 100%;
+        height: 320px;
+    }
+    .HotelContent {
+        gap: 12px;
+    }
+}
+
+@media (min-width: 1321px) and (max-width: 1530px) {
+    .hotelImg {
+        width: 100%;
+        height: 350px;
+    }
+    .HotelContent {
+        gap: 5px;
+    }
+}

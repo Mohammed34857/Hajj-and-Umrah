@@ -41,7 +41,7 @@ const Hotel = () => {
         autoplay: false,
         autoplaySpeed: 5000,
         pauseOnHover: true,
-        beforeChange: (current, index) => {
+        beforeChange: (index) => {
             setBackgroundImage(hotelData[index].urlImagehotel);
         }
     };
@@ -56,6 +56,7 @@ const Hotel = () => {
                                 <CardHotel
                                     id={card._id}
                                     image={card.urlImagehotel}
+                                    Number_stars={card.Number_stars}
                                     HotelName={card.name}
                                     location={card.location}
                                 />

@@ -41,26 +41,13 @@
 
 #content p{
   position: absolute;
-    font-size: 46px;
-    color: #e09814;
+   font-size: 46px;
+   color: #e09814;
    text-align: center;
-   margin-bottom: 25%;
+   top: 30%;
+   
    
 }
-
-  .button {
-    position: absolute;
-    background: linear-gradient(to right, #e09814 , var(--color-gold), #e09814);
-    color: black;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 26px;
-    margin-top: 15%;
-  }
 
   @media  (max-width: 1300px) {
     .overlay {

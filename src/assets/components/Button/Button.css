@@ -1,0 +1,10 @@
+.button {
+    background: linear-gradient(45deg, #e09814 , var(--color-gold), #e09814);
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 26px;
+  }

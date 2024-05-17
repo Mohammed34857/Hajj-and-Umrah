@@ -4,6 +4,7 @@ import { GiPositionMarker , GiStairsGoal } from "react-icons/gi";
 import { FaBus } from "react-icons/fa";
 import { TbAirConditioning } from "react-icons/tb";
 import { SliderHotel } from '../../components';
+import {Button} from '../../components';
 
 function Transport(props) {
   return (
@@ -32,6 +33,7 @@ function Transport(props) {
             </div>
             
          </div>
+         <Button link={`${props.link}`} linkName={'تفاصيل اكثر'} onClick={() => window.scrollTo(0, 0)} />
       </section>
     </div>
   )

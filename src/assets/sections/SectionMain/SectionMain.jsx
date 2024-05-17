@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import './SectionMain.css'
+import { Button } from '../../components';
 import React , { useEffect } from 'react'
 
 
@@ -24,7 +24,7 @@ const SectionMain = () => {
       <div className='overlay'>
        <div id='content'>
           <p>اجنحة الضيافة للحج والعمرة</p>
-          <Link to="/RegisterProgramSpecial" className='button'> احجز رحلتك الخاصة</Link>
+          <Button link={"/RegisterProgramSpecial"} linkName={"احجز رحلتك الخاصة"}  />
         </div>
       </div>
    

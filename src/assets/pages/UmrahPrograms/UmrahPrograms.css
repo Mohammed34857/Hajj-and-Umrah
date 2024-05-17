@@ -15,14 +15,16 @@
     text-align: center;
     color: #E09814;
     text-transform: capitalize;
-    margin-top: 10px;
-    margin-bottom: 20px;
+    margin: 20px 0;
+    font-size: 46px;
+    font-weight: 300;
 }
 .details-trip2 h3 {
     border-radius: 10px;
     background-color: #EBCD94;
     text-align: center;
     margin: 5px;
+    padding: 6px 0;
     color: rgb(8, 8, 8);
     text-transform: capitalize;
     font-size: 25px;
@@ -35,7 +37,7 @@ b {
 .parent{
     display: flex;
     flex-direction: row;
-    margin: 70px;
+    margin:0 70px 70px 70px;
     direction: rtl;
 }
 .details-trip2{
@@ -65,6 +67,12 @@ b {
     padding: 10px;
     margin-left: 45px;
 }
+.trip-detail span{
+    color: var(--color-gold);
+    font-style: italic;
+    margin: 0 5px;
+    font-size: 24px;
+}
 
 .circle{
     display: flex;
@@ -75,17 +83,18 @@ b {
     border-radius: 50%;
     background-color: #856b17;
     padding: 2px;
-    margin:6px 20px 20px 20px;
+    margin:20px 20px 20px 20px;
 }
 
 .circle-trip{
     display: flex;
     margin-left: 15px;
+    align-items: center;
 }
 .butt-bus{
-display: flex;
-width: 100%;
-justify-content: center;
+    display: flex;
+    width: 100%;
+    justify-content: center;
 }
 
 .butt-bus button {
@@ -124,10 +133,15 @@ justify-content: center;
     margin-top: 20px;
     height: 45px;
     border-radius: 25%;
-    font-size: 20px;
-    text-align: center;
     background-color: rgb(80, 79, 79);
-    color: azure;
+    
+}
+.book-trip a{
+   list-style: none;
+   text-decoration: none;
+   color: azure;
+   font-size: 24px;
+   text-align: center;
 }
 
 .book-trip button:hover {
@@ -162,14 +176,17 @@ justify-content: center;
   }
   
 
-  @media  (max-width: 1100px) {
+  @media  (max-width: 768px) {
   
     .parent {
         flex-direction: column;
+        margin-top: 70px;
     }
     .trip-details {
+        position: relative;
+        top: 0;
+        left: 0;
         margin-top: 25px; 
-        margin-left: 0; 
         width: 100%;
         height: max-content;
         box-shadow: 0px 0px 16px rgb(255, 247, 247);
@@ -179,5 +196,48 @@ justify-content: center;
         width: 100%;
     }
   }
+  @media (min-width: 768px) and (max-width: 992px) {
+    .parent{
+        margin-top: 70px;
+    }
+    .parent img {
+        width: 600px;
+        margin-right: -50px;
+        margin-top: 0px;
+    }
+    .trip-details {
+        left: 20px;
+        width: 400px; 
+    }
+}
+ @media (min-width: 993px) and (max-width: 1300px) {
+    .parent{
+        margin-top: 70px;
+    }
+    .parent img {
+        width: 700px;
+        margin-right: 0px;
+        margin-top: 0px;
+    }
+    .trip-details {
+        left: 40px;
+        width: 600px; 
+    }
+}
+@media (min-width: 1300px)  and (max-width: 1500px) {
+    .parent{
+        margin-top: 70px;
+    }
+    .parent img {
+        width: 800px;
+        margin-right: 50px;
+        margin-top: 0px;
+    }
+    .trip-details {
+        left: 50px;
+        width: 700px; 
+    }
+    
+}
 
 

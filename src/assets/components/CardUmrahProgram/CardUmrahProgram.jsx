@@ -1,6 +1,6 @@
 import React from 'react'
 import './CardUmrahProgram.css'
-import { Link } from 'react-router-dom'
+import Button from '../Button/Button'
 
 const CardUmrahProgram=(props) =>{
   return (
@@ -14,8 +14,8 @@ const CardUmrahProgram=(props) =>{
                      <p> {props.Duration} يوم </p>
                      <p> {props.DurationInMakaa} ليالي في مكة </p>
                      <p> {props.DurationInMedina} ليالي في المدينة </p>
+                     <Button link={`/UmrahPrograms/${props.id}`} linkName ={'تفاصيل اكثر حول البرنامج'} />
                    </div>
-                   <Link className='details' to={`/UmrahPrograms/${props.id}`} onClick={() => window.scrollTo(0, 0)}> تفاصيل  </Link>
                 </div>
             </div>
         </div>

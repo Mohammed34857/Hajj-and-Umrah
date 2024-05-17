@@ -38,7 +38,7 @@ const Transport=() => {
           </div>
             {trans?.map((transport) => (
                 <div className='information-transport' key={transport._id}>
-                    <SectionTransport companyName={transport.name_company}  goals={transport.goals_company} typeBus={transport.type_bus}  ImageSlider={transport.urlImage} Services={transport.Services} />   
+                    <SectionTransport link={transport.link} companyName={transport.name_company}  goals={transport.goals_company} typeBus={transport.type_bus}  ImageSlider={transport.urlImage} Services={transport.Services} />   
                 </div>
             ))}
       </div>

@@ -101,6 +101,7 @@ const Hotel = () => {
                             </div>
 
                             {content}
+
                         </div>
                     </div>
                 </section>
