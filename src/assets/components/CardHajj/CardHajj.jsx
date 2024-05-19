@@ -19,7 +19,7 @@ const CardHajj = () => {
                 <li> (وجبتي فطور وعشاء يوميا لكل حاج) <i ><FaAppleAlt /></i></li>
                 <li> (هدايا ورحلات متنوعة )  <i>  <ImHeart /></i></li>
             </ul>
-            <button class="btn btn-dark btn-1">تفاصيل البرنامج</button>
+            <Link class="btn btn-dark btn-1" to={'/HajjPrograms/'}> تفاصيل البرنامج</Link>
           
             <span>الاسعار تبدأ من $4900</span>
        
