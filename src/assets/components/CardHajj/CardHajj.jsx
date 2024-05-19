@@ -1,9 +1,8 @@
 import React from 'react'
 import './CardHajj.css'
-import { ImAirplane } from "react-icons/im";
-import { ImHeart } from "react-icons/im";
-import { FaHotel } from "react-icons/fa";
-import { FaAppleAlt } from "react-icons/fa";
+import { ImAirplane , ImHeart } from "react-icons/im";
+import { FaHotel ,FaAppleAlt } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 const CardHajj = () => {
   return (
     <div className='card-hajj-item   '>
@@ -43,7 +42,7 @@ const CardHajj = () => {
                 <li> (ثلاث وجبات فطور وغداء وعشاء يوميا لكل حاج) <i ><FaAppleAlt /></i></li>
                 <li> (هدايا ورحلات متنوعة ) <i>  <ImHeart /></i></li>
             </ul>
-            <button class="btn btn-dark btn-1">تفاصيل البرنامج</button>
+            <Link class="btn btn-dark btn-1" to={'/HajjPrograms/'}> تفاصيل البرنامج</Link>
            
             <span>الاسعار تبدأ من $5000</span>
         </div>

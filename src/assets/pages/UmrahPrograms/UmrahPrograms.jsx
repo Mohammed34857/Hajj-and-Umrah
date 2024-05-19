@@ -28,12 +28,10 @@ const UmrahPrograms = () => {
         setHotel(await Promise.all(hotelRoom.map(hotel => hotel.id_hotel).map(async (hotelId) => {
           return await axios.get(`https://officealhajandalumrah.adaptable.app/Hotel/${hotelId}`).then(response => response.data);
         }))) ;
-        const AllProgramUmrahBus = await axios.get('https://officealhajandalumrah.adaptable.app/program-bus/findAll');
-          setBus(await Promise.all(AllProgramUmrahBus.data.filter((program)=> program.id_ProgramUmrah === id ).map(async (busCompany) => {
-          return await axios.get(`https://officealhajandalumrah.adaptable.app/BusCompany/${busCompany.id_busCompany}`).then(response => response.data);
-        })));
-        console.log(bus);
-        console.log(AllProgramUmrahBus.data);
+        const busCompanyResponse = await axios.get(`https://officealhajandalumrah.adaptable.app/BusCompany/${programUmrah.id_busCompany}`);
+        setBus(busCompanyResponse.data);
+
+        console.log(programUmrah);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching Umrah Programs data:', error);
@@ -64,7 +62,7 @@ const UmrahPrograms = () => {
   } else if (activeLink === 'Buses') {
     content = (
       <div className='buses'>
-        <BusInUmrahProgram hotels={bus} />
+        <BusInUmrahProgram busCompany={bus} />
       </div>
     );
   }

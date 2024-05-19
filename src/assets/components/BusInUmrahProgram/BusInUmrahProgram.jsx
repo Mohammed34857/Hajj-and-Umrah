@@ -1,12 +1,13 @@
 import React from 'react'
 import './BusInUmrahProgram'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-const BusInUmrahProgram= (busCompany)=> {
+
+const HotelInBusInUmrahProgram= ({busCompany})=> {
   return (
     <div className='bus-in-umrah-program'>
-        HotelInBusInUmrahProgram
     </div>
   )
 }
 
-export default BusInUmrahProgram
+export default HotelInBusInUmrahProgram
