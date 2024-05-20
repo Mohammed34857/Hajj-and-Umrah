@@ -15,7 +15,7 @@ const About =() =>{
             <div className="circel5"></div>
         </div>
         <div className="about-us">
-            <h1>معلومات عنا</h1>
+            <h1 > من نحن:</h1>
             <div className="lin"></div>
             <p>الأساس الذي تقوم عليه خدماتنا هو رضا العملاء، <br />
             ومن هنا نسعى جاهدين لتقديم أفضل العروض <br />

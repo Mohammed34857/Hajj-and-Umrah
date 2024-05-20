@@ -1,0 +1,211 @@
+.Hajj-programs{
+    padding-top: 100px;
+    width: 90%;
+    margin: auto;
+  
+   
+}
+
+.par{
+    background-color: rgb(71, 69, 65);
+    box-shadow: 5px 10px 20px rgb(255, 153, 0) inset;
+    height: 2500px;
+    margin: auto;
+    
+}
+.par1 {
+  padding-top: 50px;
+  width: 80%;
+  height: 500px;
+  position: relative;
+  margin:auto;
+ 
+
+}
+.par h1{
+    color: white;
+    text-align: center;
+    text-shadow: #FC0 1px 0 10px;
+    
+}
+.imeg {
+  height: 500px;
+  width: 500px;
+  background-image: url(../../images/makka1.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+  z-index: 1;
+  position: absolute;
+  right: -100px;
+  
+
+}
+
+.parent-chiled {
+  display: grid;
+  grid-template-columns: repeat(3, 40%);
+  z-index: 2;
+  height: 500px;
+  position: absolute;
+  left: 50px;
+  margin-top: 90px;
+
+}
+.chiled {
+   
+  width: 200px;
+  height: 150px;
+  background:linear-gradient(to left ,rgba(248, 198, 89, 0.904),rgb(117, 86, 27));
+  border-radius: 20px;
+  text-align: right;
+  padding: 20px;
+}
+.chiled span{
+
+font-size: 20px;
+    text-align: right;
+}
+.chiled i{
+    padding-left: 10px;
+}
+.my-4{
+    font-size: 25px;
+    color: white;
+    padding: 20px;
+}
+.gift-parent{
+    margin-top: 450px;
+    position: relative;
+    color: antiquewhite;
+}
+
+.gift-parent h2{
+   padding-right: 50px;
+   color: azure;
+   font-size: 30px;
+   border: 2px solid rgb(237, 205, 100);
+   border-radius: 50%;
+   padding: 20px;
+   text-align: center;
+   width: 1000px;
+   margin:auto;
+   background-color: rgba(85, 77, 51, 0.733);
+}
+.gift p{
+    text-align: center;
+    margin-top: 100px;
+    color: black;
+    font-size: 20px;
+    font-weight: 700;
+    display: none;
+    position: absolute;
+    top: 10%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+}
+.gift div:hover p {
+    display: block;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(234, 235, 240);
+    text-align: center;
+    z-index: 1;
+    font-size: 25px;
+
+}
+.gift div::after{
+    content: '  ';
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(71, 59, 4, 0.671);
+    width: 0%;
+    height: 0%;
+    transition: 0.5s;
+    border-radius: 50%;
+}
+.gift div:hover{
+    opacity: 2;
+}
+
+.gift div:hover::after {
+    height: 100%;
+    width: 100%;
+}
+
+
+
+.gift .gift1{
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background-color: #FC0;
+    border-radius: 50%;
+    left: 120px;
+    margin-top: 30px;
+    background-image: url(../../images/gift/71I0yhmoS+L._AC_UL320_.jpg);
+    border: 10px solid rgb(138, 138, 138);
+}
+.gift .gift2{
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background-color: rgb(8, 65, 112);
+    border-radius: 50%;
+    left: 300px;
+    margin-top: 240px;
+    background-image: url(../../images/gift/31-iYKuemOL._AC_UL320_.jpg);
+    background-position: center;
+    background-size: cover;
+    border: 10px solid rgb(63, 51, 4);
+}
+.gift .gift3{
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background-color: rgb(125, 192, 151);
+    border-radius: 50%;
+    margin-left: 500px;
+    background-image: url(../../images/gift/images.jfif);
+    margin-top: 70px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 10px solid rgb(146, 129, 53);
+
+}
+.gift .gift4{
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background-color: rgb(165, 139, 37);
+    border-radius: 50%;
+    margin-left: 620px;
+    margin-top: 300px;
+    background-image: url(../../images/gift/41ksaOCLbzL._AC_UL320_.jpg);
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 10px solid rgb(167, 140, 35);
+}
+.gift .gift5{
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background-color: rgb(95, 76, 1);
+    border-radius: 50%;
+    margin-top: 100px;
+    margin-left: 780px;
+
+    background-image: url(../../images/gift/download.jfif);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+border: 10px solid rgb(107, 89, 16);
+}
+
