@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect , useState} from 'react'
 import './RegisterProgramUmrah.css'
 import { FaPencilAlt , FaBook , FaBed } from "react-icons/fa";
 import { MdAirlineSeatReclineExtra } from "react-icons/md";
@@ -6,6 +6,32 @@ import { GiCash } from "react-icons/gi";
 
 
 const RegisterProgramUmrah=() => {
+
+    useEffect(() => {
+        const handleFileChange = (inputId, outputPathId) => {
+            return () => {
+                document.getElementById(outputPathId).textContent = '';
+                const filePath = document.getElementById(inputId).files[0].name;
+                document.getElementById(outputPathId).textContent = filePath;
+            };
+        };
+    
+        const fileInputs = [
+            { inputId: 'file-img', outputPathId: 'file-path' },
+            { inputId: 'passport', outputPathId: 'passport-path' }
+        ];
+    
+        fileInputs.forEach(({ inputId, outputPathId }) => {
+            const handleChange = handleFileChange(inputId, outputPathId);
+            document.getElementById(inputId).addEventListener('change', handleChange);
+            return () => {
+                document.getElementById(inputId).removeEventListener('change', handleChange);
+            };
+        });
+    }, []);
+
+
+
   return (
     <div className='register-program-umrah'>
       <div className="container">
@@ -16,7 +42,7 @@ const RegisterProgramUmrah=() => {
         <div className="register">
             <h3> :التسجيل <FaPencilAlt/></h3>
 
-            <div className="chiled-register">
+            {/* <div className="chiled-register">
                 <div className="name">
 
                     <input type="text" required placeholder="أدخل الأسم"/>
@@ -32,23 +58,55 @@ const RegisterProgramUmrah=() => {
                     <input type="number" placeholder="ادخل رقم الهاتف"/>
                     <label for=""> :رقم الهاتف</label>
                 </div>
-            </div>
+            </div> */}
+            <table className='table1'>
+                <tbody>
+                <tr>
+                    <th><input type="text" name='name' required placeholder=" أدخل الأسم "/></th>
+                    <th><label> : الاسم</label></th>
+                </tr>
+                <tr>
+                    <th><input type="email" name='email' placeholder=" ادخل البريد الالكتروني "/></th>
+                    <th><label> : البريد الالكتروني</label></th>
+                </tr>
+                <tr>
+                    <th><input type="number" name='phone' placeholder=" ادخل رقم الهاتف "/></th>
+                    <th><label> : رقم الهاتف</label></th>
+                </tr>  
+                </tbody>  
+              </table>
+              <div className='end-float'></div>
         </div>
 
         <div className="paperwork">
             <h3> :الاوراق المطلوبة <FaBook/></h3>
-            <div className="chiled-paper">
-                
-                <div className="phpto">
-                    <input type="file" />
-                    <label for=""> :الصورة الشخصية</label>
-                </div>
-                <div className="passport">
-                    <input type="file" />
-                    <label for=""> :ادخل صورة جواز السفر</label>
-                </div>
+            <div className="child-paper">
+             <table className='table2'>
+               <tbody>
+                <tr>
+                    <th>
+                         <div className='path' id='file-path'> لم يتم اختيار ملف 
+                         </div>
+                         <label className='label-file' htmlFor="file-img"><span>اختر ملف</span></label>
+                         <input id='file-img' name='image' type="file" />
+                    </th>
+                    <th><label> : الصورة الشخصية</label></th>
+                </tr>
+                <tr>
+                    <th>
+                        <div className='path' id='passport-path'> لم يتم اختيار ملف  </div>
+                        <label className='label-file' htmlFor="passport">اختر ملف</label>
+                        <input id='passport' name='passport' type="file" />
+                    </th>
+                    <th><label> : ادخل صورة جواز السفر</label></th>
+                </tr> 
+               </tbody> 
+            </table>
+              </div>
+              <div className='end-float'></div>
             </div>
-        </div>
+            <h3>: احجز مقعدك في الحافلة <MdAirlineSeatReclineExtra/></h3>
+
         <div className="booking">
             <select name="" id="">
                 <option value="" hidden>رقم الرحلة</option>
@@ -56,42 +114,43 @@ const RegisterProgramUmrah=() => {
                     رقم المقعد
                 </option>
             </select>
-            <h3>: احجز مقعدك في الحافلة <MdAirlineSeatReclineExtra/></h3>
-
         </div>
 
         <div className="room">
             <h3> :اختر غرفتك من الفندق <FaBed /></h3>
-            <div className="chiled-room">
-                <div className="one">
-                    سعر البرنامج للغرفة الاحادية $200<input type="radio" name="room" id="" />
-
-                </div>
-                <div className="two ">
-
-                    سعر البرنامج للغرفة الثنائية $150 <input type="radio" name="room" id="" />
-                </div>
-                <div className="three">
-                    سعر البرنامج للغرفة الثلاثية$ 100 <input type="radio" name="room" id="" />
-
-                </div>
+            <div className="radio-room">
+                    <label className="radio-container"><input type="radio" name="roomPrice" value={200} />
+                    <span className="checkmark"></span>
+                    سعر البرنامج للغرفة الاحادية $200 
+                    </label>
+                    <label className="radio-container"><input type="radio" name="roomPrice" value={150} />
+                    <span className="checkmark"></span>
+                    سعر البرنامج للغرفة الثنائية $150 
+                    </label>
+                    <label className="radio-container"><input type="radio" name="roomPrice" value={100} />
+                    <span className="checkmark"></span>
+                    سعر البرنامج للغرفة الثلاثية$ 100 
+                    </label>
             </div>
+          
         </div>
 
-        <div className="paying">
-            <h3> :طريقة الدفع <GiCash/></h3>
-            <div className="chiled-paying">
-                <div className="electronic">
-                    الدفع الالكتروني <input type="radio" name="pay" />
-                </div>
-                <div className="cash">
-                    الدفع كاش <input type="radio" name="pay" />
-
-                </div>
+        <div className="paying-off">
+            <h3> : طريقة الدفع <GiCash/></h3>
+            <div className="paying">
+                    <label className="radio-container"><input type="radio" name="paying" value={"electronic"} />
+                    <span className="checkmark"></span>
+                    الالكتروني
+                    </label>
+                    <label className="radio-container"><input type="radio" name="paying" value={"cash"} />
+                    <span className="checkmark"></span>
+                     الدفع كاش 
+                    </label>
             </div>
-        </div>
-
-        <button className='send2'>احجز</button>
+          </div>
+          <div className='order-send'>
+            <button >ارسال الطلب</button>
+         </div>
         </form>
      </div>
     </div>

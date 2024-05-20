@@ -39,11 +39,11 @@
 .table1 input {
     text-align: right;
     margin: 10px 35px;
-    padding: 10px;
+    padding: 22px;
     font-size: 15px;
     background-color: #00000024;
     color: white;
-    border-radius: 30px;
+    border-radius: 15px;
     box-shadow: 4px 6px 10px 2px rgb(255, 247, 247);
     width: 400px;
     height: 25px;
