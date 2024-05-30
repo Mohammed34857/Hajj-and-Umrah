@@ -1,7 +1,10 @@
 import React from "react";
 import "./HajjPrograms.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import imege1 from "../../images/Hotels/anwar_alasel.jpg";
+import imege2 from "../../images/Hotels/loloat_alrayyan.jpg";
+import vidio from "../../images/How_to_Perform_Hajj___Islamweb___دليل_الحج___شرح_خطوات_أداء_مناسك_الحج___إسلام_و.mp4"
+import imege3 from "../../images/Hotels/anwar_alasel.jpg";
 
 const HajjPrograms = () => {
   return (
@@ -59,15 +62,66 @@ const HajjPrograms = () => {
           </div>
         </div>
       </div>
+
+<div class="hotel">
+<h2>الفنادق الخاصة ب البرنامج</h2>
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src={imege1} class="d-block "/>
+    </div>
+    <div class="carousel-item">
+      <img src={imege2} class="d-block " />
+    </div>
+    <div class="carousel-item">
+      <img src={imege1} class="d-block  " />
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-target="#carouselExampleIndicators" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </button>
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="gift-parent">
 <h2>مجموعة الهدايا المقدمة لحجاج بيت الله الحرام من قبل اجنحة الضيافة</h2>
 
       <div class="gift">
       
         <div class="gift1"><p>ملابس احرام للرجال نوعية ممتازة</p></div>
-        <div class="gift2"><p>ملابس احرام</p></div>
+        <div class="gift2"><p>  حقيبة حجم وسط</p></div>
         <div class="gift3"><p>سجادة صلاة</p></div>
-        <div class="gift4"><p>طقم صلاة للنساء</p></div>
+        <div class="gift4"><p>  حزام للرجال</p></div>
         <div class="gift5"><p>مجموعة حقائب</p></div>
     
 
@@ -76,8 +130,24 @@ const HajjPrograms = () => {
 </div>
 
       </div>
+      
+      <div class="parent-vidios">
+        <h2>فيديو تعريفي عن مناسك الحج مع اوقات أدائها</h2>
+        <div class="videos">
+        <video  controls  src={vidio }></video>
+        </div>
+        <div  class="booking">
+        <button>
+          احجز رحلتك الآن
+        </button>
+      </div>
+      </div>
+
+
+      
     </div>
     </div>
+    
   );
 };
 

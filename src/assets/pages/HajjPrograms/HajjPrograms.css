@@ -9,7 +9,7 @@
 .par{
     background-color: rgb(71, 69, 65);
     box-shadow: 5px 10px 20px rgb(255, 153, 0) inset;
-    height: 2500px;
+    height: 3000px;
     margin: auto;
     
 }
@@ -75,8 +75,27 @@ font-size: 20px;
     color: white;
     padding: 20px;
 }
+
+.hotel{
+    margin-top: 300px;
+    height: 700px;
+}
+
+
+.hotel img{
+    height: 500px !important;
+    width: 500px !important;
+    margin: auto;
+    border-radius: 25%;
+}
+
+
+
+
+
+
 .gift-parent{
-    margin-top: 450px;
+    margin-top: 10px;
     position: relative;
     color: antiquewhite;
 }
@@ -160,9 +179,11 @@ font-size: 20px;
     border-radius: 50%;
     left: 300px;
     margin-top: 240px;
-    background-image: url(../../images/gift/31-iYKuemOL._AC_UL320_.jpg);
+    background-image: url(../../images/gift/photo_٢٠٢٤-٠٥-٢٨_١٨-٤٣-١٣.jpg);
     background-position: center;
     background-size: cover;
+    background-repeat: no-repeat;
+
     border: 10px solid rgb(63, 51, 4);
 }
 .gift .gift3{
@@ -195,17 +216,69 @@ font-size: 20px;
 }
 .gift .gift5{
     position: absolute;
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    height: 400px;
     background-color: rgb(95, 76, 1);
     border-radius: 50%;
-    margin-top: 100px;
+    margin-top: 90px;
     margin-left: 780px;
 
-    background-image: url(../../images/gift/download.jfif);
+    background-image: url(../../images/gift/bacg.jpg);
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size:cover;
     background-position: center;
 border: 10px solid rgb(107, 89, 16);
 }
 
+.parent-vidios{
+    margin-top: 600px;
+    height: 500px;
+    width: 100%;
+    
+}
+.parent-vidios h2{
+    padding-right: 50px;
+    color: azure;
+    font-size: 30px;
+    border: 2px solid rgb(237, 205, 100);
+    border-radius: 20%;
+    padding: 20px;
+    text-align: center;
+    width: 1000px;
+    margin:auto;
+    background-color: rgba(85, 77, 51, 0.733);
+}
+
+.videos{
+margin: auto;
+text-align: center;
+ border-radius: 50px;
+ padding-top:100px ;
+ border-radius: 50px;
+ margin-bottom: 100px;
+}
+video{
+    border-radius: 50px;
+    width: 60%;
+}
+.parent-vidios .booking{
+width: 100%;
+height: 100px;
+text-align: center;
+}
+.parent-vidios .booking button{
+    margin: auto;
+    margin-top: 20px;
+    width: 50%;
+    border: none;
+    border-radius: 50%;
+    height: 50px;
+    font-size: x-large;
+    background-color: rgb(121, 105, 42);
+    color: white;
+}
+.parent-vidios .booking button:hover{
+    background-color:white;
+    color: rgb(121, 105, 42);
+    width: 55%;
+}
