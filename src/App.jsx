@@ -16,7 +16,7 @@ function App() {
                 <Route path='HajjPrograms/' element={<HajjPrograms />} />
                 <Route path='Hotel/:id' element={<Hotel/>} />     
                 <Route path='Transport/' element={<Transport/>}/>      
-                <Route path='RegisterProgramUmrah/' element={<RegisterProgramUmrah/>}/>  
+                <Route path='RegisterProgramUmrah/:id' element={<RegisterProgramUmrah/>}/>  
                 <Route path='RegisterProgramHajj/' element={<RegisterProgramHajj/>}/>
                 <Route path='RegisterProgramSpecial/' element={<RegisterProgramSpecial/>}/>              
              </Routes>

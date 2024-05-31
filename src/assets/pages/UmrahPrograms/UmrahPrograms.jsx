@@ -113,7 +113,7 @@ const UmrahPrograms = () => {
             </div>
 
             <div className="book-trip">
-                <button> <Link to={'http://localhost:5173/RegisterProgramUmrah/'}>احجز رحلتك الآن</Link> </button>
+                <button> <Link to={`/RegisterProgramUmrah/${id}`}>احجز رحلتك الآن</Link> </button>
             </div>
        </div>
     </div>      
