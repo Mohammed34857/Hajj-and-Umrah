@@ -23,7 +23,7 @@ const HajjPrograms = () => {
               <div class="chiled">
                 <span>
                   تاشيرة الحج
-                  <br /> تذكرة طيران من مطار دمشق الى مطار جدة 
+                  <br /> تذكرة طيران من مطار دمشق الى مطار جدة
                 </span>
               </div>
 
@@ -31,9 +31,7 @@ const HajjPrograms = () => {
                 <span>وجبتي فطور وعشاء يوميا لكل حاج</span>
               </div>
               <div class="chiled">
-                <span>
-                  الاقامة بمكة المكرمة والمدينة المنورة بفنادق فئة ثلاث نجوم
-                </span>
+                <span>لاقامة بمكة المكرمة مدة<span> 9 ليالي </span> الاقامةبالمدينةالمنورة مدة<span>5 ليالي</span> </span>
               </div>
               <div class="chiled">
                 <span>هدايا ورحلات متنوعة</span>
@@ -53,9 +51,7 @@ const HajjPrograms = () => {
                 <span> المرشد الديني الشيخ محمد شمسي</span>
               </div>
               <div class="chiled">
-                <span>
-                  اداء حج تجريبي قبل السفر و دروس تشرح اداء المناسك 
-                </span>
+                <span>اداء حج تجريبي قبل السفر و دروس تشرح اداء المناسك</span>
               </div>
             </div>
           </div>
