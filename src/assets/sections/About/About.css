@@ -1,6 +1,6 @@
 .about{
     background-color: #27292a;
-    min-height: 520px;
+    min-height: 590px;
     height: max-content;
     display: flex;
     justify-content: space-evenly;
@@ -14,21 +14,23 @@
     margin-top: 0;
     text-transform: capitalize;
     padding: 3px;
-    color: #967a1d;
-    font-size: 48px;
+    color: #9b7e1e;
+    font-size: 45px;
+    margin-bottom: 15px;
 }
 
 .about-us .lin {
-    width: 200px;
+    width: 190px;
     height: 3px;
     background-color:#E09814;
     margin-top: -20px;
+    margin-bottom: 20px;
    
 }
 
 .about-us p {
     width: 700px;
-    font-size: 34px;
+    font-size: 25px;
     color: rgb(248, 224, 197);
 }
 
