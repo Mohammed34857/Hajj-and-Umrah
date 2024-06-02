@@ -7,10 +7,10 @@ const CardHajj = () => {
   return (
     <div className='card-hajj-item   '>
         <div className='card-hajj-program card-news'>
-        <div class="left">
+        <div className="left">
             <h2>برنامج الحج الاكبر</h2>
             <span>1445-2024</span>
-            <p class="my-4"> تتشرف إدارة مجموعة اجنحة الضيافة بإشراف مديرها الحاج هشام محمد نادر عنبي وكادرها الديني والإداري بتقديم افضل برامج الحج 1445</p>
+            <p className="my-4"> تتشرف إدارة مجموعة اجنحة الضيافة بإشراف مديرها الحاج هشام محمد نادر عنبي وكادرها الديني والإداري بتقديم افضل برامج الحج 1445</p>
             <ul>
                 <li> ( تاشيرة الحج , تذكرة طيران من مطار دمشق الى مطار جدة وبالعكس )  <i> <ImAirplane /></i></li>
                 <li> (الاقامة بمكة المكرمة والمدينة المنورة بفنادق فئة ثلاث نجوم )     
@@ -19,21 +19,21 @@ const CardHajj = () => {
                 <li> (وجبتي فطور وعشاء يوميا لكل حاج) <i ><FaAppleAlt /></i></li>
                 <li> (هدايا ورحلات متنوعة )  <i>  <ImHeart /></i></li>
             </ul>
-            <Link class="btn btn-dark btn-1" to={'/HajjPrograms/'}> تفاصيل البرنامج</Link>
+            <Link className="btn btn-dark btn-1" to={'/HajjPrograms/'}> تفاصيل البرنامج</Link>
           
             <span>الاسعار تبدأ من $4900</span>
        
         </div>
-        <div class="right">
+        <div className="right">
         </div>
               </div>
-              <div class="card2-news">
-        <div class="right" >
+              <div className="card2-news">
+        <div className="right" >
         </div>
-        <div class="left">
+        <div className="left">
             <h2>VIP برنامج الحج </h2>
             <span>1445-2024</span>
-            <p class="my-4">تتشرف إدارة مجموعة اجنحة الضيافة بإشراف مديرها الحاج هشام محمد نادر عنبي وكادرها الديني والإداري بتقديم افضل برامج الحج 1445</p>
+            <p className="my-4">تتشرف إدارة مجموعة اجنحة الضيافة بإشراف مديرها الحاج هشام محمد نادر عنبي وكادرها الديني والإداري بتقديم افضل برامج الحج 1445</p>
             <ul>
                 <li> ( تاشيرة الحج , تذكرة طيران من مطار دمشق الى مطار جدة وبالعكس )<i> <ImAirplane /></i></li>
                 <li> (     الاقامة بمكة المكرمة والمدينة المنورة بفنادق فئة خمس نجوم مطلة على الحرم والمدينة المنورة)
@@ -42,7 +42,7 @@ const CardHajj = () => {
                 <li> (ثلاث وجبات فطور وغداء وعشاء يوميا لكل حاج) <i ><FaAppleAlt /></i></li>
                 <li> (هدايا ورحلات متنوعة ) <i>  <ImHeart /></i></li>
             </ul>
-            <Link class="btn btn-dark btn-1" to={'/HajjPrograms/'}> تفاصيل البرنامج</Link>
+            <Link className="btn btn-dark btn-1" to={'/HajjPrograms/'}> تفاصيل البرنامج</Link>
            
             <span>الاسعار تبدأ من $5000</span>
         </div>

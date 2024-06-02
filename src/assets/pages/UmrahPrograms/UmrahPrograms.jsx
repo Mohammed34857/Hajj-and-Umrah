@@ -8,7 +8,7 @@ import axios from 'axios';
 
 const UmrahPrograms = () => {
   
-  const  {id}  = useParams();
+  const {id} = useParams();
   const [programUmrah, setProgramUmrah] = useState({});
   const [hotel, setHotel] = useState([]);
   const [bus, setBus] = useState([]);
@@ -28,10 +28,10 @@ const UmrahPrograms = () => {
         setHotel(await Promise.all(hotelRoom.map(hotel => hotel.id_hotel).map(async (hotelId) => {
           return await axios.get(`https://officealhajandalumrah.adaptable.app/Hotel/${hotelId}`).then(response => response.data);
         }))) ;
-        const busCompanyResponse = await axios.get(`https://officealhajandalumrah.adaptable.app/BusCompany/${programUmrah.id_busCompany}`);
-        setBus(busCompanyResponse.data);
 
-        console.log(programUmrah);
+        
+        const busCompanyResponse = await axios.get(`https://officealhajandalumrah.adaptable.app/BusCompany/${program_umrah.id_ProgramBus}`);
+        setBus(busCompanyResponse.data);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching Umrah Programs data:', error);

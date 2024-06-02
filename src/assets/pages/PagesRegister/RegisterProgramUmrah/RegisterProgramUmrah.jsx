@@ -10,6 +10,7 @@ const RegisterProgramUmrah = () => {
 
     const { id } = useParams();
     const [programUmrah, setProgramUmrah] = useState({});
+    const [reservedSeats, setReservedSeats] = useState([]);
     const [formData, setFormData] = useState({
         fullName: "string",
         nameFather: "string",
@@ -52,7 +53,11 @@ const RegisterProgramUmrah = () => {
       const fetchData = async () => {
           try {
               const program_umrah = await axios.get(`https://officealhajandalumrah.adaptable.app/program-umrah/${id}`).then(response => response.data);
-              setProgramUmrah(program_umrah);
+                setProgramUmrah(program_umrah);
+              const response = await axios.get("https://officealhajandalumrah.adaptable.app/program-bus/findAll");
+              const filteredPrograms = response.data.find((program) => program.id_ProgramUmrah === id);
+              const reserved = filteredPrograms.seat.filter(seat => seat.isReserved).map(seat => seat.seatNumber);
+              setReservedSeats(reserved);
           } catch (error) {
               console.error('Error fetching program data:', error);
           }
@@ -214,11 +219,12 @@ const RegisterProgramUmrah = () => {
 
           <h3>: احجز مقعدك في الحافلة <MdAirlineSeatReclineExtra /></h3>
           <div className="booking">
-            <select name="" id="">
-                <option value="" hidden>رقم الرحلة</option>
-                <option value="numper-program">
-                    رقم المقعد
-                </option>
+          <select className='seat'>
+                {reservedSeats.map((seatNumber, index) => (
+                    <option key={index} value={seatNumber}>
+                        Seat Number: {seatNumber}
+                    </option>
+                ))}
             </select>
           </div>
           <div className="room">

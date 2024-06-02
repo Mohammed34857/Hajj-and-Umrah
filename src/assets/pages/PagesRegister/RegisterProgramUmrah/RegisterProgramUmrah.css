@@ -62,3 +62,12 @@ i {
 
 }
 
+.seat{
+    padding: 15px;
+    border-radius: 15px;
+    background-color: transparent;
+    color: #fff;
+    border:1px solid snow ;
+    box-shadow: 0px 0px 4px 2px rgb(0, 0, 0);
+}
+
