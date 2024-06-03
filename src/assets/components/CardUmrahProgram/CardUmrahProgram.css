@@ -5,7 +5,7 @@
     padding: 10px;
     background-color: var(--color-silver);
     width: 370px;
-    height: fit-content;
+    height: 650px;
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 10px 7px 10px ;
@@ -19,7 +19,7 @@
     color: #e09814;
     background-color: rgba(0, 0, 0, 0.9);
     backdrop-filter: blur(200px);
-    height: max-content;
+    height: 125px;
     padding: 10px;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;

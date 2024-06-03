@@ -9,66 +9,66 @@ import imege3 from "../../images/Hotels/anwar_alasel.jpg";
 const HajjPrograms = () => {
   return (
     <div className="Hajj-programs">
-      <div class="par">
-        <div class="par1 ">
+      <div className="par">
+        <div className="par1 ">
           <h1>برنامج الحج الاكبر</h1>
 
-          <p class="my-4">
+          <p className="my-4">
             تتشرف إدارة مجموعة اجنحة الضيافة بإشراف مديرها الحاج هشام محمد نادر
             عنبي وكادرها الديني والإداري بتقديم افضل برامج للحج عام 1445
           </p>
-          <div class="detiles">
-            <div class=" imeg"></div>
-            <div class="parent-chiled  continer  ">
-              <div class="chiled">
+          <div className="detiles">
+            <div className=" imeg"></div>
+            <div className="parent-chiled  continer  ">
+              <div className="chiled">
                 <span>
                   تاشيرة الحج
                   <br /> تذكرة طيران من مطار دمشق الى مطار جدة
                 </span>
               </div>
 
-              <div class="chiled">
+              <div className="chiled">
                 <span>وجبتي فطور وعشاء يوميا لكل حاج</span>
               </div>
-              <div class="chiled">
+              <div className="chiled">
                 <span>لاقامة بمكة المكرمة مدة<span> 9 ليالي </span> الاقامةبالمدينةالمنورة مدة<span>5 ليالي</span> </span>
               </div>
-              <div class="chiled">
+              <div className="chiled">
                 <span>هدايا ورحلات متنوعة</span>
               </div>
-              <div class="chiled">
+              <div className="chiled">
                 <span>مزارات في مكة والمدينة يتخللها دروس دينية </span>
               </div>
-              <div class="chiled">
+              <div className="chiled">
                 <span>رحلة يوم تسوق في جدة بعد اداء مناسك الحج</span>
               </div>
-              <div class="chiled">
+              <div className="chiled">
                 <span>
                   رحلة يوم الى الطائف خلال فترة الاقامة في مكة المكرمة{" "}
                 </span>
               </div>
-              <div class="chiled">
+              <div className="chiled">
                 <span> المرشد الديني الشيخ محمد شمسي</span>
               </div>
-              <div class="chiled">
+              <div className="chiled">
                 <span>اداء حج تجريبي قبل السفر و دروس تشرح اداء المناسك</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="hotel">
+        <div className="hotel-program-hajj">
           <h2>الفنادق الخاصة ب البرنامج</h2>
           <div
             id="carouselExampleIndicators"
-            class="carousel slide"
+            className="carousel slide"
             data-ride="carousel"
           >
-            <ol class="carousel-indicators">
+            <ol className="carousel-indicators">
               <li
                 data-target="#carouselExampleIndicators"
                 data-slide-to="0"
-                class="active"
+                className="active"
               ></li>
               <li
                 data-target="#carouselExampleIndicators"
@@ -79,74 +79,74 @@ const HajjPrograms = () => {
                 data-slide-to="2"
               ></li>
             </ol>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src={imege1} class="d-block " />
+            <div className="carousel-inner">
+              <div className="carousel-item active">
+                <img src={imege1} className="d-block " />
               </div>
-              <div class="carousel-item">
-                <img src={imege2} class="d-block " />
+              <div className="carousel-item">
+                <img src={imege2} className="d-block " />
               </div>
-              <div class="carousel-item">
-                <img src={imege1} class="d-block  " />
+              <div className="carousel-item">
+                <img src={imege1} className="d-block  " />
               </div>
             </div>
             <button
-              class="carousel-control-prev"
+              className="carousel-control-prev"
               type="button"
               data-target="#carouselExampleIndicators"
               data-slide="prev"
             >
               <span
-                class="carousel-control-prev-icon"
+                className="carousel-control-prev-icon"
                 aria-hidden="true"
               ></span>
-              <span class="sr-only">Previous</span>
+              <span className="sr-only">Previous</span>
             </button>
             <button
-              class="carousel-control-next"
+              className="carousel-control-next"
               type="button"
               data-target="#carouselExampleIndicators"
               data-slide="next"
             >
               <span
-                class="carousel-control-next-icon"
+                className="carousel-control-next-icon"
                 aria-hidden="true"
               ></span>
-              <span class="sr-only">Next</span>
+              <span className="sr-only">Next</span>
             </button>
           </div>
         </div>
 
-        <div class="gift-parent">
+        <div className="gift-parent">
           <h2>
             مجموعة الهدايا المقدمة لحجاج بيت الله الحرام من قبل اجنحة الضيافة
           </h2>
 
-          <div class="gift">
-            <div class="gift1">
+          <div className="gift">
+            <div className="gift1">
               <p>ملابس احرام للرجال نوعية ممتازة</p>
             </div>
-            <div class="gift2">
+            <div className="gift2">
               <p> حقيبة حجم وسط</p>
             </div>
-            <div class="gift3">
+            <div className="gift3">
               <p>سجادة صلاة</p>
             </div>
-            <div class="gift4">
+            <div className="gift4">
               <p> حزام للرجال</p>
             </div>
-            <div class="gift5">
+            <div className="gift5">
               <p>مجموعة حقائب</p>
             </div>
           </div>
         </div>
 
-        <div class="parent-vidios">
+        <div className="parent-vidios">
           <h2>فيديو تعريفي عن مناسك الحج مع اوقات أدائها</h2>
-          <div class="videos">
+          <div className="videos">
             <video controls src={vidio}></video>
           </div>
-          <div class="booking">
+          <div className="booking">
             <button>احجز رحلتك الآن</button>
           </div>
         </div>

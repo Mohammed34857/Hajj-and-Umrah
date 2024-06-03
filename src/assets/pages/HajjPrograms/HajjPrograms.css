@@ -109,7 +109,7 @@
      
     
     }  
-    .hotel{
+    .hotel-program-hajj{
         margin-top: 900px !important;
     } 
     .par{
@@ -139,17 +139,17 @@ font-size: 18px;
     padding: 20px;
 }
 
-.hotel{
+.hotel-program-hajj{
     margin-top: 300px;
     height: 700px;
 }
 @media(max-width: 850px){
-    .hotel{
+    .hotel-program-hajj{
         margin-top: 500px;
     }
 }
 
-.hotel img{
+.hotel-program-hajj img{
     height: 500px !important;
     width: 500px !important;
     margin: auto;
