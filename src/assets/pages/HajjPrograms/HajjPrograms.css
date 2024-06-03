@@ -139,7 +139,7 @@ font-size: 18px;
     padding: 20px;
 }
 
-.hotel{
+.hotels{
     margin-top: 300px;
     height: 700px;
 }
@@ -149,7 +149,7 @@ font-size: 18px;
     }
 }
 
-.hotel img{
+.hotels img{
     height: 500px !important;
     width: 500px !important;
     margin: auto;

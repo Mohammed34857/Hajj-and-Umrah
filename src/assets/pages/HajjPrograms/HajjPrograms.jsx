@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import imege1 from "../../images/Hotels/anwar_alasel.jpg";
 import imege2 from "../../images/Hotels/loloat_alrayyan.jpg";
 import vidio from "../../images/How_to_Perform_Hajj___Islamweb___دليل_الحج___شرح_خطوات_أداء_مناسك_الحج___إسلام_و.mp4";
-import imege3 from "../../images/Hotels/anwar_alasel.jpg";
+
 
 const HajjPrograms = () => {
   return (
@@ -57,7 +57,7 @@ const HajjPrograms = () => {
           </div>
         </div>
 
-        <div class="hotel">
+        <div class="hotels">
           <h2>الفنادق الخاصة ب البرنامج</h2>
           <div
             id="carouselExampleIndicators"
