@@ -139,7 +139,11 @@ font-size: 18px;
     padding: 20px;
 }
 
+<<<<<<< HEAD
 .hotel-program-hajj{
+=======
+.hotels{
+>>>>>>> 2d34290458bc63a2d67a4bb5ac1d082ddc098224
     margin-top: 300px;
     height: 700px;
 }
@@ -149,7 +153,11 @@ font-size: 18px;
     }
 }
 
+<<<<<<< HEAD
 .hotel-program-hajj img{
+=======
+.hotels img{
+>>>>>>> 2d34290458bc63a2d67a4bb5ac1d082ddc098224
     height: 500px !important;
     width: 500px !important;
     margin: auto;
