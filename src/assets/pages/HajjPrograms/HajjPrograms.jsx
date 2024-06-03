@@ -57,11 +57,8 @@ const HajjPrograms = () => {
           </div>
         </div>
 
-<<<<<<< HEAD
-        <div className="hotel-program-hajj">
-=======
+    
         <div class="hotels">
->>>>>>> 2d34290458bc63a2d67a4bb5ac1d082ddc098224
           <h2>الفنادق الخاصة ب البرنامج</h2>
           <div
             id="carouselExampleIndicators"
