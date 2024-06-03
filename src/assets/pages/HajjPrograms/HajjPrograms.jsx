@@ -153,7 +153,7 @@ const HajjPrograms = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default HajjPrograms;

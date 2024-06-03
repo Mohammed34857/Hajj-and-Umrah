@@ -1,6 +1,6 @@
 import React from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
-import './DashBoardEmployee'
+import './DashBoardEmployee.css'
 
 const DashBoardEmployee = () => {
   return (
