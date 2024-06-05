@@ -12,19 +12,22 @@ const RegisterProgramUmrah = () => {
     const [programUmrah, setProgramUmrah] = useState({});
     const [reservedSeats, setReservedSeats] = useState([]);
     const [formData, setFormData] = useState({
-        fullName: "string",
-        nameFather: "string",
-        nameMother: "string",
-        phoneNumber: 0,
-        email: "abedalrahaman@gmail.com",
-        birth: "2024-05-20T23:27:58.385Z",
-        gender: "string",
-        nationality: "string",
-        passportNumber: "string",
-        passportPhoto: "https://res.cloudinary.com/dj05jeavk/image/upload/v1714507309/hotels/%D9%86%D8%B3%D9%83%20%D8%A7%D9%84%D9%87%D8%AC%D8%B1%D8%A9/449441863_cusyvs.jpg",
-        numberBus: 0,
-        seatNumber: 0,
-        typeRoom: "string",
+      fullName: "string",
+      nameFather: "string",
+      nameMother: "string",
+      phoneNumber: 0,
+      email: "abedalrahaman@gmail.com",
+      birth: "2024-05-20T23:27:58.385Z",
+      gender: "string",
+      nationality: "string",
+      passportNumber: "string",
+      passportPhoto: "https://res.cloudinary.com/dj05jeavk/image/upload/v1714507309/hotels/%D9%86%D8%B3%D9%83%20%D8%A7%D9%84%D9%87%D8%AC%D8%B1%D8%A9/449441863_cusyvs.jpg",
+      almutamirPhoto: "https://res.cloudinary.com/dj05jeavk/image/upload/v1714507309/hotels/%D9%86%D8%B3%D9%83%20%D8%A7%D9%84%D9%87%D8%AC%D8%B1%D8%A9/449441863_cusyvs.jpg",
+      numberBus: 0,
+      typeRoom: "string",
+      seatNumber: 0,
+      paymentMethod: "string",
+      verification: true
     });
 
     useEffect(() => {
@@ -99,19 +102,22 @@ const RegisterProgramUmrah = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = {
-            full_name: formData.fullName,
-            name_father: formData.nameFather,
-            name_mother: formData.nameMother,
-            phone_number: formData.phoneNumber,
-            email: formData.email,
-            birth: formData.birth,
-            gender: formData.gender,
-            Nationality: formData.nationality,
-            passport_number: formData.passportNumber,
-            passport_photo: formData.passportPhoto,
-            number_bus: formData.numberBus,
-            seatNumber: formData.seatNumber,
-            type_room: formData.typeRoom,
+          full_name: formData.fullName,
+          name_father: formData.nameFather,
+          name_mother: formData.nameMother,
+          phone_number: Number(formData.phoneNumber),
+          email: formData.email,
+          birth: formData.birth,
+          gender: formData.gender,
+          Nationality: formData.nationality,
+          passport_number: formData.passportNumber,
+          passport_photo: formData.passportPhoto,
+          al_photo: formData.alPhoto,
+          type_room: formData.typeRoom,
+          number_bus: formData.numberBus,
+          seatNumber: formData.seatNumber,
+          payment_method: formData.paymentMethod,
+          Verification: formData.verification,
         };
       console.log(data);
         try {
@@ -166,11 +172,11 @@ const RegisterProgramUmrah = () => {
                 <tr>
                    <th>
                     <input 
-                      type="number" 
+                      type="text" 
                       name='phoneNumber' 
                       placeholder=" ادخل رقم الهاتف " 
-                      // value={formData.phoneNumber} 
-                      // onChange={handleChange}
+                      value={formData.phoneNumber} 
+                      onChange={handleChange}
                     />
                   </th>
                   <th><label> : رقم الهاتف</label></th>
@@ -224,6 +230,7 @@ const RegisterProgramUmrah = () => {
                     <option key={index} value={seatNumber}>
                         Seat Number: {seatNumber}
                     </option>
+                    
                 ))}
             </select>
           </div>
@@ -234,7 +241,7 @@ const RegisterProgramUmrah = () => {
                         <input
                          type="radio"
                          name="roomPrice" 
-                         value={formData.typeRoom === "0"} 
+                         value={formData.typeRoom === "single room"} 
                          onChange={handleChange}
                         />
                     <span className="checkmark"></span>
@@ -244,7 +251,7 @@ const RegisterProgramUmrah = () => {
                        <input
                          type="radio"
                          name="roomPrice" 
-                         value={formData.typeRoom === "1"} 
+                         value={formData.typeRoom === "double room"} 
                          onChange={handleChange}
                         />
                     <span className="checkmark"></span>
@@ -254,7 +261,7 @@ const RegisterProgramUmrah = () => {
                         <input
                          type="radio"
                          name="roomPrice" 
-                         value={formData.typeRoom === "2"} 
+                         value={formData.typeRoom === "triple room"} 
                          onChange={handleChange}
                         />
                     <span className="checkmark"></span>
@@ -270,8 +277,9 @@ const RegisterProgramUmrah = () => {
                     <label className="radio-container">
                         <input
                          type="radio" 
-                         name="paying" 
-                         value={"electronic"} 
+                         name="paymentMethod" 
+                         value={formData.paymentMethod === "electronic"} 
+                         onChange={handleChange}
                          />
                     <span className="checkmark"></span>
                     الالكتروني
@@ -279,8 +287,9 @@ const RegisterProgramUmrah = () => {
                     <label className="radio-container">
                         <input
                          type="radio" 
-                         name="paying" 
-                         value={"cash"} 
+                         name="paymentMethod" 
+                         value={formData.paymentMethod === "cash"} 
+                         onChange={handleChange}
                          />
                     <span className="checkmark"></span>
                      الدفع كاش 
