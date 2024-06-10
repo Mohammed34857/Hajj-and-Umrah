@@ -1,3 +1,307 @@
-.DashBoardEmployee{
-    height: 100vh ;
+
+.dashborde {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 100%;
+  justify-content: space-between;
+  height:6000px ;
+  }
+  .min {
+    background-image: url(../../images/dashbord/1715458080642.jpg);
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position: center;
+    height: 100%;
+    width: 18%;
+    padding: 20px;
+    margin-top: 90px;
+    position: fixed;
+    z-index: 1;
+    
+
+  }
+
+  
+  
+  
+  
+  .min img {
+    margin-left: 30px;
+    width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid white;
+  flex-shrink: 0;
+  }
+  h5{
+    margin-left: 30px;
+    margin-top: 10px;
+  }
+  .min nav {
+    margin: 10px;
+    margin-left: 10px;
+    margin-top: 20px;
+    background-color: rgba(94, 87, 79, 0.582);
+    border-radius: 10px;
+    padding: 5px;
+    height: 430px;
+    width: 15%;
+  }
+  .min nav ul {
+    font-size: 20px;
+    list-style: none;
+    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  }
+  .min nav ul li {
+    padding-left: 4px;
+  }
+
+  .min nav ul a {
+    text-decoration: none;
+    transition: 0.5s;
+    display: block;
+    color: white;
+  }
+  .min .btn {
+    margin-top: 470px;
+    text-align: center;
+    margin-left: 20px;
+
+  }
+  .min .btn:hover{
+    color: rgb(10, 10, 10);
+    background-color: antiquewhite;
+  }
+  .detiles {
+    margin-left: 10%;
+    width: 85%; 
+  }
+  .alert {
+    height: 150px;
+    background: linear-gradient(to left, #7e6624, #816b22, #a7942d, #dac08a);
+    border-radius: 8px;
+    width: 300px;
+    margin-left: 40px;
+    margin-top: 120px;
+    text-align: center;
+    color: white;
+  }
+  .detil{
+    margin-left: 18%;
+      display: grid;
+      grid-template-columns: repeat(3 ,30%);
+      grid-gap: 30px;
+      
+  
+  }
+  
+  .table-umrah , .table-hajj ,.table-hotal,.table-transport {
+    margin-left: 18%;
+    scrollbar-width: overflow;
+    width: 100%;
+  }
+  .dashborde table{
+    text-align: center;
+    border-spacing: 8px;
+    width: 100%;
+    margin-left: 2%;
+  }
+  .dashborde tr th{
+    border-radius: 5px;
+  }
+   .dashborde tr td,th {
+    margin: 5px;
+    background: linear-gradient(to left, #7e6624, #816b22, #a7942d, #dac08a);
+    border: 3px solid rgb(255, 255, 255);
+    padding: 4px;
+  }
+   .dashborde input{
+    width: 80%;
+    color: black;
+  }
+  .dashborde  td button{
+    color: black;
+    border: none;
+    padding: 2px;
+  }
+  
+  .contain-umrah h2 ,.contain-hajj h2 {
+    color: #fffefb;
+    text-align: center;
+    background-color: #0a0903dc;
+    border-radius: 50%;
+    padding: 3px;
+    width: 75%;
+    border: 3px solid #a7942d;
+    margin-left: 20%;
+    
+  }
+
+.prog-umrah h2 ,.prog-hajj h2 ,.transport-updat h2 ,.seting h2{
+  color: #fffefb;
+  text-align: center;
+  background-color: #0a0903dc;
+  border-radius: 50%;
+  padding: 3px;
+  width: 75%;
+  border: 3px solid #a7942d;
+  margin-left: 20%;
 }
+.seting{
+  width: 100%;
+}
+
+.prog-umrah ,.prog-hajj{
+  
+  width: 100%;
+}
+.progr-parent{
+  margin-left: 15%;
+  display: grid;
+  grid-template-columns: repeat(2,35%);
+  margin-top: 20px;
+  justify-content:space-around;
+}
+.prog1 {
+  width: 450px;
+  height: 500px;
+
+  box-shadow: 5px 10px 20px #a7952dda inset;
+}
+.prog1 p {
+  color: #fffefb;
+  text-align: right;
+  margin-right: 30px;
+  font-size: 20px;
+
+}
+
+.prog-umrah .update ,.prog-hajj .update{
+  background-color: rgba(82, 71, 71, 0.904);
+  text-align: center;
+  margin-left: 100px;
+  margin-right: 80px;
+  width: 25%;
+  border: none;
+  font-size: 20px;
+  color: white;
+  
+}
+.prog-umrah .delet ,.prog-hajj .delet{
+  background-color: rgba(212, 11, 11, 0.904);
+
+  text-align: center;
+  color: white;
+  width: 25%;
+  border: none;
+  font-size: 20px;
+}
+.prog2{
+  width: 450px;
+  height: 500px;
+/* position: relative; */
+  box-shadow: 5px 10px 20px  #a7952dda inset;
+}
+.progr-parent h3{
+  margin-top: 40px;
+ color:  #f8e2b6;
+  text-align: center;
+  border-radius: 10px 0 10px 0;
+  font-weight: 700;
+}
+.prog-add{
+  box-shadow: 5px 10px 20px  #a7952dda inset;
+  height: 1000px;
+  width: 70%;
+  margin-left: 23%;
+  position: relative;
+  margin-top: 100px;
+}
+.prog-add input{
+  margin-top: 70px;
+  border-radius: 5px;
+ text-align: right;
+ color: black;
+ width: 200px;
+margin-left: 100px;
+
+}
+.prog-add .numb{
+  width: 50px;
+  margin-left: 170px;
+}
+.prog-add div{
+  margin-left: 100px;
+}
+.prog-add label{
+  /* position: absolute; */
+  color: #fffefb;
+  text-align: right;
+  font-size: 20px;
+  margin-top: 50px;
+  margin-left: 30px;
+
+}
+
+
+.prog-add .room label ,.hot label{
+  padding: 10px;
+ margin-bottom: 100px;
+}
+
+.room td ,.hot td
+{
+  margin: 5px;
+  background: linear-gradient(to left, #68541e, #b49a43c5, #ccba53, #ccaf71);
+  border: 3px solid rgb(255, 255, 255);
+  padding: 4px;
+color: #332b13;
+font-size: 25px;
+  
+}
+
+.room h4 ,.hot h4{
+color: wheat;
+text-align: center;
+margin-top: 40px;
+}
+  .room  table ,.hot table{
+    width: 75%;
+    margin-top: 30px;
+    margin-left: 50px;
+    height: 150px;
+  }
+.add-btn{
+  margin-top:80px ;
+  text-align: center;
+ margin-left: 40%;
+ background-color: #c4cc53;
+ color: #332b13;
+ width: 20%;
+ font-size: 25px;
+}
+
+.add-btn:hover{
+  background-color: white;
+  color: #578305;
+  font-size: 30px;
+}
+.room ,.hot{
+  margin-left: 100px;
+}
+.hotal-updat{
+  width: 100%;
+}
+.hotal-updat h2{
+  color: #fffefb;
+  text-align: center;
+  background-color: #0a0903dc;
+  border-radius: 50%;
+  padding: 3px;
+  width: 75%;
+  border: 3px solid #a7942d;
+  margin-left: 20%;
+ 
+} 
