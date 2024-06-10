@@ -1,11 +1,123 @@
 import React, { useEffect , useState} from 'react'
 import './RegisterProgramSpecial.css'
 import { FaPencilAlt, FaBook, FaHotel  } from "react-icons/fa";
+import { GiCash } from "react-icons/gi";
 import { MdEmojiTransportation } from "react-icons/md";
+import axios from 'axios';
 
 const RegisterProgramSpecial = () => {
 
+    const [formData, setFormData] = useState({
+        "Airline": {},
+        "Date_Travel": "2024-06-04",
+        "total_stay": 0 ,
+        "stay_in_macca": 0 ,
+        "stay_in_madina": 0 
+    });
+    const [formDataMutamir, setFormDataMutamir] = useState({
+        fullName: "string",
+        nameFather: "string",
+        nameMother: "string",
+        phoneNumber: 0,
+        email: "abedalrahaman@gmail.com",
+        birth: "2024-05-20T23:27:58.385Z",
+        gender: "string",
+        nationality: "string",
+        passportNumber: "string",
+        passportPhoto: "https://res.cloudinary.com/dj05jeavk/image/upload/v1714507309/hotels/%D9%86%D8%B3%D9%83%20%D8%A7%D9%84%D9%87%D8%AC%D8%B1%D8%A9/449441863_cusyvs.jpg",
+        almutamirPhoto: "https://res.cloudinary.com/dj05jeavk/image/upload/v1714507309/hotels/%D9%86%D8%B3%D9%83%20%D8%A7%D9%84%D9%87%D8%AC%D8%B1%D8%A9/449441863_cusyvs.jpg",
+        numberBus: 0,
+        typeRoom: "string",
+        seatNumber: 0,
+        paymentMethod: "string",
+        verification: true
+    });
 
+    const handleChangeImage = async (e) => {
+        const { name, files } = e.target;
+        if (files && files[0]) {
+            const formData = new FormData();
+            formData.append('file', files[0]);
+            try {
+                const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+                const imagePath = response.data;
+                setFormDataMutamir((prevFormDataMutamir) => ({
+                    ...prevFormDataMutamir,
+                    [name]: imagePath,
+                }));
+            } catch (error) {
+                console.error('Error uploading image:', error);
+            }
+        }
+      };
+
+    const handleChangeDataProgramSpecial = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            [name]: value,
+        }));
+    };
+    
+    const handleChangeDataMutamir = (e) => {
+        const { name, value} = e.target;
+        setFormDataMutamir((prevFormDataMutamir) => ({
+            ...prevFormDataMutamir,
+            [name]:value,
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const dataProgramSpecial = {
+            Airline: formData.Airline,
+            Date_Travel: formData.Date_Travel,
+            total_stay: Number(formData.total_stay) ,
+            stay_in_macca: Number(formData.stay_in_macca) ,
+            stay_in_madina: Number(formData.stay_in_madina) 
+        };
+        console.log(dataProgramSpecial);
+        const dataMutamir = {
+            full_name: formDataMutamir.fullName,
+            name_father: formDataMutamir.nameFather,
+            name_mother: formDataMutamir.nameMother,
+            phone_number: Number(formDataMutamir.phoneNumber),
+            email: formDataMutamir.email,
+            birth: formDataMutamir.birth,
+            gender: formDataMutamir.gender,
+            Nationality: formDataMutamir.nationality,
+            passport_number: formDataMutamir.passportNumber,
+            passport_photo: formDataMutamir.passportPhoto,
+            almutamir_photo: formDataMutamir.almutamirPhoto,
+            type_room: formDataMutamir.typeRoom,
+            number_bus: formDataMutamir.numberBus,
+            seatNumber: formDataMutamir.seatNumber,
+            payment_method: formDataMutamir.paymentMethod,
+            Verification: formDataMutamir.verification,
+        };
+        console.log(dataMutamir);
+        try {
+            const responseProgramSpecial = await axios.post('https://officealhajandalumrah.adaptable.app/program-umrah-special', dataProgramSpecial, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const responseMutamir = await axios.post('https://officealhajandalumrah.adaptable.app/al-mutamir', dataMutamir, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+            console.log('Data submitted successfully:', responseMutamir.data);
+            // window.location.reload();
+        } catch (error) {
+            console.error('Error fetching program data:', error);
+        }
+    };
+   
     useEffect(() => {
         const handleFileChange = (inputId, outputPathId) => {
             return () => {
@@ -45,54 +157,88 @@ const RegisterProgramSpecial = () => {
   return (
     <div className='register-program-special'>
      <div className>
-      <form action="post">
+      <form onSubmit={handleSubmit}>
         <div className="container">
            <h1> انضم إلى قافلة عباد الرحمن عن طريق انشاء برنامجك الخاص </h1>
             <div className="special-register">
                <h3> :التسجيل <FaPencilAlt/></h3>
-              <table className='table1'>
-                <tbody>
+               <table className='table1'>
+              <tbody>
                 <tr>
-                    <th><input type="text" name='name' required placeholder=" أدخل الأسم "/></th>
-                    <th><label> : الاسم</label></th>
+                  <th>
+                    <input 
+                      type="text" 
+                      name='fullName' 
+                      required 
+                      placeholder=" أدخل الأسم " 
+                      value={formDataMutamir.fullName} 
+                      onChange={handleChangeDataMutamir}
+                    />
+                  </th>
+                  <th><label> : الاسم</label></th>
                 </tr>
                 <tr>
-                    <th><input type="email" name='email' placeholder=" ادخل البريد الالكتروني "/></th>
-                    <th><label> : البريد الالكتروني</label></th>
+                  <th>
+                    <input 
+                      type="text" 
+                      name='email' 
+                      placeholder=" ادخل البريد الالكتروني " 
+                      value={formDataMutamir.email} 
+                      onChange={handleChangeDataMutamir}
+                    />
+                  </th>
+                  <th><label> : البريد الالكتروني</label></th>
                 </tr>
                 <tr>
-                    <th><input type="number" name='phone' placeholder=" ادخل رقم الهاتف "/></th>
-                    <th><label> : رقم الهاتف</label></th>
-                </tr>  
-                </tbody>  
-              </table>
+                   <th>
+                    <input 
+                      type="text" 
+                      name='phoneNumber' 
+                      placeholder=" ادخل رقم الهاتف " 
+                      value={formDataMutamir.phoneNumber} 
+                      onChange={handleChangeDataMutamir}
+                    />
+                  </th>
+                  <th><label> : رقم الهاتف</label></th>
+                </tr>
+              </tbody>
+            </table>
               <div className='end-float'></div>
           </div>
 
           <div className="paperwork">
             <h3> :الاوراق المطلوبة <FaBook/></h3>
             <div className="child-paper">
-             <table className='table2'>
-               <tbody>
-                <tr>
+            <table className='table2'>
+                <tbody>
+                  <tr>
                     <th>
-                         <div className='path' id='file-path'> لم يتم اختيار ملف 
-                         </div>
-                         <label className='label-file' htmlFor="file-img"><span>اختر ملف</span></label>
-                         <input id='file-img' name='image' type="file" />
+                      <div className='path' id='file-path'> لم يتم اختيار ملف </div>
+                      <label className='label-file' htmlFor="file-img"><span>اختر ملف</span></label>
+                      <input 
+                        id='file-img' 
+                        name='almutamirPhoto' 
+                        type="file" 
+                        onChange={handleChangeImage}
+                      />
                     </th>
                     <th><label> : الصورة الشخصية</label></th>
-                </tr>
-                <tr>
+                  </tr>
+                  <tr>
                     <th>
-                        <div className='path' id='passport-path'> لم يتم اختيار ملف  </div>
-                        <label className='label-file' htmlFor="passport">اختر ملف</label>
-                        <input id='passport' name='passport' type="file" />
+                      <div className='path' id='passport-path'> لم يتم اختيار ملف </div>
+                      <label className='label-file' htmlFor="passport"><span> اختر ملف  </span></label>
+                      <input 
+                        id='passport' 
+                        name='passportPhoto' 
+                        type="file" 
+                        onChange={handleChangeImage}
+                      />
                     </th>
                     <th><label> : ادخل صورة جواز السفر</label></th>
-                </tr> 
-               </tbody> 
-            </table>
+                  </tr>
+                </tbody>
+              </table>
               </div>
               <div className='end-float'></div>
             </div>
@@ -102,15 +248,15 @@ const RegisterProgramSpecial = () => {
               <table className='table1'>
                 <tbody>
                 <tr>
-                    <th><input type="number" name='dayNumber' required placeholder=" أدخل عدد الايام "/></th>
+                    <th><input type="number" name='total_stay' required placeholder=" أدخل عدد الايام " value={formData.total_stay}  onChange={handleChangeDataProgramSpecial}/></th>
                     <th><label> : عدد الايام</label></th>
                 </tr>
                 <tr>
-                    <th><input type="number" name='makkaNumber' placeholder="ادخل عدد ايام الأقامة في مكة "/></th>
+                    <th><input type="number" name='stay_in_macca' placeholder="ادخل عدد ايام الأقامة في مكة " value={formData.stay_in_macca}  onChange={handleChangeDataProgramSpecial}/></th>
                     <th><label> :  عدد ايام الأقامة في مكة</label></th>
                 </tr>
                 <tr>
-                    <th><input type="number" name='madenaNumber' placeholder=" ادخل عدد ايام الأقامة في المدينة "/></th>
+                    <th><input type="number" name='stay_in_madina' placeholder=" ادخل عدد ايام الأقامة في المدينة " value={formData.stay_in_madina}  onChange={handleChangeDataProgramSpecial}/></th>
                     <th><label> :  عدد ايام الأقامة في المدينة </label></th>
                 </tr>   
                 </tbody> 
@@ -124,7 +270,7 @@ const RegisterProgramSpecial = () => {
                 
                 {selectedTransfer === 'land' && (
                     <div className='wild-transfer'>
-                        <input className='input-date' type="date" name='Transfer' placeholder="ادخل تاريخ السفر "/>
+                        <input className='input-date' type="date" name='Date_Travel' placeholder="ادخل تاريخ السفر " value={formData.Date_Travel}   onChange={handleChangeDataProgramSpecial} />
                         <label> :  تاريخ السفر</label>
                     </div>
                 )}
@@ -136,7 +282,7 @@ const RegisterProgramSpecial = () => {
                 
                 {selectedTransfer === 'air' && (
                     <div className='aerial-transfer'>
-                        <input className='input-date' type="date" name='Transfer' placeholder="ادخل تاريخ السفر "/>
+                        <input className='input-date' type="date" name='Date_Travel' placeholder="ادخل تاريخ السفر " value={formData.Date_Travel}   onChange={handleChangeDataProgramSpecial} />
                         <label> :  تاريخ السفر</label>
                     </div>
                 )}
@@ -184,23 +330,67 @@ const RegisterProgramSpecial = () => {
             </div>
             <h2> عدد الغرف :</h2> <br />
             <div className="radio-room">
-                    <label className="radio-container"><input type="radio" name="roomNumber" value={1} />
+                    <label className="radio-container">
+                        <input
+                         type="radio"
+                         name="typeRoom" 
+                         value={formDataMutamir.typeRoom === "single room"} 
+                         onChange={handleChangeDataMutamir}
+                        />
                     <span className="checkmark"></span>
-                    غرفة ثنائية
+                    سعر البرنامج للغرفة الاحادية $200 
                     </label>
-                    <label className="radio-container"><input type="radio" name="roomNumber" value={2} />
+                    <label className="radio-container">
+                       <input
+                         type="radio"
+                         name="typeRoom" 
+                         value={formDataMutamir.typeRoom === "double room"} 
+                         onChange={handleChangeDataMutamir}
+                        />
                     <span className="checkmark"></span>
-                     غرفة ثلاثية 
+                    سعر البرنامج للغرفة الثنائية $150 
                     </label>
-                    <label className="radio-container"><input type="radio" name="roomNumber" value={3} />
+                    <label className="radio-container">
+                        <input
+                         type="radio"
+                         name="typeRoom" 
+                         value={formDataMutamir.typeRoom === "triple room"} 
+                         onChange={handleChangeDataMutamir}
+                        />
                     <span className="checkmark"></span>
-                     غرفة رباعية 
+                    سعر البرنامج للغرفة الثلاثية$ 100 
+                    </label>
+            </div>
+          </div>
+
+          <div className="paying-off">
+            <h3> : طريقة الدفع <GiCash/></h3>
+            <div className="paying">
+                    <label className="radio-container">
+                        <input
+                         type="radio" 
+                         name="paymentMethod" 
+                         value={formDataMutamir.paymentMethod === "electronic"} 
+                         onChange={handleChangeDataMutamir}
+                         />
+                    <span className="checkmark"></span>
+                    الالكتروني
+                    </label>
+                    <label className="radio-container">
+                        <input
+                         type="radio" 
+                         name="paymentMethod" 
+                         value={formDataMutamir.paymentMethod === "cash"} 
+                         onChange={handleChangeDataMutamir}
+                         />
+                    <span className="checkmark"></span>
+                     الدفع كاش 
                     </label>
             </div>
           </div>
 
          <div className='order-send'>
-            <button >ارسال الطلب</button>
+            <button type='submit' >ارسال الطلب</button>
          </div>
         </div>
      </form>
