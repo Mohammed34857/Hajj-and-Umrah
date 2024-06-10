@@ -68,12 +68,16 @@
     margin-top: 470px;
     text-align: center;
     margin-left: 20px;
+    color: wheat;
 
   }
-  .min .btn:hover{
-    color: rgb(10, 10, 10);
-    background-color: antiquewhite;
+  .min h5{
+    color: white;
   }
+  .min .btn{
+    background-color: #ccaf71;
+  }
+ 
   .detiles {
     margin-left: 10%;
     width: 85%; 

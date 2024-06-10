@@ -2,6 +2,14 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./DashBoardEmployee.css";
 import min from "../../images/dashbord/img_avatar1.png";
+import { AiTwotoneCheckCircle } from "react-icons/ai";
+import { HiUserPlus } from "react-icons/hi2";
+import { ImCogs } from "react-icons/im";
+import { ImFolderOpen } from "react-icons/im";
+import { ImLibrary } from "react-icons/im";
+import { ImBubbles4 } from "react-icons/im";
+import { ImAirplane } from "react-icons/im";
+import { FaRightFromBracket } from "react-icons/fa6";
 
 const DashBoardEmployee = () => {
   return (
@@ -15,30 +23,75 @@ const DashBoardEmployee = () => {
                 <h5>اسم المستخدم</h5>
               </li>
               <a href="" className="navbar-brand">
-                <li> لوحة التحكم</li>
+                <li>
+                  {" "}
+                  <i>
+                    <AiTwotoneCheckCircle />{" "}
+                  </i>
+                  لوحة التحكم{" "}
+                </li>
               </a>
               <a href="">
-                <li> المسافرين</li>
+                <li>
+                  {" "}
+                  <i>
+                    <HiUserPlus />{" "}
+                  </i>
+                  المسافرين
+                </li>
+              </a>
+
+              <a href="">
+                <li>
+                  {" "}
+                  <i>
+                    <ImFolderOpen />{" "}
+                  </i>
+                  البرامج
+                </li>
               </a>
               <a href="">
-                <li>البرامج</li>
+                <li>
+                  {" "}
+                  <i>
+                    <ImLibrary />
+                  </i>{" "}
+                  الفنادق
+                </li>
               </a>
               <a href="">
-                <li> الفنادق</li>
+                <li>
+                  {" "}
+                  <i>
+                    <ImAirplane />
+                  </i>{" "}
+                  النقل{" "}
+                </li>
               </a>
               <a href="">
-                <li> النقل </li>
+                <li>
+                  <i>
+                    <ImBubbles4 />
+                  </i>{" "}
+                  الرسائل الواردة
+                </li>
               </a>
               <a href="">
-                <li> الرسائل الواردة</li>
-              </a>
-              <a href="">
-                <li> اعدادات </li>
+                <li>
+                  <i>
+                    {" "}
+                    <ImCogs />{" "}
+                  </i>{" "}
+                  اعدادات{" "}
+                </li>
               </a>
             </ul>
           </nav>
 
           <button type="button" className="btn btn-outline-warning bg-dark">
+            <i>
+              <FaRightFromBracket />
+            </i>
             تسجيل الخروج
           </button>
         </div>
@@ -1250,14 +1303,11 @@ const DashBoardEmployee = () => {
           </div>
         </div>
 
-
         <div class="seting">
           <h2>الاعدادات</h2>
-          <div >
-          <h3>اعادة نعيين كلمة المرور</h3>
+          <div>
+            <h3>اعادة نعيين كلمة المرور</h3>
           </div>
-
-
         </div>
       </div>
     </div>
