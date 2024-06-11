@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import "./HajjPrograms.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import imege1 from "../../images/Hotels/anwar_alasel.jpg";
@@ -58,7 +59,7 @@ const HajjPrograms = () => {
         </div>
 
     
-        <div class="hotels">
+        <div className="hotels">
           <h2>الفنادق الخاصة ب البرنامج</h2>
           <div
             id="carouselExampleIndicators"
@@ -147,9 +148,10 @@ const HajjPrograms = () => {
           <div className="videos">
             <video controls src={vidio}></video>
           </div>
-          <div className="booking">
-            <button>احجز رحلتك الآن</button>
-          </div>
+          
+           <div className="book-trip">
+                <button> <Link to={`/RegisterProgramHajj`}>احجز رحلتك الآن</Link> </button>
+            </div>
         </div>
       </div>
     </div>

@@ -112,7 +112,7 @@ const RegisterProgramUmrah = () => {
           Nationality: formData.nationality,
           passport_number: formData.passportNumber,
           passport_photo: formData.passportPhoto,
-          al_photo: formData.alPhoto,
+          almutamir_photo: formData.almutamirPhoto,
           type_room: formData.typeRoom,
           number_bus: formData.numberBus,
           seatNumber: formData.seatNumber,
@@ -241,7 +241,7 @@ const RegisterProgramUmrah = () => {
                         <input
                          type="radio"
                          name="roomPrice" 
-                         value={formData.typeRoom === "single room"} 
+                         value="single room" 
                          onChange={handleChange}
                         />
                     <span className="checkmark"></span>
@@ -251,7 +251,7 @@ const RegisterProgramUmrah = () => {
                        <input
                          type="radio"
                          name="roomPrice" 
-                         value={formData.typeRoom === "double room"} 
+                         value="double room" 
                          onChange={handleChange}
                         />
                     <span className="checkmark"></span>
@@ -261,7 +261,7 @@ const RegisterProgramUmrah = () => {
                         <input
                          type="radio"
                          name="roomPrice" 
-                         value={formData.typeRoom === "triple room"} 
+                         value="triple room"
                          onChange={handleChange}
                         />
                     <span className="checkmark"></span>
@@ -278,7 +278,7 @@ const RegisterProgramUmrah = () => {
                         <input
                          type="radio" 
                          name="paymentMethod" 
-                         value={formData.paymentMethod === "electronic"} 
+                         value="electronic" 
                          onChange={handleChange}
                          />
                     <span className="checkmark"></span>
@@ -288,7 +288,7 @@ const RegisterProgramUmrah = () => {
                         <input
                          type="radio" 
                          name="paymentMethod" 
-                         value={formData.paymentMethod === "cash"} 
+                         value="cash"
                          onChange={handleChange}
                          />
                     <span className="checkmark"></span>

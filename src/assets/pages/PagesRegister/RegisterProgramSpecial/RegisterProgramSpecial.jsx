@@ -6,7 +6,11 @@ import { MdEmojiTransportation } from "react-icons/md";
 import axios from 'axios';
 
 const RegisterProgramSpecial = () => {
-
+    
+    const [inMakaaHotel,setInMakaaHotel] = useState([{}]);
+    const [inMadenaHotel,setInMadenaHotel] = useState([]);
+    console.log(inMakaaHotel);
+    console.log(inMadenaHotel);
     const [formData, setFormData] = useState({
         "Airline": {},
         "Date_Travel": "2024-06-04",
@@ -32,6 +36,21 @@ const RegisterProgramSpecial = () => {
         paymentMethod: "string",
         verification: true
     });
+
+    useEffect(() =>{
+      const fetchData = async () => {
+        try {
+           const allHotels = await axios.get("https://officealhajandalumrah.adaptable.app/Hotel");
+           const inMakaaHotels = allHotels.data.filter( inMakaHotel => inMakaHotel.location === "مكة المكرمة");
+           setInMakaaHotel(inMakaaHotels)
+           const inMadenaHotels = allHotels.data.filter( inMadenaHotel => inMadenaHotel.location === "المدينة المنورة");
+           setInMadenaHotel(inMadenaHotels)
+          } catch (error) {
+            console.error('Error fetching hotel data:', error);
+        }
+    };
+    fetchData();
+    },[])
 
     const handleChangeImage = async (e) => {
         const { name, files } = e.target;
@@ -100,7 +119,7 @@ const RegisterProgramSpecial = () => {
             Verification: formDataMutamir.verification,
         };
         console.log(dataMutamir);
-        try {
+        try {   
             const responseProgramSpecial = await axios.post('https://officealhajandalumrah.adaptable.app/program-umrah-special', dataProgramSpecial, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -111,6 +130,8 @@ const RegisterProgramSpecial = () => {
                 'Content-Type': 'application/json',
             },
         });
+            console.log(dataProgramSpecial);
+            console.log('Data submitted successfully:', responseProgramSpecial.data);
             console.log('Data submitted successfully:', responseMutamir.data);
             // window.location.reload();
         } catch (error) {
@@ -306,10 +327,15 @@ const RegisterProgramSpecial = () => {
                 {selectedPosition === "inMakaa" && (
                     <div className='makaa-hotel'>
                         <select name="makaa-hotel">
-                            <option value="anwar alasel">انوار الاصيل</option>
-                            <option value=" loloa alrean">لؤلؤة الريان </option>
-                            <option value="violet ">فيوليت </option>
-                            <option value="emare grand ">ايمار جراند </option>
+                          {inMakaaHotel.length > 0 ? (
+                             inMakaaHotel.map((hotel, index) => (
+                             <option key={index} value={hotel.name}>
+                                 {hotel.name}
+                            </option>
+                           ))
+                           ) : (
+                           <option>لا توجد فنادق في مكة المكرمة</option>
+                             )}
                         </select>
                     </div>
                 )}
@@ -321,9 +347,15 @@ const RegisterProgramSpecial = () => {
                 {selectedPosition === "inMadena" && (
                     <div className='madena-hotel'>
                         <select name="madena-hotel">
-                            <option value="nusuk alhegra "> نسك الهجرة</option>
-                            <option value="  awrgoan rose"> اورجوان روز  </option>
-                            <option value="rose almase ">روز الماسي </option>
+                            {inMadenaHotel.length > 0 ? (
+                             inMadenaHotel.map((hotel, index) => (
+                             <option key={index} value={hotel.name}>
+                                 {hotel.name}
+                            </option>
+                           ))
+                           ) : (
+                           <option>لا توجد فنادق في المدينة المنورة</option>
+                             )}
                         </select>
                     </div>
                 )}
@@ -334,7 +366,7 @@ const RegisterProgramSpecial = () => {
                         <input
                          type="radio"
                          name="typeRoom" 
-                         value={formDataMutamir.typeRoom === "single room"} 
+                         value="single room" 
                          onChange={handleChangeDataMutamir}
                         />
                     <span className="checkmark"></span>
@@ -344,7 +376,7 @@ const RegisterProgramSpecial = () => {
                        <input
                          type="radio"
                          name="typeRoom" 
-                         value={formDataMutamir.typeRoom === "double room"} 
+                         value="double room"
                          onChange={handleChangeDataMutamir}
                         />
                     <span className="checkmark"></span>
@@ -354,7 +386,7 @@ const RegisterProgramSpecial = () => {
                         <input
                          type="radio"
                          name="typeRoom" 
-                         value={formDataMutamir.typeRoom === "triple room"} 
+                         value="triple room"
                          onChange={handleChangeDataMutamir}
                         />
                     <span className="checkmark"></span>
@@ -370,7 +402,7 @@ const RegisterProgramSpecial = () => {
                         <input
                          type="radio" 
                          name="paymentMethod" 
-                         value={formDataMutamir.paymentMethod === "electronic"} 
+                         value="electronic"
                          onChange={handleChangeDataMutamir}
                          />
                     <span className="checkmark"></span>
@@ -380,7 +412,7 @@ const RegisterProgramSpecial = () => {
                         <input
                          type="radio" 
                          name="paymentMethod" 
-                         value={formDataMutamir.paymentMethod === "cash"} 
+                         value="cash" 
                          onChange={handleChangeDataMutamir}
                          />
                     <span className="checkmark"></span>
