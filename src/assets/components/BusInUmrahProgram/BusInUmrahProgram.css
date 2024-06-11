@@ -1,0 +1,16 @@
+.bus-in-umrah-program img{
+    width: 100%;
+}
+.busCompany-img{
+    background-image: url(../../images/busCompany.jpg);
+    background-size: 100% 100%; 
+    height: 200px;
+    padding: 40px;
+    
+}
+.busCompany-img h1{
+    background-color: black;
+    width: fit-content;
+    margin-left: 50px;
+    padding: 10px;
+}
