@@ -149,10 +149,11 @@ const HajjPrograms = () => {
             <video controls src={vidio}></video>
           </div>
           
-           <div className="book-trip">
-                <button> <Link to={`/RegisterProgramHajj`}>احجز رحلتك الآن</Link> </button>
-            </div>
         </div>
+        
+        <div className="book-trip">
+                <button > <Link to={`/RegisterProgramHajj`}>احجز رحلتك الآن</Link> </button>
+            </div>
       </div>
     </div>
   )
