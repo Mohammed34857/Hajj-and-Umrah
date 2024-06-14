@@ -91,37 +91,6 @@ b {
     margin-left: 15px;
     align-items: center;
 }
-.butt-bus{
-    display: flex;
-    width: 100%;
-    justify-content: center;
-}
-
-.butt-bus button {
-    border: none;
-    padding: 5px;
-    margin: 10px;
-    border-radius: 50%;
-    width: 280px;
-    height: 50px;
-    background-color: #E09814;
-    font-size: 15px;
-    font-weight: 800;
-    margin-top: 30px;
-}
-
-.butt-bus button:hover {
-    border: none;
-    padding: 8px;
-    margin: 15px;
-    border-radius: 10px;
-    width: 290px;
-    height: 50px;
-    background-color: #E09814;
-    font-size: 18px;
-    font-weight: 800;
-
-}
 
 .book-trip {
     height: 90px;

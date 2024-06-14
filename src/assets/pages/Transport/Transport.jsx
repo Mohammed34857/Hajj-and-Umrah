@@ -37,7 +37,7 @@ const Transport=() => {
           {trans?.[0] && <img src={trans[0].urlImageCompany} alt="" />}
           </div>
             {trans?.map((transport) => (
-                <div className='information-transport' key={transport._id}>
+                <div className='information-transport' id={`transport-${transport._id}`} key={transport._id}>
                     <SectionTransport link={transport.link} companyName={transport.name_company}  goals={transport.goals_company} typeBus={transport.type_bus}  ImageSlider={transport.urlImage} Services={transport.Services} />   
                 </div>
             ))}

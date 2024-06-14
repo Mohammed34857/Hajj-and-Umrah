@@ -86,12 +86,24 @@ const UmrahPrograms = () => {
                     </div>
                     <div className='circle-trip'>
                         <div className='circle'>03</div>
+                        <div className='trip-detail'> سعر <span>{programUmrah.price1}</span> </div>
+                    </div>
+                    <div className='circle-trip'>
+                        <div className='circle'>04</div>
+                        <div className='trip-detail'> سعر <span>{programUmrah.price2}</span> </div>
+                    </div>
+                    <div className='circle-trip'>
+                        <div className='circle'>05</div>
+                        <div className='trip-detail'> سعر <span>{programUmrah.price3}</span> </div>
+                    </div>
+                    {/* <div className='circle-trip'>
+                        <div className='circle'>03</div>
                         <div className='trip-detail'> - زيارة الأماكن المباركة في الحرمين الشريفين برفقة مرشد </div>
                     </div>
                     <div className='circle-trip'>
                         <div className='circle'>04</div>
                         <div className='trip-detail'> السفر براً بحافلات سعودية حديثة ضمن حافلات VIP </div>
-                </div>
+                     </div> */}
             </div>
           </div>
             </div>
@@ -107,11 +119,6 @@ const UmrahPrograms = () => {
                 {content}
 
             </div>
-
-            <div className="butt-bus">
-                <button></button>
-            </div>
-
             <div className="book-trip">
                 <button> <Link to={`/RegisterProgramUmrah/${id}`}>احجز رحلتك الآن</Link> </button>
             </div>
