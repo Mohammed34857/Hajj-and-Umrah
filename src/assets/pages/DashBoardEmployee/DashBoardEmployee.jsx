@@ -10,6 +10,9 @@ import { ImLibrary } from "react-icons/im";
 import { ImBubbles4 } from "react-icons/im";
 import { ImAirplane } from "react-icons/im";
 import { FaRightFromBracket } from "react-icons/fa6";
+import { FaTrashAlt } from "react-icons/fa";
+import { FaPencilAlt } from "react-icons/fa";
+import { IoPersonAddOutline } from "react-icons/io5";
 
 const DashBoardEmployee = () => {
   return (
@@ -76,7 +79,7 @@ const DashBoardEmployee = () => {
                   الرسائل الواردة
                 </li>
               </a>
-              <a href="">
+              <a href="https://web.whatsapp.com/">
                 <li>
                   <i>
                     {" "}
@@ -105,7 +108,7 @@ const DashBoardEmployee = () => {
           </div>
           <div class="alert " role="alert">
             <h5>
-            عدد برامج العمرة خلال السنوات <br />
+              عدد برامج العمرة خلال السنوات <br />
               2022-2024
             </h5>
             <p> 15 برنامج</p>
@@ -281,8 +284,8 @@ const DashBoardEmployee = () => {
                     <input type="text" id="full_travel1" class="full_travel" />
                   </td>
                   <td>
-                    <i class="fa fa-pen"></i>
                     <button id="add1" class="add">
+                      <IoPersonAddOutline />
                       add
                     </button>
                   </td>
@@ -374,8 +377,8 @@ const DashBoardEmployee = () => {
                     <input type="text" id="full_travel1" class="full_travel" />
                   </td>
                   <td>
-                    <i class="fa fa-pen"></i>
                     <button id="edit1" class="edit">
+                      <FaPencilAlt />
                       edit
                     </button>
                   </td>
@@ -467,8 +470,8 @@ const DashBoardEmployee = () => {
                     <input type="text" id="full_travel1" class="full_travel" />
                   </td>
                   <td>
-                    <i class="fa fa-trash"></i>
                     <button id="delete1" class="delete">
+                      <FaTrashAlt />
                       delete
                     </button>
                   </td>
@@ -488,8 +491,8 @@ const DashBoardEmployee = () => {
                   <th> التأشيرة</th>
                   <th>نمط الدفع</th>
                   <th>نمط الغرفة</th>
-                  <th>رقم المقعد</th>
-                  <th>رقم الباص</th>
+                  <th> رقم المقعد في الطائرة</th>
+                  <th>المرافق</th>
                   <th>اسم البرنامج</th>
                   <th>صورة شخصية</th>
                   <th>صورة جواز السفر </th>
@@ -535,8 +538,8 @@ const DashBoardEmployee = () => {
                   <th> التأشيرة</th>
                   <th>نمط الدفع</th>
                   <th>نمط الغرفة</th>
-                  <th>رقم المقعد</th>
-                  <th>رقم الباص</th>
+                  <th> رقم المقعد في الطائرة</th>
+                  <th>المرافق</th>
                   <th>اسم البرنامج</th>
                   <th>صورة شخصية</th>
                   <th>صورة جواز السفر </th>
@@ -640,8 +643,8 @@ const DashBoardEmployee = () => {
                     <input type="text" id="full_travel1" class="full_travel" />
                   </td>
                   <td>
-                    <i class="fa fa-pen"></i>
                     <button id="add1" class="add">
+                      <IoPersonAddOutline />
                       add
                     </button>
                   </td>
@@ -732,8 +735,8 @@ const DashBoardEmployee = () => {
                     <input type="text" id="full_travel1" class="full_travel" />
                   </td>
                   <td>
-                    <i class="fa fa-pen"></i>
                     <button id="edit1" class="edit">
+                      <FaPencilAlt />
                       edit
                     </button>
                   </td>
@@ -825,8 +828,8 @@ const DashBoardEmployee = () => {
                     <input type="text" id="full_travel1" class="full_travel" />
                   </td>
                   <td>
-                    <i class="fa fa-trash"></i>
                     <button id="delete1" class="delete">
+                      <FaTrashAlt />
                       delete
                     </button>
                   </td>
@@ -888,7 +891,7 @@ const DashBoardEmployee = () => {
                 تاريخ السفر <span>11/5/2024</span> السفر برا
               </p>
               <p>
-                فنادق مكة المكرمة : <span>اعمار غراند</span> <span>فيوليت</span>
+                فنادق مكة المكرمة : <span>اعمار غراند</span>{" "}
                 <span>انوار الاصيل </span>
               </p>
 
@@ -897,9 +900,26 @@ const DashBoardEmployee = () => {
                 <span>نجوم المدينة</span> <br />
                 <span>ارجوان روز</span>
               </p>
-
               <button class="update">تعديل</button>
               <button class="delet">حذف</button>
+
+              <button
+                class="btn btn-bus"
+                type="button"
+                data-toggle="collapse"
+                data-target="#collapseExample"
+                aria-expanded="false"
+                aria-controls="collapseExample"
+              >
+                اضافة باص
+              </button>
+
+              <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                  <input type="number" placeholder="رقم الباص" />
+                  <input type="text" placeholder="اسم الشركة" />
+                </div>
+              </div>
             </div>
           </div>
 
@@ -972,6 +992,24 @@ const DashBoardEmployee = () => {
                   <td></td>
                   <td></td>
                 </tr>
+              </table>
+            </div>
+            <div class="buss">
+              <h4>الباصات الخاصة بالبرنامج</h4>
+              <table>
+                <thead>
+                  <td>اسم الشركة</td>
+                  <td>رقم الباص</td>
+                </thead>
+                <tr>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                </tr>
+             
               </table>
             </div>
             <button className="add-btn">اضافة </button>
@@ -1116,6 +1154,7 @@ const DashBoardEmployee = () => {
                 </tr>
               </table>
             </div>
+           
             <button className="add-btn">اضافة </button>
           </div>
         </div>
@@ -1305,8 +1344,20 @@ const DashBoardEmployee = () => {
 
         <div class="seting">
           <h2>الاعدادات</h2>
-          <div>
-            <h3>اعادة نعيين كلمة المرور</h3>
+          <div class="seting-detil">
+            <h3>:اعادة تعيين كلمة المرور</h3>
+          <div className="input-box seting-box1">
+              <input type="password" className="input-filed" placeholder=" كلمة السر الحالية" />
+            </div>
+            <div className="input-box">
+              <input type="password" className="input-filed" placeholder="كلمة السر الجديدة" />
+            </div>
+            <div className="input-box">
+              <input type="password" className="input-filed" placeholder="تاكيد كلمة المرور" />
+            </div>
+            <div className="input-box">
+              <input type="submit" className="submit" value="تغيير كلمة المرور" />
+            </div>
           </div>
         </div>
       </div>
