@@ -105,7 +105,7 @@ const DashBoardEmployee = () => {
           </div>
           <div class="alert " role="alert">
             <h5>
-              عدد برامج العمرة خلال السنواتل <br />
+            عدد برامج العمرة خلال السنوات <br />
               2022-2024
             </h5>
             <p> 15 برنامج</p>

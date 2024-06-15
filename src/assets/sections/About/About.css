@@ -91,6 +91,17 @@
     margin-left: 250px;
     margin-top: -200px;
 }
-@media (max-width:1050px) {
-   
+@media (max-width:760px) {
+    .about{
+        display: block;
+    }
+    .photo img{
+   position: absolute;
+   top: -300px;
+
+    }
+    .photo{
+        margin-bottom: 100px;
+        position: relative;
+    }
 }
