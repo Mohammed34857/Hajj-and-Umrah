@@ -1,10 +1,25 @@
-import React from 'react'
+import React ,{useState,useEffect} from 'react';
 import './HajjPrograms.css'
 import { CardHajj } from '../../components'
+import axios from 'axios';
 
 const HajjPrograms = () => {
 
-   
+
+   const [hajjProgramsData, setHajjProgramsData] = useState([]);
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get("https://officealhajandalumrah.adaptable.app/program-al-haj");
+          setHajjProgramsData(response.data);
+         
+        } catch (error) {
+          console.error('Error fetching hajj Programs data:', error);
+        }
+      };
+      fetchData();
+    }, []);
+
 
   return (
     <>
@@ -15,9 +30,10 @@ const HajjPrograms = () => {
       
     </div>
     <div className='hajj-programs'> 
-      <CardHajj />
-    
-    </div>
+       {hajjProgramsData.length > 0 && (
+          <CardHajj program1={hajjProgramsData[0]} program2={hajjProgramsData[1]} />
+        )}  
+          </div>
     <div className="fixed">
   </div>
     </>

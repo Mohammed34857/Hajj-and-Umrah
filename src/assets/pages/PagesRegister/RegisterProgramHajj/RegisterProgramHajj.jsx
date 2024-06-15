@@ -5,7 +5,72 @@ import { MdEmojiTransportation , MdOutlineHealthAndSafety , MdOutlineAirplanemod
 
 const RegisterProgramHajj = () => {
 
- 
+    const [formData, setFormData] = useState({
+       id_ProgAlHajHotel: "string",
+       full_name: "string",
+       name_father: "string",
+       name_mother: "string",
+       email: "string",
+       phone_number: 0,
+       birth: "2024-06-14T23:23:19.764Z",
+       gender: "string",
+       Health_status: "string",
+       companion1: "string",
+       companion2: "string",
+       silat_alqaraba: "string",
+       iscompanion: true,
+       Nationality: "string",
+       passport_number: "string",
+       passport_photo: {},
+       alhaj_photo: {},
+       payment_method: "string",
+       Verification: true,
+       visa_photo: {}
+    });
+    const [companion1, setCompanion1] = useState({
+      id_ProgAlHajHotel: "string",
+       full_name: "string",
+       name_father: "string",
+       name_mother: "string",
+       email: "string",
+       phone_number: 0,
+       birth: "2024-06-14T23:23:19.764Z",
+       gender: "string",
+       Health_status: "string",
+       companion1: "string",
+       companion2: "string",
+       silat_alqaraba: "string",
+       iscompanion: true,
+       Nationality: "string",
+       passport_number: "string",
+       passport_photo: {},
+       alhaj_photo: {},
+       payment_method: "string",
+       Verification: true,
+       visa_photo: {}
+    });
+    const [companion2, setCompanion2] = useState({
+      id_ProgAlHajHotel: "string",
+       full_name: "string",
+       name_father: "string",
+       name_mother: "string",
+       email: "string",
+       phone_number: 0,
+       birth: "2024-06-14T23:23:19.764Z",
+       gender: "string",
+       Health_status: "string",
+       companion1: "string",
+       companion2: "string",
+       silat_alqaraba: "string",
+       iscompanion: true,
+       Nationality: "string",
+       passport_number: "string",
+       passport_photo: {},
+       alhaj_photo: {},
+       payment_method: "string",
+       Verification: true,
+       visa_photo: {}
+    });
 
   const [BirthDateAmenities, setBirthDateAmenities] = useState('');
   const [ErrorAmenities, setErrorAmenities] = useState('');
@@ -45,19 +110,106 @@ const RegisterProgramHajj = () => {
     }
     setErrorAmenities2(''); 
   }
-
- 
- 
-
     const [selectedHealthState, setSelectedHealthState] = useState(null);
     const handleHealthStateChange = (HealthState) => {
         setSelectedHealthState(HealthState);
     };
 
     
+
+    const handleChangeImage = async (e) => {
+      const { name, files } = e.target;
+      if (files && files[0]) {
+          const formData = new FormData();
+          formData.append('file', files[0]);
+          try {
+              const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formData, {
+                  headers: {
+                      'Content-Type': 'multipart/form-data',
+                  },
+              });
+              const imagePath = response.data;
+              setFormData((prevFormData) => ({
+                  ...prevFormData,
+                  [name]: imagePath,
+              }));
+          } catch (error) {
+              console.error('Error uploading image:', error);
+          }
+      }
+    };
+       
+    const handleChange = (e) => {
+      const { name, value, files } = e.target;
+      if (files) {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          [name]: files[0]
+        }));
+      } else {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          [name]: value
+        }));
+      }
+    };
+  
+    const handleCompanionChange = (e, companion, setCompanion) => {
+      const { name, value, files } = e.target;
+      if (files) {
+        setCompanion((prevData) => ({
+          ...prevData,
+          [name]: files[0]
+        }));
+      } else {
+        setCompanion((prevData) => ({
+          ...prevData,
+          [name]: value
+        }));
+      }
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const data = {
+          id_ProgAlHajHotel:formData.id_ProgAlHajHotel,
+          full_name: formData.full_name,
+          name_father: formData.name_father,
+          name_mother: formData.name_mother,
+          email: formData.email,
+          phone_number: Number(formData.phone_number),
+          birth: formData.birth,
+          gender: formData.gender,
+          Health_status:formData.Health_status,
+          companion1: formData.companion1,
+          companion2: formData.companion2,
+          silat_alqaraba: formData.silat_alqaraba,
+          iscompanion: formData.iscompanion,
+          Nationality: formData.Nationality,
+          passport_number: formData.passport_number,
+          passport_photo: formData.passport_photo,
+          alhaj_photo: formData.alhaj_photo,
+          payment_method: formData.payment_method,
+          Verification: formData.Verification,
+          visa_photo: formData.visa_photo,
+        };
+      console.log(data);
+        try {
+            const response = await axios.post('https://officealhajandalumrah.adaptable.app/al-hajj', data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            console.log('Data submitted successfully:', response.data);
+            window.location.reload();
+        } catch (error) {
+            console.error('Error submitting data:', error);
+        }
+    };
+
   return (
     <div className='register-program-hajj'>
-        <form action="post" onSubmit={validateAge}>
+        <form  onSubmit={handleSubmit}>
         <div className="container">
            <h1> انضم إلى قافلة عباد الرحمن في برنامج الحج </h1>
             <div className="hajj-register">
@@ -65,21 +217,21 @@ const RegisterProgramHajj = () => {
               <table className='table1'>
                 <tbody>
                 <tr>
-                    <th><input type="text" name='name'  required placeholder=" أدخل الأسم "/></th>
-                    <th><label> : الاسم</label></th>
+                  <th><input type="text" name='full_name' value={formData.full_name} onChange={handleChange} required placeholder=" أدخل الأسم " /></th>
+                  <th><label> : الاسم</label></th>
                 </tr>
                 <tr>
-                    <th><input type="email" name='email'  placeholder=" ادخل البريد الالكتروني "/></th>
-                    <th><label> : البريد الالكتروني</label></th>
+                  <th><input type="email" name='email' value={formData.email} onChange={handleChange} placeholder=" ادخل البريد الالكتروني " /></th>
+                  <th><label> : البريد الالكتروني</label></th>
                 </tr>
                 <tr>
-                    <th><input type="number" name='phone'  placeholder=" ادخل رقم الهاتف "/></th>
-                    <th><label> : رقم الهاتف</label></th>
-                </tr>  
+                  <th><input type="number" name='phone_number' value={formData.phone_number} onChange={handleChange} placeholder=" ادخل رقم الهاتف " /></th>
+                  <th><label> : رقم الهاتف</label></th>
+                </tr>
                 <tr>
-                    <th><input type="date" name='birthDate' value={birthdate} onChange={(e) => setBirthdate(e.target.value)} placeholder=" ادخل  تاريخ ميلادك "/></th>
-                    <th><label> :  تاريخ الميلاد</label></th>
-                </tr> 
+                  <th><input type="date" name='birth' value={birthdate} onChange={(e) => setBirthdate(e.target.value)} placeholder=" ادخل  تاريخ ميلادك " /></th>
+                  <th><label> :  تاريخ الميلاد</label></th>
+                </tr>
                 <tr>
                     <td colSpan="2">{error && <span style={{ color: '#fff' }}>{error}</span>}</td>
                 </tr>

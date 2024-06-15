@@ -1,137 +1,116 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./LogInDashBoard.css";
-import { FaUserPlus } from "react-icons/fa";
-import { FaUserTie } from "react-icons/fa";
-import { CiLock } from "react-icons/ci";
+import { FaUserPlus, FaUserTie } from "react-icons/fa";
+
 const LogInDashBoard = () => {
-  // var a = document.getElementById("loginbtn");
-  // var b = document.getElementById("sign-btn");
-  // var x = document.getElementById("rejister");
-  // var y = document.getElementById("login");
+  useEffect(() => {
+    const loginBtn = document.getElementById("loginbtn");
+    const signUpBtn = document.getElementById("sign-btn");
+    const registerContainer = document.getElementById("rejister");
+    const loginContainer = document.getElementById("login");
 
-  // function login() {
-  //   x.style.left = " 4px ";
-  //   y.style.right = " -520px ";
-  //   a.className += " whit-sign ";
-  //   b.className = " sign-in ";
-  //   x.style.opacity = 1;
+    const login = () => {   
+      registerContainer.style.opacity = 0;
+      loginContainer.style.opacity = 1;
+    };
 
-  //   y.style.opacity = 0;
-  // }
+    const register = () => {
+      registerContainer.style.opacity = 1;
+      loginContainer.style.opacity = 0;
+    };
 
-  // function registar() {
-  //   x.style.left = " -520px ";
-  //   y.style.right = " 4px ";
-  //   a.className += " whit-sign ";
-  //   b.className = " sign-in ";
-  //   x.style.opacity = 0;
+    loginBtn.addEventListener("click", login);
+    signUpBtn.addEventListener("click", register);
 
-  //   y.style.opacity = 1;
-  // }
+   
+  }, []);
 
   return (
     <div className="login-dash-board">
-      <div class="btn-sign">
-        <button class="sign  sign-in  whit-sign " id="loginbtn" onclick="{login()}">
+      <div className="btn-sign">
+        <button className="sign sign-in whit-sign" id="loginbtn">
           sign-in
         </button>
-        <button class="sign  sign-up" id="sign-btn" onclick="{registar()}">
+        <button className="sign sign-up" id="sign-btn">
           sign-up
         </button>
       </div>
 
-      <div class="form-box">
-{/* login */}
-      <div class="login-continer" id="login">
-          <div class="top">
+      <div className="form-box">
+        {/* login */}
+        <div className="login-continer" id="login">
+          <div className="top">
             <span>
-              <a href="#"  onclick="{registar()}">
             
-              </a>
             </span>
-            <i><FaUserTie /></i>
+            <i>
+              <FaUserTie />
+            </i>
             <h1>تسجيل الدخول</h1>
           </div>
-
-          <div class="two-forms">
-         
-            <div class="input-box">
-                <input type="email" class="input-filed" placeholder="البريد الالكتروني او اسم المستخدم"/>
+          <div className="two-forms">
+            <div className="input-box">
+              <input type="email" className="input-filed" placeholder="البريد الالكتروني او اسم المستخدم" />
             </div>
-            <div class="input-box">
-
-                <input type="password" class="input-filed" placeholder="كلمة السر"    />
-                
+            <div className="input-box">
+              <input type="password" className="input-filed" placeholder="كلمة السر" />
             </div>
-            <div class="input-box">
-                <input type="submit" class="submit " value="تسجيل الدخول"/>
+            <div className="input-box">
+              <input type="submit" className="submit" value="تسجيل الدخول" />
             </div>
-
-
-            <div class="two-col">
-                <div class="one">
-                    <input type="checkbox" id="login-check"/>
-                    <label for="login-check">remember me</label>
-                </div>
-                <div class="two">
-                    <label> <a href="#">forgot password?</a></label>
-                </div>
-                </div>
-
-                
+            <div className="two-col">
+              <div className="one">
+                <input type="checkbox" id="login-check" />
+                <label htmlFor="login-check">remember me</label>
+              </div>
+              <div className="two">
+                <label>
+                  <a href="#">forgot password?</a>
+                </label>
+              </div>
             </div>
-
-
-
+          </div>
         </div>
         {/* register */}
-        <div class="register-continer" id="rejister">
-          <div class="top">
+        <div className="register-continer" id="rejister">
+          <div className="top">
             <span>
-              <a href="#" onclick="{login()}">
-         
-              </a>
+            
             </span>
-            <i><FaUserPlus /></i>
+            <i>
+              <FaUserPlus />
+            </i>
             <h1>انشاء حساب</h1>
           </div>
-
-          <div class="two-forms">
-          <div class="input-box">
-                <input type="text" class="input-filed" placeholder="الاسم الاول"/>
+          <div className="two-forms">
+            <div className="input-box">
+              <input type="text" className="input-filed" placeholder="الاسم الاول" />
             </div>
-            <div class="input-box">
-                <input type="text" class="input-filed" placeholder="الاسم الاخير"/>
+            <div className="input-box">
+              <input type="text" className="input-filed" placeholder="الاسم الاخير" />
             </div>
-            <div class="input-box">
-                <input type="email" class="input-filed" placeholder="البريد الالكتروني "/>
+            <div className="input-box">
+              <input type="email" className="input-filed" placeholder="البريد الالكتروني" />
             </div>
-            <div class="input-box">
-                <input type="password" class="input-filed" placeholder="كلمة السر"/>
+            <div className="input-box">
+              <input type="password" className="input-filed" placeholder="كلمة السر" />
             </div>
-            <div class="input-box">
-                <input type="submit" class="submit " value="انشاء حساب"/>
+            <div className="input-box">
+              <input type="submit" className="submit" value="انشاء حساب" />
             </div>
-
-
-            <div class="two-col">
-                <div class="one">
-                    <input type="checkbox" id="register-check"/>
-                    <label for="register-check">remember me</label>
-                </div>
-                <div class="two">
-                    <label> <a href="#">terms & condition</a></label>
-                </div>
-                </div>
-
-
+            <div className="two-col">
+              <div className="one">
+                <input type="checkbox" id="register-check" />
+                <label htmlFor="register-check">remember me</label>
+              </div>
+              <div className="two">
+                <label>
+                  <a href="#">terms & condition</a>
+                </label>
+              </div>
             </div>
-
-
-
-
-
+          </div>
         </div>
       </div>
     </div>

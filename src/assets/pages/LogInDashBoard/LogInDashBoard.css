@@ -1,12 +1,10 @@
 .login-dash-board {
-    background-image: url(../../images/sign/1715458080642.jpg);
-    height: 800px;
-    background-repeat: no-repeat;
-    /* margin: auto; */
-   justify-content: center;
-   align-items: center;
- 
-  }
+  background-image: url(../../images/sign/1715458080642.jpg);
+  height: 800px;
+  background-repeat: no-repeat;
+  justify-content: center;
+  align-items: center;
+}
 
 .btn-sign {
   width: 40%;
@@ -14,9 +12,8 @@
   text-align: right;
   margin-left: 50%;
 }
-.top i{
+.top i {
   font-size: 25px;
-  
 }
 .btn-sign .sign {
   width: 150px;
@@ -39,12 +36,9 @@
 .btn-sign .sign-in:hover {
   background-color: rgba(165, 156, 125, 0.5);
 }
-
 .btn-sign .sign-up:hover {
   background-color: rgba(253, 228, 146, 0.411);
 }
-
-
 
 .form-box {
   position: relative;
@@ -60,25 +54,19 @@
   margin-top: 20px;
   backdrop-filter: blur(10px);
   box-shadow: 0px 0px 20px rgb(255, 247, 247);
-border-radius: 25%;
-
-  
+  border-radius: 25%;
 }
 
-.register-continer {
-  width: 500px;
-  display: flex;
-  flex-direction: column;
-  transition: 0.5s ease-in-out;
-  left: 4px;
-}
+.register-continer,
 .login-continer {
-    position: absolute;
-    right: -520px;
+  position: absolute;
   width: 500px;
   display: flex;
   flex-direction: column;
   transition: 0.5s ease-in-out;
+}
+.login-continer{
+  opacity: 0;
 }
 
 .top h1 {
@@ -86,7 +74,6 @@ border-radius: 25%;
   font-size: 30px;
   text-align: center;
   padding: 10px 0 30px 0;
-
 }
 
 .input-filed {
@@ -102,10 +89,12 @@ border-radius: 25%;
   transition: 0.2s ease;
   margin: 10px;
 }
+
 .input-filed:hover,
 .input-filed:focus {
   background-color: rgba(255, 255, 255, 0.25);
 }
+
 ::-webkit-input-placeholder {
   color: rgb(15, 15, 15);
   text-align: right;
@@ -131,13 +120,14 @@ border-radius: 25%;
   box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.2);
   color: black;
 }
+
 .two-col {
   display: flex;
   justify-content: space-between;
   color: rgb(34, 34, 34);
   margin-top: 10px;
-
 }
+
 .two-col .one {
   display: flex;
   gap: 5px;

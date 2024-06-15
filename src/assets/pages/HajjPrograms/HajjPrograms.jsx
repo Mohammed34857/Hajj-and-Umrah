@@ -1,19 +1,57 @@
-import React from "react";
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams ,Link } from 'react-router-dom';
+import { ImSpinner } from 'react-icons/im';
 import "./HajjPrograms.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import imege1 from "../../images/Hotels/anwar_alasel.jpg";
 import imege2 from "../../images/Hotels/loloat_alrayyan.jpg";
 import vidio from "../../images/How_to_Perform_Hajj___Islamweb___دليل_الحج___شرح_خطوات_أداء_مناسك_الحج___إسلام_و.mp4";
+import axios from 'axios';
 
 
 const HajjPrograms = () => {
+
+  const {id} = useParams();
+  const [programHajj, setProgramHajj] = useState({});
+  const [hotel, setHotel] = useState([]);
+  const [loading , setLoading] = useState(true);
+  console.log(hotel);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const program_Hajj = await axios.get(`https://officealhajandalumrah.adaptable.app/program-al-haj/${id}`).then(response => response.data);
+        setProgramHajj(program_Hajj);
+        const AllProgramHajjHotel = await axios.get('https://officealhajandalumrah.adaptable.app/prog-al-haj-hotel').then(response => response.data);
+        const ProgramHajj = AllProgramHajjHotel.filter((program) => program.id_ProgramAlHaj === id ) ;
+        const hotelRoom = await Promise.all(ProgramHajj.map((HotelRoomId) => {
+          return axios.get(`https://officealhajandalumrah.adaptable.app/hotel-room/${HotelRoomId.id_HotelRoom}`).then(response => response.data);
+        })); 
+        // const hotels = await Promise.all(hotelRoom.map(async (hotelRoom) => {
+        //   if (hotelRoom.id_hotel) {
+        //     return await axios.get(`https://officealhajandalumrah.adaptable.app/Hotel/${hotelRoom.id_hotel}`).then(response => response.data);
+        //   }
+        //   return null;
+        // }));
+        // setHotel(hotels.filter(h => h !== null));
+        setHotel(hotelRoom);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching Hajj Programs data:', error);
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [id]);
+
+  if (loading) {
+    return <div className='loading'> Loading... <ImSpinner /></div>;
+ }
+
   return (
     <div className="Hajj-programs">
       <div className="par">
         <div className="par1 ">
-          <h1>برنامج الحج الاكبر</h1>
-
+          <h1> {programHajj[0].name_program} </h1>
           <p className="my-4">
             تتشرف إدارة مجموعة اجنحة الضيافة بإشراف مديرها الحاج هشام محمد نادر
             عنبي وكادرها الديني والإداري بتقديم افضل برامج للحج عام 1445

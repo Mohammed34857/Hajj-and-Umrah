@@ -3,13 +3,14 @@ import './CardHajj.css'
 import { ImAirplane , ImHeart } from "react-icons/im";
 import { FaHotel ,FaAppleAlt } from "react-icons/fa";
 import { Link } from 'react-router-dom';
-const CardHajj = () => {
+const CardHajj = ({ program1, program2 }) => {
+
   return (
     <div className='card-hajj-item   '>
         <div className='card-hajj-program card-news'>
         <div className="left">
-            <h2>برنامج الحج الاكبر</h2>
-            <span>1445-2024</span>
+            <h2> {program1.name_program} </h2>
+            <span>{program1.Date_Travel_Hijri}</span>
             <p className="my-4"> تتشرف إدارة مجموعة اجنحة الضيافة بإشراف مديرها الحاج هشام محمد نادر عنبي وكادرها الديني والإداري بتقديم افضل برامج الحج 1445</p>
             <ul>
                 <li> ( تاشيرة الحج , تذكرة طيران من مطار دمشق الى مطار جدة وبالعكس )  <i> <ImAirplane /></i></li>
@@ -19,20 +20,22 @@ const CardHajj = () => {
                 <li> (وجبتي فطور وعشاء يوميا لكل حاج) <i ><FaAppleAlt /></i></li>
                 <li> (هدايا ورحلات متنوعة )  <i>  <ImHeart /></i></li>
             </ul>
-            <Link className="btn btn-dark btn-1" to={'/HajjPrograms/'}> تفاصيل البرنامج</Link>
+            <Link className="btn btn-dark btn-1" to={`/HajjPrograms/${program1._id}`}> تفاصيل البرنامج</Link>
           
             <span>الاسعار تبدأ من $4900</span>
        
         </div>
         <div className="right">
+           <img src={program1.image} alt={program1.name_program} />
         </div>
               </div>
               <div className="card2-news">
         <div className="right" >
+           <img src={program2.image} alt={program2.name_program} />
         </div>
         <div className="left">
-            <h2>VIP برنامج الحج </h2>
-            <span>1445-2024</span>
+            <h2> {program2.name_program} </h2>
+            <span>{program2.Date_Travel_Hijri}</span>
             <p className="my-4">تتشرف إدارة مجموعة اجنحة الضيافة بإشراف مديرها الحاج هشام محمد نادر عنبي وكادرها الديني والإداري بتقديم افضل برامج الحج 1445</p>
             <ul>
                 <li> ( تاشيرة الحج , تذكرة طيران من مطار دمشق الى مطار جدة وبالعكس )<i> <ImAirplane /></i></li>
@@ -42,7 +45,7 @@ const CardHajj = () => {
                 <li> (ثلاث وجبات فطور وغداء وعشاء يوميا لكل حاج) <i ><FaAppleAlt /></i></li>
                 <li> (هدايا ورحلات متنوعة ) <i>  <ImHeart /></i></li>
             </ul>
-            <Link className="btn btn-dark btn-1" to={'/HajjPrograms/'}> تفاصيل البرنامج</Link>
+            <Link className="btn btn-dark btn-1" to={`/HajjPrograms/${program2._id}`}> تفاصيل البرنامج</Link>
            
             <span>الاسعار تبدأ من $5000</span>
         </div>
