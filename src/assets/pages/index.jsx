@@ -7,4 +7,5 @@ export {default as RegisterProgramUmrah} from './PagesRegister/RegisterProgramUm
 export {default as RegisterProgramHajj} from './PagesRegister/RegisterProgramHajj/RegisterProgramHajj'
 export {default as RegisterProgramSpecial} from './PagesRegister/RegisterProgramSpecial/RegisterProgramSpecial'
 export {default as DashBoardEmployee} from './DashBoardEmployee/DashBoardEmployee'
+export {default as DashBoardManager} from './DashBoardManager/DashBoardManager'
 export {default as LogInDashBoard} from './LogInDashBoard/LogInDashBoard'

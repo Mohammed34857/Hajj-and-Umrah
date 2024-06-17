@@ -26,14 +26,14 @@ const HajjPrograms = () => {
         const hotelRoom = await Promise.all(ProgramHajj.map((HotelRoomId) => {
           return axios.get(`https://officealhajandalumrah.adaptable.app/hotel-room/${HotelRoomId.id_HotelRoom}`).then(response => response.data);
         })); 
-        // const hotels = await Promise.all(hotelRoom.map(async (hotelRoom) => {
-        //   if (hotelRoom.id_hotel) {
-        //     return await axios.get(`https://officealhajandalumrah.adaptable.app/Hotel/${hotelRoom.id_hotel}`).then(response => response.data);
-        //   }
-        //   return null;
-        // }));
-        // setHotel(hotels.filter(h => h !== null));
-        setHotel(hotelRoom);
+        const hotels = await Promise.all(hotelRoom.map(async (hotelRoom) => {
+          if (hotelRoom.id_hotel) {
+            return await axios.get(`https://officealhajandalumrah.adaptable.app/Hotel/${hotelRoom.id_hotel}`).then(response => response.data);
+          }
+          return null;
+        }));
+        setHotel(hotels.filter(h => h !== null));
+
         setLoading(false);
       } catch (error) {
         console.error('Error fetching Hajj Programs data:', error);

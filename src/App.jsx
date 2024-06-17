@@ -1,8 +1,9 @@
 import {BrowserRouter as Router , Route , Routes} from 'react-router-dom'
 import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Header , Footer } from './assets/sections'
-import { Home , UmrahPrograms , HajjPrograms , Hotel, Transport , RegisterProgramUmrah , RegisterProgramHajj , RegisterProgramSpecial , DashBoardEmployee , LogInDashBoard} from './assets/pages'
+import { Home , UmrahPrograms , HajjPrograms , Hotel, Transport , RegisterProgramUmrah , RegisterProgramHajj , RegisterProgramSpecial , DashBoardEmployee , DashBoardManager , LogInDashBoard} from './assets/pages'
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
                 <Route path='RegisterProgramHajj/' element={<RegisterProgramHajj/>}/>
                 <Route path='RegisterProgramSpecial/' element={<RegisterProgramSpecial/>}/>        
                 <Route path='DashBoardEmployee/' element={<DashBoardEmployee/>}/>   
+                <Route path='DashBoardManager/' element={<DashBoardManager/>}/>   
                 <Route path='LogInDashBoard/' element={<LogInDashBoard/>}/>       
              </Routes>
            <Footer/>  

@@ -39,7 +39,6 @@ const RegisterProgramUmrah = () => {
             document.getElementById(outputPathId).textContent = filePath;
         };
     };
-
     const fileInputs = [
         { inputId: 'file-img', outputPathId: 'file-path' },
         { inputId: 'passport', outputPathId: 'passport-path' }
@@ -230,7 +229,7 @@ const RegisterProgramUmrah = () => {
                     <option key={index} value={seatNumber}>
                         Seat Number: {seatNumber}
                     </option>
-                    
+   
                 ))}
             </select>
           </div>
