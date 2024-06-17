@@ -129,8 +129,15 @@
     color: black;
     border: none;
     padding: 2px;
+    border: none;
+    background-color: transparent;
   }
   
+.btn-bus{
+  margin-top: 10px;
+  text-align: center;
+   margin-left: 40%;
+}
   .contain-umrah h2 ,.contain-hajj h2 {
     color: #fffefb;
     text-align: center;
@@ -217,7 +224,7 @@
 }
 .prog-add{
   box-shadow: 5px 10px 20px  #a7952dda inset;
-  height: 1000px;
+  height: 1200px;
   width: 70%;
   margin-left: 23%;
   position: relative;
@@ -255,7 +262,7 @@ margin-left: 100px;
  margin-bottom: 100px;
 }
 
-.room td ,.hot td
+.room td ,.hot td ,.buss td
 {
   margin: 5px;
   background: linear-gradient(to left, #68541e, #b49a43c5, #ccba53, #ccaf71);
@@ -266,12 +273,12 @@ font-size: 25px;
   
 }
 
-.room h4 ,.hot h4{
+.room h4 ,.hot h4 ,.buss h4{
 color: wheat;
 text-align: center;
 margin-top: 40px;
 }
-  .room  table ,.hot table{
+  .room  table ,.hot table ,.buss table{
     width: 75%;
     margin-top: 30px;
     margin-left: 50px;
@@ -309,3 +316,34 @@ margin-top: 40px;
   margin-left: 20%;
  
 } 
+
+.seting-detil{
+  box-shadow: 5px 10px 20px  #a7952dda inset;
+  height: 380px;
+  width: 70%;
+  margin-left: 23%;
+  position: relative;
+  
+}
+.seting-detil .input-box {
+  width: 50%;
+  margin: auto;
+  margin-top: 5px;
+}
+
+.seting-detil h3{
+  
+  padding-top:40px ;
+  color: white;
+  text-align: right;
+  padding-right: 50px;
+}
+.seting-detil .submit{
+  width: 30%;
+  margin: auto;
+  margin-left: 140px;
+  color: wheat;
+}
+.seting-box1{
+  margin-top: 100px;
+}

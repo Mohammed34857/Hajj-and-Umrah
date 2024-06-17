@@ -180,7 +180,7 @@ const RegisterProgramSpecial = () => {
      <div className>
       <form onSubmit={handleSubmit}>
         <div className="container">
-           <h1> انضم إلى قافلة عباد الرحمن عن طريق انشاء برنامجك الخاص </h1>
+           <h1> انضم إلى قافلة اجنحة الضيافة عن طريق انشاء برنامجك الخاص </h1>
             <div className="special-register">
                <h3> :التسجيل <FaPencilAlt/></h3>
                <table className='table1'>
@@ -360,7 +360,7 @@ const RegisterProgramSpecial = () => {
                     </div>
                 )}
             </div>
-            <h2> عدد الغرف :</h2> <br />
+            <h2> نوع الغرفة :</h2> <br />
             <div className="radio-room">
                     <label className="radio-container">
                         <input
