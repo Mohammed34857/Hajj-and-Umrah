@@ -9,70 +9,91 @@ const RegisterProgramHajj = () => {
     const [companion1Id, setCompanion1Id] = useState("");
     const [companion2Id, setCompanion2Id] = useState("");
     const [formData, setFormData] = useState({
-      id_ProgAlHajHotel: "666f62e4fb0f54b75d2708e8",
-      full_name: "عمر",
-      name_father: "حسن",
-      name_mother: "فاطمة",
-      email: "ahmadnasser@gmail.com",
-      phone_number: 675428882,
+      full_name: "",
+      name_father: "",
+      name_mother: "",
+      email: "@gmail.com",
+      phone_number: 1,
       birth: "1950-06-15",
-      gender: "ذكر",
+      gender: "",
       Health_status: "سليم",
       companion1: companion1Id,
       companion2: companion2Id,
       iscompanion: false,
-      Nationality: "سوري",
-      passport_number: "758121823",
-      passport_photo: "https://res.cloudinary.com/dj05jeavk/image/upload/v1714507309/hotels/%D9%86%D8%B3%D9%83%20%D8%A7%D9%84%D9%87%D8%AC%D8%B1%D8%A9/449441863_cusyvs.jpg",
-      alhaj_photo: "https://res.cloudinary.com/dj05jeavk/image/upload/v1714507309/hotels/%D9%86%D8%B3%D9%83%20%D8%A7%D9%84%D9%87%D8%AC%D8%B1%D8%A9/449441863_cusyvs.jpg",
-      payment_method: "كاش",
+      Nationality: "",
+      passport_number: "",
+      passport_photo: "",
+      alhaj_photo: "",
+      payment_method: "",
       Verification: false,
-      visa_photo: "https://res.cloudinary.com/dj05jeavk/image/upload/v1714507309/hotels/%D9%86%D8%B3%D9%83%20%D8%A7%D9%84%D9%87%D8%AC%D8%B1%D8%A9/449441863_cusyvs.jpg",
+      visa_photo: "",
       });
       
       const [companion1, setCompanion1] = useState({
-        id_ProgAlHajHotel: "666f62e4fb0f54b75d2708e8",
-        full_name: "عمر",
-        name_father: "حسن",
-        name_mother: "فاطمة",
-        email: "ahmadnasser@gmail.com",
-        phone_number: 675428882,
+        full_name: "",
+        name_father: "",
+        name_mother: "",
+        email: "@gmail.com",
+        phone_number: 1,
         birth: "1950-06-15",
-        gender: "ذكر",
+        gender: "",
         Health_status: "سليم",
         iscompanion: true,
-        Nationality: "سوري",
-        passport_number: "758121823",
-        passport_photo: "https://res.cloudinary.com/dj05jeavk/image/upload/v1714507309/hotels/%D9%86%D8%B3%D9%83%20%D8%A7%D9%84%D9%87%D8%AC%D8%B1%D8%A9/449441863_cusyvs.jpg",
-        alhaj_photo: "https://res.cloudinary.com/dj05jeavk/image/upload/v1714507309/hotels/%D9%86%D8%B3%D9%83%20%D8%A7%D9%84%D9%87%D8%AC%D8%B1%D8%A9/449441863_cusyvs.jpg",
-        payment_method: "كاش",
+        Nationality: "",
+        passport_number: "",
+        passport_photo: "",
+        alhaj_photo: "",
+        payment_method: "",
         Verification: false,
-        visa_photo: "https://res.cloudinary.com/dj05jeavk/image/upload/v1714507309/hotels/%D9%86%D8%B3%D9%83%20%D8%A7%D9%84%D9%87%D8%AC%D8%B1%D8%A9/449441863_cusyvs.jpg",
+        visa_photo: "",
        });
     
       const [companion2, setCompanion2] = useState({
-        id_ProgAlHajHotel: "666f62e4fb0f54b75d2708e8",
-       full_name: "عمر",
-       name_father: "حسن",
-       name_mother: "فاطمة",
-       email: "ahmadnasser@gmail.com",
-       phone_number: 675428882,
+       full_name: "",
+       name_father: "",
+       name_mother: "",
+       email: "@gmail.com",
+       phone_number: 1,
        birth: "1950-06-15",
-       gender: "ذكر",
+       gender: "",
        Health_status: "سليم",
        iscompanion: true,
-       Nationality: "سوري",
-       passport_number: "758121823",
-       passport_photo: "https://res.cloudinary.com/dj05jeavk/image/upload/v1714507309/hotels/%D9%86%D8%B3%D9%83%20%D8%A7%D9%84%D9%87%D8%AC%D8%B1%D8%A9/449441863_cusyvs.jpg",
-       alhaj_photo: "https://res.cloudinary.com/dj05jeavk/image/upload/v1714507309/hotels/%D9%86%D8%B3%D9%83%20%D8%A7%D9%84%D9%87%D8%AC%D8%B1%D8%A9/449441863_cusyvs.jpg",
-       payment_method: "كاش",
+       Nationality: "",
+       passport_number: "",
+       passport_photo: "",
+       alhaj_photo: "",
+       payment_method: "",
        Verification: false,
-       visa_photo: "https://res.cloudinary.com/dj05jeavk/image/upload/v1714507309/hotels/%D9%86%D8%B3%D9%83%20%D8%A7%D9%84%D9%87%D8%AC%D8%B1%D8%A9/449441863_cusyvs.jpg",
+       visa_photo: "",
     });
     
 
+    useEffect(() => {
+      const handleFileChange = (inputId, outputPathId) => {
+        return () => {
+          const fileInput = document.getElementById(inputId);
+          const filePath = fileInput.files[0].name;
+          document.getElementById(outputPathId).textContent = filePath;
+        };
+      };
+  
+      const fileInputs = [
+        { inputId: 'file-img', outputPathId: 'file-path' },
+        { inputId: 'passport', outputPathId: 'passport-path' },
+        { inputId: 'visa', outputPathId: 'visa-path' }
+      ];
+  
+      fileInputs.forEach(({ inputId, outputPathId }) => {
+        const handleChange = handleFileChange(inputId, outputPathId);
+        document.getElementById(inputId).addEventListener('change', handleChange);
+        return () => {
+          document.getElementById(inputId).removeEventListener('change', handleChange);
+        };
+      });
+    }, []);
+  
     const handleChangeImage = async (e) => {
-      const { name, files, dataset } = e.target;
+      const { name, files } = e.target;
       if (files && files[0]) {
         const formData = new FormData();
         formData.append('file', files[0]);
@@ -82,58 +103,72 @@ const RegisterProgramHajj = () => {
               'Content-Type': 'multipart/form-data',
             },
           });
-          const imagePath = response.data;
+  
+          const imagePath = response.data.secure_url || response.data.url || response.data; // تأكد من أن response.data يحتوي على المسار الصحيح
     
-          if (dataset.target === 'formData') {
-            setFormData(prev => ({ ...prev, [name]: imagePath }));
-          } else if (dataset.target === 'companion1') {
-            setCompanion1(prev => ({ ...prev, [name]: imagePath }));
-          } else if (dataset.target === 'companion2') {
-            setCompanion2(prev => ({ ...prev, [name]: imagePath }));
-          }
-        } catch (error) {
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            [name]: imagePath,
+          }));
+
+          } catch (error) {
           console.error('Error uploading image:', error);
         }
       }
     };
+    const handleChangeImageCompanion1 = async (e) => {
+      const { name, files } = e.target;
+      if (files && files[0]) {
+        const formData = new FormData();
+        formData.append('file', files[0]);
+        try {
+          const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+  
+          const imagePath = response.data.secure_url || response.data.url || response.data; // تأكد من أن response.data يحتوي على المسار الصحيح
+    
+          setCompanion1((prevFormData) => ({
+            ...prevFormData,
+            [name]: imagePath,
+          }));
 
-    useEffect(() => {
-     const handleFileChange = (inputId, outputPathId) => {
-        return () => {
-            document.getElementById(outputPathId).textContent = '';
-            const filePath = document.getElementById(inputId).files[0].name;
-            document.getElementById(outputPathId).textContent = filePath;
-        };
+          } catch (error) {
+          console.error('Error uploading image:', error);
+        }
+      }
+    };
+    const handleChangeImageCompanion2 = async (e) => {
+      const { name, files } = e.target;
+      if (files && files[0]) {
+        const formDataCompanion2 = new FormData();
+        formDataCompanion2.append('file', files[0]);
+        try {
+          const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formDataCompanion2, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+  
+          const imagePath = response.data.secure_url || response.data.url || response.data; // تأكد من أن response.data يحتوي على المسار الصحيح
+    
+          setCompanion2((prevFormData) => ({
+            ...prevFormData,
+            [name]: imagePath,
+          }));
+
+          } catch (error) {
+          console.error('Error uploading image:', error);
+        }
+      }
     };
   
-      const fileInputs = [
-          { inputId: 'file-img', outputPathId: 'file-path' },
-          { inputId: 'passport', outputPathId: 'passport-path' },
-          { inputId: 'companion1-photo', outputPathId: 'companion1-photo-path' },
-          { inputId: 'companion1-passport', outputPathId: 'companion1-passport-path' },
-          { inputId: 'companion2-photo', outputPathId: 'companion2-photo-path' },
-          { inputId: 'companion2-passport', outputPathId: 'companion2-passport-path' }
-      ];
-  
-      fileInputs.forEach(({ inputId, outputPathId }) => {
-          const handleChange = handleFileChange(inputId, outputPathId);
-          const inputElement = document.getElementById(inputId);
-          if (inputElement) {
-              inputElement.addEventListener('change', handleChange);
-              return () => {
-                  inputElement.removeEventListener('change', handleChange);
-              };
-          }
-      });
-  }, []);
-
-      const [selectedHealthState, setSelectedHealthState] = useState(null);
-      const handleHealthStateChange = (HealthState) => {
-        setSelectedHealthState(HealthState);
-      };
-     
-     
-      
+    const [selectedHealthState, setSelectedHealthState] = useState(null);
+    const handleHealthStateChange = (HealthState) => {
+    setSelectedHealthState(HealthState);
+     };
     
       const handleChange = (e) => {
         const { name, value, files } = e.target;
@@ -172,7 +207,6 @@ const RegisterProgramHajj = () => {
         let companion2Id = '';
 
         const dataCompanion1 = {
-          id_ProgAlHajHotel: companion1.id_ProgAlHajHotel,
           full_name: companion1.full_name,
           name_father: companion1.name_father,
           name_mother: companion1.name_mother,
@@ -181,8 +215,6 @@ const RegisterProgramHajj = () => {
           birth: companion1.birth,
           gender: companion1.gender,
           Health_status: companion1.Health_status,
-          companion1: companion1.companion1,
-          companion2: companion1.companion2,
           silat_alqaraba: companion1.silat_alqaraba,
           iscompanion: companion1.iscompanion,
           Nationality: companion1.Nationality,
@@ -196,7 +228,6 @@ const RegisterProgramHajj = () => {
         console.log(dataCompanion1);
 
         const dataCompanion2 = {
-          id_ProgAlHajHotel: companion2.id_ProgAlHajHotel,
           full_name: companion2.full_name,
           name_father: companion2.name_father,
           name_mother: companion2.name_mother,
@@ -205,8 +236,6 @@ const RegisterProgramHajj = () => {
           birth: companion2.birth,
           gender: companion2.gender,
           Health_status: companion2.Health_status,
-          companion1: companion2.companion1,
-          companion2: companion2.companion2,
           silat_alqaraba: companion2.silat_alqaraba,
           iscompanion: companion2.iscompanion,
           Nationality: companion2.Nationality,
@@ -254,7 +283,6 @@ const RegisterProgramHajj = () => {
        }
 
        const data = {
-        id_ProgAlHajHotel: formData.id_ProgAlHajHotel,
         full_name: formData.full_name,
         name_father: formData.name_father,
         name_mother: formData.name_mother,
@@ -323,22 +351,45 @@ const RegisterProgramHajj = () => {
                   <th><input type="date" name='birth' value={formData.birth} onChange={handleChange} placeholder=" ادخل  تاريخ ميلادك " /></th>
                   <th><label> :  تاريخ الميلاد</label></th>
                 </tr>
-                             <tr>
-                                <th>
-                                   <div className='path' id='file-path'> لم يتم اختيار ملف   </div>
-                                   <label className='label-file' htmlFor="file-img"><span>اختر ملف</span></label>
-                                   <input id='file-img' name='alhaj_photo' data-target="formData" type="file"  onChange={handleChangeImage} />
-                                 </th>
-                                 <th><label> : الصورة الشخصية</label></th>
-                            </tr>
-                            <tr>
-                                 <th>
-                                     <div className='path' id='passport-path'> لم يتم اختيار ملف  </div>
-                                     <label className='label-file' htmlFor="passport">اختر ملف</label>
-                                     <input id='passport' name='passport_photo' data-target="formData" type="file"  onChange={handleChangeImage} />
-                                 </th>
-                                <th><label> : ادخل صورة جواز السفر</label></th>
-                           </tr>                   
+                <tr>
+                    <th>
+                      <div className='path' id='file-path'> لم يتم اختيار ملف </div>
+                      <label className='label-file' htmlFor="file-img"><span>اختر ملف</span></label>
+                      <input 
+                        id='file-img' 
+                        name='alhaj_photo' 
+                        type="file" 
+                        onChange={handleChangeImage}
+                      />
+                    </th>
+                    <th><label> : الصورة الشخصية</label></th>
+                  </tr>
+                  <tr>
+                    <th>
+                      <div className='path' id='passport-path'> لم يتم اختيار ملف </div>
+                      <label className='label-file' htmlFor="passport"><span> اختر ملف  </span></label>
+                      <input 
+                        id='passport' 
+                        name='passport_photo' 
+                        type="file" 
+                        onChange={handleChangeImage}
+                      />
+                    </th>
+                    <th><label> : ادخل صورة جواز السفر</label></th>
+                  </tr>  
+                  <tr>
+                    <th>
+                      <div className='path' id='visa-path'> لم يتم اختيار ملف </div>
+                      <label className='label-file' htmlFor="visa"><span> اختر ملف  </span></label>
+                      <input 
+                        id='visa' 
+                        name='visa_photo' 
+                        type="file" 
+                        onChange={handleChangeImage}
+                      />
+                    </th>
+                    <th><label> : ادخل صورة الفيزا</label></th>
+                  </tr>             
                 </tbody>  
               </table>
               <div className='end-float'></div>
@@ -388,21 +439,44 @@ const RegisterProgramHajj = () => {
                                 <th><label> : صلة القرابة</label></th>
                             </tr>
                             <tr>
-                                <th>
-                                   <div className='path' id='companion1-photo-path'> لم يتم اختيار ملف   </div>
-                                   <label className='label-file' htmlFor="companion1-photo"><span>اختر ملف</span></label>
-                                   <input id='companion1-photo' name='alhaj_photo' data-target="companion1" type="file"  onChange={handleChangeImage}  />
-                                 </th>
-                                 <th><label> : الصورة الشخصية</label></th>
+                              <th>
+                                <div className='path' id='companion1-file-path'> لم يتم اختيار ملف </div>
+                                <label className='label-file' htmlFor="companion1-file-img"><span>اختر ملف</span></label>
+                                <input 
+                                  id='companion1-file-img' 
+                                  name='alhaj_photo' 
+                                  type="file" 
+                                  onChange={handleChangeImageCompanion1}
+                                />
+                              </th>
+                              <th><label> : الصورة الشخصية</label></th>
                             </tr>
                             <tr>
-                                 <th>
-                                     <div className='path' id='companion1-passport-path'> لم يتم اختيار ملف  </div>
-                                     <label className='label-file' htmlFor="companion1-passport">اختر ملف</label>
-                                     <input id='companion1-passport' name='passport_photo' data-target="companion1" type="file"  onChange={handleChangeImage}  />
-                                 </th>
-                                <th><label> : ادخل صورة جواز السفر</label></th>
-                           </tr>
+                              <th>
+                                <div className='path' id='companion1-passport-path'> لم يتم اختيار ملف </div>
+                                <label className='label-file' htmlFor="companion1-passport"><span> اختر ملف  </span></label>
+                                <input 
+                                  id='companion1-passport' 
+                                  name='passport_photo' 
+                                  type="file" 
+                                  onChange={handleChangeImageCompanion1}
+                                />
+                              </th>
+                              <th><label> : ادخل صورة جواز السفر</label></th>
+                            </tr>  
+                            <tr>
+                              <th>
+                                <div className='path' id='companion1-visa-path'> لم يتم اختيار ملف </div>
+                                <label className='label-file' htmlFor="companion1-visa"><span> اختر ملف  </span></label>
+                                <input 
+                                  id='companion1-visa' 
+                                  name='visa_photo' 
+                                  type="file" 
+                                  onChange={handleChangeImageCompanion1}
+                                />
+                              </th>
+                              <th><label> : ادخل صورة الفيزا</label></th>
+                            </tr> 
                             <tr>
                                 <td colSpan="2"><h2> ادخل معلومات المرافق الثاني </h2></td>
                             </tr>
@@ -429,21 +503,44 @@ const RegisterProgramHajj = () => {
                                 <th><label> : صلة القرابة</label></th>
                             </tr>
                             <tr>
-                                <th>
-                                   <div className='path' id='companion2-photo-path'> لم يتم اختيار ملف   </div>
-                                   <label className='label-file' htmlFor="companion2-photo"><span>اختر ملف</span></label>
-                                   <input id='companion2-photo' name='alhaj_photo' data-target="companion2" type="file"  onChange={handleChangeImage}  />
-                                 </th>
-                                 <th><label> : الصورة الشخصية</label></th>
+                              <th>
+                                <div className='path' id='companion2-file-path'> لم يتم اختيار ملف </div>
+                                <label className='label-file' htmlFor="companion2-file-img"><span>اختر ملف</span></label>
+                                <input 
+                                  id='companion2-file-img' 
+                                  name='alhaj_photo' 
+                                  type="file" 
+                                  onChange={handleChangeImageCompanion2}
+                                />
+                              </th>
+                              <th><label> : الصورة الشخصية</label></th>
                             </tr>
                             <tr>
-                                 <th>
-                                     <div className='path' id='companion2-passport-path'> لم يتم اختيار ملف  </div>
-                                     <label className='label-file' htmlFor="companion2-passport">اختر ملف</label>
-                                     <input id='companion2-passport' name='passport_photo' data-target="companion2" type="file"  onChange={handleChangeImage}  />
-                                 </th>
-                                <th><label> : ادخل صورة جواز السفر</label></th>
-                           </tr>
+                              <th>
+                                <div className='path' id='companion2-passport-path'> لم يتم اختيار ملف </div>
+                                <label className='label-file' htmlFor="companion2-passport"><span> اختر ملف  </span></label>
+                                <input 
+                                  id='companion2-passport' 
+                                  name='passport_photo' 
+                                  type="file" 
+                                  onChange={handleChangeImageCompanion2}
+                                />
+                              </th>
+                              <th><label> : ادخل صورة جواز السفر</label></th>
+                            </tr>  
+                            <tr>
+                              <th>
+                                <div className='path' id='companion2-visa-path'> لم يتم اختيار ملف </div>
+                                <label className='label-file' htmlFor="companion2-visa"><span> اختر ملف  </span></label>
+                                <input 
+                                  id='companion2-visa' 
+                                  name='visa_photo' 
+                                  type="file" 
+                                  onChange={handleChangeImageCompanion2}
+                                />
+                              </th>
+                              <th><label> : ادخل صورة الفيزا</label></th>
+                            </tr> 
                             </tbody>  
                           </table>
                          </div>
@@ -477,22 +574,45 @@ const RegisterProgramHajj = () => {
                                 <th><input type="text" name='silat_alqaraba' value={companion1.silat_alqaraba} onChange={(e) => handleCompanionChange(e, setCompanion1)}  placeholder=" أدخل صلة القرابة "/></th>
                                 <th><label> : صلة القرابة</label></th>
                             </tr>
-                            <tr>
-                                <th>
-                                   <div className='path' id='companion1-photo-path'> لم يتم اختيار ملف   </div>
-                                   <label className='label-file' htmlFor="companion1-photo"><span>اختر ملف</span></label>
-                                   <input id='companion1-photo' name='alhaj_photo' data-target="companion1" type="file"  onChange={handleChangeImage}  />
-                                 </th>
-                                 <th><label> : الصورة الشخصية</label></th>
+                            {/* <tr>
+                              <th>
+                                <div className='path' id='companion1-file-path'> لم يتم اختيار ملف </div>
+                                <label className='label-file' htmlFor="companion1-file-img"><span>اختر ملف</span></label>
+                                <input 
+                                  id='companion1-file-img' 
+                                  name='alhaj_photo' 
+                                  type="file" 
+                                  onChange={handleChangeImageCompanion1}
+                                />
+                              </th>
+                              <th><label> : الصورة الشخصية</label></th>
                             </tr>
                             <tr>
-                                 <th>
-                                     <div className='path' id='companion1-passport-path'> لم يتم اختيار ملف  </div>
-                                     <label className='label-file' htmlFor="companion1-passport">اختر ملف</label>
-                                     <input id='companion1-passport' name='passport_photo' data-target="companion1" type="file"  onChange={handleChangeImage}  />
-                                 </th>
-                                <th><label> : ادخل صورة جواز السفر</label></th>
-                           </tr>
+                              <th>
+                                <div className='path' id='companion1-passport-path'> لم يتم اختيار ملف </div>
+                                <label className='label-file' htmlFor="companion1-passport"><span> اختر ملف  </span></label>
+                                <input 
+                                  id='companion1-passport' 
+                                  name='passport_photo' 
+                                  type="file" 
+                                  onChange={handleChangeImageCompanion1}
+                                />
+                              </th>
+                              <th><label> : ادخل صورة جواز السفر</label></th>
+                            </tr>  
+                            <tr>
+                              <th>
+                                <div className='path' id='companion1-visa-path'> لم يتم اختيار ملف </div>
+                                <label className='label-file' htmlFor="companion1-visa"><span> اختر ملف  </span></label>
+                                <input 
+                                  id='companion1-visa' 
+                                  name='visa_photo' 
+                                  type="file" 
+                                  onChange={handleChangeImageCompanion1}
+                                />
+                              </th>
+                              <th><label> : ادخل صورة الفيزا</label></th>
+                            </tr>  */}
                             </tbody>  
                           </table>
                          </div>
