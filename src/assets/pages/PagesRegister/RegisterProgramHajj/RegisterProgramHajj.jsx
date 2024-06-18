@@ -574,12 +574,12 @@ const RegisterProgramHajj = () => {
                                 <th><input type="text" name='silat_alqaraba' value={companion1.silat_alqaraba} onChange={(e) => handleCompanionChange(e, setCompanion1)}  placeholder=" أدخل صلة القرابة "/></th>
                                 <th><label> : صلة القرابة</label></th>
                             </tr>
-                            {/* <tr>
+                            <tr>
                               <th>
-                                <div className='path' id='companion1-file-path'> لم يتم اختيار ملف </div>
-                                <label className='label-file' htmlFor="companion1-file-img"><span>اختر ملف</span></label>
+                                <div className='path' id='companion11-file-path'> لم يتم اختيار ملف </div>
+                                <label className='label-file' htmlFor="companion11-file-img"><span>اختر ملف</span></label>
                                 <input 
-                                  id='companion1-file-img' 
+                                  id='companion11-file-img' 
                                   name='alhaj_photo' 
                                   type="file" 
                                   onChange={handleChangeImageCompanion1}
@@ -589,10 +589,10 @@ const RegisterProgramHajj = () => {
                             </tr>
                             <tr>
                               <th>
-                                <div className='path' id='companion1-passport-path'> لم يتم اختيار ملف </div>
-                                <label className='label-file' htmlFor="companion1-passport"><span> اختر ملف  </span></label>
+                                <div className='path' id='companion11-passport-path'> لم يتم اختيار ملف </div>
+                                <label className='label-file' htmlFor="companion11-passport"><span> اختر ملف  </span></label>
                                 <input 
-                                  id='companion1-passport' 
+                                  id='companion11-passport' 
                                   name='passport_photo' 
                                   type="file" 
                                   onChange={handleChangeImageCompanion1}
@@ -602,17 +602,17 @@ const RegisterProgramHajj = () => {
                             </tr>  
                             <tr>
                               <th>
-                                <div className='path' id='companion1-visa-path'> لم يتم اختيار ملف </div>
-                                <label className='label-file' htmlFor="companion1-visa"><span> اختر ملف  </span></label>
+                                <div className='path' id='companion11-visa-path'> لم يتم اختيار ملف </div>
+                                <label className='label-file' htmlFor="companion11-visa"><span> اختر ملف  </span></label>
                                 <input 
-                                  id='companion1-visa' 
+                                  id='companion11-visa' 
                                   name='visa_photo' 
                                   type="file" 
                                   onChange={handleChangeImageCompanion1}
                                 />
                               </th>
                               <th><label> : ادخل صورة الفيزا</label></th>
-                            </tr>  */}
+                            </tr> 
                             </tbody>  
                           </table>
                          </div>
