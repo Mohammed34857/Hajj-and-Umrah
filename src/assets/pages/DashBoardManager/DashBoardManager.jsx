@@ -1,5 +1,5 @@
 import React from 'react'
-import './DashBoardManager.css'
+import './DashBoardManager.css';
 
 const  DashBoardManager = ()=> {
   return (

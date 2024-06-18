@@ -1,13 +1,13 @@
 .register-program-hajj{
-    width: 70%;
-    margin: auto;
-    padding: 100px 0;
+    width: 100%;
+   ;
 }
 .register-program-hajj form{
     background-image: url('../../../images/register3.jpg');
     background-size:cover;
     background-repeat: no-repeat;
     border-radius: 20px;
+    padding: 100px 0;
 }
 
 
@@ -16,14 +16,14 @@
     margin: auto;
     padding: 20px;
     box-shadow: 0px 0px 20px rgb(255, 247, 247);
-    border: 2px solid rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(163, 138, 138, 0.5);
     border-radius: 20px;
 }
 .good-container{
-    height: 80vh;
+    height: 100vh;
 }
 .helpless-container{
-    height: 160vh;
+    height: 190vh;
 }
 .amenities h2{
     direction: rtl;

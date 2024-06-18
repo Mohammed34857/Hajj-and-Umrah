@@ -40,9 +40,7 @@ const RegisterProgramHajj = () => {
         birth: "1950-06-15",
         gender: "ذكر",
         Health_status: "سليم",
-        companion1: "string",
-        companion2: "string",
-        iscompanion: false,
+        iscompanion: true,
         Nationality: "سوري",
         passport_number: "758121823",
         passport_photo: "https://res.cloudinary.com/dj05jeavk/image/upload/v1714507309/hotels/%D9%86%D8%B3%D9%83%20%D8%A7%D9%84%D9%87%D8%AC%D8%B1%D8%A9/449441863_cusyvs.jpg",
@@ -62,9 +60,7 @@ const RegisterProgramHajj = () => {
        birth: "1950-06-15",
        gender: "ذكر",
        Health_status: "سليم",
-       companion1: "string",
-       companion2: "string",
-       iscompanion: false,
+       iscompanion: true,
        Nationality: "سوري",
        passport_number: "758121823",
        passport_photo: "https://res.cloudinary.com/dj05jeavk/image/upload/v1714507309/hotels/%D9%86%D8%B3%D9%83%20%D8%A7%D9%84%D9%87%D8%AC%D8%B1%D8%A9/449441863_cusyvs.jpg",
@@ -74,67 +70,69 @@ const RegisterProgramHajj = () => {
        visa_photo: "https://res.cloudinary.com/dj05jeavk/image/upload/v1714507309/hotels/%D9%86%D8%B3%D9%83%20%D8%A7%D9%84%D9%87%D8%AC%D8%B1%D8%A9/449441863_cusyvs.jpg",
     });
     
-      useEffect(() => {
-        const handleFileChange = (inputId, outputPathId) => {
-            return () => {
-                document.getElementById(outputPathId).textContent = '';
-                const filePath = document.getElementById(inputId).files[0].name;
-                document.getElementById(outputPathId).textContent = filePath;
-            };
-        };
-        const fileInputs = [
-            { inputId: 'file-img', outputPathId: 'file-path' },
-            { inputId: 'passport', outputPathId: 'passport-path' }
-        ];
+
+    const handleChangeImage = async (e) => {
+      const { name, files, dataset } = e.target;
+      if (files && files[0]) {
+        const formData = new FormData();
+        formData.append('file', files[0]);
+        try {
+          const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+          const imagePath = response.data;
     
-        fileInputs.forEach(({ inputId, outputPathId }) => {
-            const handleChange = handleFileChange(inputId, outputPathId);
-            document.getElementById(inputId).addEventListener('change', handleChange);
-            return () => {
-                document.getElementById(inputId).removeEventListener('change', handleChange);
-            };
-        });
-      }, []);
+          if (dataset.target === 'formData') {
+            setFormData(prev => ({ ...prev, [name]: imagePath }));
+          } else if (dataset.target === 'companion1') {
+            setCompanion1(prev => ({ ...prev, [name]: imagePath }));
+          } else if (dataset.target === 'companion2') {
+            setCompanion2(prev => ({ ...prev, [name]: imagePath }));
+          }
+        } catch (error) {
+          console.error('Error uploading image:', error);
+        }
+      }
+    };
+
+    useEffect(() => {
+     const handleFileChange = (inputId, outputPathId) => {
+        return () => {
+            document.getElementById(outputPathId).textContent = '';
+            const filePath = document.getElementById(inputId).files[0].name;
+            document.getElementById(outputPathId).textContent = filePath;
+        };
+    };
+  
+      const fileInputs = [
+          { inputId: 'file-img', outputPathId: 'file-path' },
+          { inputId: 'passport', outputPathId: 'passport-path' },
+          { inputId: 'companion1-photo', outputPathId: 'companion1-photo-path' },
+          { inputId: 'companion1-passport', outputPathId: 'companion1-passport-path' },
+          { inputId: 'companion2-photo', outputPathId: 'companion2-photo-path' },
+          { inputId: 'companion2-passport', outputPathId: 'companion2-passport-path' }
+      ];
+  
+      fileInputs.forEach(({ inputId, outputPathId }) => {
+          const handleChange = handleFileChange(inputId, outputPathId);
+          const inputElement = document.getElementById(inputId);
+          if (inputElement) {
+              inputElement.addEventListener('change', handleChange);
+              return () => {
+                  inputElement.removeEventListener('change', handleChange);
+              };
+          }
+      });
+  }, []);
 
       const [selectedHealthState, setSelectedHealthState] = useState(null);
       const handleHealthStateChange = (HealthState) => {
         setSelectedHealthState(HealthState);
       };
      
-      const handleChangeImage = async (e) => {
-        const { name, files, dataset } = e.target;
-        if (files && files[0]) {
-          const formData = new FormData();
-          formData.append('file', files[0]);
-          try {
-            const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formData, {
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              },
-            });
-            const imagePath = response.data;
-      
-            if (dataset.target === 'formData') {
-              setFormData((prevFormData) => ({
-                ...prevFormData,
-                [name]: imagePath,
-              }));
-            } else if (dataset.target === 'companion1') {
-              setCompanion1((prevCompanion1) => ({
-                ...prevCompanion1,
-                [name]: imagePath,
-              }));
-            } else if (dataset.target === 'companion2') {
-              setCompanion2((prevCompanion2) => ({
-                ...prevCompanion2,
-                [name]: imagePath,
-              }));
-            }
-          } catch (error) {
-            console.error('Error uploading image:', error);
-          }
-        }
-      };
+     
       
     
       const handleChange = (e) => {
@@ -169,32 +167,9 @@ const RegisterProgramHajj = () => {
     
       const handleSubmit = async (e) => {
         e.preventDefault();
-    
-       
-         
-        const data = {
-          id_ProgAlHajHotel: formData.id_ProgAlHajHotel,
-          full_name: formData.full_name,
-          name_father: formData.name_father,
-          name_mother: formData.name_mother,
-          email: formData.email,
-          phone_number: Number(formData.phone_number),
-          birth: formData.birth,
-          gender: formData.gender,
-          Health_status: formData.Health_status,
-          companion1: formData.companion1,
-          companion2: formData.companion2,
-          silat_alqaraba: formData.silat_alqaraba,
-          iscompanion: formData.iscompanion,
-          Nationality: formData.Nationality,
-          passport_number: formData.passport_number,
-          passport_photo: formData.passport_photo,
-          alhaj_photo: formData.alhaj_photo,
-          payment_method: formData.payment_method,
-          Verification: formData.Verification,
-          visa_photo: formData.visa_photo,
-        };
-        console.log(data);
+
+        let companion1Id = '';
+        let companion2Id = '';
 
         const dataCompanion1 = {
           id_ProgAlHajHotel: companion1.id_ProgAlHajHotel,
@@ -250,7 +225,9 @@ const RegisterProgramHajj = () => {
                   'Content-Type': 'application/json',
                 },
               });
-              setCompanion1Id(responseCompanion1.data._id);
+              companion1Id = responseCompanion1.data._id;
+              setCompanion1Id(companion1Id);
+              console.log(responseCompanion1.data._id);
           } catch (error) {
             console.error('Error submitting companion1 data:', error);
           }
@@ -262,17 +239,43 @@ const RegisterProgramHajj = () => {
               'Content-Type': 'application/json',
             },
           });
-          setCompanion1Id(responseCompanion1.data._id);
+          companion1Id = responseCompanion1.data._id;
+          setCompanion1Id(companion1Id);
           const responseCompanion2 = await axios.post('https://officealhajandalumrah.adaptable.app/al-hajj', dataCompanion2, {
             headers: {
               'Content-Type': 'application/json',
             },
           });
-          setCompanion2Id(responseCompanion2.data._id);
+          companion2Id = responseCompanion2.data._id;
+          setCompanion2Id(companion2Id);
       } catch (error) {
         console.error('Error submitting companion1 data:', error);
       }
        }
+
+       const data = {
+        id_ProgAlHajHotel: formData.id_ProgAlHajHotel,
+        full_name: formData.full_name,
+        name_father: formData.name_father,
+        name_mother: formData.name_mother,
+        email: formData.email,
+        phone_number: Number(formData.phone_number),
+        birth: formData.birth,
+        gender: formData.gender,
+        Health_status: formData.Health_status,
+        companion1: companion1Id,
+        companion2: companion2Id,
+        silat_alqaraba: formData.silat_alqaraba,
+        iscompanion: formData.iscompanion,
+        Nationality: formData.Nationality,
+        passport_number: formData.passport_number,
+        passport_photo: formData.passport_photo,
+        alhaj_photo: formData.alhaj_photo,
+        payment_method: formData.payment_method,
+        Verification: formData.Verification,
+        visa_photo: formData.visa_photo,
+      };
+      console.log(data);
   
         try {
           const response = await axios.post('https://officealhajandalumrah.adaptable.app/al-hajj', data, {
@@ -320,7 +323,7 @@ const RegisterProgramHajj = () => {
                   <th><input type="date" name='birth' value={formData.birth} onChange={handleChange} placeholder=" ادخل  تاريخ ميلادك " /></th>
                   <th><label> :  تاريخ الميلاد</label></th>
                 </tr>
-                <tr>
+                             <tr>
                                 <th>
                                    <div className='path' id='file-path'> لم يتم اختيار ملف   </div>
                                    <label className='label-file' htmlFor="file-img"><span>اختر ملف</span></label>
@@ -386,17 +389,17 @@ const RegisterProgramHajj = () => {
                             </tr>
                             <tr>
                                 <th>
-                                   <div className='path' id='file-path'> لم يتم اختيار ملف   </div>
-                                   <label className='label-file' htmlFor="file-img"><span>اختر ملف</span></label>
-                                   <input id='file-img' name='amenitiesImage' data-target="companion1" type="file" />
+                                   <div className='path' id='companion1-photo-path'> لم يتم اختيار ملف   </div>
+                                   <label className='label-file' htmlFor="companion1-photo"><span>اختر ملف</span></label>
+                                   <input id='companion1-photo' name='alhaj_photo' data-target="companion1" type="file"  onChange={handleChangeImage}  />
                                  </th>
                                  <th><label> : الصورة الشخصية</label></th>
                             </tr>
                             <tr>
                                  <th>
-                                     <div className='path' id='passport-path'> لم يتم اختيار ملف  </div>
-                                     <label className='label-file' htmlFor="passport">اختر ملف</label>
-                                     <input id='passport' name='amenitiesPassport' data-target="companion1" type="file" />
+                                     <div className='path' id='companion1-passport-path'> لم يتم اختيار ملف  </div>
+                                     <label className='label-file' htmlFor="companion1-passport">اختر ملف</label>
+                                     <input id='companion1-passport' name='passport_photo' data-target="companion1" type="file"  onChange={handleChangeImage}  />
                                  </th>
                                 <th><label> : ادخل صورة جواز السفر</label></th>
                            </tr>
@@ -427,17 +430,17 @@ const RegisterProgramHajj = () => {
                             </tr>
                             <tr>
                                 <th>
-                                   <div className='path' id='file-path'> لم يتم اختيار ملف   </div>
-                                   <label className='label-file' htmlFor="file-img"><span>اختر ملف</span></label>
-                                   <input id='file-img' name='amenitiesimage2' data-target="companion2" type="file" />
+                                   <div className='path' id='companion2-photo-path'> لم يتم اختيار ملف   </div>
+                                   <label className='label-file' htmlFor="companion2-photo"><span>اختر ملف</span></label>
+                                   <input id='companion2-photo' name='alhaj_photo' data-target="companion2" type="file"  onChange={handleChangeImage}  />
                                  </th>
                                  <th><label> : الصورة الشخصية</label></th>
                             </tr>
                             <tr>
                                  <th>
-                                     <div className='path' id='passport-path'> لم يتم اختيار ملف  </div>
-                                     <label className='label-file' htmlFor="passport">اختر ملف</label>
-                                     <input id='passport' name='amenitiesPassport' data-target="companion2" type="file" />
+                                     <div className='path' id='companion2-passport-path'> لم يتم اختيار ملف  </div>
+                                     <label className='label-file' htmlFor="companion2-passport">اختر ملف</label>
+                                     <input id='companion2-passport' name='passport_photo' data-target="companion2" type="file"  onChange={handleChangeImage}  />
                                  </th>
                                 <th><label> : ادخل صورة جواز السفر</label></th>
                            </tr>
@@ -476,17 +479,17 @@ const RegisterProgramHajj = () => {
                             </tr>
                             <tr>
                                 <th>
-                                   <div className='path' id='file-path'> لم يتم اختيار ملف   </div>
-                                   <label className='label-file' htmlFor="file-img"><span>اختر ملف</span></label>
-                                   <input id='file-img' name='amenitiesImage' type="file" />
+                                   <div className='path' id='companion1-photo-path'> لم يتم اختيار ملف   </div>
+                                   <label className='label-file' htmlFor="companion1-photo"><span>اختر ملف</span></label>
+                                   <input id='companion1-photo' name='alhaj_photo' data-target="companion1" type="file"  onChange={handleChangeImage}  />
                                  </th>
                                  <th><label> : الصورة الشخصية</label></th>
                             </tr>
                             <tr>
                                  <th>
-                                     <div className='path' id='passport-path'> لم يتم اختيار ملف  </div>
-                                     <label className='label-file' htmlFor="passport">اختر ملف</label>
-                                     <input id='passport' name='amenitiesPassport' type="file" />
+                                     <div className='path' id='companion1-passport-path'> لم يتم اختيار ملف  </div>
+                                     <label className='label-file' htmlFor="companion1-passport">اختر ملف</label>
+                                     <input id='companion1-passport' name='passport_photo' data-target="companion1" type="file"  onChange={handleChangeImage}  />
                                  </th>
                                 <th><label> : ادخل صورة جواز السفر</label></th>
                            </tr>
@@ -538,11 +541,11 @@ const RegisterProgramHajj = () => {
           <div className="paying-off">
             <h3> : طريقة الدفع <MdEmojiTransportation/></h3>
             <div className="paying">
-                    <label className="radio-container"><input type="radio" name="paying" value={"electronic"} />
+                    <label className="radio-container"><input type="radio" name="payment_method" value={"الكتروني"} onChange={handleChange} />
                     <span className="checkmark"></span>
                     الالكتروني
                     </label>
-                    <label className="radio-container"><input type="radio" name="paying" value={"cash"} />
+                    <label className="radio-container"><input type="radio" name="payment_method" value={"كاش"} onChange={handleChange} />
                     <span className="checkmark"></span>
                      الدفع كاش 
                     </label>
