@@ -13,7 +13,7 @@ import { ImUsers } from "react-icons/im";
 import { GrServices } from "react-icons/gr";
 import imghaj from "../../images/register3.jpg";
 import { FaPencil } from "react-icons/fa6";
-
+import { AiFillLike } from "react-icons/ai";
 
 const  DashBoardManager = ()=> {
   return (
@@ -572,7 +572,9 @@ const  DashBoardManager = ()=> {
                     
                     <ImCogs />
                   </i></h2>
-          <div class="seting-detil">
+
+                  <div class="parent-seting">
+          <div class="seting-detil-maneger">
             <h3>:اعادة تعيين كلمة المرور</h3>
           <div className="input-box seting-box1">
               <input type="password" className="input-filed" placeholder=" كلمة السر الحالية" />
@@ -586,7 +588,39 @@ const  DashBoardManager = ()=> {
             <div className="input-box">
               <input type="submit" className="submit" value="تغيير كلمة المرور" />
             </div>
+            </div>
+            <div class="edit-logo">
+            <h3>: تعيين لوغو المكتب</h3>
+            <input type="file" />
+            <button><AiFillLike /></button>
           </div>
+
+          <div class="edit-titel">
+            <h3> :تعيين اسم المكتب</h3>
+            <input type="text" />
+            <button><AiFillLike /></button>
+          </div>
+          
+          <div class="edit-phon">
+            <h3>: تعيين رقم الهاتف للمكتب</h3>
+            <input type="number"  placeholder='ادخل رقم المكتب'/>
+            <button><AiFillLike /></button>
+          </div>
+          <div class="edit-location">
+            <h3> :تعيين موقع المكتب</h3>
+            <input type="text" />
+
+            <button><AiFillLike /></button>
+          </div>
+          <div class="edit-about">
+            <h3> :حول المكتب</h3>
+            <input type="text" />
+            <button><AiFillLike /></button>
+            v
+          </div>
+          </div>
+
+         
         </div>
 
 

@@ -1,5 +1,5 @@
 .Dash-board-manager{
-    height: 4000px;
+    height: 5000px;
 }
 .Dash-board-manager .min{
     margin-top: 50px;
@@ -168,3 +168,39 @@ color: wheat;
     background-color: #969592da;
     color:black;
 }
+.parent-seting {
+    box-shadow: 5px 10px 20px 5px #968f69da inset;
+    height: 1200px;
+    width: 75%;
+    margin-left: 23%;
+    position: relative;
+}
+
+.seting-detil-maneger .input-box {
+    width: 50%;
+    margin: auto;
+    margin-top: 5px;
+  }
+  .seting-detil-maneger h3 ,.parent-seting h3{
+  
+    padding-top:40px ;
+    color: white;
+    text-align: right;
+    padding-right: 50px;
+  }
+  .seting-detil-maneger .submit{
+    width: 34%;
+    margin: auto;
+    margin-left: 140px;
+    color: white;
+    background-color: #444442;
+
+  }
+  .edit-logo input ,.edit-titel input ,.edit-phon input ,.edit-location input ,.edit-about input{
+    width: 50%;
+    margin-left: 30%;
+    background-color: white;
+    margin-top: 20px;
+    border-radius: 20px;
+  }
+  
