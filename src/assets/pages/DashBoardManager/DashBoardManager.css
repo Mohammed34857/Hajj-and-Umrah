@@ -1,0 +1,102 @@
+.Dash-board-manager{
+    height: 3000px;
+}
+.Dash-board-manager .min nav{
+    height: 450px;
+}
+.Dash-board-manager .min{
+    background-image: url(../../images/about.jpg);
+}
+
+.Dash-board-manager .detil .alert{
+    background: linear-gradient(to right, #444442, #6e6c61, #69675c, #4b4742);
+    height: 150px;
+    border-radius: 50%;
+    width: 300px;
+    margin-left: 40px;
+    margin-top: 120px;
+    text-align: center;
+    color: white;
+}
+.contain-employee table{
+    margin-left: 20%;
+    width: 80%;
+    font-size: 20px;
+}
+/* .Dash-board-manager .contain-employee h2 {
+    color: #fffefb;
+    text-align: center;
+    background-color: #0a0903dc;
+    border-radius: 50%;
+    padding: 3px;
+    width: 70%;
+    border: 3px solid #75725f;
+    margin-left: 20%;
+} */
+
+.Dash-board-manager .contain-employee tr td ,.contain-employee th {
+    margin: 5px;
+    background: linear-gradient(to right, #444442, #6e6c61, #69675c, #837563);
+    border: 3px solid rgb(255, 255, 255);
+    padding: 4px;
+    text-align: right;
+    color: white;
+}
+.Dash-board-manager h2{
+margin-right: 50px;
+}
+.manager-prog-umrah{
+    margin-top: 40px;
+}
+.maneger-hajj-detil {
+    margin-left: 20%;
+    display: flex;
+    flex-direction: row;
+    gap: 15%;
+  box-shadow: 5px 10px 20px #968f69da inset;
+}
+.maneger-hajj-detil img{
+    width: 400px;
+    height: 400px;
+    padding: 20px;
+    border-radius: 50%;
+    margin-left: 30px;
+
+}
+.edit-hajj label{
+    color: white;
+    margin-top: 150px;
+    font-size: 25px;
+    margin-left: 2px;
+}
+.edit-hajj input{
+    width: 80%;
+    margin-top: 20px;
+    margin-right: 10px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+}
+.maneger-hajj ,.manager-prog-hajj ,.manager-prog-umrah{
+    margin-top: 100px;
+}
+.manager-prog-umrah .prog1 ,.manager-prog-hajj .prog1{
+    box-shadow: 5px 10px 20px #968f69da inset;  
+}
+.show-travel{
+    margin-top: 50px;
+}
+.show-travel table{
+    
+    margin-left: 20%;
+    text-align: right;
+    font-size: 18px;
+}
+.show-travel table th ,.show-travel table td{
+margin: 5px;
+background: linear-gradient(to right, #444442, #6e6c61, #69675c, #837563);
+border: 2px solid rgb(255, 255, 255);
+padding: 4px;
+color: wheat;
+}
