@@ -9,10 +9,6 @@ import { ImFolderOpen } from "react-icons/im";
 import { ImLibrary } from "react-icons/im";
 import { ImBubbles4 } from "react-icons/im";
 import { ImAirplane } from "react-icons/im";
-import { FaRightFromBracket } from "react-icons/fa6";
-import { FaTrashAlt } from "react-icons/fa";
-import { FaPencilAlt } from "react-icons/fa";
-import { IoPersonAddOutline } from "react-icons/io5";
 import { ImUsers } from "react-icons/im";
 import { GrServices } from "react-icons/gr";
 import imghaj from "../../images/register3.jpg";
@@ -435,8 +431,10 @@ const  DashBoardManager = ()=> {
 
 
 
-<div class="show-hotal"></div>
-            <h2>الفنادق</h2>
+<div class="show-hotal">
+            <h2 > :الفنادق  <i>
+                    <ImLibrary />
+                  </i></h2>
           <div class="table-hotal">
             <table class="table">
               <thead>
@@ -467,6 +465,44 @@ const  DashBoardManager = ()=> {
               </tbody>
             </table>
             </div>
+            </div>
+            <div class=" show-transport">
+         
+          <h2> :النقل <i>
+                    <ImAirplane />
+                  </i></h2>
+          <div class="table-transport">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th> سعر التكيت</th>
+                  <th>نوع النقل</th>
+                  <th>رابط الشركة</th>
+                  <th>صور وسائل النقل</th>
+                  <th>الصورة الرئيسية</th>
+                  <th>هدف الشركة</th>
+                  <th>الخدمات</th>
+                  <th>اسم الشركة</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+
+          
+          </div>
+        </div>
+         
 
 
 

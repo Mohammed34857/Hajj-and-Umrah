@@ -1,6 +1,9 @@
 .Dash-board-manager{
     height: 3000px;
 }
+.Dash-board-manager .min{
+    margin-top: 50px;
+}
 .Dash-board-manager .min nav{
     height: 450px;
 }
@@ -54,6 +57,7 @@ margin-right: 50px;
     flex-direction: row;
     gap: 15%;
   box-shadow: 5px 10px 20px #968f69da inset;
+  width: 80%;
 }
 .maneger-hajj-detil img{
     width: 400px;
@@ -87,13 +91,19 @@ margin-right: 50px;
 .show-travel{
     margin-top: 50px;
 }
-.show-travel table{
+.show-travel table { 
     
     margin-left: 20%;
     text-align: right;
     font-size: 18px;
 }
-.show-travel table th ,.show-travel table td{
+.show-hotal table ,.show-transport table {
+    font-size: 18px;
+    margin-left: 20px;
+    text-align: right;
+    width: 80%;
+}
+.show-travel table th ,.show-travel table td ,.show-hotal table td ,.show-hotal table th ,.show-transport table td ,.show-transport table th{
 margin: 5px;
 background: linear-gradient(to right, #444442, #6e6c61, #69675c, #837563);
 border: 2px solid rgb(255, 255, 255);
