@@ -1,21 +1,5 @@
 import React from 'react'
 import './DashBoardManager.css'
-import manger from "../../images/dashbord/img_avatar3.png";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { AiTwotoneCheckCircle } from "react-icons/ai";
-import { FaUsers } from "react-icons/fa6";
-import { ImCogs } from "react-icons/im";
-import { ImFolderOpen } from "react-icons/im";
-import { ImLibrary } from "react-icons/im";
-import { ImBubbles4 } from "react-icons/im";
-import { ImAirplane } from "react-icons/im";
-import { FaRightFromBracket } from "react-icons/fa6";
-import { FaTrashAlt } from "react-icons/fa";
-import { FaPencilAlt } from "react-icons/fa";
-import { IoPersonAddOutline } from "react-icons/io5";
-import { ImUsers } from "react-icons/im";
-import { GrServices } from "react-icons/gr";
-import imghaj from "../../images/register3.jpg";
 
 const  DashBoardManager = ()=> {
   return (
