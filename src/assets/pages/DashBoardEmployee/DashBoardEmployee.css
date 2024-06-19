@@ -82,9 +82,9 @@
     margin-left: 10%;
     width: 85%; 
   }
-  .alert {
+  .dashborde .alert {
     height: 150px;
-    background: linear-gradient(to left, #7e6624, #816b22, #a7942d, #dac08a);
+    background: linear-gradient(to left, #9b7f34, #a88f3e, #a7942d, #dac08a);
     border-radius: 8px;
     width: 300px;
     margin-left: 40px;
@@ -97,8 +97,7 @@
       display: grid;
       grid-template-columns: repeat(3 ,30%);
       grid-gap: 30px;
-      
-  
+    
   }
   
   .table-umrah , .table-hajj ,.table-hotal,.table-transport {
