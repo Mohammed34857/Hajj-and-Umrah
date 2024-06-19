@@ -1,5 +1,5 @@
 .Dash-board-manager{
-    height: 3000px;
+    height: 4000px;
 }
 .Dash-board-manager .min{
     margin-top: 50px;
@@ -22,7 +22,7 @@
     color: white;
 }
 .contain-employee table{
-    margin-left: 20%;
+    margin-left: 19%;
     width: 80%;
     font-size: 20px;
 }
@@ -45,6 +45,53 @@
     text-align: right;
     color: white;
 }
+.contain-employee input{
+    width: 90px;
+    font-size: 14px;
+}
+.contain-employee .edit{
+    border: none;
+    background-color: rgb(212, 200, 144);
+    border-radius: 5px;
+    width: 70px;
+ 
+}
+.contain-employee .edit:hover{
+    border: none;
+    background-color: rgb(77, 73, 59);
+    border-radius: 5px;
+    width: 80px;
+    color: white;
+}
+.contain-employee .delet{
+    border: none;
+    background-color: rgb(219, 142, 119);
+    border-radius: 5px;
+    width: 70px;
+ 
+}
+.contain-employee .delet:hover{
+    border: none;
+    background-color: rgb(87, 63, 60);
+    border-radius: 5px;
+    width: 80px;
+    color: white;
+}
+.contain-employee .add{
+    border: none;
+    background-color: rgb(167, 219, 119);
+    border-radius: 5px;
+    width: 70px;
+ 
+}
+.contain-employee .add:hover{
+    border: none;
+    background-color: rgb(79, 87, 60);
+    border-radius: 5px;
+    width: 80px;
+    color: white;
+}
+
 .Dash-board-manager h2{
 margin-right: 50px;
 }
@@ -59,6 +106,7 @@ margin-right: 50px;
   box-shadow: 5px 10px 20px 5px #968f69da inset;
   width: 78%;
 }
+
 .maneger-hajj-detil img{
     width: 400px;
     height: 400px;
@@ -88,7 +136,7 @@ margin-right: 50px;
 .manager-prog-umrah .prog1 ,.manager-prog-hajj .prog1{
     box-shadow: 5px 10px 20px #968f69da inset;  
 }
-.show-travel{
+.show-travel ,.show-transport ,.show-hotal ,.seting-manager{
     margin-top: 50px;
 }
 .show-travel table { 
@@ -102,6 +150,7 @@ margin-right: 50px;
     margin-left: 20px;
     text-align: right;
     width: 80%;
+    margin-top: 10px;
 }
 .show-travel table th ,.show-travel table td ,.show-hotal table td ,.show-hotal table th ,.show-transport table td ,.show-transport table th{
 margin: 5px;
@@ -109,4 +158,13 @@ background: linear-gradient(to right, #444442, #6e6c61, #69675c, #837563);
 border: 2px solid rgb(255, 255, 255);
 padding: 4px;
 color: wheat;
+}
+.seting-manager .seting-detil{
+    width: 78%;
+    margin-left: 20%;
+    box-shadow: 5px 10px 20px 5px #968f69da inset;
+}
+ .seting-manager .submit{
+    background-color: #969592da;
+    color:black;
 }

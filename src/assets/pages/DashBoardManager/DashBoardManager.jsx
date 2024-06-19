@@ -12,6 +12,8 @@ import { ImAirplane } from "react-icons/im";
 import { ImUsers } from "react-icons/im";
 import { GrServices } from "react-icons/gr";
 import imghaj from "../../images/register3.jpg";
+import { FaPencil } from "react-icons/fa6";
+
 
 const  DashBoardManager = ()=> {
   return (
@@ -154,7 +156,64 @@ const  DashBoardManager = ()=> {
                 </tr>
               </tbody>
             </table>
-
+            <table class="table">
+              <thead>
+                <tr>
+                  <th><i><FaPencil /></i></th>
+               <th>الكود الخاص</th>
+                  <th>العنوان</th>
+                  <th>التحصيل العلمي</th>
+                  <th>البريد الالكتروني</th>
+                  <th>رقم الهاتف</th>
+                  <th>الحالة الاجتماعية</th>
+                  <th>التولد</th>
+                  <th>الكنية</th>
+                  <th>الاسم</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th><button class="add">اضافة</button></th>
+             <td><input type="number" /></td>
+                  <td><input type="text" /></td>
+                  <td><input type="text" /></td>
+           
+                  <td><input type="email" /></td>
+                  <td><input type="number"  /></td>
+                  <td><input type="text" /></td>
+                  <td><input type="date" name="" id="" /></td>
+                  <td><input type="text" /></td>
+               <td><input type="text" /></td>
+                </tr>
+                <tr>
+                  <th><button class="delet">حذف</button></th>
+             <td><input type="number" /></td>
+                  <td><input type="text" /></td>
+                  <td><input type="text" /></td>
+           
+                  <td><input type="email" /></td>
+                  <td><input type="number"  /></td>
+                  <td><input type="text" /></td>
+                  <td><input type="date" name="" id="" /></td>
+                  <td><input type="text" /></td>
+               <td><input type="text" /></td>
+                </tr>
+                <tr>
+                  <th><button class="edit">تعديل</button></th>
+             <td><input type="number" /></td>
+                  <td><input type="text" /></td>
+                  <td><input type="text" /></td>
+           
+                  <td><input type="email" /></td>
+                  <td><input type="number"  /></td>
+                  <td><input type="text" /></td>
+                  <td><input type="date" name="" id="" /></td>
+                  <td><input type="text" /></td>
+               <td><input type="text" /></td>
+                </tr>
+              </tbody>
+            </table>
         
           </div>
         </div>
@@ -502,7 +561,33 @@ const  DashBoardManager = ()=> {
           
           </div>
         </div>
-         
+
+
+
+
+
+
+        <div class="seting-manager">
+          <h2>:الاعدادات  <i>
+                    
+                    <ImCogs />
+                  </i></h2>
+          <div class="seting-detil">
+            <h3>:اعادة تعيين كلمة المرور</h3>
+          <div className="input-box seting-box1">
+              <input type="password" className="input-filed" placeholder=" كلمة السر الحالية" />
+            </div>
+            <div className="input-box">
+              <input type="password" className="input-filed" placeholder="كلمة السر الجديدة" />
+            </div>
+            <div className="input-box">
+              <input type="password" className="input-filed" placeholder="تاكيد كلمة المرور" />
+            </div>
+            <div className="input-box">
+              <input type="submit" className="submit" value="تغيير كلمة المرور" />
+            </div>
+          </div>
+        </div>
 
 
 
