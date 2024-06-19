@@ -5,7 +5,9 @@ import React from 'react'
 const Button= (props)=> {
   return (
     <div>
-        <Link to={`${props.link}`} className='button'> {props.linkName} </Link>
+          <Link to={{ pathname: `${props.link}`, state: { from: `${props.NameLocation}` } }} className='button'>
+               {props.linkName}
+          </Link>   
     </div>
   )
 }

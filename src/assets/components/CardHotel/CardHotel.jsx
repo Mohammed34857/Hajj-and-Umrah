@@ -15,7 +15,7 @@ const starsArray = Array.from({ length: props.Number_stars }, (_, index) => <FaS
                   <h1>فندق  {props.HotelName} </h1>
                   <p>الموقع {props.location}</p>
                   <div className='star'> {starsArray}</div>
-                  <Button link={`/Hotel/${props.id}`} linkName={'تفاصيل الفندق'} onClick={() => window.scrollTo(0, 0)} />
+                  <Button link={`/Hotel/${props.id}`} linkName={'تفاصيل الفندق'}  NameLocation={props.nameLocation} />
               </div>
     </div>
   )

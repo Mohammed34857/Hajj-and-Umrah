@@ -1,6 +1,7 @@
 import {BrowserRouter as Router , Route , Routes} from 'react-router-dom'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ScrollToTop from './ScrollToTop';
 
 import { Header , Footer } from './assets/sections'
 import { Home , UmrahPrograms , HajjPrograms , Hotel, Transport , RegisterProgramUmrah , RegisterProgramHajj , RegisterProgramSpecial , DashBoardEmployee , DashBoardManager , LogInDashBoard} from './assets/pages'
@@ -10,6 +11,7 @@ function App() {
   return (
     <>
       <Router>
+      <ScrollToTop />
          <Header/>
              <Routes>
                 <Route path='/' element={<Home/>}/>

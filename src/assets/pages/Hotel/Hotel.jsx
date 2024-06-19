@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Hotel.css'
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link , useLocation} from 'react-router-dom';
 import { IoHome } from "react-icons/io5";
 import { GiPositionMarker } from "react-icons/gi";
 import { FaStar,FaCar } from "react-icons/fa";
@@ -11,6 +11,7 @@ import axios from 'axios';
 
 const Hotel = () => {
     const { id } = useParams();
+    const location = useLocation();
     const [hotel, setHotel] = useState(null);
     const [loading, setLoading] = useState(true);
     const [activeLink, setActiveLink] = useState('around1');
@@ -69,7 +70,16 @@ const Hotel = () => {
         <div className="hotel">
             <div className="frame-hotel">
                 <div className='image-hotel'>
-                <div className='img-filter'><h1>Hotel</h1><h2>Home <MdKeyboardDoubleArrowRight /> Hotel </h2></div>
+                <div className='img-filter'><h1>Hotel</h1>      <h2>
+                            {location.state && location.state.from ? (
+                                <>
+                                    {location.state.from} <MdKeyboardDoubleArrowRight />
+                                </>
+                            ) : (
+                                "Home <MdKeyboardDoubleArrowRight />"
+                            )}
+                            Hotel
+                        </h2></div>
                     <img src={hotel.urlImagehotel} alt="" />
                 </div>
                 <br />
