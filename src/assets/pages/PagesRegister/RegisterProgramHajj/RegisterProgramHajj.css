@@ -42,7 +42,7 @@
 .table1 input[type="file"]{
     display: none;
 }
-.paying , .radio-room , .health{
+.paying , .radio-room , .health {
     padding: 20px;
     box-shadow: 0px 0px 5px rgb(255, 247, 247);
     border: 2px solid rgba(255, 255, 255, 0.5);
@@ -50,4 +50,23 @@
     
 }
 
+.Reservation_code{
+    height: 12vh;
+    margin: 60px;
+}
+.Reservation_code input::placeholder{
+    color: white;
+    font-size: large;
+}
+.Reservation_code p{
+   font-size: 26px;
+   border-radius: 10px;
+   background-color: #ffffffbf;
+   padding: 10px;
+   box-shadow: 0px 0px 5px rgb(255, 247, 247);
+   border: 2px solid rgba(255, 255, 255, 0.5);
+   color: rgb(0, 0, 0);
+   
+}
+  
 

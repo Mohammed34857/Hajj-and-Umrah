@@ -6,7 +6,8 @@ import { MdEmojiTransportation } from "react-icons/md";
 import axios from 'axios';
 
 const RegisterProgramSpecial = () => {
-    
+    const [reservationCode, setReservationCode] = useState([]);
+    const [error, setError] = useState("");
     const [inMakaaHotel,setInMakaaHotel] = useState([{}]);
     const [inMadenaHotel,setInMadenaHotel] = useState([]);
     console.log(inMakaaHotel);
@@ -22,7 +23,7 @@ const RegisterProgramSpecial = () => {
         fullName: "string",
         nameFather: "string",
         nameMother: "string",
-        phoneNumber: 0,
+        phoneNumber: 95678,
         email: "abedalrahaman@gmail.com",
         birth: "2024-05-20T23:27:58.385Z",
         gender: "string",
@@ -34,7 +35,8 @@ const RegisterProgramSpecial = () => {
         typeRoom: "string",
         seatNumber: 0,
         paymentMethod: "string",
-        verification: true
+        verification: true,
+        reservationCode:""
     });
 
     useEffect(() =>{
@@ -92,6 +94,11 @@ const RegisterProgramSpecial = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!reservationCode.includes(formData.reservationCode)) {
+          setError("كود الحجز غير صحيح , يرجى التأكد من الكود والمحاولة مرة أخرى");
+          return;
+        }
+        else{
         const dataProgramSpecial = {
             Airline: formData.Airline,
             Date_Travel: formData.Date_Travel,
@@ -104,7 +111,7 @@ const RegisterProgramSpecial = () => {
             full_name: formDataMutamir.fullName,
             name_father: formDataMutamir.nameFather,
             name_mother: formDataMutamir.nameMother,
-            phone_number: Number(formDataMutamir.phoneNumber),
+            phone_number: Number(formDataMutamir.phoneNumber) ,
             email: formDataMutamir.email,
             birth: formDataMutamir.birth,
             gender: formDataMutamir.gender,
@@ -138,7 +145,7 @@ const RegisterProgramSpecial = () => {
             console.error('Error fetching program data:', error);
         }
     };
-   
+  }
     useEffect(() => {
         const handleFileChange = (inputId, outputPathId) => {
             return () => {
@@ -419,6 +426,29 @@ const RegisterProgramSpecial = () => {
                      الدفع كاش 
                     </label>
             </div>
+          </div>
+
+          <div className='Reservation_code'>
+              <table className='table1'>
+                 <tbody>
+                            <tr>
+                                <th><input
+                                     type="text"
+                                     name="reservationCode"
+                                     placeholder="كود الحجز"
+                                     value={formDataMutamir.reservationCode}
+                                     onChange={handleChangeDataMutamir}
+                                    />
+                                </th>
+                                <th><label> : ادخل كود تأكيد الحجز </label></th>
+                            </tr>
+                            <tr>
+                              <th>
+                              {error && <p className="error-message">{error}</p>}
+                              </th>
+                            </tr>
+                 </tbody>
+              </table>
           </div>
 
          <div className='order-send'>
