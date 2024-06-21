@@ -1,7 +1,7 @@
 import './Home.css'
 import React from 'react'
 
-import { Hotel, SectionMain, UmrahPrograms , HajjPrograms , About} from '../../sections/index'
+import { Hotel, SectionMain, UmrahPrograms , HajjPrograms , About ,PlacesInMacca , PlacesInMadena} from '../../sections/index'
 
 const Home = () => {
   return (
@@ -10,6 +10,8 @@ const Home = () => {
     <UmrahPrograms/>
     <HajjPrograms/>
     <Hotel/>
+    <PlacesInMacca/>
+    <PlacesInMadena/>
     <About/>
     </div> 
   )

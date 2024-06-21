@@ -1,11 +1,12 @@
-
+body{
+  overflow-x: hidden;
+}
 .dashborde {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     height: 100%;
-  justify-content: space-between;
-  height:6000px ;
+    justify-content: end ;
   }
   .min {
     background-image: url(../../images/dashbord/1715458080642.jpg);
@@ -15,16 +16,10 @@
     height: 100%;
     width: 18%;
     padding: 20px;
-    margin-top: 90px;
     position: fixed;
     z-index: 1;
     
-
   }
-
-  
-  
-  
   
   .min img {
     margin-left: 30px;
@@ -42,13 +37,13 @@
   .min nav {
     margin: 10px;
     margin-left: 10px;
-    margin-top: 20px;
+    margin-top: 100px;
     background-color: rgba(94, 87, 79, 0.582);
     border-radius: 10px;
     padding: 5px;
     height: 430px;
     width: 15%;
-  }
+}
   .min nav ul {
     font-size: 20px;
     list-style: none;
@@ -65,11 +60,10 @@
     color: white;
   }
   .min .btn {
-    margin-top: 470px;
-    text-align: center;
+    position: absolute;
+    bottom: 30px;
     margin-left: 20px;
     color: wheat;
-
   }
   .min h5{
     color: white;
@@ -93,32 +87,65 @@
     color: white;
   }
   .detil{
-    margin-left: 18%;
-      display: grid;
-      grid-template-columns: repeat(3 ,30%);
-      grid-gap: 30px;
-    
+    width: 82%;
+    height: 50vh;
+    display: grid;
+    grid-template-columns: repeat(3, 33%);
+    justify-content: space-around;
+    grid-gap: 33px;
   }
   
-  .table-umrah , .table-hajj ,.table-hotal,.table-transport {
-    margin-left: 18%;
-    scrollbar-width: overflow;
-    width: 100%;
-  }
+ 
+ .contain-umrah , .contain-hajj{
+  width: 82%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 50px;
+ }
+ 
+ .table-umrah , .table-hajj {
+  max-width: 98%;
+  overflow-x: auto; 
+  direction: rtl;
+}
+.table-umrah table , .table-hajj table{
+  width: 400%;
+  direction: ltr;
+  margin-bottom: 10px;
+}
+.table-umrah::-webkit-scrollbar ,
+.table-hajj::-webkit-scrollbar
+ {
+  height: 12px;
+}
+
+.table-umrah::-webkit-scrollbar-thumb ,
+.table-hajj::-webkit-scrollbar-thumb
+{
+  background-color: #ebcd94;
+  border-radius: 10px;
+  border: 3px solid #f1f1f1;
+}
+
+ .contain-umrah .table-umrah{
+  overflow-x: scroll;
+ }
+
   .dashborde table{
     text-align: center;
-    border-spacing: 8px;
-    width: 100%;
-    margin-left: 2%;
+    border-spacing: 2px;
   }
+  
+
   .dashborde tr th{
     border-radius: 5px;
   }
    .dashborde tr td,.dashborde th {
-    margin: 5px;
     background: linear-gradient(to left, #7e6624, #816b22, #a7942d, #dac08a);
     border: 3px solid rgb(255, 255, 255);
-    padding: 4px;
+    padding: 10px;
   }
    .dashborde input{
     width: 80%;
@@ -145,10 +172,10 @@
     padding: 3px;
     width: 75%;
     border: 3px solid #a7942d;
-    margin-left: 20%;
-    
   }
-
+  ::-webkit-scrollbar-button {
+    display: none; 
+  }
 .prog-umrah h2 ,.prog-hajj h2 ,.transport-updat h2 ,.seting h2{
   color: #fffefb;
   text-align: center;
@@ -163,10 +190,6 @@
   width: 100%;
 }
 
-.prog-umrah ,.prog-hajj{
-  
-  width: 100%;
-}
 .progr-parent{
   margin-left: 15%;
   display: grid;
@@ -211,7 +234,6 @@
 .prog2{
   width: 450px;
   height: 500px;
-/* position: relative; */
   box-shadow: 5px 10px 20px  #a7952dda inset;
 }
 .progr-parent h3{
@@ -346,3 +368,4 @@ margin-top: 40px;
 .seting-box1{
   margin-top: 100px;
 }
+

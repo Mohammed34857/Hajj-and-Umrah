@@ -6,3 +6,5 @@ export {default as HajjPrograms} from "./HajjPrograms/HajjPrograms";
 export {default as Hotel} from "./Hotel/Hotel"
 export {default as About} from "./About/About"
 export {default as SectionTransport} from "./SectionTransport/SectionTransport"
+export {default as PlacesInMacca} from "./PlacesInMacca/PlacesInMacca"
+export {default as PlacesInMadena} from "./PlacesInMadena/PlacesInMadena"

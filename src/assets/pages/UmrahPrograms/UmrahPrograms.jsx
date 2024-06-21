@@ -15,6 +15,7 @@ const UmrahPrograms = () => {
   const [loading , setLoading] = useState(true);
   const [activeLink, setActiveLink] = useState('Hotels');
   
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,8 +30,7 @@ const UmrahPrograms = () => {
           return await axios.get(`https://officealhajandalumrah.adaptable.app/Hotel/${hotelId}`).then(response => response.data);
         }))) ;
 
-        
-        const busCompanyResponse = await axios.get(`https://officealhajandalumrah.adaptable.app/BusCompany/${program_umrah.id_ProgramBus}`);
+        const busCompanyResponse = await axios.get(`https://officealhajandalumrah.adaptable.app/BusCompany/${program_umrah.id_busCompany}`);
         setBus(busCompanyResponse.data);
         setLoading(false);
       } catch (error) {

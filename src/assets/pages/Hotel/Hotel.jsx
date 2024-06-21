@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import './Hotel.css'
-import { useParams, Link , useLocation} from 'react-router-dom';
+import './Hotel.css';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { IoHome } from "react-icons/io5";
 import { GiPositionMarker } from "react-icons/gi";
-import { FaStar,FaCar } from "react-icons/fa";
+import { FaStar, FaCar } from "react-icons/fa";
 import { MdOutlineSettingsSuggest, MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { ImSpinner } from "react-icons/im";
 import { SliderHotel } from '../../components';
@@ -15,12 +15,12 @@ const Hotel = () => {
     const [hotel, setHotel] = useState(null);
     const [loading, setLoading] = useState(true);
     const [activeLink, setActiveLink] = useState('around1');
-
+    console.log(location);
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('https://officealhajandalumrah.adaptable.app/Hotel');
-                setHotel(response.data.find(hotel => hotel._id === (id)));
+                setHotel(response.data.find(hotel => hotel._id === id));
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching hotel data:', error);
@@ -32,7 +32,7 @@ const Hotel = () => {
 
     const handleLinkClick = (link) => {
         setActiveLink(link);
-    }
+    };
 
     if (loading) {
         return <div className='loading'> Loading... <ImSpinner /></div>;
@@ -70,16 +70,21 @@ const Hotel = () => {
         <div className="hotel">
             <div className="frame-hotel">
                 <div className='image-hotel'>
-                <div className='img-filter'><h1>Hotel</h1>      <h2>
+                    <div className='img-filter'>
+                        <h1>Hotel</h1>
+                        <h2>
                             {location.state && location.state.from ? (
                                 <>
                                     {location.state.from} <MdKeyboardDoubleArrowRight />
                                 </>
                             ) : (
-                                "Home <MdKeyboardDoubleArrowRight />"
+                                <>
+                                    Home <MdKeyboardDoubleArrowRight />
+                                </>
                             )}
                             Hotel
-                        </h2></div>
+                        </h2>
+                    </div>
                     <img src={hotel.urlImagehotel} alt="" />
                 </div>
                 <br />
@@ -98,9 +103,9 @@ const Hotel = () => {
                             <div className="line"></div>
                         </div>
                         <div className="services">
-                            {hotel.Services.map((service , index) => (
-                                  <p key={index}> <MdOutlineSettingsSuggest/> {service}</p>
-                             ))}
+                            {hotel.Services.map((service, index) => (
+                                <p key={index}> <MdOutlineSettingsSuggest /> {service}</p>
+                            ))}
                         </div>
                         <div className="round">
                             <div className='butt'>
@@ -115,15 +120,9 @@ const Hotel = () => {
                         </div>
                     </div>
                 </section>
-
             </div>
         </div>
     );
 };
 
 export default Hotel;
-
-
-   
-
-

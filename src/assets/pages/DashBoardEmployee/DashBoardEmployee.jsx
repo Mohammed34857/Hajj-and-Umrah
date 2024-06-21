@@ -1,24 +1,84 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./DashBoardEmployee.css";
 import min from "../../images/dashbord/img_avatar1.png";
 import { AiTwotoneCheckCircle } from "react-icons/ai";
 import { HiUserPlus } from "react-icons/hi2";
-import { ImCogs } from "react-icons/im";
-import { ImFolderOpen } from "react-icons/im";
-import { ImLibrary } from "react-icons/im";
-import { ImBubbles4 } from "react-icons/im";
-import { ImAirplane } from "react-icons/im";
+import { ImFolderOpen ,ImLibrary , ImBubbles4 ,ImAirplane , ImCogs} from "react-icons/im";
 import { FaRightFromBracket } from "react-icons/fa6";
-import { FaTrashAlt } from "react-icons/fa";
-import { FaPencilAlt } from "react-icons/fa";
+import { FaTrashAlt ,FaPencilAlt } from "react-icons/fa";
 import { IoPersonAddOutline } from "react-icons/io5";
+import axios from 'axios';
 
 const DashBoardEmployee = () => {
+  
+  const [mutamir,setMutamir]=useState([]);
+  const [mutamirData,setMutamirData]=useState({
+      fullName: "string",
+      nameFather: "string",
+      nameMother: "string",
+      phoneNumber: 0,
+      email: "abedalrahaman@gmail.com",
+      birth: "2024-05-20T23:27:58.385Z",
+      gender: "string",
+      nationality: "string",
+      passportNumber: "string",
+      passportPhoto: "",
+      almutamirPhoto: "",
+      numberBus: 0,
+      typeRoom: "string",
+      seatNumber: 0,
+      paymentMethod: "string",
+      verification: true
+  });
+  console.log(mutamir);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const Almutamir = await axios.get('https://officealhajandalumrah.adaptable.app/al-mutamir').then(response => response.data);
+        setMutamir(Almutamir);
+      } catch (error) {
+        console.error('Error fetching  data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleChangeImageMutamir = async (e) => {
+    const { name, files } = e.target;
+    if (files && files[0]) {
+        const formData = new FormData();
+        formData.append('file', files[0]);
+        try {
+            const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            const imagePath = response.data;
+            setMutamirData((prevFormData) => ({
+                ...prevFormData,
+                [name]: imagePath,
+            }));
+        } catch (error) {
+            console.error('Error uploading image:', error);
+        }
+    }
+  };
+     
+
+  const handleChange = (e) => {
+      const { name, value, files } = e.target;
+      setFormData((prevFormData) => ({
+          ...prevFormData,
+          [name]: files ? files[0] : value,
+      }));
+  };
+
   return (
     <div className="DashBoardEmployee">
-      <div class="dashborde">
-        <div class="min  ">
+
+       <div className="min  ">
           <nav>
             <ul>
               <li>
@@ -98,22 +158,25 @@ const DashBoardEmployee = () => {
             تسجيل الخروج
           </button>
         </div>
+        
+      <div className="dashborde">
+       
 
-        <div class="detil">
-          <div class="alert " role="alert">
+        <div className="detil">
+          <div className="alert " role="alert">
             <h5>
               عدد برامج الحج خلال السنوات <br /> 2022-2024
             </h5>
             <p> 15 برنامج</p>
           </div>
-          <div class="alert " role="alert">
+          <div className="alert " role="alert">
             <h5>
               عدد برامج العمرة خلال السنوات <br />
               2022-2024
             </h5>
             <p> 15 برنامج</p>
           </div>
-          <div class="alert " role="alert">
+          <div className="alert " role="alert">
             <h5>
               عدد البرامج الخاصة خلال السنوات
               <br /> 2022-2024
@@ -122,369 +185,154 @@ const DashBoardEmployee = () => {
           </div>
         </div>
 
-        <div class="contain-umrah">
-          <h2>تسجيل المعتمرين</h2>
-          <div class="table-umrah">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>رقم التأكيد</th>
-                  <th> التأشيرة</th>
-                  <th>نمط الدفع</th>
-                  <th>نمط الغرفة</th>
-                  <th>رقم المقعد</th>
-                  <th>رقم الباص</th>
-                  <th>اسم البرنامج</th>
-                  <th>صورة شخصية</th>
-                  <th>صورة جواز السفر </th>
-                  <th>رقم الجواز</th>
-                  <th>الجنسية</th>
-                  <th>الجنس</th>
-                  <th>التولد</th>
-                  <th>البريد الالكتروني</th>
-                  <th>رقم الهاتف</th>
-                  <th>اسم الاب</th>
-                  <th>اسم الام</th>
-                  <th>الاسم</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>fffff</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <table>
-              <thead>
-                <tr>
-                  <th>رقم التأكيد</th>
-                  <th> التأشيرة</th>
-                  <th>نمط الدفع</th>
-                  <th>نمط الغرفة</th>
-                  <th>رقم المقعد</th>
-                  <th>رقم الباص</th>
-                  <th>اسم البرنامج</th>
-                  <th>صورة شخصية</th>
-                  <th>صورة جواز السفر </th>
-                  <th>رقم الجواز</th>
-                  <th>الجنسية</th>
-                  <th>الجنس</th>
-                  <th>التولد</th>
-                  <th>البريد الالكتروني</th>
-                  <th>رقم الهاتف</th>
-                  <th>اسم الاب</th>
-                  <th>اسم الام</th>
-                  <th>الاسم</th>
-                  <th>تعديل</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <input
-                      type="text"
-                      id="verilication1"
-                      class="verilication"
-                    />
-                  </td>
-
-                  <td>
-                    <input type="file" id="visa1" class="visa" />
-                  </td>
-
-                  <td>
-                    <input type="text" id="type-pay1" class="type-pay" />
-                  </td>
-
-                  <td>
-                    <input type="text" id="room1" />
-                  </td>
-
-                  <td>
-                    <input
-                      type="number"
-                      id="seat-number1"
-                      class="seat-number"
-                    />
-                  </td>
-
-                  <td>
-                    <input type="number" id="number-bus1" class="number-bus" />
-                  </td>
-
-                  <td>
-                    <input
-                      type="text"
-                      id="name-program1"
-                      class="name-program"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="file"
-                      id="almutamir-photo1"
-                      class="almutamir-photo"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="file"
-                      id="passport-photo1"
-                      class="passport-photo"
-                    />
-                  </td>
-
-                  <td>
-                    <input
-                      type="number"
-                      id="passport-number1"
-                      class="passport-number"
-                    />
-                  </td>
-                  <td>
-                    <input type="text" id="nationality1" class="nationality" />
-                  </td>
-                  <td>
-                    <input type="text" id="gender1" class="gender" />
-                  </td>
-                  <td>
-                    <input type="data" id="birth1" class="birth" />
-                  </td>
-                  <td>
-                    <input type="email" id="the-email1" class="the-email" />
-                  </td>
-                  <td>
-                    <input type="text" id="phone1" class="phone" />
-                  </td>
-                  <td>
-                    <input type="text" id="name_mother1" class="name_mother" />
-                  </td>
-                  <td>
-                    <input type="text" id="name_father1" class="name_father" />
-                  </td>
-                  <td>
-                    <input type="text" id="full_travel1" class="full_travel" />
-                  </td>
-                  <td>
-                    <button id="add1" class="add">
-                      <IoPersonAddOutline />
-                      add
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <input
-                      type="text"
-                      id="verilication1"
-                      class="verilication"
-                    />
-                  </td>
-
-                  <td>
-                    <input type="file" id="visa1" class="visa" />
-                  </td>
-
-                  <td>
-                    <input type="text" id="type-pay1" class="type-pay" />
-                  </td>
-
-                  <td>
-                    <input type="text" id="room1" />
-                  </td>
-
-                  <td>
-                    <input
-                      type="number"
-                      id="seat-number1"
-                      class="seat-number"
-                    />
-                  </td>
-
-                  <td>
-                    <input type="number" id="number-bus1" class="number-bus" />
-                  </td>
-
-                  <td>
-                    <input
-                      type="text"
-                      id="name-program1"
-                      class="name-program"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="file"
-                      id="almutamir-photo1"
-                      class="almutamir-photo"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="file"
-                      id="passport-photo1"
-                      class="passport-photo"
-                    />
-                  </td>
-
-                  <td>
-                    <input
-                      type="number"
-                      id="passport-number1"
-                      class="passport-number"
-                    />
-                  </td>
-                  <td>
-                    <input type="text" id="nationality1" class="nationality" />
-                  </td>
-                  <td>
-                    <input type="text" id="gender1" class="gender" />
-                  </td>
-                  <td>
-                    <input type="data" id="birth1" class="birth" />
-                  </td>
-                  <td>
-                    <input type="email" id="the-email1" class="the-email" />
-                  </td>
-                  <td>
-                    <input type="text" id="phone1" class="phone" />
-                  </td>
-                  <td>
-                    <input type="text" id="name_mother1" class="name_mother" />
-                  </td>
-                  <td>
-                    <input type="text" id="name_father1" class="name_father" />
-                  </td>
-                  <td>
-                    <input type="text" id="full_travel1" class="full_travel" />
-                  </td>
-                  <td>
-                    <button id="edit1" class="edit">
-                      <FaPencilAlt />
-                      edit
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <input
-                      type="text"
-                      id="verilication1"
-                      class="verilication"
-                    />
-                  </td>
-
-                  <td>
-                    <input type="file" id="visa1" class="visa" />
-                  </td>
-
-                  <td>
-                    <input type="text" id="type-pay1" class="type-pay" />
-                  </td>
-
-                  <td>
-                    <input type="text" id="room1" />
-                  </td>
-
-                  <td>
-                    <input
-                      type="number"
-                      id="seat-number1"
-                      class="seat-number"
-                    />
-                  </td>
-
-                  <td>
-                    <input type="number" id="number-bus1" class="number-bus" />
-                  </td>
-
-                  <td>
-                    <input
-                      type="text"
-                      id="name-program1"
-                      class="name-program"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="file"
-                      id="almutamir-photo1"
-                      class="almutamir-photo"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="file"
-                      id="passport-photo1"
-                      class="passport-photo"
-                    />
-                  </td>
-
-                  <td>
-                    <input
-                      type="number"
-                      id="passport-number1"
-                      class="passport-number"
-                    />
-                  </td>
-                  <td>
-                    <input type="text" id="nationality1" class="nationality" />
-                  </td>
-                  <td>
-                    <input type="text" id="gender1" class="gender" />
-                  </td>
-                  <td>
-                    <input type="data" id="birth1" class="birth" />
-                  </td>
-                  <td>
-                    <input type="email" id="the-email1" class="the-email" />
-                  </td>
-                  <td>
-                    <input type="text" id="phone1" class="phone" />
-                  </td>
-                  <td>
-                    <input type="text" id="name_mother1" class="name_mother" />
-                  </td>
-                  <td>
-                    <input type="text" id="name_father1" class="name_father" />
-                  </td>
-                  <td>
-                    <input type="text" id="full_travel1" class="full_travel" />
-                  </td>
-                  <td>
-                    <button id="delete1" class="delete">
-                      <FaTrashAlt />
-                      delete
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div className="contain-umrah">
+         <h2>تسجيل المعتمرين</h2>
+          <div className="table-umrah">
+             <table className="table">
+                 <thead>
+        <tr>
+          <th>رقم التأكيد</th>
+          <th>التأشيرة</th>
+          <th>نمط الدفع</th>
+          <th>نمط الغرفة</th>
+          <th>رقم المقعد</th>
+          <th>رقم الباص</th>
+          <th>اسم البرنامج</th>
+          <th>صورة شخصية</th>
+          <th>صورة جواز السفر</th>
+          <th>رقم الجواز</th>
+          <th>الجنسية</th>
+          <th>الجنس</th>
+          <th>التولد</th>
+          <th>البريد الالكتروني</th>
+          <th>رقم الهاتف</th>
+          <th>اسم الاب</th>
+          <th>اسم الام</th>
+          <th>الاسم</th>
+        </tr>
+      </thead>
+      <tbody>
+        {mutamir.map((muta , index)=>(
+        <tr key={index}>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>{muta.payment_method}</td>
+          <td>{muta.type_room}</td>
+          <td>{muta.seatNumber}</td>
+          <td></td>
+          <td><img src={muta.almutamir_photo} alt="Personal" width="50" height="50"/></td>
+          <td><img src={muta.passport_photo} alt="Passport" width="50" height="50"/></td>
+          <td>{muta.passport_number}</td>
+          <td>{muta.Nationality}</td>
+          <td>{muta.gender}</td>
+          <td>{muta.birth}</td>
+          <td>{muta.email}</td>
+          <td>{muta.phone_number}</td>
+          <td>{muta.name_father}</td>
+          <td>{muta.name_mother}</td>
+          <td>{muta.full_name}</td>
+        </tr>
+        ))}
+      </tbody>
+    </table>
+    <table className="table">
+      <thead>
+        <tr>
+          <th>رقم التأكيد</th>
+          <th>التأشيرة</th>
+          <th>نمط الدفع</th>
+          <th>نمط الغرفة</th>
+          <th>رقم المقعد</th>
+          <th>رقم الباص</th>
+          <th>اسم البرنامج</th>
+          <th>صورة شخصية</th>
+          <th>صورة جواز السفر</th>
+          <th>رقم الجواز</th>
+          <th>الجنسية</th>
+          <th>الجنس</th>
+          <th>التولد</th>
+          <th>البريد الالكتروني</th>
+          <th>رقم الهاتف</th>
+          <th>اسم الاب</th>
+          <th>اسم الام</th>
+          <th>الاسم</th>
+          <th>تعديل</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="text" className="verilication" /></td>
+          <td><input type="file" className="visa" /></td>
+          <td><input type="text" className="type-pay" /></td>
+          <td><input type="text" /></td>
+          <td><input type="number" className="seat-number" /></td>
+          <td><input type="number" className="number-bus" /></td>
+          <td><input type="text" className="name-program" /></td>
+          <td><input type="file" className="almutamir-photo" /></td>
+          <td><input type="file" className="passport-photo" /></td>
+          <td><input type="number" className="passport-number" /></td>
+          <td><input type="text" className="nationality" /></td>
+          <td><input type="text" className="gender" /></td>
+          <td><input type="date" className="birth" /></td>
+          <td><input type="email" className="the-email" /></td>
+          <td><input type="text" className="phone" /></td>
+          <td><input type="text" className="name_mother" /></td>
+          <td><input type="text" className="name_father" /></td>
+          <td><input type="text" className="full_travel" /></td>
+          <td><button className="add">Add</button></td>
+        </tr>
+        <tr>
+          <td><input type="text" className="verilication" /></td>
+          <td><input type="file" className="visa" /></td>
+          <td><input type="text" className="type-pay" /></td>
+          <td><input type="text" /></td>
+          <td><input type="number" className="seat-number" /></td>
+          <td><input type="number" className="number-bus" /></td>
+          <td><input type="text" className="name-program" /></td>
+          <td><input type="file" className="almutamir-photo" /></td>
+          <td><input type="file" className="passport-photo" /></td>
+          <td><input type="number" className="passport-number" /></td>
+          <td><input type="text" className="nationality" /></td>
+          <td><input type="text" className="gender" /></td>
+          <td><input type="date" className="birth" /></td>
+          <td><input type="email" className="the-email" /></td>
+          <td><input type="text" className="phone" /></td>
+          <td><input type="text" className="name_mother" /></td>
+          <td><input type="text" className="name_father" /></td>
+          <td><input type="text" className="full_travel" /></td>
+          <td><button className="edit">Edit</button></td>
+        </tr>
+        <tr>
+          <td><input type="text" className="verilication" /></td>
+          <td><input type="file" className="visa" /></td>
+          <td><input type="text" className="type-pay" /></td>
+          <td><input type="text" /></td>
+          <td><input type="number" className="seat-number" /></td>
+          <td><input type="number" className="number-bus" /></td>
+          <td><input type="text" className="name-program" /></td>
+          <td><input type="file" className="almutamir-photo" /></td>
+          <td><input type="file" className="passport-photo" /></td>
+          <td><input type="number" className="passport-number" /></td>
+          <td><input type="text" className="nationality" /></td>
+          <td><input type="text" className="gender" /></td>
+          <td><input type="date" className="birth" /></td>
+          <td><input type="email" className="the-email" /></td>
+          <td><input type="text" className="phone" /></td>
+          <td><input type="text" className="name_mother" /></td>
+          <td><input type="text" className="name_father" /></td>
+          <td><input type="text" className="full_travel" /></td>
+          <td><button className="delete">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+           </div>
         </div>
 
-        <div class="contain-hajj">
+        <div className="contain-hajj">
           <h2>تسجيل الحجاج</h2>
-          <div class="table-hajj">
-            <table class="table">
+          <div className="table-hajj">
+            <table className="table">
               <thead>
                 <tr>
                   <th>رقم التأكيد</th>
@@ -560,90 +408,90 @@ const DashBoardEmployee = () => {
                   <td>
                     <input
                       type="text"
-                      id="verilication1"
-                      class="verilication"
+                      
+                      className="verilication"
                     />
                   </td>
 
                   <td>
-                    <input type="file" id="visa1" class="visa" />
+                    <input type="file"  className="visa" />
                   </td>
 
                   <td>
-                    <input type="text" id="type-pay1" class="type-pay" />
+                    <input type="text"  className="type-pay" />
                   </td>
 
                   <td>
-                    <input type="text" id="room1" />
+                    <input type="text"  />
                   </td>
 
                   <td>
                     <input
                       type="number"
-                      id="seat-number1"
-                      class="seat-number"
+                      
+                      className="seat-number"
                     />
                   </td>
 
                   <td>
-                    <input type="number" id="number-bus1" class="number-bus" />
+                    <input type="number"  className="number-bus" />
                   </td>
 
                   <td>
                     <input
                       type="text"
-                      id="name-program1"
-                      class="name-program"
+                      
+                      className="name-program"
                     />
                   </td>
                   <td>
                     <input
                       type="file"
-                      id="almutamir-photo1"
-                      class="almutamir-photo"
+                      
+                      className="almutamir-photo"
                     />
                   </td>
                   <td>
                     <input
                       type="file"
-                      id="passport-photo1"
-                      class="passport-photo"
+                      
+                      className="passport-photo"
                     />
                   </td>
 
                   <td>
                     <input
                       type="number"
-                      id="passport-number1"
-                      class="passport-number"
+                      
+                      className="passport-number"
                     />
                   </td>
                   <td>
-                    <input type="text" id="nationality1" class="nationality" />
+                    <input type="text"  className="nationality" />
                   </td>
                   <td>
-                    <input type="text" id="gender1" class="gender" />
+                    <input type="text"  className="gender" />
                   </td>
                   <td>
-                    <input type="data" id="birth1" class="birth" />
+                    <input type="data"  className="birth" />
                   </td>
                   <td>
-                    <input type="email" id="the-email1" class="the-email" />
+                    <input type="email"  className="the-email" />
                   </td>
                   <td>
-                    <input type="text" id="phone1" class="phone" />
+                    <input type="text"  className="phone" />
                   </td>
                   <td>
-                    <input type="text" id="name_mother1" class="name_mother" />
+                    <input type="text"  className="name_mother" />
                   </td>
                   <td>
-                    <input type="text" id="name_father1" class="name_father" />
+                    <input type="text"  className="name_father" />
                   </td>
                   <td>
-                    <input type="text" id="full_travel1" class="full_travel" />
+                    <input type="text"  className="full_travel" />
                   </td>
                   <td>
-                    <button id="add1" class="add">
+                    <button  className="add">
                       <IoPersonAddOutline />
                       add
                     </button>
@@ -653,89 +501,89 @@ const DashBoardEmployee = () => {
                   <td>
                     <input
                       type="text"
-                      id="verilication1"
-                      class="verilication"
+                      
+                      className="verilication"
                     />
                   </td>
 
                   <td>
-                    <input type="file" id="visa1" class="visa" />
+                    <input type="file"  className="visa" />
                   </td>
 
                   <td>
-                    <input type="text" id="type-pay1" class="type-pay" />
+                    <input type="text"  className="type-pay" />
                   </td>
 
                   <td>
-                    <input type="text" id="room1" />
+                    <input type="text"  />
                   </td>
 
                   <td>
                     <input
                       type="number"
-                      id="seat-number1"
-                      class="seat-number"
+                      
+                      className="seat-number"
                     />
                   </td>
                   <td>
-                    <input type="number" id="number-bus1" class="number-bus" />
+                    <input type="number"  className="number-bus" />
                   </td>
 
                   <td>
                     <input
                       type="text"
-                      id="name-program1"
-                      class="name-program"
+                
+                      className="name-program"
                     />
                   </td>
                   <td>
                     <input
                       type="file"
-                      id="almutamir-photo1"
-                      class="almutamir-photo"
+                      
+                      className="almutamir-photo"
                     />
                   </td>
                   <td>
                     <input
                       type="file"
-                      id="passport-photo1"
-                      class="passport-photo"
+                      
+                      className="passport-photo"
                     />
                   </td>
 
                   <td>
                     <input
                       type="number"
-                      id="passport-number1"
-                      class="passport-number"
+                      
+                      className="passport-number"
                     />
                   </td>
                   <td>
-                    <input type="text" id="nationality1" class="nationality" />
+                    <input type="text"  className="nationality" />
                   </td>
                   <td>
-                    <input type="text" id="gender1" class="gender" />
+                    <input type="text"  className="gender" />
                   </td>
                   <td>
-                    <input type="data" id="birth1" class="birth" />
+                    <input type="data"  className="birth" />
                   </td>
                   <td>
-                    <input type="email" id="the-email1" class="the-email" />
+                    <input type="email"  className="the-email" />
                   </td>
                   <td>
-                    <input type="text" id="phone1" class="phone" />
+                    <input type="text"  className="phone" />
                   </td>
                   <td>
-                    <input type="text" id="name_mother1" class="name_mother" />
+                    <input type="text"  className="name_mother" />
                   </td>
                   <td>
-                    <input type="text" id="name_father1" class="name_father" />
+                    <input type="text"  className="name_father" />
                   </td>
                   <td>
-                    <input type="text" id="full_travel1" class="full_travel" />
+                    <input type="text"  className="full_travel" />
                   </td>
                   <td>
-                    <button id="edit1" class="edit">
+                    <button  className="edit">
                       <FaPencilAlt />
                       edit
                     </button>
@@ -745,90 +593,90 @@ const DashBoardEmployee = () => {
                   <td>
                     <input
                       type="text"
-                      id="verilication1"
-                      class="verilication"
+                      
+                      className="verilication"
                     />
                   </td>
 
                   <td>
-                    <input type="file" id="visa1" class="visa" />
+                    <input type="file"  className="visa" />
                   </td>
 
                   <td>
-                    <input type="text" id="type-pay1" class="type-pay" />
+                    <input type="text"  className="type-pay" />
                   </td>
 
                   <td>
-                    <input type="text" id="room1" />
+                    <input type="text"  />
                   </td>
 
                   <td>
                     <input
                       type="number"
-                      id="seat-number1"
-                      class="seat-number"
+                      
+                      className="seat-number"
                     />
                   </td>
 
                   <td>
-                    <input type="number" id="number-bus1" class="number-bus" />
+                    <input type="number"  className="number-bus" />
                   </td>
 
                   <td>
                     <input
                       type="text"
-                      id="name-program1"
-                      class="name-program"
+                      
+                      className="name-program"
                     />
                   </td>
                   <td>
                     <input
                       type="file"
-                      id="almutamir-photo1"
-                      class="almutamir-photo"
+                      
+                      className="almutamir-photo"
                     />
                   </td>
                   <td>
                     <input
                       type="file"
-                      id="passport-photo1"
-                      class="passport-photo"
+                      
+                      className="passport-photo"
                     />
                   </td>
 
                   <td>
                     <input
                       type="number"
-                      id="passport-number1"
-                      class="passport-number"
+                      
+                      className="passport-number"
                     />
                   </td>
                   <td>
-                    <input type="text" id="nationality1" class="nationality" />
+                    <input type="text"  className="nationality" />
                   </td>
                   <td>
-                    <input type="text" id="gender1" class="gender" />
+                    <input type="text"  className="gender" />
                   </td>
                   <td>
-                    <input type="data" id="birth1" class="birth" />
+                    <input type="data"  className="birth" />
                   </td>
                   <td>
-                    <input type="email" id="the-email1" class="the-email" />
+                    <input type="email"  className="the-email" />
                   </td>
                   <td>
-                    <input type="text" id="phone1" class="phone" />
+                    <input type="text"  className="phone" />
                   </td>
                   <td>
-                    <input type="text" id="name_mother1" class="name_mother" />
+                    <input type="text"  className="name_mother" />
                   </td>
                   <td>
-                    <input type="text" id="name_father1" class="name_father" />
+                    <input type="text"  className="name_father" />
                   </td>
                   <td>
-                    <input type="text" id="full_travel1" class="full_travel" />
+                    <input type="text"  className="full_travel" />
                   </td>
                   <td>
-                    <button id="delete1" class="delete">
+                    <button id="delete1" className="delete">
                       <FaTrashAlt />
                       delete
                     </button>
@@ -838,8 +686,8 @@ const DashBoardEmployee = () => {
             </table>
           </div>
         </div>
-
-        <div class="prog-umrah">
+     </div> 
+        <div className="prog-umrah">
           <h2>برامج العمرة</h2>
           <div className="progr-parent">
             <div className="prog1">
@@ -870,8 +718,8 @@ const DashBoardEmployee = () => {
                 <span>ارجوان روز</span>
               </p>
 
-              <button class="update">تعديل</button>
-              <button class="delet">حذف</button>
+              <button className="update">تعديل</button>
+              <button className="delet">حذف</button>
             </div>
             <div className="prog1">
               <h3>عمرة رمضان البرية</h3>
@@ -900,11 +748,11 @@ const DashBoardEmployee = () => {
                 <span>نجوم المدينة</span> <br />
                 <span>ارجوان روز</span>
               </p>
-              <button class="update">تعديل</button>
-              <button class="delet">حذف</button>
+              <button className="update">تعديل</button>
+              <button className="delet">حذف</button>
 
               <button
-                class="btn btn-bus"
+                className="btn btn-bus"
                 type="button"
                 data-toggle="collapse"
                 data-target="#collapseExample"
@@ -914,8 +762,8 @@ const DashBoardEmployee = () => {
                 اضافة باص
               </button>
 
-              <div class="collapse" id="collapseExample">
-                <div class="card card-body">
+              <div className="collapse" id="collapseExample">
+                <div className="card card-body">
                   <input type="number" placeholder="رقم الباص" />
                   <input type="text" placeholder="اسم الشركة" />
                 </div>
@@ -950,7 +798,7 @@ const DashBoardEmployee = () => {
               <label htmlFor="">نوع السفر</label>
             </div>
 
-            <div class="hot">
+            <div className="hot">
               <h4>الفنادق</h4>
               <table>
                 <thead>
@@ -972,7 +820,7 @@ const DashBoardEmployee = () => {
                 </tr>
               </table>
             </div>
-            <div class="room">
+            <div className="room">
               <h4>السعر</h4>
               <table>
                 <thead>
@@ -994,7 +842,7 @@ const DashBoardEmployee = () => {
                 </tr>
               </table>
             </div>
-            <div class="buss">
+            <div className="buss">
               <h4>الباصات الخاصة بالبرنامج</h4>
               <table>
                 <thead>
@@ -1016,7 +864,7 @@ const DashBoardEmployee = () => {
           </div>
         </div>
 
-        <div class="prog-hajj">
+        <div className="prog-hajj">
           <h2>برامج الحج</h2>
           <div className="progr-parent">
             <div className="prog1">
@@ -1047,8 +895,8 @@ const DashBoardEmployee = () => {
                 <span>ارجوان روز</span>
               </p>
 
-              <button class="update">تعديل</button>
-              <button class="delet">حذف</button>
+              <button className="update">تعديل</button>
+              <button className="delet">حذف</button>
             </div>
             <div className="prog1">
               <h3>عمرة رمضان البرية</h3>
@@ -1078,8 +926,8 @@ const DashBoardEmployee = () => {
                 <span>ارجوان روز</span>
               </p>
 
-              <button class="update">تعديل</button>
-              <button class="delet">حذف</button>
+              <button className="update">تعديل</button>
+              <button className="delet">حذف</button>
             </div>
           </div>
 
@@ -1110,7 +958,7 @@ const DashBoardEmployee = () => {
               <label htmlFor="">نوع السفر</label>
             </div>
 
-            <div class="hot">
+            <div className="hot">
               <h4>الفنادق</h4>
               <table>
                 <thead>
@@ -1132,7 +980,7 @@ const DashBoardEmployee = () => {
                 </tr>
               </table>
             </div>
-            <div class="room">
+            <div className="room">
               <h4>السعر</h4>
               <table>
                 <thead>
@@ -1161,8 +1009,8 @@ const DashBoardEmployee = () => {
 
         <div className="hotal-updat">
           <h2>الفنادق</h2>
-          <div class="table-hotal">
-            <table class="table">
+          {/* <div className="table-hotal">
+            <table className="table">
               <thead>
                 <tr>
                   <th>رابط الفندق</th>
@@ -1213,47 +1061,47 @@ const DashBoardEmployee = () => {
                   </td>
 
                   <td>
-                    <input type="file" id="hotal-photo1" class="hotal-photo" />
+                    <input type="file" id="hotal-photo1" className="hotal-photo" />
                   </td>
                   <td>
                     <input
                       type="file"
                       id="min-hotal-photo1"
-                      class="min-hotal-photo"
+                      className="min-hotal-photo"
                     />
                   </td>
 
                   <td>
-                    <input type="text" id="visit-place1" class="visit-place" />
+                    <input type="text" id="visit-place1" className="visit-place" />
                   </td>
                   <td>
-                    <input type="text" id="servers1" class="servers" />
+                    <input type="text" id="servers1" className="servers" />
                   </td>
                   <td>
-                    <input type="number" id="star1" class="star" />
+                    <input type="number" id="star1" className="star" />
                   </td>
                   <td>
-                    <input type="text" id="detil1" class="detil" />
+                    <input type="text" id="detil1" className="detil" />
                   </td>
                   <td>
-                    <input type="text" id="location1" class="location" />
+                    <input type="text" id="location1" className="location" />
                   </td>
                   <td>
-                    <input type="text" id="name-hota1" class="name_hota" />
+                    <input type="text" id="name-hota1" className="name_hota" />
                   </td>
                   <td>
-                    <button class="add">اضافة</button>
+                    <button className="add">اضافة</button>
                   </td>
                 </tr>
               </tbody>
             </table>
-          </div>
+          </div> */}
         </div>
 
         <div className="transport-updat">
           <h2>النقل</h2>
-          <div class="table-transport">
-            <table class="table">
+          {/* <div className="table-transport">
+            <table className="table">
               <thead>
                 <tr>
                   <th> سعر التكيت</th>
@@ -1296,11 +1144,11 @@ const DashBoardEmployee = () => {
               <tbody>
                 <tr>
                   <td>
-                    <input type="number" id="pric1" class="pric" />
+                    <input type="number" id="pric1" className="pric" />
                   </td>
 
                   <td>
-                    <input type="text" id="typ1" class="typ" />
+                    <input type="text" id="typ1" className="typ" />
                   </td>
 
                   <td>
@@ -1310,41 +1158,41 @@ const DashBoardEmployee = () => {
                     <input
                       type="file"
                       id="transport-photo1"
-                      class="transport-photo"
+                      className="transport-photo"
                     />
                   </td>
                   <td>
                     <input
                       type="file"
                       id="min-transpot-photo1"
-                      class="min-transpot-photo"
+                      className="min-transpot-photo"
                     />
                   </td>
                   <td>
-                    <input type="text" id="detil-trans1" class="detil-trans" />
+                    <input type="text" id="detil-trans1" className="detil-trans" />
                   </td>
                   <td>
                     <input
                       type="text"
                       id="servers-trans1"
-                      class="servers-trans"
+                      className="servers-trans"
                     />
                   </td>
                   <td>
-                    <input type="text" id="name-trans1" class="name_trans" />
+                    <input type="text" id="name-trans1" className="name_trans" />
                   </td>
                   <td>
-                    <button class="add">اضافة</button>
+                    <button className="add">اضافة</button>
                   </td>
                 </tr>
               </tbody>
             </table>
-          </div>
+          </div> */}
         </div>
 
-        <div class="seting">
+        <div className="seting">
           <h2>الاعدادات</h2>
-          <div class="seting-detil">
+          <div className="seting-detil">
             <h3>:اعادة تعيين كلمة المرور</h3>
           <div className="input-box seting-box1">
               <input type="password" className="input-filed" placeholder=" كلمة السر الحالية" />
@@ -1361,7 +1209,7 @@ const DashBoardEmployee = () => {
           </div>
         </div>
       </div>
-    </div>
+    
   );
 };
 

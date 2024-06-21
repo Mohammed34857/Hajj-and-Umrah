@@ -120,8 +120,8 @@ const HajjPrograms = () => {
         </div>
 
         <div className='part2'>
+        <h2>الفنادق الخاصة ب البرنامج</h2>
           <div className="Hotel hotel-in-prog-haj" style={{ backgroundImage: `url(${backgroundImage})` }}>
-            <h2>الفنادق الخاصة ب البرنامج</h2>
             {!loading && (
               <div className='hotel-slider'>
                 <Slider {...settings}>
