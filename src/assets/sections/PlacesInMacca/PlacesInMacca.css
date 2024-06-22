@@ -163,3 +163,22 @@ background-repeat: no-repeat;
     
 
 }
+
+
+@media(max-width: 850px){
+
+    .PlacesInMacca .macc-plac{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 50px;
+        gap: 50px;
+    }
+    .PlacesInMacca .macc-plac h1{
+font-size: 25px;
+}
+.PlacesInMacca .box{
+     margin: auto;
+     width: 80%;
+    }
+}
+
