@@ -86,15 +86,15 @@ const UmrahPrograms = () => {
                     </div>
                     <div className='circle-trip'>
                         <div className='circle'>03</div>
-                        <div className='trip-detail'> سعر <span>{programUmrah.price1}</span> </div>
+                        <div className='trip-detail'>  <span>{programUmrah.price1}</span> </div>
                     </div>
                     <div className='circle-trip'>
                         <div className='circle'>04</div>
-                        <div className='trip-detail'> سعر <span>{programUmrah.price2}</span> </div>
+                        <div className='trip-detail'>  <span>{programUmrah.price2}</span> </div>
                     </div>
                     <div className='circle-trip'>
                         <div className='circle'>05</div>
-                        <div className='trip-detail'> سعر <span>{programUmrah.price3}</span> </div>
+                        <div className='trip-detail'>  <span>{programUmrah.price3}</span> </div>
                     </div>
                     {/* <div className='circle-trip'>
                         <div className='circle'>03</div>

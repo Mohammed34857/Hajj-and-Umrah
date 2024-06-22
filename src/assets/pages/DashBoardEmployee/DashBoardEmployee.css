@@ -104,6 +104,12 @@ body{
   justify-content: space-between;
   margin-bottom: 50px;
  }
+ table img:hover{
+  cursor: pointer;
+  transform: scale(4);
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px 1px rgb(0, 0, 0) , -1px -1px 10px 1px rgb(133, 130, 130);
+}
  
  .table-umrah , .table-hajj {
   max-width: 98%;

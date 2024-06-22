@@ -9,6 +9,8 @@ import axios from 'axios';
 const RegisterProgramUmrah = () => {
 
     const { id } = useParams();
+    const [reservationCode, setReservationCode] = useState([]);
+    const [error, setError] = useState("");
     const [programUmrah, setProgramUmrah] = useState({});
     const [reservedSeats, setReservedSeats] = useState([]);
     const [formData, setFormData] = useState({
@@ -27,7 +29,8 @@ const RegisterProgramUmrah = () => {
       typeRoom: "string",
       seatNumber: 0,
       paymentMethod: "string",
-      verification: true
+      verification: false ,
+      reservationCode:""
     });
 
     useEffect(() => {
@@ -100,6 +103,11 @@ const RegisterProgramUmrah = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!reservationCode.includes(formData.reservationCode)) {
+          setError("كود الحجز غير صحيح , يرجى التأكد من الكود والمحاولة مرة أخرى");
+          return;
+        }
+        else{
         const data = {
           full_name: formData.fullName,
           name_father: formData.nameFather,
@@ -131,6 +139,7 @@ const RegisterProgramUmrah = () => {
             console.error('Error submitting data:', error);
         }
     };
+  }
 
   return (
     <div className='register-program-umrah'>
@@ -294,6 +303,29 @@ const RegisterProgramUmrah = () => {
                      الدفع كاش 
                     </label>
             </div>
+          </div>
+
+          <div className='Reservation_code'>
+              <table className='table1'>
+                 <tbody>
+                            <tr>
+                                <th><input
+                                     type="text"
+                                     name="reservationCode"
+                                     placeholder="كود الحجز"
+                                     value={formData.reservationCode}
+                                     onChange={handleChange}
+                                    />
+                                </th>
+                                <th><label> : ادخل كود تأكيد الحجز </label></th>
+                            </tr>
+                            <tr>
+                              <th>
+                              {error && <p className="error-message">{error}</p>}
+                              </th>
+                            </tr>
+                 </tbody>
+              </table>
           </div>
 
           <div className='order-send'>

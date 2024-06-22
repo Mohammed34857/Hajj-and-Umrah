@@ -4,8 +4,12 @@ import { FaPencilAlt, FaHotel  } from "react-icons/fa";
 import { MdEmojiTransportation , MdOutlineHealthAndSafety , MdOutlineAirplanemodeActive } from "react-icons/md";
 import axios from 'axios';
 
+
 const RegisterProgramHajj = () => {
-    
+  
+    const [reservationCode, setReservationCode] = useState([]);
+    const [error, setError] = useState("");
+    console.log(reservationCode);
     const [companion1Id, setCompanion1Id] = useState("");
     const [companion2Id, setCompanion2Id] = useState("");
     const [formData, setFormData] = useState({
@@ -13,7 +17,7 @@ const RegisterProgramHajj = () => {
       name_father: "",
       name_mother: "",
       email: "@gmail.com",
-      phone_number: 1,
+      phone_number: "",
       birth: "1950-06-15",
       gender: "",
       Health_status: "سليم",
@@ -22,11 +26,11 @@ const RegisterProgramHajj = () => {
       iscompanion: false,
       Nationality: "",
       passport_number: "",
-      passport_photo: "",
-      alhaj_photo: "",
+      passport_photo: "https://res.cloudinary.com/dj05jeavk/image/upload/v1718964633/izoseoxwvcbzggntdgxl.jpg",
+      alhaj_photo: "https://res.cloudinary.com/dj05jeavk/image/upload/v1718964633/izoseoxwvcbzggntdgxl.jpg",
       payment_method: "",
       Verification: false,
-      visa_photo: "",
+      reservationCode:""
       });
       
       const [companion1, setCompanion1] = useState({
@@ -34,7 +38,7 @@ const RegisterProgramHajj = () => {
         name_father: "",
         name_mother: "",
         email: "@gmail.com",
-        phone_number: 1,
+        phone_number: "",
         birth: "1950-06-15",
         gender: "",
         Health_status: "سليم",
@@ -44,8 +48,7 @@ const RegisterProgramHajj = () => {
         passport_photo: "",
         alhaj_photo: "",
         payment_method: "",
-        Verification: false,
-        visa_photo: "",
+        Verification: false
        });
     
       const [companion2, setCompanion2] = useState({
@@ -53,7 +56,7 @@ const RegisterProgramHajj = () => {
        name_father: "",
        name_mother: "",
        email: "@gmail.com",
-       phone_number: 1,
+       phone_number: "",
        birth: "1950-06-15",
        gender: "",
        Health_status: "سليم",
@@ -63,12 +66,23 @@ const RegisterProgramHajj = () => {
        passport_photo: "",
        alhaj_photo: "",
        payment_method: "",
-       Verification: false,
-       visa_photo: "",
+       Verification: false
     });
     
 
     useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const ReservationCode = await axios.get('https://officealhajandalumrah.adaptable.app/employee');
+          setReservationCode(ReservationCode.data.map((Code)=>{
+            return Code.Reservation_code;
+          }));
+        } catch (error) {
+          console.error('Error fetching Reservation Code data:', error);
+        }
+      };
+      fetchData();
+
       const handleFileChange = (inputId, outputPathId) => {
         return () => {
           const fileInput = document.getElementById(inputId);
@@ -79,8 +93,7 @@ const RegisterProgramHajj = () => {
   
       const fileInputs = [
         { inputId: 'file-img', outputPathId: 'file-path' },
-        { inputId: 'passport', outputPathId: 'passport-path' },
-        { inputId: 'visa', outputPathId: 'visa-path' }
+        { inputId: 'passport', outputPathId: 'passport-path' }
       ];
   
       fileInputs.forEach(({ inputId, outputPathId }) => {
@@ -202,7 +215,11 @@ const RegisterProgramHajj = () => {
     
       const handleSubmit = async (e) => {
         e.preventDefault();
-
+        if (!reservationCode.includes(formData.reservationCode)) {
+          setError("كود الحجز غير صحيح , يرجى التأكد من الكود والمحاولة مرة أخرى");
+          return;
+        }
+        else{
         let companion1Id = '';
         let companion2Id = '';
 
@@ -211,7 +228,7 @@ const RegisterProgramHajj = () => {
           name_father: companion1.name_father,
           name_mother: companion1.name_mother,
           email: companion1.email,
-          phone_number: Number(companion1.phone_number),
+          phone_number: companion1.phone_number,
           birth: companion1.birth,
           gender: companion1.gender,
           Health_status: companion1.Health_status,
@@ -222,8 +239,7 @@ const RegisterProgramHajj = () => {
           passport_photo: companion1.passport_photo,
           alhaj_photo: companion1.alhaj_photo,
           payment_method: companion1.payment_method,
-          Verification: companion1.Verification,
-          visa_photo: companion1.visa_photo,
+          Verification: companion1.Verification
         }; 
         console.log(dataCompanion1);
 
@@ -232,7 +248,7 @@ const RegisterProgramHajj = () => {
           name_father: companion2.name_father,
           name_mother: companion2.name_mother,
           email: companion2.email,
-          phone_number: Number(companion2.phone_number),
+          phone_number: companion2.phone_number,
           birth: companion2.birth,
           gender: companion2.gender,
           Health_status: companion2.Health_status,
@@ -243,8 +259,7 @@ const RegisterProgramHajj = () => {
           passport_photo: companion2.passport_photo,
           alhaj_photo: companion2.alhaj_photo,
           payment_method: companion2.payment_method,
-          Verification: companion2.Verification,
-          visa_photo: companion2.visa_photo,
+          Verification: companion2.Verification
         };
 
         if (selectedHealthState === 'good') {
@@ -287,13 +302,13 @@ const RegisterProgramHajj = () => {
         name_father: formData.name_father,
         name_mother: formData.name_mother,
         email: formData.email,
-        phone_number: Number(formData.phone_number),
+        phone_number: formData.phone_number,
         birth: formData.birth,
         gender: formData.gender,
         Health_status: formData.Health_status,
         companion1: companion1Id,
         companion2: companion2Id,
-        silat_alqaraba: formData.silat_alqaraba,
+        silat_alqaraba: "string",
         iscompanion: formData.iscompanion,
         Nationality: formData.Nationality,
         passport_number: formData.passport_number,
@@ -301,7 +316,7 @@ const RegisterProgramHajj = () => {
         alhaj_photo: formData.alhaj_photo,
         payment_method: formData.payment_method,
         Verification: formData.Verification,
-        visa_photo: formData.visa_photo,
+        visa_photo: ""
       };
       console.log(data);
   
@@ -324,7 +339,7 @@ const RegisterProgramHajj = () => {
       }
       };
     
-
+    }
 
   return (
     <div className='register-program-hajj'>
@@ -344,7 +359,7 @@ const RegisterProgramHajj = () => {
                   <th><label> : البريد الالكتروني</label></th>
                 </tr>
                 <tr>
-                  <th><input type="number" name='phone_number' value={formData.phone_number} onChange={handleChange} placeholder=" ادخل رقم الهاتف " /></th>
+                  <th><input type="text" name='phone_number' value={formData.phone_number} onChange={handleChange} placeholder=" ادخل رقم الهاتف " /></th>
                   <th><label> : رقم الهاتف</label></th>
                 </tr>
                 <tr>
@@ -376,20 +391,7 @@ const RegisterProgramHajj = () => {
                       />
                     </th>
                     <th><label> : ادخل صورة جواز السفر</label></th>
-                  </tr>  
-                  <tr>
-                    <th>
-                      <div className='path' id='visa-path'> لم يتم اختيار ملف </div>
-                      <label className='label-file' htmlFor="visa"><span> اختر ملف  </span></label>
-                      <input 
-                        id='visa' 
-                        name='visa_photo' 
-                        type="file" 
-                        onChange={handleChangeImage}
-                      />
-                    </th>
-                    <th><label> : ادخل صورة الفيزا</label></th>
-                  </tr>             
+                  </tr>              
                 </tbody>  
               </table>
               <div className='end-float'></div>
@@ -425,7 +427,7 @@ const RegisterProgramHajj = () => {
                                 <th><label> : البريد الالكتروني</label></th>
                             </tr>
                             <tr>
-                                <th><input  type="number"  name="phone_number"  value={companion1.phone_number}  onChange={(e) => handleCompanionChange(e, setCompanion1)}  placeholder=" ادخل رقم الهاتف "/></th>
+                                <th><input  type="text"  name="phone_number"  value={companion1.phone_number}  onChange={(e) => handleCompanionChange(e, setCompanion1)}  placeholder=" ادخل رقم الهاتف "/></th>
                                 <th><label> : رقم الهاتف</label></th>
                             </tr>  
                             <tr>
@@ -464,19 +466,7 @@ const RegisterProgramHajj = () => {
                               </th>
                               <th><label> : ادخل صورة جواز السفر</label></th>
                             </tr>  
-                            <tr>
-                              <th>
-                                <div className='path' id='companion1-visa-path'> لم يتم اختيار ملف </div>
-                                <label className='label-file' htmlFor="companion1-visa"><span> اختر ملف  </span></label>
-                                <input 
-                                  id='companion1-visa' 
-                                  name='visa_photo' 
-                                  type="file" 
-                                  onChange={handleChangeImageCompanion1}
-                                />
-                              </th>
-                              <th><label> : ادخل صورة الفيزا</label></th>
-                            </tr> 
+                          
                             <tr>
                                 <td colSpan="2"><h2> ادخل معلومات المرافق الثاني </h2></td>
                             </tr>
@@ -489,7 +479,7 @@ const RegisterProgramHajj = () => {
                                 <th><label> : البريد الالكتروني</label></th>
                             </tr>
                             <tr>
-                                <th><input  type="number"  name="phone_number"  value={companion2.phone_number}  onChange={(e) => handleCompanionChange(e, setCompanion2)}  placeholder=" ادخل رقم الهاتف "/></th>
+                                <th><input  type="text"  name="phone_number"  value={companion2.phone_number}  onChange={(e) => handleCompanionChange(e, setCompanion2)}  placeholder=" ادخل رقم الهاتف "/></th>
                                 <th><label> : رقم الهاتف</label></th>
                             </tr>  
                             <tr>
@@ -528,19 +518,6 @@ const RegisterProgramHajj = () => {
                               </th>
                               <th><label> : ادخل صورة جواز السفر</label></th>
                             </tr>  
-                            <tr>
-                              <th>
-                                <div className='path' id='companion2-visa-path'> لم يتم اختيار ملف </div>
-                                <label className='label-file' htmlFor="companion2-visa"><span> اختر ملف  </span></label>
-                                <input 
-                                  id='companion2-visa' 
-                                  name='visa_photo' 
-                                  type="file" 
-                                  onChange={handleChangeImageCompanion2}
-                                />
-                              </th>
-                              <th><label> : ادخل صورة الفيزا</label></th>
-                            </tr> 
                             </tbody>  
                           </table>
                          </div>
@@ -561,7 +538,7 @@ const RegisterProgramHajj = () => {
                                 <th><label> : البريد الالكتروني</label></th>
                             </tr>
                             <tr>
-                                <th><input  type="number"  name="phone_number"  value={companion1.phone_number}  onChange={(e) => handleCompanionChange(e, setCompanion1)}  placeholder=" ادخل رقم الهاتف "/></th>
+                                <th><input  type="text"  name="phone_number"  value={companion1.phone_number}  onChange={(e) => handleCompanionChange(e, setCompanion1)}  placeholder=" ادخل رقم الهاتف "/></th>
                                 <th><label> : رقم الهاتف</label></th>
                             </tr>  
                             <tr>
@@ -600,19 +577,6 @@ const RegisterProgramHajj = () => {
                               </th>
                               <th><label> : ادخل صورة جواز السفر</label></th>
                             </tr>  
-                            <tr>
-                              <th>
-                                <div className='path' id='companion11-visa-path'> لم يتم اختيار ملف </div>
-                                <label className='label-file' htmlFor="companion11-visa"><span> اختر ملف  </span></label>
-                                <input 
-                                  id='companion11-visa' 
-                                  name='visa_photo' 
-                                  type="file" 
-                                  onChange={handleChangeImageCompanion1}
-                                />
-                              </th>
-                              <th><label> : ادخل صورة الفيزا</label></th>
-                            </tr> 
                             </tbody>  
                           </table>
                          </div>
@@ -671,6 +635,30 @@ const RegisterProgramHajj = () => {
                     </label>
             </div>
           </div>
+
+          <div className='Reservation_code'>
+              <table className='table1'>
+                 <tbody>
+                            <tr>
+                                <th><input
+                                     type="text"
+                                     name="reservationCode"
+                                     placeholder="كود الحجز"
+                                     value={formData.reservationCode}
+                                     onChange={handleChange}
+                                    />
+                                </th>
+                                <th><label> : ادخل كود تأكيد الحجز </label></th>
+                            </tr>
+                            <tr>
+                              <th>
+                              {error && <p className="error-message">{error}</p>}
+                              </th>
+                            </tr>
+                 </tbody>
+              </table>
+          </div>
+          
 
          <div className='order-send'>
             <button type="submit" >ارسال الطلب</button>
