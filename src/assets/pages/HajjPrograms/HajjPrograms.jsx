@@ -119,8 +119,13 @@ const HajjPrograms = () => {
           </div>
         </div>
 
+<div className='price-hajj'>
+  <div  className='pric   room-three-hajj'>سعر البرنامج في الغرفة الثلاثية <br /> $5100</div>
+  <div className=' pric   room-four-hajj'>  سعر البرنامج في الغرفة الرباعية <br /> 5000$</div>
+  <div className='  pric romm-five-hajj'>سعر البرنامج في الغرفة الخماسية<br />$ 4950</div>
+</div>
         <div className='part2'>
-        <h2>الفنادق الخاصة ب البرنامج</h2>
+        <h2>:الفنادق الخاصة ب البرنامج</h2>
           <div className="Hotel hotel-in-prog-haj" style={{ backgroundImage: `url(${backgroundImage})` }}>
             {!loading && (
               <div className='hotel-slider'>
