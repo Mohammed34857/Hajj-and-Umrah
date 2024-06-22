@@ -356,7 +356,7 @@ const RegisterProgramHajj = () => {
     <div className='register-program-hajj'>
         <form  onSubmit={handleSubmit}>
         <div className="container">
-           <h1> انضم إلى قافلة عباد الرحمن في برنامج الحج </h1>
+           <h1> انضم إلى قافلة اجنحة الضيافة في برنامج الحج </h1>
             <div className="hajj-register">
                <h3> :التسجيل <FaPencilAlt/></h3>
               <table className='table1'>
