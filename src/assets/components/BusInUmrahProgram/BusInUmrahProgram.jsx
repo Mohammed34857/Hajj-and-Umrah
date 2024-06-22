@@ -4,6 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button} from '../../components';
 
 const HotelInBusInUmrahProgram= ({busCompany})=> {
+
+
+  console.log(busCompany);
   return (
     <div className='bus-in-umrah-program'>
       <div className='busCompany-img'>
@@ -24,7 +27,7 @@ const HotelInBusInUmrahProgram= ({busCompany})=> {
           </ul>
          </div>
          <div className='btn-transport-details'>
-            <Button link={`/Transport#transport-${busCompany._id}`} linkName={'تفاصيل شركة النقل'}  />
+            <Button link={`/Transport`} linkName={'تفاصيل شركة النقل'}  />
          </div>
       </div>
     </div>

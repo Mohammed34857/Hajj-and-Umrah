@@ -9,9 +9,13 @@ const RegisterProgramHajj = () => {
   
     const [reservationCode, setReservationCode] = useState([]);
     const [error, setError] = useState("");
-    console.log(reservationCode);
     const [companion1Id, setCompanion1Id] = useState("");
     const [companion2Id, setCompanion2Id] = useState("");
+    const [healthsStatus,setHealthsStatus]=useState("سليم");
+    const [selectedHealthState, setSelectedHealthState] = useState(null);
+    const handleHealthStateChange = (HealthState) => {
+    setSelectedHealthState(HealthState);
+     };
     const [formData, setFormData] = useState({
       full_name: "",
       name_father: "",
@@ -20,7 +24,7 @@ const RegisterProgramHajj = () => {
       phone_number: "",
       birth: "1950-06-15",
       gender: "",
-      Health_status: "سليم",
+      Health_status: healthsStatus,
       companion1: companion1Id,
       companion2: companion2Id,
       iscompanion: false,
@@ -178,10 +182,7 @@ const RegisterProgramHajj = () => {
       }
     };
   
-    const [selectedHealthState, setSelectedHealthState] = useState(null);
-    const handleHealthStateChange = (HealthState) => {
-    setSelectedHealthState(HealthState);
-     };
+    
     
       const handleChange = (e) => {
         const { name, value, files } = e.target;
@@ -220,6 +221,15 @@ const RegisterProgramHajj = () => {
           return;
         }
         else{
+
+          if (selectedHealthState === null) {
+            setHealthsStatus("سليم");
+        } else if (selectedHealthState === "good") {
+            setHealthsStatus("جيدة");
+        } else if (selectedHealthState === "helpless") {
+            setHealthsStatus("عاجز");
+        }
+
         let companion1Id = '';
         let companion2Id = '';
 
@@ -306,8 +316,8 @@ const RegisterProgramHajj = () => {
         birth: formData.birth,
         gender: formData.gender,
         Health_status: formData.Health_status,
-        companion1: companion1Id,
-        companion2: companion2Id,
+        companion1: selectedHealthState === 'helpless' || selectedHealthState === 'good' ? companion1Id : undefined,
+        companion2: selectedHealthState === 'helpless' ? companion2Id : undefined,
         silat_alqaraba: "string",
         iscompanion: formData.iscompanion,
         Nationality: formData.Nationality,
@@ -316,8 +326,9 @@ const RegisterProgramHajj = () => {
         alhaj_photo: formData.alhaj_photo,
         payment_method: formData.payment_method,
         Verification: formData.Verification,
-        visa_photo: ""
       };
+      if (!data.companion1) delete data.companion1;
+      if (!data.companion2) delete data.companion2;
       console.log(data);
   
         try {
