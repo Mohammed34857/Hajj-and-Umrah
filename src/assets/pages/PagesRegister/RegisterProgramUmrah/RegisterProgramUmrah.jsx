@@ -145,7 +145,7 @@ const RegisterProgramUmrah = () => {
     <div className='register-program-umrah'>
       <div className="container">
         <form onSubmit={handleSubmit}>
-          <h1 className="hellow">انضم إلى قافلة عباد الرحمن في برنامج العمرة </h1>
+          <h1 className="hellow">انضم إلى قافلة اجنحة الضيافة في برنامج العمرة </h1>
           <h2 className="title-program">{programUmrah.name_program}</h2>
 
           <div className="register">
