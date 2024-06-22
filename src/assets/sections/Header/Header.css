@@ -23,7 +23,7 @@ display: flex;
 #eng{
   color: var(--color-gold);
   font-size: 16px;
-  margin: 0;
+  margin-top: -10px;
 }
 
 .logo-name{

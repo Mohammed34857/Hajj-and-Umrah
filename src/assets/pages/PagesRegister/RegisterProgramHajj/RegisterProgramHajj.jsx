@@ -11,11 +11,12 @@ const RegisterProgramHajj = () => {
     const [error, setError] = useState("");
     const [companion1Id, setCompanion1Id] = useState("");
     const [companion2Id, setCompanion2Id] = useState("");
-    const [healthsStatus,setHealthsStatus]=useState("سليم");
+    const [healthsStatus,setHealthsStatus]=useState("");
     const [selectedHealthState, setSelectedHealthState] = useState(null);
     const handleHealthStateChange = (HealthState) => {
     setSelectedHealthState(HealthState);
      };
+     
     const [formData, setFormData] = useState({
       full_name: "",
       name_father: "",
@@ -30,10 +31,12 @@ const RegisterProgramHajj = () => {
       iscompanion: false,
       Nationality: "",
       passport_number: "",
-      passport_photo: "https://res.cloudinary.com/dj05jeavk/image/upload/v1718964633/izoseoxwvcbzggntdgxl.jpg",
-      alhaj_photo: "https://res.cloudinary.com/dj05jeavk/image/upload/v1718964633/izoseoxwvcbzggntdgxl.jpg",
+      passport_photo: "",
+      alhaj_photo: "",
       payment_method: "",
       Verification: false,
+      type_room: "",
+      name_program: "",
       reservationCode:""
       });
       
@@ -52,7 +55,9 @@ const RegisterProgramHajj = () => {
         passport_photo: "",
         alhaj_photo: "",
         payment_method: "",
-        Verification: false
+        Verification: false,
+        type_room: "",
+        name_program: ""
        });
     
       const [companion2, setCompanion2] = useState({
@@ -70,7 +75,9 @@ const RegisterProgramHajj = () => {
        passport_photo: "",
        alhaj_photo: "",
        payment_method: "",
-       Verification: false
+       Verification: false ,
+       type_room: "",
+        name_program: ""
     });
     
 
@@ -213,6 +220,11 @@ const RegisterProgramHajj = () => {
           }));
         }
       };
+      const handleCombinedChange = (e) => {
+        handleChange(e);
+        handleCompanionChange(e, setCompanion1);
+        handleCompanionChange(e, setCompanion2);
+    };
     
       const handleSubmit = async (e) => {
         e.preventDefault();
@@ -222,13 +234,7 @@ const RegisterProgramHajj = () => {
         }
         else{
 
-          if (selectedHealthState === null) {
-            setHealthsStatus("سليم");
-        } else if (selectedHealthState === "good") {
-            setHealthsStatus("جيدة");
-        } else if (selectedHealthState === "helpless") {
-            setHealthsStatus("عاجز");
-        }
+         
 
         let companion1Id = '';
         let companion2Id = '';
@@ -249,7 +255,9 @@ const RegisterProgramHajj = () => {
           passport_photo: companion1.passport_photo,
           alhaj_photo: companion1.alhaj_photo,
           payment_method: companion1.payment_method,
-          Verification: companion1.Verification
+          Verification: companion1.Verification,
+          type_room: formData.type_room,
+          name_program: formData.name_program
         }; 
         console.log(dataCompanion1);
 
@@ -269,7 +277,9 @@ const RegisterProgramHajj = () => {
           passport_photo: companion2.passport_photo,
           alhaj_photo: companion2.alhaj_photo,
           payment_method: companion2.payment_method,
-          Verification: companion2.Verification
+          Verification: companion2.Verification,
+          type_room: formData.type_room,
+        name_program: formData.name_program
         };
 
         if (selectedHealthState === 'good') {
@@ -306,7 +316,13 @@ const RegisterProgramHajj = () => {
         console.error('Error submitting companion1 data:', error);
       }
        }
-
+         if (selectedHealthState === null) {
+            setHealthsStatus("سليم");
+        } else if (selectedHealthState === "good") {
+            setHealthsStatus("جيدة");
+        } else if (selectedHealthState === "helpless") {
+            setHealthsStatus("عاجز");
+        }
        const data = {
         full_name: formData.full_name,
         name_father: formData.name_father,
@@ -326,18 +342,26 @@ const RegisterProgramHajj = () => {
         alhaj_photo: formData.alhaj_photo,
         payment_method: formData.payment_method,
         Verification: formData.Verification,
+        type_room: formData.type_room,
+        name_program: formData.name_program
       };
       if (!data.companion1) delete data.companion1;
       if (!data.companion2) delete data.companion2;
       console.log(data);
   
         try {
+          
           const response = await axios.post('https://officealhajandalumrah.adaptable.app/al-hajj', data, {
             headers: {
               'Content-Type': 'application/json',
             },
           });
           console.log('Data submitted successfully:', response.data);
+          alert('تم إرسال البيانات بنجاح!');
+          const timer = setTimeout(() => {
+              window.location.reload();
+          }, 10000);
+          return () => clearTimeout(timer);
       } catch (error) {
         if (error.response) {
           console.error("Error response:", error.response);
@@ -618,15 +642,15 @@ const RegisterProgramHajj = () => {
           <div className="selecthotel">
             <h3>   : اختر عدد الغرف  <FaHotel /> </h3>
             <div className="radio-room">
-                    <label className="radio-container"><input type="radio" name="roomNumber" value={1} />
+                    <label className="radio-container"><input type="radio" name="type_room" value={1} onChange={handleCombinedChange} />
                     <span className="checkmark"></span>
                     غرفة ثنائية
                     </label>
-                    <label className="radio-container"><input type="radio" name="roomNumber" value={2} />
+                    <label className="radio-container"><input type="radio" name="type_room" value={2} onChange={handleCombinedChange } />
                     <span className="checkmark"></span>
                      غرفة ثلاثية 
                     </label>
-                    <label className="radio-container"><input type="radio" name="roomNumber" value={3} />
+                    <label className="radio-container"><input type="radio" name="type_room" value={3} onChange={handleCombinedChange} />
                     <span className="checkmark"></span>
                      غرفة رباعية 
                     </label>
@@ -636,11 +660,11 @@ const RegisterProgramHajj = () => {
           <div className="paying-off">
             <h3> : طريقة الدفع <MdEmojiTransportation/></h3>
             <div className="paying">
-                    <label className="radio-container"><input type="radio" name="payment_method" value={"الكتروني"} onChange={handleChange} />
+                    <label className="radio-container"><input type="radio" name="payment_method" value={"الكتروني"} onChange={handleCombinedChange} />
                     <span className="checkmark"></span>
                     الالكتروني
                     </label>
-                    <label className="radio-container"><input type="radio" name="payment_method" value={"كاش"} onChange={handleChange} />
+                    <label className="radio-container"><input type="radio" name="payment_method" value={"كاش"} onChange={handleCombinedChange} />
                     <span className="checkmark"></span>
                      الدفع كاش 
                     </label>
