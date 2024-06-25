@@ -10,6 +10,7 @@ const RegisterProgramUmrah = () => {
 
     const { id } = useParams();
     const [reservationCode, setReservationCode] = useState([]);
+    consol.log(reservationCode);
     const [error, setError] = useState("");
     const [programUmrah, setProgramUmrah] = useState({});
     const [reservedSeats, setReservedSeats] = useState([]);
@@ -63,6 +64,11 @@ const RegisterProgramUmrah = () => {
               const filteredPrograms = response.data.find((program) => program.id_ProgramUmrah === id);
               const reserved = filteredPrograms.seat.filter(seat => seat.isReserved).map(seat => seat.seatNumber);
               setReservedSeats(reserved);
+
+              const ReservationCode = await axios.get('https://officealhajandalumrah.adaptable.app/employee');
+               setReservationCode(ReservationCode.data.map((Code)=>{
+              return Code.Reservation_code;
+               }));
           } catch (error) {
               console.error('Error fetching program data:', error);
           }
@@ -126,7 +132,6 @@ const RegisterProgramUmrah = () => {
           payment_method: formData.paymentMethod,
           Verification: formData.verification,
         };
-      console.log(data);
         try {
             const response = await axios.post('https://officealhajandalumrah.adaptable.app/al-mutamir', data, {
                 headers: {

@@ -29,8 +29,8 @@ const RegisterProgramSpecial = () => {
         gender: "string",
         nationality: "string",
         passportNumber: "string",
-        passportPhoto: "https://res.cloudinary.com/dj05jeavk/image/upload/v1714507309/hotels/%D9%86%D8%B3%D9%83%20%D8%A7%D9%84%D9%87%D8%AC%D8%B1%D8%A9/449441863_cusyvs.jpg",
-        almutamirPhoto: "https://res.cloudinary.com/dj05jeavk/image/upload/v1714507309/hotels/%D9%86%D8%B3%D9%83%20%D8%A7%D9%84%D9%87%D8%AC%D8%B1%D8%A9/449441863_cusyvs.jpg",
+        passportPhoto: "",
+        almutamirPhoto: "",
         numberBus: 0,
         typeRoom: "string",
         seatNumber: 0,
@@ -47,6 +47,12 @@ const RegisterProgramSpecial = () => {
            setInMakaaHotel(inMakaaHotels)
            const inMadenaHotels = allHotels.data.filter( inMadenaHotel => inMadenaHotel.location === "المدينة المنورة");
            setInMadenaHotel(inMadenaHotels)
+
+           const ReservationCode = await axios.get('https://officealhajandalumrah.adaptable.app/employee');
+          setReservationCode(ReservationCode.data.map((Code)=>{
+            return Code.Reservation_code;
+          }));
+
           } catch (error) {
             console.error('Error fetching hotel data:', error);
         }
@@ -94,7 +100,7 @@ const RegisterProgramSpecial = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!reservationCode.includes(formData.reservationCode)) {
+        if (!reservationCode.includes(formDataMutamir.reservationCode)) {
           setError("كود الحجز غير صحيح , يرجى التأكد من الكود والمحاولة مرة أخرى");
           return;
         }

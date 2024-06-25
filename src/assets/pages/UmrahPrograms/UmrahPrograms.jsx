@@ -14,7 +14,7 @@ const UmrahPrograms = () => {
   const [bus, setBus] = useState([]);
   const [loading , setLoading] = useState(true);
   const [activeLink, setActiveLink] = useState('Hotels');
-  
+  console.log(bus);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -96,14 +96,7 @@ const UmrahPrograms = () => {
                         <div className='circle'>05</div>
                         <div className='trip-detail'>  <span>{programUmrah.price3}</span> </div>
                     </div>
-                    {/* <div className='circle-trip'>
-                        <div className='circle'>03</div>
-                        <div className='trip-detail'> - زيارة الأماكن المباركة في الحرمين الشريفين برفقة مرشد </div>
-                    </div>
-                    <div className='circle-trip'>
-                        <div className='circle'>04</div>
-                        <div className='trip-detail'> السفر براً بحافلات سعودية حديثة ضمن حافلات VIP </div>
-                     </div> */}
+      
             </div>
           </div>
             </div>

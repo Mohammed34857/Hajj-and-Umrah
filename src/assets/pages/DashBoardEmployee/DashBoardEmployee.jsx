@@ -76,7 +76,11 @@ const DashBoardEmployee = () => {
     e.preventDefault();
     if (isEditing) {
       try {
-        await axios.put(`https://officealhajandalumrah.adaptable.app/al-mutamir/${editingId}`, mutamirData);
+        await axios.put(`https://officealhajandalumrah.adaptable.app/al-mutamir/${editingId}`, mutamirData , {
+          headers: {
+              'Content-Type': 'application/json',
+          },
+        });
       } catch (error) {
         console.error('Error updating data:', error);
       }
@@ -352,7 +356,7 @@ const DashBoardEmployee = () => {
                     <td><input type="text" name="gender" placeholder="الجنس" value={mutamirData.gender} onChange={handleChange} /></td>
                     <td><input type="date" name="birth" placeholder="تاريخ الميلاد" value={mutamirData.birth} onChange={handleChange} /></td>
                     <td><input type="email" name="email" placeholder="البريد الإلكتروني" value={mutamirData.email} onChange={handleChange} /></td>
-                    <td><input type="text" name="phone_number" placeholder="رقم الهاتف" value={mutamirData.phone_number} onChange={handleChange} /></td>
+                    <td><input type="number" name="phone_number" placeholder="رقم الهاتف" value={mutamirData.phone_number} onChange={handleChange} /></td>
                     <td><input type="text" name="name_mother" placeholder="اسم الأب" value={mutamirData.name_mother} onChange={handleChange} /></td>
                     <td><input type="text" name="name_father" placeholder="اسم الام" value={mutamirData.name_father} onChange={handleChange} /></td>
                     <td><input type="text" name="full_name" placeholder="الاسم الكامل" value={mutamirData.full_name} onChange={handleChange} /></td>
