@@ -832,6 +832,12 @@ const DashBoardEmployee = () => {
               <label htmlFor="" className="name">
                 اسم البرنامج
               </label>
+              <input type="file" className="name" />
+              <label htmlFor="" className="name">
+                صورة الغلاف             </label>
+                <input type="date" className="name" />
+              <label htmlFor="" className="name">
+              السنة الهجرية            </label>
             </div>
 
             <div>
@@ -848,36 +854,58 @@ const DashBoardEmployee = () => {
               <label htmlFor="">تاريخ السفر</label>
               <input type="text" />
               <label htmlFor="">نوع السفر</label>
+
+            <div className="travel-brog">
+            <select name="" id="">
+                    <option value="" hidden> شركات النقل
+                      </option>
+                      <option>السراج</option>
+                      <option></option></select>
+                      <label htmlFor="">شركة النقل</label>
             </div>
 
+            </div>
+            <button className="add-btn">اضافة </button>
+
             <div className="hot">
-              <h4>الفنادق</h4>
+              <h4> 
+              :  الفنادق الخاصة بالبرنامج</h4>
               <table>
                 <thead>
+                <td>رتبة الفندق</td>
+                <td>نوع الغرف</td>
                   <td>الموقع</td>
                   <td>اسم الفندق</td>
+              
                 </thead>
 
                 <tr>
                   <td></td>
                   <td></td>
-                </tr>
-                <tr>
                   <td></td>
                   <td></td>
                 </tr>
                 <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
                   <td></td>
                   <td></td>
                 </tr>
               </table>
             </div>
             <div className="room">
-              <h4>السعر</h4>
+              <h4>:سعر البرنامج</h4>
               <table>
                 <thead>
-                  <td>نوع الغرفة</td>
                   <td>السعر</td>
+                  <td>نوع الغرفة</td>
+
                 </thead>
 
                 <tr>
@@ -894,24 +922,7 @@ const DashBoardEmployee = () => {
                 </tr>
               </table>
             </div>
-            <div className="buss">
-              <h4>الباصات الخاصة بالبرنامج</h4>
-              <table>
-                <thead>
-                  <td>اسم الشركة</td>
-                  <td>رقم الباص</td>
-                </thead>
-                <tr>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                </tr>
-             
-              </table>
-            </div>
+       
             <button className="add-btn">اضافة </button>
           </div>
         </div>

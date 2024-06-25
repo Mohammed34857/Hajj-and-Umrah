@@ -251,11 +251,12 @@ body{
 }
 .prog-add{
   box-shadow: 5px 10px 20px  #a7952dda inset;
-  height: 1200px;
+  height: auto;
   width: 70%;
   margin-left: 23%;
   position: relative;
   margin-top: 100px;
+  margin-bottom: 50px;
 }
 .prog-add input{
   margin-top: 70px;
@@ -302,14 +303,16 @@ font-size: 25px;
 
 .room h4 ,.hot h4 ,.buss h4{
 color: wheat;
-text-align: center;
+text-align: right;
 margin-top: 40px;
+margin-right: 50px;
 }
-  .room  table ,.hot table ,.buss table{
+  .room  table ,.hot table {
     width: 75%;
     margin-top: 30px;
     margin-left: 50px;
     height: 150px;
+    text-align: right;
   }
 .add-btn{
   margin-top:80px ;
@@ -374,4 +377,13 @@ margin-top: 40px;
 .seting-box1{
   margin-top: 100px;
 }
-
+.travel-brog{
+text-align: right;
+margin-right: 50px;
+}
+.travel-brog select{
+width: 200px;
+height: 40px;
+text-align: right;
+padding: 10px;
+}
