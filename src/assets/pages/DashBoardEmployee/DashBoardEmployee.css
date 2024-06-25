@@ -80,7 +80,7 @@ body{
     height: 150px;
     background: linear-gradient(to left, #9b7f34, #a88f3e, #a7942d, #dac08a);
     border-radius: 8px;
-    width: 300px;
+    width: 250px;
     margin-left: 40px;
     margin-top: 120px;
     text-align: center;
@@ -135,7 +135,7 @@ body{
   border: 3px solid #f1f1f1;
 }
 
- .contain-umrah .table-umrah{
+ .contain-umrah .table-umrah {
   overflow-x: scroll;
  }
 
@@ -251,11 +251,12 @@ body{
 }
 .prog-add{
   box-shadow: 5px 10px 20px  #a7952dda inset;
-  height: 1200px;
+  height: auto;
   width: 70%;
   margin-left: 23%;
   position: relative;
   margin-top: 100px;
+  margin-bottom: 50px;
 }
 .prog-add input{
   margin-top: 70px;
@@ -268,7 +269,11 @@ margin-left: 100px;
 }
 .prog-add .numb{
   width: 50px;
-  margin-left: 170px;
+  margin-left: 150px;
+}
+.prog-add .name{
+  margin-left: 70px;
+
 }
 .prog-add div{
   margin-left: 100px;
@@ -279,7 +284,7 @@ margin-left: 100px;
   text-align: right;
   font-size: 20px;
   margin-top: 50px;
-  margin-left: 30px;
+  margin-left: 10px;
 
 }
 
@@ -302,23 +307,27 @@ font-size: 25px;
 
 .room h4 ,.hot h4 ,.buss h4{
 color: wheat;
-text-align: center;
+text-align: right;
 margin-top: 40px;
+margin-right: 50px;
 }
-  .room  table ,.hot table ,.buss table{
+  .room  table ,.hot table {
     width: 75%;
     margin-top: 30px;
     margin-left: 50px;
     height: 150px;
+    text-align: right;
   }
 .add-btn{
   margin-top:80px ;
   text-align: center;
  margin-left: 40%;
- background-color: #c4cc53;
+ background-color: #705a13;
  color: #332b13;
  width: 20%;
  font-size: 25px;
+ border-radius: 50%;
+ margin-bottom: 20px;
 }
 
 .add-btn:hover{
@@ -375,7 +384,3 @@ margin-top: 40px;
   margin-top: 100px;
 }
 
-.contain-hajj h3 , .contain-umrah h3{
-  padding: 20px ;
-  color: var(--color-gold);
-} 
