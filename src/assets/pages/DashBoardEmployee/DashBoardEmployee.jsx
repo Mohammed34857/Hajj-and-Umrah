@@ -807,16 +807,7 @@ const DashBoardEmployee = () => {
               <button className="update">تعديل</button>
               <button className="delet">حذف</button>
 
-              <button
-                className="btn btn-bus"
-                type="button"
-                data-toggle="collapse"
-                data-target="#collapseExample"
-                aria-expanded="false"
-                aria-controls="collapseExample"
-              >
-                اضافة باص
-              </button>
+         
 
               <div className="collapse" id="collapseExample">
                 <div className="card card-body">
