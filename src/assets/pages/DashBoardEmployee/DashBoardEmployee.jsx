@@ -828,47 +828,61 @@ const DashBoardEmployee = () => {
           </div>
 
           <div className="prog-add">
+
             <div>
-              {" "}
-              <input type="number" />
-              <label htmlFor=""> مدة البرنامج</label>
-              <input type="text" className="name" />
-              <label htmlFor="" className="name">
-                اسم البرنامج
-              </label>
+            <input type="text"  />
+            <label htmlFor="">نوع السفر</label>
+                 <input type="text" className="name" />
+                    <label htmlFor="" className="name">
+                      اسم البرنامج
+                    </label>  
+            
+              </div>
+
+              <div className="travel-brog">
               <input type="file" className="name" />
               <label htmlFor="" className="name">
-                صورة الغلاف             </label>
-                <input type="date" className="name" />
-              <label htmlFor="" className="name">
-              السنة الهجرية            </label>
-            </div>
-
-            <div>
-              {" "}
-              <input type="number" className="numb" />
-              <label htmlFor="">مدة الاقامة بمكة المكرمة</label>
-              <input type="number" className="numb" />
-              <label htmlFor="">مدة الاقامة بالمدينة المنورة</label>
-            </div>
-
-            <div>
-              {" "}
-              <input type="date" />
-              <label htmlFor="">تاريخ السفر</label>
-              <input type="text" />
-              <label htmlFor="">نوع السفر</label>
-
-            <div className="travel-brog">
+                    صورة الغلاف             </label>
             <select name="" id="">
                     <option value="" hidden> شركات النقل
                       </option>
                       <option>السراج</option>
                       <option></option></select>
                       <label htmlFor="">شركة النقل</label>
+
+                      <input type="number" className="name" />
+              <label htmlFor="" className="name">
+           عدد الباصات           </label>
+                      
             </div>
 
-            </div>
+            <div  className="date" >
+                  <input type="date"  />
+              <label htmlFor="" >
+              السنة الهجرية</label>
+              <input type="date"/>
+              <label htmlFor=""> السنة الميلادية</label>
+              
+              </div>
+
+        
+
+<div className="total-number">       
+    <input type="number" />
+<label htmlFor=""> مدة البرنامج</label></div>
+
+
+              <div>
+              {" "}
+              <input type="number" className="numb" />
+              <label htmlFor="">مدة الاقامة بمكة المكرمة</label>
+              <input type="number" className="numb" />
+              <label htmlFor="">مدة الاقامة بالمدينة المنورة</label>
+              </div>
+        
+
+
+        
             <button className="add-btn">اضافة </button>
 
             <div className="hot">
@@ -902,7 +916,14 @@ const DashBoardEmployee = () => {
                   <td></td>
                 </tr>
               </table>
-            </div>
+               </div>
+
+
+
+
+
+
+
             <div className="room">
               <h4>:سعر البرنامج</h4>
               <table>
@@ -998,61 +1019,118 @@ const DashBoardEmployee = () => {
             </div>
           </div>
 
+        
           <div className="prog-add">
-            <div>
-              {" "}
-              <input type="number" />
-              <label htmlFor=""> مدة البرنامج</label>
-              <input type="text" className="name" />
-              <label htmlFor="" className="name">
-                اسم البرنامج
-              </label>
-            </div>
 
             <div>
+            <input type="text"  />
+            <label htmlFor="">نوع السفر</label>
+                 <input type="text" className="name" />
+                    <label htmlFor="" className="name">
+                      اسم البرنامج
+                    </label>  
+            
+              </div>
+
+              <div className="travel-brog">
+              <input type="file" className="name" />
+              <label htmlFor="" className="name">
+                    صورة الغلاف             </label>
+            <select name="" id="">
+                    <option value="" hidden> شركات النقل
+                      </option>
+            <option value="">hjjj</option>
+        </select>
+                      <label htmlFor="">شركة النقل</label>
+
+                      <input type="number" className="name" />
+              <label htmlFor="" className="name">
+           عدد الباصات           </label>
+                      
+            </div>
+
+            <div  className="date" >
+                  <input type="date"  />
+              <label htmlFor="" >
+              السنة الهجرية</label>
+              <input type="date"/>
+              <label htmlFor=""> السنة الميلادية</label>
+              
+              </div>
+
+        
+
+<div className="total-number">       
+    <input type="number" />
+<label htmlFor=""> مدة البرنامج</label></div>
+
+
+              <div>
               {" "}
               <input type="number" className="numb" />
               <label htmlFor="">مدة الاقامة بمكة المكرمة</label>
               <input type="number" className="numb" />
               <label htmlFor="">مدة الاقامة بالمدينة المنورة</label>
-            </div>
+              </div>
+        
+              <div>
+            <input type="text"  />
+            <label htmlFor="">المرشد الديني</label>
+                 <input type="number" className="name" />
+                    <label htmlFor="" className="name">
+عدد الوجبات                     </label>  
+            
+              </div>
 
-            <div>
-              {" "}
-              <input type="date" />
-              <label htmlFor="">تاريخ السفر</label>
-              <input type="text" />
-              <label htmlFor="">نوع السفر</label>
-            </div>
+        
+            <button className="add-btn">اضافة </button>
 
             <div className="hot">
-              <h4>الفنادق</h4>
+              <h4> 
+              :  الفنادق الخاصة بالبرنامج</h4>
               <table>
                 <thead>
+                <td>رتبة الفندق</td>
+                <td>نوع الغرف</td>
                   <td>الموقع</td>
                   <td>اسم الفندق</td>
+              
                 </thead>
 
                 <tr>
                   <td></td>
                   <td></td>
-                </tr>
-                <tr>
                   <td></td>
                   <td></td>
                 </tr>
                 <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
                   <td></td>
                   <td></td>
                 </tr>
               </table>
-            </div>
+               </div>
+
+
+
+
+
+
+
             <div className="room">
-              <h4>السعر</h4>
+              <h4>:سعر البرنامج</h4>
               <table>
                 <thead>
-                  <td>نوع الغرفة</td>
                   <td>السعر</td>
+                  <td>نوع الغرفة</td>
+
                 </thead>
 
                 <tr>
@@ -1069,7 +1147,7 @@ const DashBoardEmployee = () => {
                 </tr>
               </table>
             </div>
-           
+       
             <button className="add-btn">اضافة </button>
           </div>
         </div>
