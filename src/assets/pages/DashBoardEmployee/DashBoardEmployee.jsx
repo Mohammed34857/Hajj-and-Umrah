@@ -7,13 +7,14 @@ import { AiTwotoneCheckCircle } from "react-icons/ai";
 import { HiUserPlus } from "react-icons/hi2";
 import { ImFolderOpen ,ImLibrary , ImBubbles4 ,ImAirplane , ImCogs} from "react-icons/im";
 import { FaRightFromBracket } from "react-icons/fa6";
-import { FaTrashAlt ,FaPencilAlt } from "react-icons/fa";
-import { IoPersonAddOutline } from "react-icons/io5";
 import axios from 'axios';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const DashBoardEmployee = () => {
 
-
+// data form mutamer
   const [isEditingMutamir, setIsEditingMutamir] = useState(false);
   const [editingIdMutamir, setEditingIdMutamir] = useState(null);
   const [mutamir,setMutamir]=useState([]);
@@ -155,6 +156,8 @@ const DashBoardEmployee = () => {
     }
   }
 
+
+// data form Hajj
     const [isEditingHajj, setIsEditingHajj] = useState(false);
     const [editingIdHajj, setEditingIdHajj] = useState(null);
     const [hajj,setHajj]=useState([]);
@@ -294,8 +297,436 @@ const DashBoardEmployee = () => {
       } catch (error) {
         console.error('Error deleting data:', error);
       }
-  
   };
+
+// umrah program
+
+  const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        autoplay: false,
+        autoplaySpeed: 2000,
+        pauseOnHover: true,
+        centerMode: true,
+        centerPadding: '0px',
+        adaptiveHeight: true
+    };
+
+    const [isEditingUmrahProgram, setIsEditingUmrahProgram] = useState(false);
+    const [editingIdUmrahProgram, setEditingIdUmrahProgram] = useState(null);
+    const [umrahProgram,setUmrahProgram]= useState([]);
+    const [umrahProgramData,setUmrahProgramData]=useState({
+         name_program: "",
+         Date_Travel: "",
+         Date_Travel_Hijri: "",
+         total_stay: 0,
+         stay_in_macca: 0,
+         stay_in_madina: 0,
+         image: "",
+         price1: "",
+         price2: "",
+         price3: "",
+         price4: ""
+    });
+    const [allProgramUmrahHotel, setAllProgramUmrahHotel] = useState([]);
+    const [hotelsForProgram, setHotelsForProgram] = useState({});
+    const [selectedHotelsForProgramUmrah, setSelectedHotelsForProgramUmrah] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-umrah');
+        setUmrahProgram(response.data);
+        const allProgramUmrahHotelResponse = await axios.get('https://officealhajandalumrah.adaptable.app/prog-umrah-hotel');
+        setAllProgramUmrahHotel(allProgramUmrahHotelResponse.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchHotels = async () => {
+      try {
+        const programHotelRooms = {};
+
+        allProgramUmrahHotel.forEach((hotelRoom) => {
+          const { id_ProgramUmrah, id_HotelRoom } = hotelRoom;
+          if (!programHotelRooms[id_ProgramUmrah]) {
+            programHotelRooms[id_ProgramUmrah] = [];
+          }
+          programHotelRooms[id_ProgramUmrah].push(id_HotelRoom);
+        });
+
+        const hotelData = {};
+        for (const programId in programHotelRooms) {
+          const hotelRooms = await Promise.all(
+            programHotelRooms[programId].map((hotelRoomId) =>
+              axios.get(`https://officealhajandalumrah.adaptable.app/hotel-room/${hotelRoomId}`)
+                .then(response => response.data)
+            )
+          );
+
+          const hotels = await Promise.all(
+            hotelRooms.map(hotelRoom =>
+              axios.get(`https://officealhajandalumrah.adaptable.app/Hotel/${hotelRoom.id_hotel}`)
+                .then(response => response.data)
+            )
+          );
+
+          hotelData[programId] = hotels;
+        }
+
+        setHotelsForProgram(hotelData);
+      } catch (error) {
+        console.error('Error fetching hotels for program:', error);
+      }
+    };
+
+    fetchHotels();
+  }, [allProgramUmrahHotel]);
+
+
+    const handleDeleteUmrahProgram = async (id) => {
+      try {
+        await axios.delete(`https://officealhajandalumrah.adaptable.app/program-umrah/${id}`);
+      } catch (error) {
+        console.error('Error deleting data:', error);
+      }
+  };
+
+   const handleChangeUmrahProgram = (e) => {
+    const { name, value } = e.target;
+    setUmrahProgramData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+    }));
+  };
+
+    const handleChangeImageUmrahProgram = async (e) => {
+    const { name, files } = e.target;
+    if (files && files.length > 0) {
+        const formData = new FormData();
+        formData.append('file', files[0]);
+
+        try {
+            const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });
+            const imagePath = response.data;
+            setUmrahProgramData((prevFormData) => ({ ...prevFormData, [name]: imagePath }));
+        } catch (error) {
+            console.error('Error uploading image:', error);
+        }
+    }
+};
+  
+
+   const handleEditUmrahProgram = (program) => {
+      setUmrahProgramData({
+        ...program,
+        image: program.image || "" 
+      }); 
+      setIsEditingUmrahProgram(true);
+      setEditingIdUmrahProgram(program._id);
+    };
+
+    const handleSubmitUmrahProgram = async (e) => {
+      e.preventDefault();
+      const DataUmrahProgram= {
+        name_program: umrahProgramData.name_program,
+        Date_Travel: umrahProgramData.Date_Travel,
+        Date_Travel_Hijri: umrahProgramData.Date_Travel_Hijri,
+        total_stay: Number(umrahProgramData.total_stay) ,
+        stay_in_macca: Number(umrahProgramData.stay_in_macca),
+        stay_in_madina: Number(umrahProgramData.stay_in_madina),
+        image: umrahProgramData.image,
+        price1: umrahProgramData.price1,
+        price2: umrahProgramData.price2,
+        price3: umrahProgramData.price3,
+        price4:umrahProgramData.price4
+      }
+      if (isEditingUmrahProgram) {
+        try {
+          await axios.patch(`https://officealhajandalumrah.adaptable.app/program-umrah/${editingIdUmrahProgram}`, DataUmrahProgram , {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+          });
+        } catch (error) {
+          console.error('Error updating data:', error);
+        }
+      } else {
+        
+        try {
+          const responseHajj = await axios.post('https://officealhajandalumrah.adaptable.app/program-umrah', DataUmrahProgram, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+          });
+       
+      const id_ProgramUmrah = responseHajj.data._id;
+
+      const hotelRoomsResponse = await axios.get('https://officealhajandalumrah.adaptable.app/hotel-room');
+      const hotelRoomsData = hotelRoomsResponse.data;
+
+      for (const selectedHotel of selectedHotelsForProgramUmrah) {
+        const hotelRoom = hotelRoomsData.find((hotelRoom) => hotelRoom.id_hotel._id === selectedHotel);
+        console.log(hotelRoom._id);
+        const progUmrahHotelData={
+              id_ProgramUmrah: id_ProgramUmrah,
+              id_HotelRoom: hotelRoom._id
+        }
+            await axios.post('https://officealhajandalumrah.adaptable.app/prog-umrah-hotel',progUmrahHotelData, {
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+          
+        }
+        
+        } catch (error) {
+          console.error('Error adding data:', error);
+        }
+      }
+      setUmrahProgramData({
+        name_program: "",
+        Date_Travel: "",
+        Date_Travel_Hijri: "",
+        total_stay: null,
+        stay_in_macca: null,
+        stay_in_madina:null,
+        image: "",
+        price1: "",
+        price2: "",
+        price3: "",
+        price4:""
+      });
+      setIsEditingUmrahProgram(false);
+      setEditingIdUmrahProgram(null);
+    };
+
+    // Hajj Porgram
+
+
+const [isEditingHajjProgram, setIsEditingHajjProgram] = useState(false);
+const [editingIdHajjProgram, setEditingIdHajjProgram] = useState(null);
+const [hajjProgram,setHajjProgram]= useState([]);
+const [hajjProgramData,setHajjProgramData]=useState({
+     Airline: "",
+     name_program: "",
+     Date_Travel: "",
+     Date_Travel_Hijri: "",
+     total_stay: 0,
+     stay_in_macca: 0,
+     stay_in_madina: 0,
+     type_hotel: "",
+     Religious_guide: "",
+     Number_meals: "",
+     image: "",
+     price1: "",
+     price2: "",
+     price3: "",
+     price4: ""
+});
+const [allProgramHajjHotel, setAllProgramHajjHotel] = useState([]);
+const [hotelsForProgramHajj, setHotelsForProgramHajj] = useState({});
+const [selectedHotelsForProgramHajj, setSelectedHotelsForProgramHajj] = useState([]);
+
+useEffect(() => {
+const fetchData = async () => {
+  try {
+    const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-al-haj');
+    setHajjProgram(response.data);
+    const allProgramHajjHotelResponse = await axios.get('https://officealhajandalumrah.adaptable.app/prog-al-haj-hotel');
+    setAllProgramHajjHotel(allProgramHajjHotelResponse.data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+fetchData();
+}, []);
+
+useEffect(() => {
+  const fetchHotels = async () => {
+    try {
+      const programHotelRooms = {};
+      allProgramHajjHotel.forEach((hotelRoom) => {
+       
+        const { id_ProgramAlHaj, id_HotelRoom } = hotelRoom;
+        if (!programHotelRooms[id_ProgramAlHaj]) {
+          programHotelRooms[id_ProgramAlHaj] = [];
+        }
+        programHotelRooms[id_ProgramAlHaj].push(id_HotelRoom);
+      });
+    
+      const hotelData = {};
+      for (const programId in programHotelRooms) {
+        const hotelRooms = await Promise.all(
+          programHotelRooms[programId].map((hotelRoomId) =>
+            axios.get(`https://officealhajandalumrah.adaptable.app/hotel-room/${hotelRoomId}`)
+              .then(response => response.data)
+          )
+        );
+
+        const hotels = await Promise.all(
+          hotelRooms.map(hotelRoom =>
+            axios.get(`https://officealhajandalumrah.adaptable.app/Hotel/${hotelRoom.id_hotel}`)
+              .then(response => response.data)
+          )
+        );
+
+        hotelData[programId] = hotels;
+      }
+
+      setHotelsForProgramHajj(hotelData);
+    } catch (error) {
+      console.error('Error fetching hotels for program:', error);
+    }
+  };
+
+  fetchHotels();
+}, [allProgramHajjHotel]);
+
+
+const handleDeleteHajjProgram = async (id) => {
+  try {
+    await axios.delete(`https://officealhajandalumrah.adaptable.app/program-al-haj//${id}`);
+  } catch (error) {
+    console.error('Error deleting data:', error);
+  }
+};
+
+const handleChangeHajjProgram = (e) => {
+const { name, value } = e.target;
+setHajjProgramData((prevFormData) => ({
+    ...prevFormData,
+    [name]: value,
+}));
+};
+
+const handleChangeImageHajjProgram = async (e) => {
+const { name, files } = e.target;
+if (files && files.length > 0) {
+    const formData = new FormData();
+    formData.append('file', files[0]);
+
+    try {
+        const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+        });
+        const imagePath = response.data;
+        setHajjProgramData((prevFormData) => ({ ...prevFormData, [name]: imagePath }));
+    } catch (error) {
+        console.error('Error uploading image:', error);
+    }
+}
+};
+
+
+const handleEditHajjProgram = (program) => {
+  setHajjProgramData({
+    ...program,
+    image: program.image || "" 
+  }); 
+  setIsEditingHajjProgram(true);
+  setEditingIdHajjProgram(program._id);
+};
+
+const handleSubmitHajjProgram = async (e) => {
+  e.preventDefault();
+  const DataHajjProgram= {
+    name_program: hajjProgramData.name_program,
+    Date_Travel: hajjProgramData.Date_Travel,
+    Date_Travel_Hijri: hajjProgramData.Date_Travel_Hijri,
+    total_stay: Number(hajjProgramData.total_stay) ,
+    stay_in_macca: Number(hajjProgramData.stay_in_macca),
+    stay_in_madina: Number(hajjProgramData.stay_in_madina),
+    image: hajjProgramData.image,
+    price1: hajjProgramData.price1,
+    price2: hajjProgramData.price2,
+    price3: hajjProgramData.price3,
+    price4:hajjProgramData.price4
+  }
+  if (isEditingHajjProgram) {
+    try {
+      await axios.patch(`https://officealhajandalumrah.adaptable.app/program-al-haj//${editingIdHajjProgram}`, DataHajjProgram , {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+      });
+    } catch (error) {
+      console.error('Error updating data:', error);
+    }
+  } else {
+    
+    try {
+      const responseHajj = await axios.post('https://officealhajandalumrah.adaptable.app/program-al-haj/', DataHajjProgram, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+      });
+
+      const id_ProgramHajj = responseHajj.data._id;
+
+      const hotelRoomsResponse = await axios.get('https://officealhajandalumrah.adaptable.app/hotel-room');
+      const hotelRoomsData = hotelRoomsResponse.data;
+
+      for (const selectedHotel of selectedHotelsForProgramHajj) {
+        const hotelRoom = hotelRoomsData.find((hotelRoom) => hotelRoom.id_hotel._id === selectedHotel);
+        console.log(hotelRoom._id);
+        const progHajjHotelData={
+              id_ProgramAlHaj: id_ProgramHajj,
+              id_HotelRoom: hotelRoom._id
+        }
+            await axios.post('https://officealhajandalumrah.adaptable.app/prog-al-haj-hotel',progHajjHotelData, {
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+
+        }
+    
+    } catch (error) {
+      console.error('Error adding data:', error);
+    }
+  }
+  setHajjProgramData({
+    name_program: "",
+    Date_Travel: "",
+    Date_Travel_Hijri: "",
+    total_stay: null,
+    stay_in_macca: null,
+    stay_in_madina:null,
+    image: "",
+    price1: "",
+    price2: "",
+    price3: "",
+    price4:""
+  });
+  setIsEditingHajjProgram(false);
+  setEditingIdHajjProgram(null);
+};
+
+// Hotel
+
+const [hotels,setHotels]=useState([]);
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('https://officealhajandalumrah.adaptable.app/Hotel');
+      setHotels(response.data);
+     } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  fetchData();
+  }, []);
+
   return (
     <div className="DashBoardEmployee">
 
@@ -596,7 +1027,7 @@ const DashBoardEmployee = () => {
                 </tr>
               </thead>
               <tbody>
-                  <tr >
+                  <tr>
                     <td><input type="text" name="Verification" placeholder="رقم التأكيد" value={hajjData.Verification} onChange={handleChangeHajj} /></td>
                     <td><input type="text" name="payment_method" placeholder="نمط الدفع" value={hajjData.payment_method} onChange={handleChangeHajj} /></td>
                     <td><input type="number" name="seatNumber" placeholder="رقم المقعد" value={hajjData.seatNumber} onChange={handleChangeHajj} /></td>
@@ -623,410 +1054,253 @@ const DashBoardEmployee = () => {
             </form>
           </div>
         </div>
+        
      </div> 
+
         <div className="prog-umrah">
           <h2>برامج العمرة</h2>
           <div className="progr-parent">
-            <div className="prog1">
-              <h3>عمرة رمضان البرية</h3>
-
+          <Slider {...settings}>
+            {umrahProgram.map((program,index)=>(
+              <div key={index} className="prog1" >
+              <h3> {program.name_program} </h3>
+              <p> مدة البرنامج <span> {program.total_stay} </span>يوم</p>
               <p>
-                مدة البرنامج <span>25 يوم</span>
+                <span> {program.stay_in_macca} </span> مدة الاقامة بمكة المكرمة
               </p>
               <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-              <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-
-              <p>
-                {" "}
-                تاريخ السفر <span>11/5/2024</span> السفر برا
-              </p>
-              <p>
-                فنادق مكة المكرمة : <span>اعمار غراند</span> <span>فيوليت</span>
-                <span>انوار الاصيل </span>
+                <span> {program.stay_in_madina} </span> مدة الاقامة بمكة المكرمة
               </p>
 
-              <p>
-                فنادق المدينة المنورة : <span>روز الماسة</span>{" "}
-                <span>نجوم المدينة</span> <br />
-                <span>ارجوان روز</span>
+              <p> <span> {program.Date_Travel} </span> تاريخ السفر </p>
+              <p> : الفنادق   </p>
+              {hotelsForProgram[program._id] ? (
+               <p> 
+                {hotelsForProgram[program._id].map((hotel, hotelIndex) => (
+                <span key={hotelIndex}>{hotel.name}: {hotel.location}<br/></span>
+                 ))}
               </p>
-
-              <button className="update">تعديل</button>
-              <button className="delet">حذف</button>
+             ) : (
+             <p></p>
+              )}
+              <button className="update" onClick={()=> handleEditUmrahProgram(program)}>تعديل</button>
+              <button className="delet" onClick={()=> handleDeleteUmrahProgram(program._id)}>حذف</button>
             </div>
-            <div className="prog1">
-              <h3>عمرة رمضان البرية</h3>
-
-              <p>
-                مدة البرنامج <span>25 يوم</span>
-              </p>
-              <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-              <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-
-              <p>
-                {" "}
-                تاريخ السفر <span>11/5/2024</span> السفر برا
-              </p>
-              <p>
-                فنادق مكة المكرمة : <span>اعمار غراند</span>{" "}
-                <span>انوار الاصيل </span>
-              </p>
-
-              <p>
-                فنادق المدينة المنورة : <span>روز الماسة</span>{" "}
-                <span>نجوم المدينة</span> <br />
-                <span>ارجوان روز</span>
-              </p>
-              <button className="update">تعديل</button>
-              <button className="delet">حذف</button>
-
-         
-
-              <div className="collapse" id="collapseExample">
-                <div className="card card-body">
-                  <input type="number" placeholder="رقم الباص" />
-                  <input type="text" placeholder="اسم الشركة" />
-                </div>
-              </div>
-            </div>
+            ))}
+           </Slider>
+           
           </div>
 
           <div className="prog-add">
-
-            <div>
-            <input type="text"  />
-            <label htmlFor="">نوع السفر</label>
-                 <input type="text" className="name" />
-                    <label htmlFor="" className="name">
-                      اسم البرنامج
-                    </label>  
-            
-              </div>
-
-              <div className="travel-brog">
-              <input type="file" className="name" />
-              <label htmlFor="" className="name">
-                    صورة الغلاف             </label>
-            <select name="" id="">
-                    <option value="" hidden> شركات النقل
-                      </option>
-                      <option>السراج</option>
-                      <option></option></select>
-                      <label htmlFor="">شركة النقل</label>
-
-                      <input type="number" className="name" />
-              <label htmlFor="" className="name">
-           عدد الباصات           </label>
-                      
-            </div>
-
-            <div  className="date" >
-                  <input type="date"  />
-              <label htmlFor="" >
-              السنة الهجرية</label>
-              <input type="date"/>
-              <label htmlFor=""> السنة الميلادية</label>
-              
-              </div>
-
-        
-
-<div className="total-number">       
-    <input type="number" />
-<label htmlFor=""> مدة البرنامج</label></div>
-
-
-              <div>
-              {" "}
-              <input type="number" className="numb" />
-              <label htmlFor="">مدة الاقامة بمكة المكرمة</label>
-              <input type="number" className="numb" />
-              <label htmlFor="">مدة الاقامة بالمدينة المنورة</label>
-              </div>
-        
-
-
-        
-            <button className="add-btn">اضافة </button>
-
-            <div className="hot">
-              <h4> 
-              :  الفنادق الخاصة بالبرنامج</h4>
-              <table>
-                <thead>
-                <td>رتبة الفندق</td>
-                <td>نوع الغرف</td>
-                  <td>الموقع</td>
-                  <td>اسم الفندق</td>
-              
-                </thead>
-
+            <form onSubmit={handleSubmitUmrahProgram}>
+              <table className="tableProgeam">
+                <tbody>
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><label>نوع السفر</label></td>
+                  <td><input type="text"  /></td>
+                  <td><label> اسم البرنامج</label></td>
+                  <td><input type="text" name="name_program" value={umrahProgramData.name_program} onChange={handleChangeUmrahProgram}  /></td>
                 </tr>
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><label>صورة الغلاف</label></td>
+                  <td>
+                    {umrahProgramData.image && (
+                        <div>
+                            <img src={umrahProgramData.image} alt="Current" style={{ width: '100px', height: '100px' }} />
+                        </div>
+                    )}
+                    <input type="file" name="image" onChange={handleChangeImageUmrahProgram} />
+                  </td>
+                  <td><label>شركة النقل</label></td> 
+                  <td><select>
+                        <option value="" hidden> شركات النقل</option>
+                        <option>السراج</option>
+                     </select></td>  
                 </tr>
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><label >عدد الباصات</label></td>
+                  <td><input type="number" /></td>  
                 </tr>
+                <tr>
+                  <td><label  >السنة الهجرية</label></td>
+                  <td><input type="text" name="Date_Travel_Hijri" value={umrahProgramData.Date_Travel_Hijri} onChange={handleChangeUmrahProgram} /></td>
+                  <td><label > السنة الميلادية</label></td>
+                  <td><input type="date" name="Date_Travel" value={umrahProgramData.Date_Travel} onChange={handleChangeUmrahProgram} /></td>
+                </tr>
+                <tr>
+                  <td><label > مدة البرنامج</label></td>
+                  <td><input type="number" name="total_stay" value={umrahProgramData.total_stay} onChange={handleChangeUmrahProgram} /></td>
+                </tr>
+                <tr>
+                  <td><label >مدة الاقامة بمكة المكرمة</label></td>
+                  <td><input type="number" name="stay_in_macca" value={umrahProgramData.stay_in_macca} onChange={handleChangeUmrahProgram} /></td>
+                  <td><label >مدة الاقامة بالمدينة المنورة</label></td>
+                  <td><input type="number" name="stay_in_madina" value={umrahProgramData.stay_in_madina} onChange={handleChangeUmrahProgram} /></td>
+                </tr>
+                <tr>
+                <td><label > النوع الاول </label></td>
+                  <td><input type="text" name="price1" value={umrahProgramData.price1} onChange={handleChangeUmrahProgram} /></td>
+                  <td><label> النوع الثاني </label></td>
+                  <td><input type="text" name="price2" value={umrahProgramData.price2} onChange={handleChangeUmrahProgram} /></td> 
+                </tr>
+                <tr>
+                  <td><label >  النوع الثالث </label></td>
+                  <td><input type="text" name="price3" value={umrahProgramData.price3} onChange={handleChangeUmrahProgram} /></td>
+                  <td><label > النوع الرابع </label></td>
+                  <td><input type="text" name="price4" value={umrahProgramData.price4} onChange={handleChangeUmrahProgram} /></td>      
+                </tr>
+                <tr>
+                  <td>
+                     <select onChange={(e) => {
+                       const selectedHotelId = e.target.value;
+                      //  const selectedHotel = hotels.find(hotel => hotel.id === selectedHotelId);
+                       if (selectedHotelId && !selectedHotelsForProgramUmrah.includes(selectedHotelId)) {
+                        setSelectedHotelsForProgramUmrah([...selectedHotelsForProgramUmrah,  selectedHotelId]);
+                        }
+                        }}>
+                       <option value="" hidden>اختر فندق</option>
+                        {hotels.map((hotel, hotelIndex) => (
+                        <option key={hotelIndex} value={hotel._id}>{hotel.name}: {hotel.location}</option>
+                         ))}
+                     </select>
+                  </td>
+                  {/* <td>
+                     <h5>الفنادق المختارة:</h5>
+                       <ul>
+                         {selectedHotels.map((hotel, index) => (
+                           <li key={index}>{hotel.name}</li>
+                         ))}
+                       </ul>
+                  </td> */}
+                </tr>
+                </tbody>
               </table>
-               </div>
-
-
-
-
-
-
-
-            <div className="room">
-              <h4>:سعر البرنامج</h4>
-              <table>
-                <thead>
-                  <td>السعر</td>
-                  <td>نوع الغرفة</td>
-
-                </thead>
-
-                <tr>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </table>
-            </div>
-       
-            <button className="add-btn">اضافة </button>
+              <button type="submit" className="add-btn"> {isEditingUmrahProgram ? "تحديث" : "إضافة"} </button>
+            </form>
           </div>
         </div>
 
         <div className="prog-hajj">
           <h2>برامج الحج</h2>
           <div className="progr-parent">
-            <div className="prog1">
-              <h3>عمرة رمضان البرية</h3>
-
+          <Slider {...settings}>
+            {hajjProgram.map((program,index)=>(
+              <div key={index} className="prog1" >
+              <h3> {program.name_program} </h3>
+              <p> مدة البرنامج <span> {program.total_stay} </span>يوم</p>
               <p>
-                مدة البرنامج <span>25 يوم</span>
+                <span> {program.stay_in_macca} </span> مدة الاقامة بمكة المكرمة
               </p>
               <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-              <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-
-              <p>
-                {" "}
-                تاريخ السفر <span>11/5/2024</span> السفر برا
-              </p>
-              <p>
-                فنادق مكة المكرمة : <span>اعمار غراند</span> <span>فيوليت</span>
-                <span>انوار الاصيل </span>
+                <span> {program.stay_in_madina} </span> مدة الاقامة بمكة المكرمة
               </p>
 
-              <p>
-                فنادق المدينة المنورة : <span>روز الماسة</span>{" "}
-                <span>نجوم المدينة</span> <br />
-                <span>ارجوان روز</span>
+              <p> <span> {program.Date_Travel} </span> تاريخ السفر </p>
+              <p> : الفنادق   </p>
+              {hotelsForProgramHajj[program._id] ? (
+                
+               <p> 
+                {hotelsForProgramHajj[program._id].map((hotel, hotelIndex) => (
+                <span key={hotelIndex}>{hotel.name}: {hotel.location}<br/></span>
+                 ))}
               </p>
-
-              <button className="update">تعديل</button>
-              <button className="delet">حذف</button>
+             ) : (
+             <p></p>
+              )}
+              <button className="update" onClick={()=> handleEditHajjProgram(program)}>تعديل</button>
+              <button className="delet" onClick={()=> handleDeleteHajjProgram(program._id)}>حذف</button>
             </div>
-            <div className="prog1">
-              <h3>عمرة رمضان البرية</h3>
-
-              <p>
-                مدة البرنامج <span>25 يوم</span>
-              </p>
-              <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-              <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-
-              <p>
-                {" "}
-                تاريخ السفر <span>11/5/2024</span> السفر برا
-              </p>
-              <p>
-                فنادق مكة المكرمة : <span>اعمار غراند</span> <span>فيوليت</span>
-                <span>انوار الاصيل </span>
-              </p>
-
-              <p>
-                فنادق المدينة المنورة : <span>روز الماسة</span>{" "}
-                <span>نجوم المدينة</span> <br />
-                <span>ارجوان روز</span>
-              </p>
-
-              <button className="update">تعديل</button>
-              <button className="delet">حذف</button>
-            </div>
+            ))}
+           </Slider>
+           
           </div>
 
-        
           <div className="prog-add">
-
-            <div>
-            <input type="text"  />
-            <label htmlFor="">نوع السفر</label>
-                 <input type="text" className="name" />
-                    <label htmlFor="" className="name">
-                      اسم البرنامج
-                    </label>  
-            
-              </div>
-
-              <div className="travel-brog">
-              <input type="file" className="name" />
-              <label htmlFor="" className="name">
-                    صورة الغلاف             </label>
-            <select name="" id="">
-                    <option value="" hidden> شركات النقل
-                      </option>
-            <option value="">hjjj</option>
-        </select>
-                      <label htmlFor="">شركة النقل</label>
-
-                      <input type="number" className="name" />
-              <label htmlFor="" className="name">
-           عدد الباصات           </label>
-                      
-            </div>
-
-            <div  className="date" >
-                  <input type="date"  />
-              <label htmlFor="" >
-              السنة الهجرية</label>
-              <input type="date"/>
-              <label htmlFor=""> السنة الميلادية</label>
-              
-              </div>
-
-        
-
-<div className="total-number">       
-    <input type="number" />
-<label htmlFor=""> مدة البرنامج</label></div>
-
-
-              <div>
-              {" "}
-              <input type="number" className="numb" />
-              <label htmlFor="">مدة الاقامة بمكة المكرمة</label>
-              <input type="number" className="numb" />
-              <label htmlFor="">مدة الاقامة بالمدينة المنورة</label>
-              </div>
-        
-              <div>
-            <input type="text"  />
-            <label htmlFor="">المرشد الديني</label>
-                 <input type="number" className="name" />
-                    <label htmlFor="" className="name">
-عدد الوجبات                     </label>  
-            
-              </div>
-
-        
-            <button className="add-btn">اضافة </button>
-
-            <div className="hot">
-              <h4> 
-              :  الفنادق الخاصة بالبرنامج</h4>
-              <table>
-                <thead>
-                <td>رتبة الفندق</td>
-                <td>نوع الغرف</td>
-                  <td>الموقع</td>
-                  <td>اسم الفندق</td>
-              
-                </thead>
-
+            <form onSubmit={handleSubmitHajjProgram}>
+              <table className="tableProgeam">
+                <tbody>
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><label>نوع السفر</label></td>
+                  <td><input type="text"  /></td>
+                  <td><label> اسم البرنامج</label></td>
+                  <td><input type="text" name="name_program" value={hajjProgramData.name_program} onChange={handleChangeHajjProgram}  /></td> 
                 </tr>
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><label>صورة الغلاف</label></td>
+                  <td>
+                    {hajjProgramData.image && (
+                        <div>
+                            <img src={hajjProgramData.image} alt="Current" style={{ width: '100px', height: '100px' }} />
+                        </div>
+                    )}
+                    <input type="file" name="image" onChange={handleChangeImageHajjProgram} />
+                  </td>
+                  <td><label>شركة النقل</label></td> 
+                  <td><select>
+                        <option value="" hidden> شركات النقل</option>
+                        <option>السراج</option>
+                     </select></td>   
                 </tr>
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><label >عدد الباصات</label></td>
+                  <td><input type="number" /></td>    
                 </tr>
+                <tr>
+                  <td><label  >السنة الهجرية</label></td>
+                  <td><input type="text" name="Date_Travel_Hijri" value={hajjProgramData.Date_Travel_Hijri} onChange={handleChangeHajjProgram} /></td>
+                  <td><label > السنة الميلادية</label></td>
+                  <td><input type="date" name="Date_Travel" value={hajjProgramData.Date_Travel} onChange={handleChangeHajjProgram} /></td>    
+                </tr>
+                <tr>
+                  <td><label > مدة البرنامج</label></td>
+                  <td><input type="number" name="total_stay" value={hajjProgramData.total_stay} onChange={handleChangeHajjProgram} /></td> 
+                </tr>
+                <tr>
+                  <td><label >مدة الاقامة بمكة المكرمة</label></td>
+                  <td><input type="number" name="stay_in_macca" value={hajjProgramData.stay_in_macca} onChange={handleChangeHajjProgram} /></td>
+                  <td><label >مدة الاقامة بالمدينة المنورة</label></td>
+                  <td><input type="number" name="stay_in_madina" value={hajjProgramData.stay_in_madina} onChange={handleChangeHajjProgram} /></td>
+                </tr>
+                <tr>
+                <td><label > النوع الاول </label></td>
+                  <td><input type="text" name="price1" value={hajjProgramData.price1} onChange={handleChangeHajjProgram} /></td>
+                  <td><label> النوع الثاني </label></td>
+                  <td><input type="text" name="price2" value={hajjProgramData.price2} onChange={handleChangeHajjProgram} /></td> 
+                </tr>
+                <tr>
+                  <td><label >  النوع الثالث </label></td>
+                  <td><input type="text" name="price3" value={hajjProgramData.price3} onChange={handleChangeHajjProgram} /></td>
+                  <td><label > النوع الرابع </label></td>
+                  <td><input type="text" name="price4" value={hajjProgramData.price4} onChange={handleChangeHajjProgram} /></td>      
+                </tr>
+                <tr>
+                  <td>
+                     <select onChange={(e) => {
+                       const selectedHotelId = e.target.value;
+                      //  const selectedHotel = hotels.find(hotel => hotel.id === selectedHotelId);
+                       if (selectedHotelId && !selectedHotelsForProgramHajj.includes(selectedHotelId)) {
+                       setSelectedHotelsForProgramHajj([...selectedHotelsForProgramHajj,  selectedHotelId]);
+                        }
+                        }}>
+                       <option value="" hidden>اختر فندق</option>
+                        {hotels.map((hotel, hotelIndex) => (
+                        <option key={hotelIndex} value={hotel._id}>{hotel.name}: {hotel.location}</option>
+                         ))}
+                     </select>
+                  </td>
+                </tr>
+                </tbody>
               </table>
-               </div>
-
-
-
-
-
-
-
-            <div className="room">
-              <h4>:سعر البرنامج</h4>
-              <table>
-                <thead>
-                  <td>السعر</td>
-                  <td>نوع الغرفة</td>
-
-                </thead>
-
-                <tr>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </table>
-            </div>
-       
-            <button className="add-btn">اضافة </button>
+              <button type="submit" className="add-btn"> {isEditingHajjProgram ? "تحديث" : "إضافة"} </button>
+            </form>
           </div>
-        </div>
+         </div>
+         <div className="dashborde">
+
 
         <div className="hotal-updat">
           <h2>الفنادق</h2>
-          {/* <div className="table-hotal">
+          <div className="table-hotal">
             <table className="table">
               <thead>
                 <tr>
@@ -1095,10 +1369,10 @@ const DashBoardEmployee = () => {
                     <input type="text" id="servers1" className="servers" />
                   </td>
                   <td>
-                    <input type="number" id="star1" className="star" />
+                    <input type="number"  />
                   </td>
                   <td>
-                    <input type="text" id="detil1" className="detil" />
+                    <input type="text" />
                   </td>
                   <td>
                     <input type="text" id="location1" className="location" />
@@ -1112,12 +1386,12 @@ const DashBoardEmployee = () => {
                 </tr>
               </tbody>
             </table>
-          </div> */}
+          </div>
         </div>
 
         <div className="transport-updat">
           <h2>النقل</h2>
-          {/* <div className="table-transport">
+          <div className="table-transport">
             <table className="table">
               <thead>
                 <tr>
@@ -1204,9 +1478,9 @@ const DashBoardEmployee = () => {
                 </tr>
               </tbody>
             </table>
-          </div> */}
+          </div>
         </div>
-
+        </div>
         <div className="seting">
           <h2>الاعدادات</h2>
           <div className="seting-detil">
