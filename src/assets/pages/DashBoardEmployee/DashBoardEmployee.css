@@ -94,7 +94,7 @@ body{
   }
   
  
- .contain-umrah , .contain-hajj {
+ .contain-umrah , .contain-hajj , .hotal-updat {
   width: 82%;
   display: flex;
   flex-direction: column;
@@ -109,24 +109,31 @@ body{
   box-shadow: 1px 1px 10px 1px rgb(0, 0, 0) , -1px -1px 10px 1px rgb(133, 130, 130);
 }
  
- .table-umrah , .table-hajj {
+ .table-umrah , .table-hajj , .table-hotal , .table-transport {
   max-width: 98%;
   overflow-x: auto; 
   direction: rtl;
 }
-.table-umrah table , .table-hajj table{
+.table-umrah table ,
+.table-hajj table ,
+.hotal-updat table ,
+.transport-updat table{
   width: 400%;
   direction: ltr;
   margin-bottom: 10px;
 }
 .table-umrah::-webkit-scrollbar ,
-.table-hajj::-webkit-scrollbar
+.table-hajj::-webkit-scrollbar ,
+.table-hotal::-webkit-scrollbar ,
+.table-transport::-webkit-scrollbar
  {
   height: 12px;
 }
 
 .table-umrah::-webkit-scrollbar-thumb ,
-.table-hajj::-webkit-scrollbar-thumb
+.table-hajj::-webkit-scrollbar-thumb,
+.table-hotal::-webkit-scrollbar-thumb ,
+.table-transport::-webkit-scrollbar-thumb
 {
   background-color: #ebcd94;
   border-radius: 10px;

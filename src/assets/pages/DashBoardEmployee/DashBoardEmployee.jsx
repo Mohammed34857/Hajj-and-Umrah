@@ -715,6 +715,18 @@ const handleSubmitHajjProgram = async (e) => {
 // Hotel
 
 const [hotels,setHotels]=useState([]);
+const [uploadedImages, setUploadedImages] = useState([]);
+const [hotelData,setHotelData]=useState({
+  name:"",
+  Number_stars:0,
+  location:"",
+  details:"",
+  urlImagehotel:"",
+  urlImage:[],
+  Services:"",
+  Places_available_visit:"",
+  link:""
+});
 useEffect(() => {
   const fetchData = async () => {
     try {
@@ -726,6 +738,211 @@ useEffect(() => {
   };
   fetchData();
   }, []);
+
+  
+  const handelChangeHotel = (e) => {
+    const { name, value } = e.target;
+    setHotelData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+    }));
+    };
+    
+    const handleChangeImageHotel = async (e) => {
+    const { name, files } = e.target;
+    if (files && files.length > 0) {
+        const formData = new FormData();
+        formData.append('file', files[0]);
+    
+        try {
+            const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });
+            const imagePath = response.data;
+            setHotelData((prevFormData) => ({ ...prevFormData, [name]: imagePath }));
+        } catch (error) {
+            console.error('Error uploading image:', error);
+        }
+    }
+    };
+    const handleChangeArrayImageHotel = async (e) => {
+      const { files } = e.target;
+      if (files && files.length > 0) {
+        const imagePromises = Array.from(files).map(async (file) => {
+          const formData = new FormData();
+          formData.append('file', file);
+    
+          try {
+            const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formData, {
+              headers: { 'Content-Type': 'multipart/form-data' },
+            });
+            return response.data;
+          } catch (error) {
+            console.error('Error uploading image:', error);
+            return null;
+          }
+        });
+    
+        const images = await Promise.all(imagePromises);
+        setUploadedImages((prevImages) => [...prevImages, ...images.filter(image => image !== null)]);
+      }
+    };
+
+    
+  const handleSubmitHotel = async (e) => {
+  e.preventDefault();
+  const DataHotel= {
+    name:hotelData.name,
+    Number_stars: Number(hotelData.Number_stars) ,
+    location: hotelData.location,
+    details:hotelData.details,
+    urlImagehotel:hotelData.urlImagehotel,
+    urlImage: uploadedImages,
+    Services:hotelData.Services.split(','),
+    Places_available_visit:hotelData.Places_available_visit.split(','),
+    link:hotelData.link
+  }
+  
+    try {
+      const responseHotel = await axios.post('https://officealhajandalumrah.adaptable.app/Hotel/', DataHotel, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+      });
+    
+    } catch (error) {
+      console.error('Error adding data:', error);
+    }
+  
+  setHotelData({
+    name:"",
+    Number_stars:0,
+    location:"",
+    details:"",
+    urlImagehotel:"",
+    urlImage:"",
+    Services:"",
+    Places_available_visit:"",
+    link:""
+  });
+  setUploadedImages([]);
+};
+
+
+//  transport
+
+
+const [transports,setTransports]=useState([]);
+const [uploadedImagesTransport, setUploadedImagesTransport] = useState([]);
+const [transportData,setTransportData]=useState({
+  name_company: "" ,
+  Services: "",
+  goals_company: "" ,
+  urlImageCompany: "",
+  urlImage:[],
+  link: "",
+  type_bus:"" ,
+  price_tecket:"" 
+});
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('https://officealhajandalumrah.adaptable.app/BusCompany');
+      setTransports(response.data);
+     } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  fetchData();
+  }, []);
+
+  
+  const handelChangeTransport = (e) => {
+    const { name, value } = e.target;
+    setTransportData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+    }));
+    };
+    
+    const handleChangeImageTransport = async (e) => {
+    const { name, files } = e.target;
+    if (files && files.length > 0) {
+        const formData = new FormData();
+        formData.append('file', files[0]);
+    
+        try {
+            const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });
+            const imagePath = response.data;
+            setTransportData((prevFormData) => ({ ...prevFormData, [name]: imagePath }));
+        } catch (error) {
+            console.error('Error uploading image:', error);
+        }
+    }
+    };
+    const handleChangeArrayImageTransport = async (e) => {
+      const { files } = e.target;
+      if (files && files.length > 0) {
+        const imagePromises = Array.from(files).map(async (file) => {
+          const formData = new FormData();
+          formData.append('file', file);
+    
+          try {
+            const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formData, {
+              headers: { 'Content-Type': 'multipart/form-data' },
+            });
+            return response.data;
+          } catch (error) {
+            console.error('Error uploading image:', error);
+            return null;
+          }
+        });
+    
+        const images = await Promise.all(imagePromises);
+        setUploadedImagesTransport((prevImages) => [...prevImages, ...images.filter(image => image !== null)]);
+      }
+    };
+
+
+    
+  const handleSubmitTransport = async (e) => {
+  e.preventDefault();
+  const DataTransport= {
+      name_company: transportData.name_company ,
+      Services:transportData.Services.split(',') ,
+      goals_company: transportData.goals_company.split(',') ,
+      urlImageCompany:transportData.urlImageCompany ,
+      urlImage:uploadedImagesTransport,
+      link:transportData.link ,
+      type_bus: transportData.type_bus ,
+      price_tecket: transportData.price_tecket 
+  }
+  
+    try {
+      const responseTransport = await axios.post('https://officealhajandalumrah.adaptable.app/BusCompany', DataTransport, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+      });
+    
+    } catch (error) {
+      console.error('Error adding data:', error);
+    }
+  
+  setTransportData({
+    name_company: "" ,
+    Services: "",
+    goals_company: "" ,
+    urlImageCompany: "",
+    urlImage:[],
+    link: "",
+    type_bus:"" ,
+    price_tecket:"" 
+  });
+  setUploadedImagesTransport([]);
+};
 
   return (
     <div className="DashBoardEmployee">
@@ -1295,17 +1512,15 @@ useEffect(() => {
             </form>
           </div>
          </div>
+
+
          <div className="dashborde">
-
-
         <div className="hotal-updat">
           <h2>الفنادق</h2>
           <div className="table-hotal">
             <table className="table">
               <thead>
                 <tr>
-                  <th>رابط الفندق</th>
-                  <th> صور الفندق</th>
                   <th>الصورة الرئيسية</th>
                   <th>اماكن يمكن زيارتها</th>
                   <th>الخدمات</th>
@@ -1316,20 +1531,21 @@ useEffect(() => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
+              {hotels.map((hotel, index) => (
+                  <tr key={index}>
+                    <td><img src={hotel.urlImagehotel} width="50" height="50" /></td>
+                    <td>{hotel.Places_available_visit}</td>
+                    <td>{hotel.Services}</td>
+                    <td>{hotel.Number_stars}</td>
+                    <td>{hotel.  details}</td>
+                    <td>{hotel.location}</td>
+                    <td>{hotel.name}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
 
+            <form onSubmit={handleSubmitHotel}>
             <table>
               <thead>
                 <tr>
@@ -1342,50 +1558,27 @@ useEffect(() => {
                   <th>التفاصيل</th>
                   <th>الموقع</th>
                   <th>اسم الفندق</th>
-                  <th></th>
+                  <th>{}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
+                  <td><input type="url"    name="link"  value={hotelData.link}  onChange={handelChangeHotel} /></td>
+                  <td><input type="file"   name="urlImage"  value={hotelData.urlImage} onChange={handleChangeArrayImageHotel} /></td>
+                  <td><input type="file"   name="urlImagehotel"   onChange={handleChangeImageHotel} /></td> 
+                  <td><input type="text"   name="Places_available_visit"  value={hotelData.Places_available_visit} onChange={handelChangeHotel} /></td>
+                  <td><input type="text"   name="Services"  value={hotelData.Services} onChange={handelChangeHotel} /></td>
+                  <td><input type="number"   name="Number_stars"  value={hotelData.Number_stars} onChange={handelChangeHotel} /></td>
+                  <td><input type="text" name="details"  value={hotelData.details} onChange={handelChangeHotel} /></td>
+                  <td><input type="text"   name="location"  value={hotelData.location} onChange={handelChangeHotel} /></td>
+                  <td><input type="text"   name="name"  value={hotelData.name} onChange={handelChangeHotel} /></td>
                   <td>
-                    <input type="url" className="link-visit" />
-                  </td>
-
-                  <td>
-                    <input type="file" id="hotal-photo1" className="hotal-photo" />
-                  </td>
-                  <td>
-                    <input
-                      type="file"
-                      id="min-hotal-photo1"
-                      className="min-hotal-photo"
-                    />
-                  </td>
-
-                  <td>
-                    <input type="text" id="visit-place1" className="visit-place" />
-                  </td>
-                  <td>
-                    <input type="text" id="servers1" className="servers" />
-                  </td>
-                  <td>
-                    <input type="number"  />
-                  </td>
-                  <td>
-                    <input type="text" />
-                  </td>
-                  <td>
-                    <input type="text" id="location1" className="location" />
-                  </td>
-                  <td>
-                    <input type="text" id="name-hota1" className="name_hota" />
-                  </td>
-                  <td>
-                    <button className="add">اضافة</button>
+                    <button className="add" type="submit">اضافة</button>
                   </td>
                 </tr>
               </tbody>
             </table>
+            </form>
           </div>
         </div>
 
@@ -1398,7 +1591,6 @@ useEffect(() => {
                   <th> سعر التكيت</th>
                   <th>نوع النقل</th>
                   <th>رابط الشركة</th>
-                  <th>صور وسائل النقل</th>
                   <th>الصورة الرئيسية</th>
                   <th>هدف الشركة</th>
                   <th>الخدمات</th>
@@ -1406,19 +1598,21 @@ useEffect(() => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
+                {transports.map((Transport, index) => (
+                  <tr key={index}>
+                    <td>{Transport.price_tecket}</td>
+                    <td>{Transport.type_bus}</td>
+                    <td>{Transport.link}</td>
+                    <td><img src={Transport.urlImageCompany} width="50" height="50" /></td>
+                    <td>{Transport.goals_company}</td>
+                    <td>{Transport.Services}</td>
+                    <td>{Transport.name_company}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
-
+  
+          <form onSubmit={handleSubmitTransport}>
             <table>
               <thead>
                 <tr>
@@ -1430,54 +1624,26 @@ useEffect(() => {
                   <th>هدف الشركة</th>
                   <th>الخدمات</th>
                   <th>اسم الشركة</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
+                  <td><input type="text"   name="price_tecket"  value={transportData.price_tecket} onChange={handelChangeTransport} /></td>
+                  <td><input type="text"   name="type_bus"  value={transportData.type_bus}  onChange={handelChangeTransport} /></td> 
+                  <td><input type="url"   name="link"  value={transportData.link} onChange={handelChangeTransport} /></td>
+                  <td><input type="file"   name="urlImage"  value={transportData.urlImage} onChange={handleChangeArrayImageTransport} /></td>
+                  <td><input type="file"   name="urlImageCompany"   onChange={handleChangeImageTransport} /></td>
+                  <td><input type="text" name="goals_company"  value={transportData.goals_company} onChange={handelChangeTransport} /></td>
+                  <td><input type="text"   name="Services"  value={transportData.Services} onChange={handelChangeTransport} /></td>
+                  <td><input type="text"   name="name_company"  value={transportData.name_company} onChange={handelChangeTransport} /></td>
                   <td>
-                    <input type="number" id="pric1" className="pric" />
-                  </td>
-
-                  <td>
-                    <input type="text" id="typ1" className="typ" />
-                  </td>
-
-                  <td>
-                    <input type="url" className="link-visit" />
-                  </td>
-                  <td>
-                    <input
-                      type="file"
-                      id="transport-photo1"
-                      className="transport-photo"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="file"
-                      id="min-transpot-photo1"
-                      className="min-transpot-photo"
-                    />
-                  </td>
-                  <td>
-                    <input type="text" id="detil-trans1" className="detil-trans" />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      id="servers-trans1"
-                      className="servers-trans"
-                    />
-                  </td>
-                  <td>
-                    <input type="text" id="name-trans1" className="name_trans" />
-                  </td>
-                  <td>
-                    <button className="add">اضافة</button>
+                    <button className="add" type="submit">اضافة</button>
                   </td>
                 </tr>
               </tbody>
             </table>
+            </form>
           </div>
         </div>
         </div>
