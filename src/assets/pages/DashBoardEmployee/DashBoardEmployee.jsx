@@ -654,7 +654,7 @@ const handleSubmitHajjProgram = async (e) => {
   }
   if (isEditingHajjProgram) {
     try {
-      await axios.patch(`https://officealhajandalumrah.adaptable.app/program-al-haj//${editingIdHajjProgram}`, DataHajjProgram , {
+      await axios.patch(`https://officealhajandalumrah.adaptable.app/program-al-haj/${editingIdHajjProgram}`, DataHajjProgram , {
         headers: {
             'Content-Type': 'application/json',
         },
@@ -1370,7 +1370,6 @@ useEffect(() => {
                   <td>
                      <select onChange={(e) => {
                        const selectedHotelId = e.target.value;
-                      //  const selectedHotel = hotels.find(hotel => hotel.id === selectedHotelId);
                        if (selectedHotelId && !selectedHotelsForProgramUmrah.includes(selectedHotelId)) {
                         setSelectedHotelsForProgramUmrah([...selectedHotelsForProgramUmrah,  selectedHotelId]);
                         }
@@ -1381,14 +1380,15 @@ useEffect(() => {
                          ))}
                      </select>
                   </td>
-                  {/* <td>
+                  <td>
                      <h5>الفنادق المختارة:</h5>
-                       <ul>
-                         {selectedHotels.map((hotel, index) => (
-                           <li key={index}>{hotel.name}</li>
-                         ))}
-                       </ul>
-                  </td> */}
+                      <ul>
+                           {selectedHotelsForProgramUmrah.map((hotelId, index) => {
+                           const hotel = hotels.find(h => h._id === hotelId);
+                           return hotel ? <li key={index}>{hotel.name}</li> : null;
+                           })}
+                      </ul>
+                  </td> 
                 </tr>
                 </tbody>
               </table>
@@ -1494,7 +1494,6 @@ useEffect(() => {
                   <td>
                      <select onChange={(e) => {
                        const selectedHotelId = e.target.value;
-                      //  const selectedHotel = hotels.find(hotel => hotel.id === selectedHotelId);
                        if (selectedHotelId && !selectedHotelsForProgramHajj.includes(selectedHotelId)) {
                        setSelectedHotelsForProgramHajj([...selectedHotelsForProgramHajj,  selectedHotelId]);
                         }
@@ -1505,6 +1504,15 @@ useEffect(() => {
                          ))}
                      </select>
                   </td>
+                  <td>
+                     <h5>الفنادق المختارة:</h5>
+                      <ul>
+                           {selectedHotelsForProgramHajj.map((hotelId, index) => {
+                           const hotel = hotels.find(h => h._id === hotelId);
+                           return hotel ? <li key={index}>{hotel.name}</li> : null;
+                           })}
+                      </ul>
+                  </td> 
                 </tr>
                 </tbody>
               </table>

@@ -236,6 +236,12 @@ body{
   border: none;
   font-size: 20px;
 }
+.tableProgeam ul{
+  color:#fff;
+}
+.tableProgeam h5{
+  color:var(--color-gold);
+}
 .prog2{
   width: 450px;
   height: 500px;
@@ -347,6 +353,9 @@ margin-right: 50px;
  
 } 
 
+.seting{
+  margin-top: 50px;
+}
 .seting-detil{
   box-shadow: 5px 10px 20px  #a7952dda inset;
   height: 380px;
