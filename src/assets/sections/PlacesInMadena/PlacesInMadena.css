@@ -70,7 +70,9 @@
     background-color: rgb(73, 73, 72);
     position: absolute;
     transform: rotateY(180deg);
-    color: white;
+    color: rgba(255, 255, 255, 0.849);
+    font-size: 15px;
+font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .PlacesInMadena section:hover {

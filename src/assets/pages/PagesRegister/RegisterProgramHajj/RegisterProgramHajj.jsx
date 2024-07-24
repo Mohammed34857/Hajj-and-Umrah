@@ -433,15 +433,15 @@ const RegisterProgramHajj = () => {
           </div>
 
           <div className="health-status">
-              <h3> :  الحالة الصحية <MdOutlineHealthAndSafety /></h3>
+              <h3> : المرافقين <MdOutlineHealthAndSafety /></h3>
                <div className='health'>
                  <label className="radio-container" onClick={()=>handleHealthStateChange("good")}><input type="radio" name="HealthStatus" value={"good"} />
                     <span className="checkmark"></span>
-                     جيدة 
+                     مرافق واحد
                     </label>
                      <label className="radio-container" onClick={()=>handleHealthStateChange("helpless")}><input type="radio" name="HealthStatus" value={"helpless"} />
                     <span className="checkmark"></span>
-                      عاجز 
+                      مرافقين
                     </label>
                 </div>
                 <div className='amenities'>
