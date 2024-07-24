@@ -7,34 +7,37 @@ import { AiTwotoneCheckCircle } from "react-icons/ai";
 import { HiUserPlus } from "react-icons/hi2";
 import { ImFolderOpen ,ImLibrary , ImBubbles4 ,ImAirplane , ImCogs} from "react-icons/im";
 import { FaRightFromBracket } from "react-icons/fa6";
-import { FaTrashAlt ,FaPencilAlt } from "react-icons/fa";
-import { IoPersonAddOutline } from "react-icons/io5";
 import axios from 'axios';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const DashBoardEmployee = () => {
-  
+
+// data form mutamer
+  const [isEditingMutamir, setIsEditingMutamir] = useState(false);
+  const [editingIdMutamir, setEditingIdMutamir] = useState(null);
   const [mutamir,setMutamir]=useState([]);
   const [mutamirData,setMutamirData]=useState({
-      full_name: "string",
-      name_father: "string",
-      name_mother: "string",
+      full_name: "",
+      name_father: "",
+      name_mother: "",
       phone_number: 0,
-      email: "abedalrahaman@gmail.com",
-      birth: "2024-05-20T23:27:58.385Z",
-      gender: "string",
-      Nationality: "string",
-      passport_number: "string",
+      email: "",
+      birth: "",
+      gender: "",
+      Nationality: "",
+      passport_number: "",
       passport_photo: "",
       almutamir_photo: "",
       number_bus: 0,
-      type_room: "string",
+      type_room: "",
       seatNumber: 0,
-      payment_method: "string",
-      Verification: true
+      payment_method: "",
+      Verification: true,
+      name_program:""
   });
-  const [isEditing, setIsEditing] = useState(false);
-  const [editingId, setEditingId] = useState(null);
-
+ 
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -64,19 +67,19 @@ const DashBoardEmployee = () => {
     }
   };
 
-  const handleChange = (e) => {
+  const handleChangeMutamir = (e) => {
     const { name, value, files } = e.target;
     setMutamirData((prevFormData) => ({
       ...prevFormData,
       [name]: files ? files[0] : value,
     }));
-  };
+  };   
 
-  const handleSubmit = async (e) => {
+  const handleSubmitMutamir = async (e) => {
     e.preventDefault();
     if (isEditing) {
       try {
-        await axios.put(`https://officealhajandalumrah.adaptable.app/al-mutamir/${editingId}`, mutamirData , {
+        await axios.patch(`https://officealhajandalumrah.adaptable.app/al-mutamir/${editingIdMutamir}`, mutamirData , {
           headers: {
               'Content-Type': 'application/json',
           },
@@ -98,17 +101,20 @@ const DashBoardEmployee = () => {
         passport_photo: mutamirData.passport_photo,
         almutamir_photo: mutamirData.almutamir_photo,
         type_room: mutamirData.type_room,
-        number_bus: mutamirData.number_bus,
-        seatNumber: mutamirData.seatNumber,
+        number_bus: Number(mutamirData.number_bus),
+        seatNumber: Number(mutamirData.seatNumber),
         payment_method: mutamirData.payment_method,
         Verification: mutamirData.Verification,
+        name_program: mutamirData.name_program
     };
+    console.log(dataMutamir);
       try {
         const responseMutamir = await axios.post('https://officealhajandalumrah.adaptable.app/al-mutamir', dataMutamir, {
           headers: {
               'Content-Type': 'application/json',
           },
         });
+      
       } catch (error) {
         console.error('Error adding data:', error);
       }
@@ -130,25 +136,814 @@ const DashBoardEmployee = () => {
       seatNumber: 1,
       payment_method: "",
       Verification: false,
+      name_program:""
     });
-    setIsEditing(false);
-    setEditingId(null);
+    setIsEditingMutamir(false);
+    setEditingIdMutamir(null);
   };
 
-  const handleEdit = (muta) => {
+  const handleEditMutamir = (muta) => {
     setMutamirData(muta);
-    setIsEditing(true);
-    setEditingId(muta.id);
+    setIsEditingMutamir(true);
+    setEditingIdMutamir(muta._id);
   };
 
-  const handleDelete = async (id) => {
+  const handleDeleteMutamir = async (id) => {
     try {
       await axios.delete(`https://officealhajandalumrah.adaptable.app/al-mutamir/${id}`);
     } catch (error) {
       console.error('Error deleting data:', error);
     }
+  }
 
+
+// data form Hajj
+    const [isEditingHajj, setIsEditingHajj] = useState(false);
+    const [editingIdHajj, setEditingIdHajj] = useState(null);
+    const [hajj,setHajj]=useState([]);
+    const [hajjData,setHajjData]=useState({
+        full_name: "",
+        name_father: "",
+        name_mother: "",
+        phone_number: 0,
+        email: "",
+        birth: "",
+        gender: "",
+        Nationality: "",
+        passport_number: "",
+        passport_photo: "",
+        alhaj_photo: "",
+        number_bus: 0,
+        type_room: "",
+        seatNumber: 0,
+        payment_method: "",
+        Verification: true,
+        name_program:""
+    });
+   
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get('https://officealhajandalumrah.adaptable.app/al-hajj');
+          setHajj(response.data);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+      fetchData();
+    }, []);
+  
+    const handleChangeImageHajj = async (e) => {
+      const { name, files } = e.target;
+      if (files && files[0]) {
+        const formData = new FormData();
+        formData.append('file', files[0]);
+        try {
+          const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+          });
+          const imagePath = response.data;
+          setHajjData((prevFormData) => ({ ...prevFormData, [name]: imagePath }));
+        } catch (error) {
+          console.error('Error uploading image:', error);
+        }
+      }
+    };
+  
+    const handleChangeHajj = (e) => {
+      const { name, value, files } = e.target;
+      setHajjData((prevFormData) => ({
+        ...prevFormData,
+        [name]: files ? files[0] : value,
+      }));
+    };
+  
+    const handleSubmitHajj = async (e) => {
+      e.preventDefault();
+      if (isEditingHajj) {
+        try {
+          await axios.patch(`https://officealhajandalumrah.adaptable.app/al-hajj/${editingIdHajj}`, hajjData , {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+          });
+        } catch (error) {
+          console.error('Error updating data:', error);
+        }
+      } else {
+        const dataHajj = {
+          full_name: hajjData.full_name,
+          name_father: hajjData.name_father,
+          name_mother: hajjData.name_mother,
+          phone_number: Number(hajjData.phone_number) ,
+          email: hajjData.email,
+          birth: hajjData.birth,
+          gender: hajjData.gender,
+          Nationality: hajjData.Nationality,
+          passport_number: hajjData.passport_number,
+          passport_photo: hajjData.passport_photo,
+          alhaj_photo: hajjData.alhaj_photo,
+          type_room: hajjData.type_room,
+          number_bus: Number(hajjData.number_bus),
+          seatNumber: Number(hajjData.seatNumber),
+          payment_method: hajjData.payment_method,
+          Verification: hajjData.Verification,
+          name_program: hajjData.name_program
+      };
+      console.log(dataHajj);
+        try {
+          const responseHajj = await axios.post('https://officealhajandalumrah.adaptable.app/al-hajj', dataHajj, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+          });
+        
+        } catch (error) {
+          console.error('Error adding data:', error);
+        }
+      }
+      setHajjData({
+        full_name: "",
+        name_father: "",
+        name_mother: "",
+        phone_number: 1,
+        email: "",
+        birth: "",
+        gender: "",
+        Nationality: "",
+        passport_number: "",
+        passport_photo: "",
+        alhaj_photo: "",
+        number_bus: 1,
+        type_room: "",
+        seatNumber: 1,
+        payment_method: "",
+        Verification: false,
+        name_program:""
+      });
+      setIsEditingHajj(false);
+      setEditingIdHajj(null);
+    };
+  
+    const handleEditHajj = (haj) => {
+      setHajjData(haj);
+      setIsEditingHajj(true);
+      setEditingIdHajj(haj._id);
+    };
+  
+    const handleDeleteHajj = async (id) => {
+      try {
+        await axios.delete(`https://officealhajandalumrah.adaptable.app/al-hajj/${id}`);
+      } catch (error) {
+        console.error('Error deleting data:', error);
+      }
   };
+
+// umrah program
+
+  const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        autoplay: false,
+        autoplaySpeed: 2000,
+        pauseOnHover: true,
+        centerMode: true,
+        centerPadding: '0px',
+        adaptiveHeight: true
+    };
+
+    const [isEditingUmrahProgram, setIsEditingUmrahProgram] = useState(false);
+    const [editingIdUmrahProgram, setEditingIdUmrahProgram] = useState(null);
+    const [umrahProgram,setUmrahProgram]= useState([]);
+    const [umrahProgramData,setUmrahProgramData]=useState({
+         name_program: "",
+         Date_Travel: "",
+         Date_Travel_Hijri: "",
+         total_stay: 0,
+         stay_in_macca: 0,
+         stay_in_madina: 0,
+         image: "",
+         price1: "",
+         price2: "",
+         price3: "",
+         price4: ""
+    });
+    const [allProgramUmrahHotel, setAllProgramUmrahHotel] = useState([]);
+    const [hotelsForProgram, setHotelsForProgram] = useState({});
+    const [selectedHotelsForProgramUmrah, setSelectedHotelsForProgramUmrah] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-umrah');
+        setUmrahProgram(response.data);
+        const allProgramUmrahHotelResponse = await axios.get('https://officealhajandalumrah.adaptable.app/prog-umrah-hotel');
+        setAllProgramUmrahHotel(allProgramUmrahHotelResponse.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchHotels = async () => {
+      try {
+        const programHotelRooms = {};
+
+        allProgramUmrahHotel.forEach((hotelRoom) => {
+          const { id_ProgramUmrah, id_HotelRoom } = hotelRoom;
+          if (!programHotelRooms[id_ProgramUmrah]) {
+            programHotelRooms[id_ProgramUmrah] = [];
+          }
+          programHotelRooms[id_ProgramUmrah].push(id_HotelRoom);
+        });
+
+        const hotelData = {};
+        for (const programId in programHotelRooms) {
+          const hotelRooms = await Promise.all(
+            programHotelRooms[programId].map((hotelRoomId) =>
+              axios.get(`https://officealhajandalumrah.adaptable.app/hotel-room/${hotelRoomId}`)
+                .then(response => response.data)
+            )
+          );
+
+          const hotels = await Promise.all(
+            hotelRooms.map(hotelRoom =>
+              axios.get(`https://officealhajandalumrah.adaptable.app/Hotel/${hotelRoom.id_hotel}`)
+                .then(response => response.data)
+            )
+          );
+
+          hotelData[programId] = hotels;
+        }
+
+        setHotelsForProgram(hotelData);
+      } catch (error) {
+        console.error('Error fetching hotels for program:', error);
+      }
+    };
+
+    fetchHotels();
+  }, [allProgramUmrahHotel]);
+
+
+    const handleDeleteUmrahProgram = async (id) => {
+      try {
+        await axios.delete(`https://officealhajandalumrah.adaptable.app/program-umrah/${id}`);
+      } catch (error) {
+        console.error('Error deleting data:', error);
+      }
+  };
+
+   const handleChangeUmrahProgram = (e) => {
+    const { name, value } = e.target;
+    setUmrahProgramData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+    }));
+  };
+
+    const handleChangeImageUmrahProgram = async (e) => {
+    const { name, files } = e.target;
+    if (files && files.length > 0) {
+        const formData = new FormData();
+        formData.append('file', files[0]);
+
+        try {
+            const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });
+            const imagePath = response.data;
+            setUmrahProgramData((prevFormData) => ({ ...prevFormData, [name]: imagePath }));
+        } catch (error) {
+            console.error('Error uploading image:', error);
+        }
+    }
+};
+  
+
+   const handleEditUmrahProgram = (program) => {
+      setUmrahProgramData({
+        ...program,
+        image: program.image || "" 
+      }); 
+      setIsEditingUmrahProgram(true);
+      setEditingIdUmrahProgram(program._id);
+    };
+
+    const handleSubmitUmrahProgram = async (e) => {
+      e.preventDefault();
+      const DataUmrahProgram= {
+        name_program: umrahProgramData.name_program,
+        Date_Travel: umrahProgramData.Date_Travel,
+        Date_Travel_Hijri: umrahProgramData.Date_Travel_Hijri,
+        total_stay: Number(umrahProgramData.total_stay) ,
+        stay_in_macca: Number(umrahProgramData.stay_in_macca),
+        stay_in_madina: Number(umrahProgramData.stay_in_madina),
+        image: umrahProgramData.image,
+        price1: umrahProgramData.price1,
+        price2: umrahProgramData.price2,
+        price3: umrahProgramData.price3,
+        price4:umrahProgramData.price4
+      }
+      if (isEditingUmrahProgram) {
+        try {
+          await axios.patch(`https://officealhajandalumrah.adaptable.app/program-umrah/${editingIdUmrahProgram}`, DataUmrahProgram , {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+          });
+        } catch (error) {
+          console.error('Error updating data:', error);
+        }
+      } else {
+        
+        try {
+          const responseHajj = await axios.post('https://officealhajandalumrah.adaptable.app/program-umrah', DataUmrahProgram, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+          });
+       
+      const id_ProgramUmrah = responseHajj.data._id;
+
+      const hotelRoomsResponse = await axios.get('https://officealhajandalumrah.adaptable.app/hotel-room');
+      const hotelRoomsData = hotelRoomsResponse.data;
+
+      for (const selectedHotel of selectedHotelsForProgramUmrah) {
+        const hotelRoom = hotelRoomsData.find((hotelRoom) => hotelRoom.id_hotel._id === selectedHotel);
+        console.log(hotelRoom._id);
+        const progUmrahHotelData={
+              id_ProgramUmrah: id_ProgramUmrah,
+              id_HotelRoom: hotelRoom._id
+        }
+            await axios.post('https://officealhajandalumrah.adaptable.app/prog-umrah-hotel',progUmrahHotelData, {
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+          
+        }
+        
+        } catch (error) {
+          console.error('Error adding data:', error);
+        }
+      }
+      setUmrahProgramData({
+        name_program: "",
+        Date_Travel: "",
+        Date_Travel_Hijri: "",
+        total_stay: null,
+        stay_in_macca: null,
+        stay_in_madina:null,
+        image: "",
+        price1: "",
+        price2: "",
+        price3: "",
+        price4:""
+      });
+      setIsEditingUmrahProgram(false);
+      setEditingIdUmrahProgram(null);
+    };
+
+    // Hajj Porgram
+
+
+const [isEditingHajjProgram, setIsEditingHajjProgram] = useState(false);
+const [editingIdHajjProgram, setEditingIdHajjProgram] = useState(null);
+const [hajjProgram,setHajjProgram]= useState([]);
+const [hajjProgramData,setHajjProgramData]=useState({
+     Airline: "",
+     name_program: "",
+     Date_Travel: "",
+     Date_Travel_Hijri: "",
+     total_stay: 0,
+     stay_in_macca: 0,
+     stay_in_madina: 0,
+     type_hotel: "",
+     Religious_guide: "",
+     Number_meals: "",
+     image: "",
+     price1: "",
+     price2: "",
+     price3: "",
+     price4: ""
+});
+const [allProgramHajjHotel, setAllProgramHajjHotel] = useState([]);
+const [hotelsForProgramHajj, setHotelsForProgramHajj] = useState({});
+const [selectedHotelsForProgramHajj, setSelectedHotelsForProgramHajj] = useState([]);
+
+useEffect(() => {
+const fetchData = async () => {
+  try {
+    const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-al-haj');
+    setHajjProgram(response.data);
+    const allProgramHajjHotelResponse = await axios.get('https://officealhajandalumrah.adaptable.app/prog-al-haj-hotel');
+    setAllProgramHajjHotel(allProgramHajjHotelResponse.data);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+fetchData();
+}, []);
+
+useEffect(() => {
+  const fetchHotels = async () => {
+    try {
+      const programHotelRooms = {};
+      allProgramHajjHotel.forEach((hotelRoom) => {
+       
+        const { id_ProgramAlHaj, id_HotelRoom } = hotelRoom;
+        if (!programHotelRooms[id_ProgramAlHaj]) {
+          programHotelRooms[id_ProgramAlHaj] = [];
+        }
+        programHotelRooms[id_ProgramAlHaj].push(id_HotelRoom);
+      });
+    
+      const hotelData = {};
+      for (const programId in programHotelRooms) {
+        const hotelRooms = await Promise.all(
+          programHotelRooms[programId].map((hotelRoomId) =>
+            axios.get(`https://officealhajandalumrah.adaptable.app/hotel-room/${hotelRoomId}`)
+              .then(response => response.data)
+          )
+        );
+
+        const hotels = await Promise.all(
+          hotelRooms.map(hotelRoom =>
+            axios.get(`https://officealhajandalumrah.adaptable.app/Hotel/${hotelRoom.id_hotel}`)
+              .then(response => response.data)
+          )
+        );
+
+        hotelData[programId] = hotels;
+      }
+
+      setHotelsForProgramHajj(hotelData);
+    } catch (error) {
+      console.error('Error fetching hotels for program:', error);
+    }
+  };
+
+  fetchHotels();
+}, [allProgramHajjHotel]);
+
+
+const handleDeleteHajjProgram = async (id) => {
+  try {
+    await axios.delete(`https://officealhajandalumrah.adaptable.app/program-al-haj//${id}`);
+  } catch (error) {
+    console.error('Error deleting data:', error);
+  }
+};
+
+const handleChangeHajjProgram = (e) => {
+const { name, value } = e.target;
+setHajjProgramData((prevFormData) => ({
+    ...prevFormData,
+    [name]: value,
+}));
+};
+
+const handleChangeImageHajjProgram = async (e) => {
+const { name, files } = e.target;
+if (files && files.length > 0) {
+    const formData = new FormData();
+    formData.append('file', files[0]);
+
+    try {
+        const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+        });
+        const imagePath = response.data;
+        setHajjProgramData((prevFormData) => ({ ...prevFormData, [name]: imagePath }));
+    } catch (error) {
+        console.error('Error uploading image:', error);
+    }
+}
+};
+
+
+const handleEditHajjProgram = (program) => {
+  setHajjProgramData({
+    ...program,
+    image: program.image || "" 
+  }); 
+  setIsEditingHajjProgram(true);
+  setEditingIdHajjProgram(program._id);
+};
+
+const handleSubmitHajjProgram = async (e) => {
+  e.preventDefault();
+  const DataHajjProgram= {
+    name_program: hajjProgramData.name_program,
+    Date_Travel: hajjProgramData.Date_Travel,
+    Date_Travel_Hijri: hajjProgramData.Date_Travel_Hijri,
+    total_stay: Number(hajjProgramData.total_stay) ,
+    stay_in_macca: Number(hajjProgramData.stay_in_macca),
+    stay_in_madina: Number(hajjProgramData.stay_in_madina),
+    image: hajjProgramData.image,
+    price1: hajjProgramData.price1,
+    price2: hajjProgramData.price2,
+    price3: hajjProgramData.price3,
+    price4:hajjProgramData.price4
+  }
+  if (isEditingHajjProgram) {
+    try {
+      await axios.patch(`https://officealhajandalumrah.adaptable.app/program-al-haj/${editingIdHajjProgram}`, DataHajjProgram , {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+      });
+    } catch (error) {
+      console.error('Error updating data:', error);
+    }
+  } else {
+    
+    try {
+      const responseHajj = await axios.post('https://officealhajandalumrah.adaptable.app/program-al-haj/', DataHajjProgram, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+      });
+
+      const id_ProgramHajj = responseHajj.data._id;
+
+      const hotelRoomsResponse = await axios.get('https://officealhajandalumrah.adaptable.app/hotel-room');
+      const hotelRoomsData = hotelRoomsResponse.data;
+
+      for (const selectedHotel of selectedHotelsForProgramHajj) {
+        const hotelRoom = hotelRoomsData.find((hotelRoom) => hotelRoom.id_hotel._id === selectedHotel);
+        console.log(hotelRoom._id);
+        const progHajjHotelData={
+              id_ProgramAlHaj: id_ProgramHajj,
+              id_HotelRoom: hotelRoom._id
+        }
+            await axios.post('https://officealhajandalumrah.adaptable.app/prog-al-haj-hotel',progHajjHotelData, {
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+
+        }
+    
+    } catch (error) {
+      console.error('Error adding data:', error);
+    }
+  }
+  setHajjProgramData({
+    name_program: "",
+    Date_Travel: "",
+    Date_Travel_Hijri: "",
+    total_stay: null,
+    stay_in_macca: null,
+    stay_in_madina:null,
+    image: "",
+    price1: "",
+    price2: "",
+    price3: "",
+    price4:""
+  });
+  setIsEditingHajjProgram(false);
+  setEditingIdHajjProgram(null);
+};
+
+// Hotel
+
+const [hotels,setHotels]=useState([]);
+const [uploadedImages, setUploadedImages] = useState([]);
+const [hotelData,setHotelData]=useState({
+  name:"",
+  Number_stars:0,
+  location:"",
+  details:"",
+  urlImagehotel:"",
+  urlImage:[],
+  Services:"",
+  Places_available_visit:"",
+  link:""
+});
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('https://officealhajandalumrah.adaptable.app/Hotel');
+      setHotels(response.data);
+     } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  fetchData();
+  }, []);
+
+  
+  const handelChangeHotel = (e) => {
+    const { name, value } = e.target;
+    setHotelData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+    }));
+    };
+    
+    const handleChangeImageHotel = async (e) => {
+    const { name, files } = e.target;
+    if (files && files.length > 0) {
+        const formData = new FormData();
+        formData.append('file', files[0]);
+    
+        try {
+            const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });
+            const imagePath = response.data;
+            setHotelData((prevFormData) => ({ ...prevFormData, [name]: imagePath }));
+        } catch (error) {
+            console.error('Error uploading image:', error);
+        }
+    }
+    };
+    const handleChangeArrayImageHotel = async (e) => {
+      const { files } = e.target;
+      if (files && files.length > 0) {
+        const imagePromises = Array.from(files).map(async (file) => {
+          const formData = new FormData();
+          formData.append('file', file);
+    
+          try {
+            const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formData, {
+              headers: { 'Content-Type': 'multipart/form-data' },
+            });
+            return response.data;
+          } catch (error) {
+            console.error('Error uploading image:', error);
+            return null;
+          }
+        });
+    
+        const images = await Promise.all(imagePromises);
+        setUploadedImages((prevImages) => [...prevImages, ...images.filter(image => image !== null)]);
+      }
+    };
+
+    
+  const handleSubmitHotel = async (e) => {
+  e.preventDefault();
+  const DataHotel= {
+    name:hotelData.name,
+    Number_stars: Number(hotelData.Number_stars) ,
+    location: hotelData.location,
+    details:hotelData.details,
+    urlImagehotel:hotelData.urlImagehotel,
+    urlImage: uploadedImages,
+    Services:hotelData.Services.split(','),
+    Places_available_visit:hotelData.Places_available_visit.split(','),
+    link:hotelData.link
+  }
+  
+    try {
+      const responseHotel = await axios.post('https://officealhajandalumrah.adaptable.app/Hotel/', DataHotel, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+      });
+    
+    } catch (error) {
+      console.error('Error adding data:', error);
+    }
+  
+  setHotelData({
+    name:"",
+    Number_stars:0,
+    location:"",
+    details:"",
+    urlImagehotel:"",
+    urlImage:"",
+    Services:"",
+    Places_available_visit:"",
+    link:""
+  });
+  setUploadedImages([]);
+};
+
+
+//  transport
+
+
+const [transports,setTransports]=useState([]);
+const [uploadedImagesTransport, setUploadedImagesTransport] = useState([]);
+const [transportData,setTransportData]=useState({
+  name_company: "" ,
+  Services: "",
+  goals_company: "" ,
+  urlImageCompany: "",
+  urlImage:[],
+  link: "",
+  type_bus:"" ,
+  price_tecket:"" 
+});
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('https://officealhajandalumrah.adaptable.app/BusCompany');
+      setTransports(response.data);
+     } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  fetchData();
+  }, []);
+
+  
+  const handelChangeTransport = (e) => {
+    const { name, value } = e.target;
+    setTransportData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+    }));
+    };
+    
+    const handleChangeImageTransport = async (e) => {
+    const { name, files } = e.target;
+    if (files && files.length > 0) {
+        const formData = new FormData();
+        formData.append('file', files[0]);
+    
+        try {
+            const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });
+            const imagePath = response.data;
+            setTransportData((prevFormData) => ({ ...prevFormData, [name]: imagePath }));
+        } catch (error) {
+            console.error('Error uploading image:', error);
+        }
+    }
+    };
+    const handleChangeArrayImageTransport = async (e) => {
+      const { files } = e.target;
+      if (files && files.length > 0) {
+        const imagePromises = Array.from(files).map(async (file) => {
+          const formData = new FormData();
+          formData.append('file', file);
+    
+          try {
+            const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formData, {
+              headers: { 'Content-Type': 'multipart/form-data' },
+            });
+            return response.data;
+          } catch (error) {
+            console.error('Error uploading image:', error);
+            return null;
+          }
+        });
+    
+        const images = await Promise.all(imagePromises);
+        setUploadedImagesTransport((prevImages) => [...prevImages, ...images.filter(image => image !== null)]);
+      }
+    };
+
+
+    
+  const handleSubmitTransport = async (e) => {
+  e.preventDefault();
+  const DataTransport= {
+      name_company: transportData.name_company ,
+      Services:transportData.Services.split(',') ,
+      goals_company: transportData.goals_company.split(',') ,
+      urlImageCompany:transportData.urlImageCompany ,
+      urlImage:uploadedImagesTransport,
+      link:transportData.link ,
+      type_bus: transportData.type_bus ,
+      price_tecket: transportData.price_tecket 
+  }
+  
+    try {
+      const responseTransport = await axios.post('https://officealhajandalumrah.adaptable.app/BusCompany', DataTransport, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+      });
+    
+    } catch (error) {
+      console.error('Error adding data:', error);
+    }
+  
+  setTransportData({
+    name_company: "" ,
+    Services: "",
+    goals_company: "" ,
+    urlImageCompany: "",
+    urlImage:[],
+    link: "",
+    type_bus:"" ,
+    price_tecket:"" 
+  });
+  setUploadedImagesTransport([]);
+};
+
   return (
     <div className="DashBoardEmployee">
 
@@ -266,7 +1061,6 @@ const DashBoardEmployee = () => {
               <thead>
                 <tr>
                   <th>رقم التأكيد</th>
-                  <th>التأشيرة</th>
                   <th>نمط الدفع</th>
                   <th>نمط الغرفة</th>
                   <th>رقم المقعد</th>
@@ -290,12 +1084,11 @@ const DashBoardEmployee = () => {
                 {mutamir.map((muta, index) => (
                   <tr key={index}>
                     <td>{muta.Verification}</td>
-                    <td><img src={muta.visa} alt="Visa" width="50" height="50" /></td>
                     <td>{muta.payment_method}</td>
                     <td>{muta.type_room}</td>
                     <td>{muta.seatNumber}</td>
                     <td>{muta.number_bus}</td>
-                    <td>{muta.program_name}</td>
+                    <td>{muta.name_program}</td>
                     <td><img src={muta.almutamir_photo} alt="Personal" width="50" height="50" /></td>
                     <td><img src={muta.passport_photo} alt="Passport" width="50" height="50" /></td>
                     <td>{muta.passport_number}</td>
@@ -308,25 +1101,25 @@ const DashBoardEmployee = () => {
                     <td>{muta.name_mother}</td>
                     <td>{muta.full_name}</td>
                     <td>
-                      <button className="edit" onClick={() => handleEdit(muta)}>Edit</button>
-                      <button className="delete" onClick={() => handleDelete(muta._id)}>Delete</button>
+                      <button className="edit" onClick={() => handleEditMutamir(muta)}>Edit</button>
+                      <button className="delete" onClick={() => handleDeleteMutamir(muta._id)}>Delete</button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
 
-            <h3>{isEditing ? "تعديل معتمر" : "إضافة معتمر جديد"}</h3>
-            <form onSubmit={handleSubmit}>
+            <h3>{isEditingMutamir ? "تعديل معتمر" : "إضافة معتمر جديد"}</h3>
+            <form onSubmit={handleSubmitMutamir}>
             <table className="table">
               <thead>
                 <tr>
                   <th>رقم التأكيد</th>
-                  <th>التأشيرة</th>
                   <th>نمط الدفع</th>
                   <th>رقم المقعد</th>
                   <th>نمط الغرفة</th>
                   <th>رقم الباص</th>
+                  <th>اسم البرنامج</th>
                   <th>صورة شخصية</th>
                   <th>صورة جواز السفر</th>
                   <th>رقم الجواز</th>
@@ -343,44 +1136,29 @@ const DashBoardEmployee = () => {
               </thead>
               <tbody>
                   <tr >
-                    <td><input type="text" name="Verification" placeholder="رقم التأكيد" value={mutamirData.Verification} onChange={handleChange} /></td>
-                    <td><input type="file" name="visa_photo" onChange={handleChangeImageMutamir} /></td>
-                    <td><input type="text" name="payment_method" placeholder="نمط الدفع" value={mutamirData.payment_method} onChange={handleChange} /></td>
-                    <td><input type="number" name="seatNumber" placeholder="رقم المقعد" value={mutamirData.seatNumber} onChange={handleChange} /></td>
-                    <td><input type="text" name="type_room" placeholder="نمط الغرفة" value={mutamirData.type_room} onChange={handleChange} /></td>
-                    <td><input type="number" name="number_bus" placeholder="رقم الباص" value={mutamirData.number_bus} onChange={handleChange} /></td>
+                    <td><input type="text" name="Verification" placeholder="رقم التأكيد" value={mutamirData.Verification} onChange={handleChangeMutamir} /></td>
+                    <td><input type="text" name="payment_method" placeholder="نمط الدفع" value={mutamirData.payment_method} onChange={handleChangeMutamir} /></td>
+                    <td><input type="number" name="seatNumber" placeholder="رقم المقعد" value={mutamirData.seatNumber} onChange={handleChangeMutamir} /></td>
+                    <td><input type="text" name="type_room" placeholder="نمط الغرفة" value={mutamirData.type_room} onChange={handleChangeMutamir} /></td>
+                    <td><input type="number" name="number_bus" placeholder="رقم الباص" value={mutamirData.number_bus} onChange={handleChangeMutamir} /></td>
+                    <td><input type="text" name="name_program" placeholder="اسم البرنامج" value={mutamirData.name_program} onChange={handleChangeMutamir} /></td>
                     <td><input type="file" name="almutamir_photo" onChange={handleChangeImageMutamir} /></td>
                     <td><input type="file" name="passport_photo" onChange={handleChangeImageMutamir} /></td>
-                    <td><input type="text" name="passport_number" placeholder="رقم الجواز" value={mutamirData.passport_number} onChange={handleChange} /></td>
-                    <td><input type="text" name="Nationality" placeholder="الجنسية" value={mutamirData.Nationality} onChange={handleChange} /></td>
-                    <td><input type="text" name="gender" placeholder="الجنس" value={mutamirData.gender} onChange={handleChange} /></td>
-                    <td><input type="date" name="birth" placeholder="تاريخ الميلاد" value={mutamirData.birth} onChange={handleChange} /></td>
-                    <td><input type="email" name="email" placeholder="البريد الإلكتروني" value={mutamirData.email} onChange={handleChange} /></td>
-                    <td><input type="number" name="phone_number" placeholder="رقم الهاتف" value={mutamirData.phone_number} onChange={handleChange} /></td>
-                    <td><input type="text" name="name_mother" placeholder="اسم الأب" value={mutamirData.name_mother} onChange={handleChange} /></td>
-                    <td><input type="text" name="name_father" placeholder="اسم الام" value={mutamirData.name_father} onChange={handleChange} /></td>
-                    <td><input type="text" name="full_name" placeholder="الاسم الكامل" value={mutamirData.full_name} onChange={handleChange} /></td>
+                    <td><input type="text" name="passport_number" placeholder="رقم الجواز" value={mutamirData.passport_number} onChange={handleChangeMutamir} /></td>
+                    <td><input type="text" name="Nationality" placeholder="الجنسية" value={mutamirData.Nationality} onChange={handleChangeMutamir} /></td>
+                    <td><input type="text" name="gender" placeholder="الجنس" value={mutamirData.gender} onChange={handleChangeMutamir} /></td>
+                    <td><input type="date" name="birth" placeholder="تاريخ الميلاد" value={mutamirData.birth} onChange={handleChangeMutamir} /></td>
+                    <td><input type="email" name="email" placeholder="البريد الإلكتروني" value={mutamirData.email} onChange={handleChangeMutamir} /></td>
+                    <td><input type="number" name="phone_number" placeholder="رقم الهاتف" value={mutamirData.phone_number} onChange={handleChangeMutamir} /></td>
+                    <td><input type="text" name="name_mother" placeholder="اسم الأب" value={mutamirData.name_mother} onChange={handleChangeMutamir} /></td>
+                    <td><input type="text" name="name_father" placeholder="اسم الام" value={mutamirData.name_father} onChange={handleChangeMutamir} /></td>
+                    <td><input type="text" name="full_name" placeholder="الاسم الكامل" value={mutamirData.full_name} onChange={handleChangeMutamir} /></td>
                     <td>
-                    <button type="submit">{isEditing ? "تحديث" : "إضافة"}</button>
+                    <button type="submit">{isEditingMutamir ? "تحديث" : "إضافة"}</button>
                     </td>
                   </tr>
               </tbody>
-            </table>
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-             
-              
-              
-              
-              
+            </table>            
             </form>
           </div>
         </div>
@@ -388,18 +1166,71 @@ const DashBoardEmployee = () => {
         <div className="contain-hajj">
           <h2>تسجيل الحجاج</h2>
           <div className="table-hajj">
+          <table className="table">
+              <thead>
+                <tr>
+                  <th>رقم التأكيد</th>
+                  <th>نمط الدفع</th>
+                  <th>نمط الغرفة</th>
+                  <th>رقم المقعد</th>
+                  <th>رقم الباص</th>
+                  <th>اسم البرنامج</th>
+                  <th>صورة شخصية</th>
+                  <th>صورة جواز السفر</th>
+                  <th>رقم الجواز</th>
+                  <th>الجنسية</th>
+                  <th>الجنس</th>
+                  <th>التولد</th>
+                  <th>البريد الالكتروني</th>
+                  <th>رقم الهاتف</th>
+                  <th>اسم الاب</th>
+                  <th>اسم الام</th>
+                  <th>الاسم</th>
+                  <th>إجراءات</th>
+                </tr>
+              </thead>
+              <tbody>
+                {hajj.map((haj, index) => (
+                  <tr key={index}>
+                    <td>{haj.Verification}</td>
+                    <td>{haj.payment_method}</td>
+                    <td>{haj.type_room}</td>
+                    <td>{haj.seatNumber}</td>
+                    <td>{haj.number_bus}</td>
+                    <td>{haj.name_program}</td>
+                    <td><img src={haj.alhaj_photo} alt="Personal" width="50" height="50" /></td>
+                    <td><img src={haj.passport_photo} alt="Passport" width="50" height="50" /></td>
+                    <td>{haj.passport_number}</td>
+                    <td>{haj.Nationality}</td>
+                    <td>{haj.gender}</td>
+                    <td>{haj.birth}</td>
+                    <td>{haj.email}</td>
+                    <td>{haj.phone_number}</td>
+                    <td>{haj.name_father}</td>
+                    <td>{haj.name_mother}</td>
+                    <td>{haj.full_name}</td>
+                    <td>
+                      <button className="edit" onClick={() => handleEditHajj(haj)}>Edit</button>
+                      <button className="delete" onClick={() => handleDeleteHajj(haj._id)}>Delete</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <h3>{isEditingHajj ? "تعديل الحاج" : "إضافة الحاج جديد"}</h3>
+            <form onSubmit={handleSubmitHajj}>
             <table className="table">
               <thead>
                 <tr>
                   <th>رقم التأكيد</th>
-                  <th> التأشيرة</th>
                   <th>نمط الدفع</th>
+                  <th>رقم المقعد</th>
                   <th>نمط الغرفة</th>
-                  <th> رقم المقعد في الطائرة</th>
-                  <th>المرافق</th>
+                  <th>رقم الباص</th>
                   <th>اسم البرنامج</th>
                   <th>صورة شخصية</th>
-                  <th>صورة جواز السفر </th>
+                  <th>صورة جواز السفر</th>
                   <th>رقم الجواز</th>
                   <th>الجنسية</th>
                   <th>الجنس</th>
@@ -409,748 +1240,295 @@ const DashBoardEmployee = () => {
                   <th>اسم الاب</th>
                   <th>اسم الام</th>
                   <th>الاسم</th>
+                  <th>الاجراء</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>fffff</td>
-                </tr>
+                  <tr>
+                    <td><input type="text" name="Verification" placeholder="رقم التأكيد" value={hajjData.Verification} onChange={handleChangeHajj} /></td>
+                    <td><input type="text" name="payment_method" placeholder="نمط الدفع" value={hajjData.payment_method} onChange={handleChangeHajj} /></td>
+                    <td><input type="number" name="seatNumber" placeholder="رقم المقعد" value={hajjData.seatNumber} onChange={handleChangeHajj} /></td>
+                    <td><input type="text" name="type_room" placeholder="نمط الغرفة" value={hajjData.type_room} onChange={handleChangeHajj} /></td>
+                    <td><input type="number" name="number_bus" placeholder="رقم الباص" value={hajjData.number_bus} onChange={handleChangeHajj} /></td>
+                    <td><input type="text" name="name_program" placeholder="اسم البرنامج" value={hajjData.name_program} onChange={handleChangeHajj} /></td>
+                    <td><input type="file" name="alhaj_photo" onChange={handleChangeImageHajj} /></td>
+                    <td><input type="file" name="passport_photo" onChange={handleChangeImageHajj} /></td>
+                    <td><input type="text" name="passport_number" placeholder="رقم الجواز" value={hajjData.passport_number} onChange={handleChangeHajj} /></td>
+                    <td><input type="text" name="Nationality" placeholder="الجنسية" value={hajjData.Nationality} onChange={handleChangeHajj} /></td>
+                    <td><input type="text" name="gender" placeholder="الجنس" value={hajjData.gender} onChange={handleChangeHajj} /></td>
+                    <td><input type="date" name="birth" placeholder="تاريخ الميلاد" value={hajjData.birth} onChange={handleChangeHajj} /></td>
+                    <td><input type="email" name="email" placeholder="البريد الإلكتروني" value={hajjData.email} onChange={handleChangeHajj} /></td>
+                    <td><input type="number" name="phone_number" placeholder="رقم الهاتف" value={hajjData.phone_number} onChange={handleChangeHajj} /></td>
+                    <td><input type="text" name="name_mother" placeholder="اسم الأب" value={hajjData.name_mother} onChange={handleChangeHajj} /></td>
+                    <td><input type="text" name="name_father" placeholder="اسم الام" value={hajjData.name_father} onChange={handleChangeHajj} /></td>
+                    <td><input type="text" name="full_name" placeholder="الاسم الكامل" value={hajjData.full_name} onChange={handleChangeHajj} /></td>
+                    <td>
+                    <button type="submit">{isEditingHajj ? "تحديث" : "إضافة"}</button>
+                    </td>
+                  </tr>
               </tbody>
-            </table>
-
-            <table>
-              <thead>
-                <tr>
-                  <th>رقم التأكيد</th>
-                  <th> التأشيرة</th>
-                  <th>نمط الدفع</th>
-                  <th>نمط الغرفة</th>
-                  <th> رقم المقعد في الطائرة</th>
-                  <th>المرافق</th>
-                  <th>اسم البرنامج</th>
-                  <th>صورة شخصية</th>
-                  <th>صورة جواز السفر </th>
-                  <th>رقم الجواز</th>
-                  <th>الجنسية</th>
-                  <th>الجنس</th>
-                  <th>التولد</th>
-                  <th>البريد الالكتروني</th>
-                  <th>رقم الهاتف</th>
-                  <th>اسم الاب</th>
-                  <th>اسم الام</th>
-                  <th>الاسم</th>
-                  <th>تعديل</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <input
-                      type="text"
-                      
-                      className="verilication"
-                    />
-                  </td>
-
-                  <td>
-                    <input type="file"  className="visa" />
-                  </td>
-
-                  <td>
-                    <input type="text"  className="type-pay" />
-                  </td>
-
-                  <td>
-                    <input type="text"  />
-                  </td>
-
-                  <td>
-                    <input
-                      type="number"
-                      
-                      className="seat-number"
-                    />
-                  </td>
-
-                  <td>
-                    <input type="number"  className="number-bus" />
-                  </td>
-
-                  <td>
-                    <input
-                      type="text"
-                      
-                      className="name-program"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="file"
-                      
-                      className="almutamir-photo"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="file"
-                      
-                      className="passport-photo"
-                    />
-                  </td>
-
-                  <td>
-                    <input
-                      type="number"
-                      
-                      className="passport-number"
-                    />
-                  </td>
-                  <td>
-                    <input type="text"  className="nationality" />
-                  </td>
-                  <td>
-                    <input type="text"  className="gender" />
-                  </td>
-                  <td>
-                    <input type="data"  className="birth" />
-                  </td>
-                  <td>
-                    <input type="email"  className="the-email" />
-                  </td>
-                  <td>
-                    <input type="text"  className="phone" />
-                  </td>
-                  <td>
-                    <input type="text"  className="name_mother" />
-                  </td>
-                  <td>
-                    <input type="text"  className="name_father" />
-                  </td>
-                  <td>
-                    <input type="text"  className="full_travel" />
-                  </td>
-                  <td>
-                    <button  className="add">
-                      <IoPersonAddOutline />
-                      add
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <input
-                      type="text"
-                      
-                      className="verilication"
-                    />
-                  </td>
-
-                  <td>
-                    <input type="file"  className="visa" />
-                  </td>
-
-                  <td>
-                    <input type="text"  className="type-pay" />
-                  </td>
-
-                  <td>
-                    <input type="text"  />
-                  </td>
-
-                  <td>
-                    <input
-                      type="number"
-                      
-                      className="seat-number"
-                    />
-                  </td>
-                  <td>
-                    <input type="number"  className="number-bus" />
-                  </td>
-
-                  <td>
-                    <input
-                      type="text"
-                
-                      className="name-program"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="file"
-                      
-                      className="almutamir-photo"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="file"
-                      
-                      className="passport-photo"
-                    />
-                  </td>
-
-                  <td>
-                    <input
-                      type="number"
-                      
-                      className="passport-number"
-                    />
-                  </td>
-                  <td>
-                    <input type="text"  className="nationality" />
-                  </td>
-                  <td>
-                    <input type="text"  className="gender" />
-                  </td>
-                  <td>
-                    <input type="data"  className="birth" />
-                  </td>
-                  <td>
-                    <input type="email"  className="the-email" />
-                  </td>
-                  <td>
-                    <input type="text"  className="phone" />
-                  </td>
-                  <td>
-                    <input type="text"  className="name_mother" />
-                  </td>
-                  <td>
-                    <input type="text"  className="name_father" />
-                  </td>
-                  <td>
-                    <input type="text"  className="full_travel" />
-                  </td>
-                  <td>
-                    <button  className="edit">
-                      <FaPencilAlt />
-                      edit
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <input
-                      type="text"
-                      
-                      className="verilication"
-                    />
-                  </td>
-
-                  <td>
-                    <input type="file"  className="visa" />
-                  </td>
-
-                  <td>
-                    <input type="text"  className="type-pay" />
-                  </td>
-
-                  <td>
-                    <input type="text"  />
-                  </td>
-
-                  <td>
-                    <input
-                      type="number"
-                      
-                      className="seat-number"
-                    />
-                  </td>
-
-                  <td>
-                    <input type="number"  className="number-bus" />
-                  </td>
-
-                  <td>
-                    <input
-                      type="text"
-                      
-                      className="name-program"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="file"
-                      
-                      className="almutamir-photo"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="file"
-                      
-                      className="passport-photo"
-                    />
-                  </td>
-
-                  <td>
-                    <input
-                      type="number"
-                      
-                      className="passport-number"
-                    />
-                  </td>
-                  <td>
-                    <input type="text"  className="nationality" />
-                  </td>
-                  <td>
-                    <input type="text"  className="gender" />
-                  </td>
-                  <td>
-                    <input type="data"  className="birth" />
-                  </td>
-                  <td>
-                    <input type="email"  className="the-email" />
-                  </td>
-                  <td>
-                    <input type="text"  className="phone" />
-                  </td>
-                  <td>
-                    <input type="text"  className="name_mother" />
-                  </td>
-                  <td>
-                    <input type="text"  className="name_father" />
-                  </td>
-                  <td>
-                    <input type="text"  className="full_travel" />
-                  </td>
-                  <td>
-                    <button id="delete1" className="delete">
-                      <FaTrashAlt />
-                      delete
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            </table>            
+            </form>
           </div>
         </div>
+        
      </div> 
+
         <div className="prog-umrah">
           <h2>برامج العمرة</h2>
           <div className="progr-parent">
-            <div className="prog1">
-              <h3>عمرة رمضان البرية</h3>
-
+          <Slider {...settings}>
+            {umrahProgram.map((program,index)=>(
+              <div key={index} className="prog1" >
+              <h3> {program.name_program} </h3>
+              <p> مدة البرنامج <span> {program.total_stay} </span>يوم</p>
               <p>
-                مدة البرنامج <span>25 يوم</span>
+                <span> {program.stay_in_macca} </span> مدة الاقامة بمكة المكرمة
               </p>
               <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-              <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-
-              <p>
-                {" "}
-                تاريخ السفر <span>11/5/2024</span> السفر برا
-              </p>
-              <p>
-                فنادق مكة المكرمة : <span>اعمار غراند</span> <span>فيوليت</span>
-                <span>انوار الاصيل </span>
+                <span> {program.stay_in_madina} </span> مدة الاقامة بمكة المكرمة
               </p>
 
-              <p>
-                فنادق المدينة المنورة : <span>روز الماسة</span>{" "}
-                <span>نجوم المدينة</span> <br />
-                <span>ارجوان روز</span>
+              <p> <span> {program.Date_Travel} </span> تاريخ السفر </p>
+              <p> : الفنادق   </p>
+              {hotelsForProgram[program._id] ? (
+               <p> 
+                {hotelsForProgram[program._id].map((hotel, hotelIndex) => (
+                <span key={hotelIndex}>{hotel.name}: {hotel.location}<br/></span>
+                 ))}
               </p>
-
-              <button className="update">تعديل</button>
-              <button className="delet">حذف</button>
+             ) : (
+             <p></p>
+              )}
+              <button className="update" onClick={()=> handleEditUmrahProgram(program)}>تعديل</button>
+              <button className="delet" onClick={()=> handleDeleteUmrahProgram(program._id)}>حذف</button>
             </div>
-            <div className="prog1">
-              <h3>عمرة رمضان البرية</h3>
-
-              <p>
-                مدة البرنامج <span>25 يوم</span>
-              </p>
-              <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-              <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-
-              <p>
-                {" "}
-                تاريخ السفر <span>11/5/2024</span> السفر برا
-              </p>
-              <p>
-                فنادق مكة المكرمة : <span>اعمار غراند</span>{" "}
-                <span>انوار الاصيل </span>
-              </p>
-
-              <p>
-                فنادق المدينة المنورة : <span>روز الماسة</span>{" "}
-                <span>نجوم المدينة</span> <br />
-                <span>ارجوان روز</span>
-              </p>
-              <button className="update">تعديل</button>
-              <button className="delet">حذف</button>
-
-         
-
-              <div className="collapse" id="collapseExample">
-                <div className="card card-body">
-                  <input type="number" placeholder="رقم الباص" />
-                  <input type="text" placeholder="اسم الشركة" />
-                </div>
-              </div>
-            </div>
+            ))}
+           </Slider>
+           
           </div>
 
           <div className="prog-add">
-
-            <div>
-            <input type="text"  />
-            <label htmlFor="">نوع السفر</label>
-                 <input type="text" className="name" />
-                    <label htmlFor="" className="name">
-                      اسم البرنامج
-                    </label>  
-            
-              </div>
-
-              <div className="travel-brog">
-              <input type="file" className="name" />
-              <label htmlFor="" className="name">
-                    صورة الغلاف             </label>
-            <select name="" id="">
-                    <option value="" hidden> شركات النقل
-                      </option>
-                      <option>السراج</option>
-                      <option></option></select>
-                      <label htmlFor="">شركة النقل</label>
-
-                      <input type="number" className="name" />
-              <label htmlFor="" className="name">
-           عدد الباصات           </label>
-                      
-            </div>
-
-            <div  className="date" >
-                  <input type="date"  />
-              <label htmlFor="" >
-              السنة الهجرية</label>
-              <input type="date"/>
-              <label htmlFor=""> السنة الميلادية</label>
-              
-              </div>
-
-        
-
-<div className="total-number">       
-    <input type="number" />
-<label htmlFor=""> مدة البرنامج</label></div>
-
-
-              <div>
-              {" "}
-              <input type="number" className="numb" />
-              <label htmlFor="">مدة الاقامة بمكة المكرمة</label>
-              <input type="number" className="numb" />
-              <label htmlFor="">مدة الاقامة بالمدينة المنورة</label>
-              </div>
-        
-
-
-        
-            <button className="add-btn">اضافة </button>
-
-            <div className="hot">
-              <h4> 
-              :  الفنادق الخاصة بالبرنامج</h4>
-              <table>
-                <thead>
-                <td>رتبة الفندق</td>
-                <td>نوع الغرف</td>
-                  <td>الموقع</td>
-                  <td>اسم الفندق</td>
-              
-                </thead>
-
+            <form onSubmit={handleSubmitUmrahProgram}>
+              <table className="tableProgeam">
+                <tbody>
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><label>نوع السفر</label></td>
+                  <td><input type="text"  /></td>
+                  <td><label> اسم البرنامج</label></td>
+                  <td><input type="text" name="name_program" value={umrahProgramData.name_program} onChange={handleChangeUmrahProgram}  /></td>
                 </tr>
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><label>صورة الغلاف</label></td>
+                  <td>
+                    {umrahProgramData.image && (
+                        <div>
+                            <img src={umrahProgramData.image} alt="Current" style={{ width: '100px', height: '100px' }} />
+                        </div>
+                    )}
+                    <input type="file" name="image" onChange={handleChangeImageUmrahProgram} />
+                  </td>
+                  <td><label>شركة النقل</label></td> 
+                  <td><select>
+                        <option value="" hidden> شركات النقل</option>
+                        <option>السراج</option>
+                     </select></td>  
                 </tr>
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><label >عدد الباصات</label></td>
+                  <td><input type="number" /></td>  
                 </tr>
+                <tr>
+                  <td><label  >السنة الهجرية</label></td>
+                  <td><input type="text" name="Date_Travel_Hijri" value={umrahProgramData.Date_Travel_Hijri} onChange={handleChangeUmrahProgram} /></td>
+                  <td><label > السنة الميلادية</label></td>
+                  <td><input type="date" name="Date_Travel" value={umrahProgramData.Date_Travel} onChange={handleChangeUmrahProgram} /></td>
+                </tr>
+                <tr>
+                  <td><label > مدة البرنامج</label></td>
+                  <td><input type="number" name="total_stay" value={umrahProgramData.total_stay} onChange={handleChangeUmrahProgram} /></td>
+                </tr>
+                <tr>
+                  <td><label >مدة الاقامة بمكة المكرمة</label></td>
+                  <td><input type="number" name="stay_in_macca" value={umrahProgramData.stay_in_macca} onChange={handleChangeUmrahProgram} /></td>
+                  <td><label >مدة الاقامة بالمدينة المنورة</label></td>
+                  <td><input type="number" name="stay_in_madina" value={umrahProgramData.stay_in_madina} onChange={handleChangeUmrahProgram} /></td>
+                </tr>
+                <tr>
+                <td><label > النوع الاول </label></td>
+                  <td><input type="text" name="price1" value={umrahProgramData.price1} onChange={handleChangeUmrahProgram} /></td>
+                  <td><label> النوع الثاني </label></td>
+                  <td><input type="text" name="price2" value={umrahProgramData.price2} onChange={handleChangeUmrahProgram} /></td> 
+                </tr>
+                <tr>
+                  <td><label >  النوع الثالث </label></td>
+                  <td><input type="text" name="price3" value={umrahProgramData.price3} onChange={handleChangeUmrahProgram} /></td>
+                  <td><label > النوع الرابع </label></td>
+                  <td><input type="text" name="price4" value={umrahProgramData.price4} onChange={handleChangeUmrahProgram} /></td>      
+                </tr>
+                <tr>
+                  <td>
+                     <select onChange={(e) => {
+                       const selectedHotelId = e.target.value;
+                       if (selectedHotelId && !selectedHotelsForProgramUmrah.includes(selectedHotelId)) {
+                        setSelectedHotelsForProgramUmrah([...selectedHotelsForProgramUmrah,  selectedHotelId]);
+                        }
+                        }}>
+                       <option value="" hidden>اختر فندق</option>
+                        {hotels.map((hotel, hotelIndex) => (
+                        <option key={hotelIndex} value={hotel._id}>{hotel.name}: {hotel.location}</option>
+                         ))}
+                     </select>
+                  </td>
+                  <td>
+                     <h5>الفنادق المختارة:</h5>
+                      <ul>
+                           {selectedHotelsForProgramUmrah.map((hotelId, index) => {
+                           const hotel = hotels.find(h => h._id === hotelId);
+                           return hotel ? <li key={index}>{hotel.name}</li> : null;
+                           })}
+                      </ul>
+                  </td> 
+                </tr>
+                </tbody>
               </table>
-               </div>
-
-
-
-
-
-
-
-            <div className="room">
-              <h4>:سعر البرنامج</h4>
-              <table>
-                <thead>
-                  <td>السعر</td>
-                  <td>نوع الغرفة</td>
-
-                </thead>
-
-                <tr>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </table>
-            </div>
-       
-            <button className="add-btn">اضافة </button>
+              <button type="submit" className="add-btn"> {isEditingUmrahProgram ? "تحديث" : "إضافة"} </button>
+            </form>
           </div>
         </div>
 
         <div className="prog-hajj">
           <h2>برامج الحج</h2>
           <div className="progr-parent">
-            <div className="prog1">
-              <h3>عمرة رمضان البرية</h3>
-
+          <Slider {...settings}>
+            {hajjProgram.map((program,index)=>(
+              <div key={index} className="prog1" >
+              <h3> {program.name_program} </h3>
+              <p> مدة البرنامج <span> {program.total_stay} </span>يوم</p>
               <p>
-                مدة البرنامج <span>25 يوم</span>
+                <span> {program.stay_in_macca} </span> مدة الاقامة بمكة المكرمة
               </p>
               <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-              <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-
-              <p>
-                {" "}
-                تاريخ السفر <span>11/5/2024</span> السفر برا
-              </p>
-              <p>
-                فنادق مكة المكرمة : <span>اعمار غراند</span> <span>فيوليت</span>
-                <span>انوار الاصيل </span>
+                <span> {program.stay_in_madina} </span> مدة الاقامة بمكة المكرمة
               </p>
 
-              <p>
-                فنادق المدينة المنورة : <span>روز الماسة</span>{" "}
-                <span>نجوم المدينة</span> <br />
-                <span>ارجوان روز</span>
+              <p> <span> {program.Date_Travel} </span> تاريخ السفر </p>
+              <p> : الفنادق   </p>
+              {hotelsForProgramHajj[program._id] ? (
+                
+               <p> 
+                {hotelsForProgramHajj[program._id].map((hotel, hotelIndex) => (
+                <span key={hotelIndex}>{hotel.name}: {hotel.location}<br/></span>
+                 ))}
               </p>
-
-              <button className="update">تعديل</button>
-              <button className="delet">حذف</button>
+             ) : (
+             <p></p>
+              )}
+              <button className="update" onClick={()=> handleEditHajjProgram(program)}>تعديل</button>
+              <button className="delet" onClick={()=> handleDeleteHajjProgram(program._id)}>حذف</button>
             </div>
-            <div className="prog1">
-              <h3>عمرة رمضان البرية</h3>
-
-              <p>
-                مدة البرنامج <span>25 يوم</span>
-              </p>
-              <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-              <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-
-              <p>
-                {" "}
-                تاريخ السفر <span>11/5/2024</span> السفر برا
-              </p>
-              <p>
-                فنادق مكة المكرمة : <span>اعمار غراند</span> <span>فيوليت</span>
-                <span>انوار الاصيل </span>
-              </p>
-
-              <p>
-                فنادق المدينة المنورة : <span>روز الماسة</span>{" "}
-                <span>نجوم المدينة</span> <br />
-                <span>ارجوان روز</span>
-              </p>
-
-              <button className="update">تعديل</button>
-              <button className="delet">حذف</button>
-            </div>
+            ))}
+           </Slider>
+           
           </div>
 
-        
           <div className="prog-add">
-
-            <div>
-            <input type="text"  />
-            <label htmlFor="">نوع السفر</label>
-                 <input type="text" className="name" />
-                    <label htmlFor="" className="name">
-                      اسم البرنامج
-                    </label>  
-            
-              </div>
-
-              <div className="travel-brog">
-              <input type="file" className="name" />
-              <label htmlFor="" className="name">
-                    صورة الغلاف             </label>
-            <select name="" id="">
-                    <option value="" hidden> شركات النقل
-                      </option>
-            <option value="">hjjj</option>
-        </select>
-                      <label htmlFor="">شركة النقل</label>
-
-                      <input type="number" className="name" />
-              <label htmlFor="" className="name">
-           عدد الباصات           </label>
-                      
-            </div>
-
-            <div  className="date" >
-                  <input type="date"  />
-              <label htmlFor="" >
-              السنة الهجرية</label>
-              <input type="date"/>
-              <label htmlFor=""> السنة الميلادية</label>
-              
-              </div>
-
-        
-
-<div className="total-number">       
-    <input type="number" />
-<label htmlFor=""> مدة البرنامج</label></div>
-
-
-              <div>
-              {" "}
-              <input type="number" className="numb" />
-              <label htmlFor="">مدة الاقامة بمكة المكرمة</label>
-              <input type="number" className="numb" />
-              <label htmlFor="">مدة الاقامة بالمدينة المنورة</label>
-              </div>
-        
-              <div>
-            <input type="text"  />
-            <label htmlFor="">المرشد الديني</label>
-                 <input type="number" className="name" />
-                    <label htmlFor="" className="name">
-عدد الوجبات                     </label>  
-            
-              </div>
-
-        
-            <button className="add-btn">اضافة </button>
-
-            <div className="hot">
-              <h4> 
-              :  الفنادق الخاصة بالبرنامج</h4>
-              <table>
-                <thead>
-                <td>رتبة الفندق</td>
-                <td>نوع الغرف</td>
-                  <td>الموقع</td>
-                  <td>اسم الفندق</td>
-              
-                </thead>
-
+            <form onSubmit={handleSubmitHajjProgram}>
+              <table className="tableProgeam">
+                <tbody>
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><label>نوع السفر</label></td>
+                  <td><input type="text"  /></td>
+                  <td><label> اسم البرنامج</label></td>
+                  <td><input type="text" name="name_program" value={hajjProgramData.name_program} onChange={handleChangeHajjProgram}  /></td> 
                 </tr>
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><label>صورة الغلاف</label></td>
+                  <td>
+                    {hajjProgramData.image && (
+                        <div>
+                            <img src={hajjProgramData.image} alt="Current" style={{ width: '100px', height: '100px' }} />
+                        </div>
+                    )}
+                    <input type="file" name="image" onChange={handleChangeImageHajjProgram} />
+                  </td>
+                  <td><label>شركة النقل</label></td> 
+                  <td><select>
+                        <option value="" hidden> شركات النقل</option>
+                        <option>السراج</option>
+                     </select></td>   
                 </tr>
                 <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td><label >عدد الباصات</label></td>
+                  <td><input type="number" /></td>    
                 </tr>
+                <tr>
+                  <td><label  >السنة الهجرية</label></td>
+                  <td><input type="text" name="Date_Travel_Hijri" value={hajjProgramData.Date_Travel_Hijri} onChange={handleChangeHajjProgram} /></td>
+                  <td><label > السنة الميلادية</label></td>
+                  <td><input type="date" name="Date_Travel" value={hajjProgramData.Date_Travel} onChange={handleChangeHajjProgram} /></td>    
+                </tr>
+                <tr>
+                  <td><label > مدة البرنامج</label></td>
+                  <td><input type="number" name="total_stay" value={hajjProgramData.total_stay} onChange={handleChangeHajjProgram} /></td> 
+                </tr>
+                <tr>
+                  <td><label >مدة الاقامة بمكة المكرمة</label></td>
+                  <td><input type="number" name="stay_in_macca" value={hajjProgramData.stay_in_macca} onChange={handleChangeHajjProgram} /></td>
+                  <td><label >مدة الاقامة بالمدينة المنورة</label></td>
+                  <td><input type="number" name="stay_in_madina" value={hajjProgramData.stay_in_madina} onChange={handleChangeHajjProgram} /></td>
+                </tr>
+                <tr>
+                <td><label > النوع الاول </label></td>
+                  <td><input type="text" name="price1" value={hajjProgramData.price1} onChange={handleChangeHajjProgram} /></td>
+                  <td><label> النوع الثاني </label></td>
+                  <td><input type="text" name="price2" value={hajjProgramData.price2} onChange={handleChangeHajjProgram} /></td> 
+                </tr>
+                <tr>
+                  <td><label >  النوع الثالث </label></td>
+                  <td><input type="text" name="price3" value={hajjProgramData.price3} onChange={handleChangeHajjProgram} /></td>
+                  <td><label > النوع الرابع </label></td>
+                  <td><input type="text" name="price4" value={hajjProgramData.price4} onChange={handleChangeHajjProgram} /></td>      
+                </tr>
+                <tr>
+                  <td>
+                     <select onChange={(e) => {
+                       const selectedHotelId = e.target.value;
+                       if (selectedHotelId && !selectedHotelsForProgramHajj.includes(selectedHotelId)) {
+                       setSelectedHotelsForProgramHajj([...selectedHotelsForProgramHajj,  selectedHotelId]);
+                        }
+                        }}>
+                       <option value="" hidden>اختر فندق</option>
+                        {hotels.map((hotel, hotelIndex) => (
+                        <option key={hotelIndex} value={hotel._id}>{hotel.name}: {hotel.location}</option>
+                         ))}
+                     </select>
+                  </td>
+                  <td>
+                     <h5>الفنادق المختارة:</h5>
+                      <ul>
+                           {selectedHotelsForProgramHajj.map((hotelId, index) => {
+                           const hotel = hotels.find(h => h._id === hotelId);
+                           return hotel ? <li key={index}>{hotel.name}</li> : null;
+                           })}
+                      </ul>
+                  </td> 
+                </tr>
+                </tbody>
               </table>
-               </div>
-
-
-
-
-
-
-
-            <div className="room">
-              <h4>:سعر البرنامج</h4>
-              <table>
-                <thead>
-                  <td>السعر</td>
-                  <td>نوع الغرفة</td>
-
-                </thead>
-
-                <tr>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </table>
-            </div>
-       
-            <button className="add-btn">اضافة </button>
+              <button type="submit" className="add-btn"> {isEditingHajjProgram ? "تحديث" : "إضافة"} </button>
+            </form>
           </div>
-        </div>
+         </div>
 
+
+         <div className="dashborde">
         <div className="hotal-updat">
           <h2>الفنادق</h2>
-          {/* <div className="table-hotal">
+          <div className="table-hotal">
             <table className="table">
               <thead>
                 <tr>
-                  <th>رابط الفندق</th>
-                  <th> صور الفندق</th>
                   <th>الصورة الرئيسية</th>
                   <th>اماكن يمكن زيارتها</th>
                   <th>الخدمات</th>
@@ -1161,20 +1539,21 @@ const DashBoardEmployee = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
+              {hotels.map((hotel, index) => (
+                  <tr key={index}>
+                    <td><img src={hotel.urlImagehotel} width="50" height="50" /></td>
+                    <td>{hotel.Places_available_visit}</td>
+                    <td>{hotel.Services}</td>
+                    <td>{hotel.Number_stars}</td>
+                    <td>{hotel.  details}</td>
+                    <td>{hotel.location}</td>
+                    <td>{hotel.name}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
 
+            <form onSubmit={handleSubmitHotel}>
             <table>
               <thead>
                 <tr>
@@ -1187,145 +1566,95 @@ const DashBoardEmployee = () => {
                   <th>التفاصيل</th>
                   <th>الموقع</th>
                   <th>اسم الفندق</th>
+                  <th>{}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="url"    name="link"  value={hotelData.link}  onChange={handelChangeHotel} /></td>
+                  <td><input type="file"   name="urlImage"  value={hotelData.urlImage} onChange={handleChangeArrayImageHotel} /></td>
+                  <td><input type="file"   name="urlImagehotel"   onChange={handleChangeImageHotel} /></td> 
+                  <td><input type="text"   name="Places_available_visit"  value={hotelData.Places_available_visit} onChange={handelChangeHotel} /></td>
+                  <td><input type="text"   name="Services"  value={hotelData.Services} onChange={handelChangeHotel} /></td>
+                  <td><input type="number"   name="Number_stars"  value={hotelData.Number_stars} onChange={handelChangeHotel} /></td>
+                  <td><input type="text" name="details"  value={hotelData.details} onChange={handelChangeHotel} /></td>
+                  <td><input type="text"   name="location"  value={hotelData.location} onChange={handelChangeHotel} /></td>
+                  <td><input type="text"   name="name"  value={hotelData.name} onChange={handelChangeHotel} /></td>
+                  <td>
+                    <button className="add" type="submit">اضافة</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            </form>
+          </div>
+        </div>
+
+        <div className="transport-updat">
+          <h2>النقل</h2>
+          <div className="table-transport">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th> سعر التكيت</th>
+                  <th>نوع النقل</th>
+                  <th>رابط الشركة</th>
+                  <th>الصورة الرئيسية</th>
+                  <th>هدف الشركة</th>
+                  <th>الخدمات</th>
+                  <th>اسم الشركة</th>
+                </tr>
+              </thead>
+              <tbody>
+                {transports.map((Transport, index) => (
+                  <tr key={index}>
+                    <td>{Transport.price_tecket}</td>
+                    <td>{Transport.type_bus}</td>
+                    <td>{Transport.link}</td>
+                    <td><img src={Transport.urlImageCompany} width="50" height="50" /></td>
+                    <td>{Transport.goals_company}</td>
+                    <td>{Transport.Services}</td>
+                    <td>{Transport.name_company}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+  
+          <form onSubmit={handleSubmitTransport}>
+            <table>
+              <thead>
+                <tr>
+                  <th> سعر التكيت</th>
+                  <th>نوع النقل</th>
+                  <th>رابط الشركة</th>
+                  <th>صور وسائل النقل</th>
+                  <th>الصورة الرئيسية</th>
+                  <th>هدف الشركة</th>
+                  <th>الخدمات</th>
+                  <th>اسم الشركة</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
+                  <td><input type="text"   name="price_tecket"  value={transportData.price_tecket} onChange={handelChangeTransport} /></td>
+                  <td><input type="text"   name="type_bus"  value={transportData.type_bus}  onChange={handelChangeTransport} /></td> 
+                  <td><input type="url"   name="link"  value={transportData.link} onChange={handelChangeTransport} /></td>
+                  <td><input type="file"   name="urlImage"  value={transportData.urlImage} onChange={handleChangeArrayImageTransport} /></td>
+                  <td><input type="file"   name="urlImageCompany"   onChange={handleChangeImageTransport} /></td>
+                  <td><input type="text" name="goals_company"  value={transportData.goals_company} onChange={handelChangeTransport} /></td>
+                  <td><input type="text"   name="Services"  value={transportData.Services} onChange={handelChangeTransport} /></td>
+                  <td><input type="text"   name="name_company"  value={transportData.name_company} onChange={handelChangeTransport} /></td>
                   <td>
-                    <input type="url" className="link-visit" />
-                  </td>
-
-                  <td>
-                    <input type="file" id="hotal-photo1" className="hotal-photo" />
-                  </td>
-                  <td>
-                    <input
-                      type="file"
-                      id="min-hotal-photo1"
-                      className="min-hotal-photo"
-                    />
-                  </td>
-
-                  <td>
-                    <input type="text" id="visit-place1" className="visit-place" />
-                  </td>
-                  <td>
-                    <input type="text" id="servers1" className="servers" />
-                  </td>
-                  <td>
-                    <input type="number" id="star1" className="star" />
-                  </td>
-                  <td>
-                    <input type="text" id="detil1" className="detil" />
-                  </td>
-                  <td>
-                    <input type="text" id="location1" className="location" />
-                  </td>
-                  <td>
-                    <input type="text" id="name-hota1" className="name_hota" />
-                  </td>
-                  <td>
-                    <button className="add">اضافة</button>
+                    <button className="add" type="submit">اضافة</button>
                   </td>
                 </tr>
               </tbody>
             </table>
-          </div> */}
+            </form>
+          </div>
         </div>
-
-        <div className="transport-updat">
-          <h2>النقل</h2>
-          {/* <div className="table-transport">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th> سعر التكيت</th>
-                  <th>نوع النقل</th>
-                  <th>رابط الشركة</th>
-                  <th>صور وسائل النقل</th>
-                  <th>الصورة الرئيسية</th>
-                  <th>هدف الشركة</th>
-                  <th>الخدمات</th>
-                  <th>اسم الشركة</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
-
-            <table>
-              <thead>
-                <tr>
-                  <th> سعر التكيت</th>
-                  <th>نوع النقل</th>
-                  <th>رابط الشركة</th>
-                  <th>صور وسائل النقل</th>
-                  <th>الصورة الرئيسية</th>
-                  <th>هدف الشركة</th>
-                  <th>الخدمات</th>
-                  <th>اسم الشركة</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <input type="number" id="pric1" className="pric" />
-                  </td>
-
-                  <td>
-                    <input type="text" id="typ1" className="typ" />
-                  </td>
-
-                  <td>
-                    <input type="url" className="link-visit" />
-                  </td>
-                  <td>
-                    <input
-                      type="file"
-                      id="transport-photo1"
-                      className="transport-photo"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="file"
-                      id="min-transpot-photo1"
-                      className="min-transpot-photo"
-                    />
-                  </td>
-                  <td>
-                    <input type="text" id="detil-trans1" className="detil-trans" />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      id="servers-trans1"
-                      className="servers-trans"
-                    />
-                  </td>
-                  <td>
-                    <input type="text" id="name-trans1" className="name_trans" />
-                  </td>
-                  <td>
-                    <button className="add">اضافة</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div> */}
         </div>
-
         <div className="seting">
           <h2>الاعدادات</h2>
           <div className="seting-detil">
@@ -1347,1176 +1676,6 @@ const DashBoardEmployee = () => {
       </div>
     
   );
-};
+}
 
-export default DashBoardEmployee;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useEffect, useState } from "react";
-// import "bootstrap/dist/css/bootstrap.min.css";
-// import "./DashBoardEmployee.css";
-// import min from "../../images/dashbord/img_avatar1.png";
-// import { AiTwotoneCheckCircle } from "react-icons/ai";
-// import { HiUserPlus } from "react-icons/hi2";
-// import { ImFolderOpen ,ImLibrary , ImBubbles4 ,ImAirplane , ImCogs} from "react-icons/im";
-// import { FaRightFromBracket } from "react-icons/fa6";
-// import { FaTrashAlt ,FaPencilAlt } from "react-icons/fa";
-// import { IoPersonAddOutline } from "react-icons/io5";
-// import axios from 'axios';
-
-// const DashBoardEmployee = () => {
-  
-//   const [mutamir,setMutamir]=useState([]);
-//   const [mutamirData,setMutamirData]=useState({
-//       full_name: "string",
-//       name_father: "string",
-//       name_mother: "string",
-//       phone_number: 0,
-//       email: "abedalrahaman@gmail.com",
-//       birth: "2024-05-20T23:27:58.385Z",
-//       gender: "string",
-//       Nationality: "string",
-//       passport_number: "string",
-//       passport_photo: "",
-//       almutamir_photo: "",
-//       number_bus: 0,
-//       type_room: "string",
-//       seatNumber: 0,
-//       payment_method: "string",
-//       Verification: true
-//   });
-//   console.log(mutamir);
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         const Almutamir = await axios.get('https://officealhajandalumrah.adaptable.app/al-mutamir').then(response => response.data);
-//         setMutamir(Almutamir);
-//       } catch (error) {
-//         console.error('Error fetching  data:', error);
-//       }
-//     };
-//     fetchData();
-//   }, []);
-
-//   const handleChangeImageMutamir = async (e) => {
-//     const { name, files } = e.target;
-//     if (files && files[0]) {
-//         const formData = new FormData();
-//         formData.append('file', files[0]);
-//         try {
-//             const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formData, {
-//                 headers: {
-//                     'Content-Type': 'multipart/form-data',
-//                 },
-//             });
-//             const imagePath = response.data;
-//             setMutamirData((prevFormData) => ({
-//                 ...prevFormData,
-//                 [name]: imagePath,
-//             }));
-//         } catch (error) {
-//             console.error('Error uploading image:', error);
-//         }
-//     }
-//   };
-     
-
-//   const handleChange = (e) => {
-//       const { name, value, files } = e.target;
-//       setFormData((prevFormData) => ({
-//           ...prevFormData,
-//           [name]: files ? files[0] : value,
-//       }));
-//   };
-
-//   return (
-//     <div className="DashBoardEmployee">
-
-//        <div className="min  ">
-//           <nav>
-//             <ul>
-//               <li>
-//                 <img src={min} />
-//                 <h5>اسم المستخدم</h5>
-//               </li>
-//               <a href="" className="navbar-brand">
-//                 <li>
-//                   {" "}
-//                   <i>
-//                     <AiTwotoneCheckCircle />{" "}
-//                   </i>
-//                   لوحة التحكم{" "}
-//                 </li>
-//               </a>
-//               <a href="">
-//                 <li>
-//                   {" "}
-//                   <i>
-//                     <HiUserPlus />{" "}
-//                   </i>
-//                   المسافرين
-//                 </li>
-//               </a>
-
-//               <a href="">
-//                 <li>
-//                   {" "}
-//                   <i>
-//                     <ImFolderOpen />{" "}
-//                   </i>
-//                   البرامج
-//                 </li>
-//               </a>
-//               <a href="">
-//                 <li>
-//                   {" "}
-//                   <i>
-//                     <ImLibrary />
-//                   </i>{" "}
-//                   الفنادق
-//                 </li>
-//               </a>
-//               <a href="">
-//                 <li>
-//                   {" "}
-//                   <i>
-//                     <ImAirplane />
-//                   </i>{" "}
-//                   النقل{" "}
-//                 </li>
-//               </a>
-//               <a href="">
-//                 <li>
-//                   <i>
-//                     <ImBubbles4 />
-//                   </i>{" "}
-//                   الرسائل الواردة
-//                 </li>
-//               </a>
-//               <a href="https://web.whatsapp.com/">
-//                 <li>
-//                   <i>
-//                     {" "}
-//                     <ImCogs />{" "}
-//                   </i>{" "}
-//                   اعدادات{" "}
-//                 </li>
-//               </a>
-//             </ul>
-//           </nav>
-
-//           <button type="button" className="btn btn-outline-warning bg-dark">
-//             <i>
-//               <FaRightFromBracket />
-//             </i>
-//             تسجيل الخروج
-//           </button>
-//         </div>
-        
-//       <div className="dashborde">
-       
-
-//         <div className="detil">
-//           <div className="alert " role="alert">
-//             <h5>
-//               عدد برامج الحج خلال السنوات <br /> 2022-2024
-//             </h5>
-//             <p> 15 برنامج</p>
-//           </div>
-//           <div className="alert " role="alert">
-//             <h5>
-//               عدد برامج العمرة خلال السنوات <br />
-//               2022-2024
-//             </h5>
-//             <p> 15 برنامج</p>
-//           </div>
-//           <div className="alert " role="alert">
-//             <h5>
-//               عدد البرامج الخاصة خلال السنوات
-//               <br /> 2022-2024
-//             </h5>
-//             <p> 15 برنامج</p>
-//           </div>
-//         </div>
-
-//         <div className="contain-umrah">
-//           <h2>تسجيل المعتمرين</h2>
-//           <div className="table-umrah">
-//             <table className="table">
-//               <thead>
-//                 <tr>
-//                   <th>رقم التأكيد</th>
-//                   <th>التأشيرة</th>
-//                   <th>نمط الدفع</th>
-//                   <th>نمط الغرفة</th>
-//                   <th>رقم المقعد</th>
-//                   <th>رقم الباص</th>
-//                   <th>اسم البرنامج</th>
-//                   <th>صورة شخصية</th>
-//                   <th>صورة جواز السفر</th>
-//                   <th>رقم الجواز</th>
-//                   <th>الجنسية</th>
-//                   <th>الجنس</th>
-//                   <th>التولد</th>
-//                   <th>البريد الالكتروني</th>
-//                   <th>رقم الهاتف</th>
-//                   <th>اسم الاب</th>
-//                   <th>اسم الام</th>
-//                   <th>الاسم</th>
-//                   <th>إجراءات</th>
-//                 </tr>
-//               </thead>
-//               <tbody>
-//                 {mutamir.map((muta, index) => (
-//                   <tr key={index}>
-//                     <td>{muta.Verification}</td>
-//                     <td><img src={muta.visa} alt="Visa" width="50" height="50" /></td>
-//                     <td>{muta.payment_method}</td>
-//                     <td>{muta.type_room}</td>
-//                     <td>{muta.seatNumber}</td>
-//                     <td>{muta.number_bus}</td>
-//                     <td>{muta.program_name}</td>
-//                     <td><img src={muta.almutamir_photo} alt="Personal" width="50" height="50" /></td>
-//                     <td><img src={muta.passport_photo} alt="Passport" width="50" height="50" /></td>
-//                     <td>{muta.passport_number}</td>
-//                     <td>{muta.Nationality}</td>
-//                     <td>{muta.gender}</td>
-//                     <td>{muta.birth}</td>
-//                     <td>{muta.email}</td>
-//                     <td>{muta.phone_number}</td>
-//                     <td>{muta.name_father}</td>
-//                     <td>{muta.name_mother}</td>
-//                     <td>{muta.full_name}</td>
-//                     <td>
-//                       <button className="edit" onClick={() => handleEdit(muta)}>Edit</button>
-//                       <button className="delete" onClick={() => handleDelete(muta.id)}>Delete</button>
-//                     </td>
-//                   </tr>
-//                 ))}
-//               </tbody>
-//             </table>
-
-//             <h3>{isEditing ? "تعديل معتمر" : "إضافة معتمر جديد"}</h3>
-//             <form onSubmit={handleSubmit}>
-//               <input type="text" name="full_name" placeholder="الاسم الكامل" value={mutamirData.full_name} onChange={handleChange} />
-//               <input type="text" name="name_father" placeholder="اسم الأب" value={mutamirData.name_father} onChange={handleChange} />
-//               <input type="text" name="name_mother" placeholder="اسم الأم" value={mutamirData.name_mother} onChange={handleChange} />
-//               <input type="text" name="phone_number" placeholder="رقم الهاتف" value={mutamirData.phone_number} onChange={handleChange} />
-//               <input type="email" name="email" placeholder="البريد الإلكتروني" value={mutamirData.email} onChange={handleChange} />
-//               <input type="date" name="birth" placeholder="تاريخ الميلاد" value={mutamirData.birth} onChange={handleChange} />
-//               <input type="text" name="gender" placeholder="الجنس" value={mutamirData.gender} onChange={handleChange} />
-//               <input type="text" name="Nationality" placeholder="الجنسية" value={mutamirData.Nationality} onChange={handleChange} />
-//               <input type="text" name="passport_number" placeholder="رقم الجواز" value={mutamirData.passport_number} onChange={handleChange} />
-//               <input type="file" name="passport_photo" onChange={handleChangeImageMutamir} />
-//               <input type="file" name="almutamir_photo" onChange={handleChangeImageMutamir} />
-//               <input type="number" name="number_bus" placeholder="رقم الباص" value={mutamirData.number_bus} onChange={handleChange} />
-//               <input type="text" name="type_room" placeholder="نمط الغرفة" value={mutamirData.type_room} onChange={handleChange} />
-//               <input type="number" name="seatNumber" placeholder="رقم المقعد" value={mutamirData.seatNumber} onChange={handleChange} />
-//               <input type="text" name="payment_method" placeholder="نمط الدفع" value={mutamirData.payment_method} onChange={handleChange} />
-//               <input type="text" name="Verification" placeholder="رقم التأكيد" value={mutamirData.Verification} onChange={handleChange} />
-//               <button type="submit">{isEditing ? "تحديث" : "إضافة"}</button>
-//             </form>
-//           </div>
-//         </div>
-
-//         <div className="contain-hajj">
-//           <h2>تسجيل الحجاج</h2>
-//           <div className="table-hajj">
-//             <table className="table">
-//               <thead>
-//                 <tr>
-//                   <th>رقم التأكيد</th>
-//                   <th> التأشيرة</th>
-//                   <th>نمط الدفع</th>
-//                   <th>نمط الغرفة</th>
-//                   <th> رقم المقعد في الطائرة</th>
-//                   <th>المرافق</th>
-//                   <th>اسم البرنامج</th>
-//                   <th>صورة شخصية</th>
-//                   <th>صورة جواز السفر </th>
-//                   <th>رقم الجواز</th>
-//                   <th>الجنسية</th>
-//                   <th>الجنس</th>
-//                   <th>التولد</th>
-//                   <th>البريد الالكتروني</th>
-//                   <th>رقم الهاتف</th>
-//                   <th>اسم الاب</th>
-//                   <th>اسم الام</th>
-//                   <th>الاسم</th>
-//                 </tr>
-//               </thead>
-//               <tbody>
-//                 <tr>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td>fffff</td>
-//                 </tr>
-//               </tbody>
-//             </table>
-
-//             <table>
-//               <thead>
-//                 <tr>
-//                   <th>رقم التأكيد</th>
-//                   <th> التأشيرة</th>
-//                   <th>نمط الدفع</th>
-//                   <th>نمط الغرفة</th>
-//                   <th> رقم المقعد في الطائرة</th>
-//                   <th>المرافق</th>
-//                   <th>اسم البرنامج</th>
-//                   <th>صورة شخصية</th>
-//                   <th>صورة جواز السفر </th>
-//                   <th>رقم الجواز</th>
-//                   <th>الجنسية</th>
-//                   <th>الجنس</th>
-//                   <th>التولد</th>
-//                   <th>البريد الالكتروني</th>
-//                   <th>رقم الهاتف</th>
-//                   <th>اسم الاب</th>
-//                   <th>اسم الام</th>
-//                   <th>الاسم</th>
-//                   <th>تعديل</th>
-//                 </tr>
-//               </thead>
-//               <tbody>
-//                 <tr>
-//                   <td>
-//                     <input
-//                       type="text"
-                      
-//                       className="verilication"
-//                     />
-//                   </td>
-
-//                   <td>
-//                     <input type="file"  className="visa" />
-//                   </td>
-
-//                   <td>
-//                     <input type="text"  className="type-pay" />
-//                   </td>
-
-//                   <td>
-//                     <input type="text"  />
-//                   </td>
-
-//                   <td>
-//                     <input
-//                       type="number"
-                      
-//                       className="seat-number"
-//                     />
-//                   </td>
-
-//                   <td>
-//                     <input type="number"  className="number-bus" />
-//                   </td>
-
-//                   <td>
-//                     <input
-//                       type="text"
-                      
-//                       className="name-program"
-//                     />
-//                   </td>
-//                   <td>
-//                     <input
-//                       type="file"
-                      
-//                       className="almutamir-photo"
-//                     />
-//                   </td>
-//                   <td>
-//                     <input
-//                       type="file"
-                      
-//                       className="passport-photo"
-//                     />
-//                   </td>
-
-//                   <td>
-//                     <input
-//                       type="number"
-                      
-//                       className="passport-number"
-//                     />
-//                   </td>
-//                   <td>
-//                     <input type="text"  className="nationality" />
-//                   </td>
-//                   <td>
-//                     <input type="text"  className="gender" />
-//                   </td>
-//                   <td>
-//                     <input type="data"  className="birth" />
-//                   </td>
-//                   <td>
-//                     <input type="email"  className="the-email" />
-//                   </td>
-//                   <td>
-//                     <input type="text"  className="phone" />
-//                   </td>
-//                   <td>
-//                     <input type="text"  className="name_mother" />
-//                   </td>
-//                   <td>
-//                     <input type="text"  className="name_father" />
-//                   </td>
-//                   <td>
-//                     <input type="text"  className="full_travel" />
-//                   </td>
-//                   <td>
-//                     <button  className="add">
-//                       <IoPersonAddOutline />
-//                       add
-//                     </button>
-//                   </td>
-//                 </tr>
-//                 <tr>
-//                   <td>
-//                     <input
-//                       type="text"
-                      
-//                       className="verilication"
-//                     />
-//                   </td>
-
-//                   <td>
-//                     <input type="file"  className="visa" />
-//                   </td>
-
-//                   <td>
-//                     <input type="text"  className="type-pay" />
-//                   </td>
-
-//                   <td>
-//                     <input type="text"  />
-//                   </td>
-
-//                   <td>
-//                     <input
-//                       type="number"
-                      
-//                       className="seat-number"
-//                     />
-//                   </td>
-//                   <td>
-//                     <input type="number"  className="number-bus" />
-//                   </td>
-
-//                   <td>
-//                     <input
-//                       type="text"
-                
-//                       className="name-program"
-//                     />
-//                   </td>
-//                   <td>
-//                     <input
-//                       type="file"
-                      
-//                       className="almutamir-photo"
-//                     />
-//                   </td>
-//                   <td>
-//                     <input
-//                       type="file"
-                      
-//                       className="passport-photo"
-//                     />
-//                   </td>
-
-//                   <td>
-//                     <input
-//                       type="number"
-                      
-//                       className="passport-number"
-//                     />
-//                   </td>
-//                   <td>
-//                     <input type="text"  className="nationality" />
-//                   </td>
-//                   <td>
-//                     <input type="text"  className="gender" />
-//                   </td>
-//                   <td>
-//                     <input type="data"  className="birth" />
-//                   </td>
-//                   <td>
-//                     <input type="email"  className="the-email" />
-//                   </td>
-//                   <td>
-//                     <input type="text"  className="phone" />
-//                   </td>
-//                   <td>
-//                     <input type="text"  className="name_mother" />
-//                   </td>
-//                   <td>
-//                     <input type="text"  className="name_father" />
-//                   </td>
-//                   <td>
-//                     <input type="text"  className="full_travel" />
-//                   </td>
-//                   <td>
-//                     <button  className="edit">
-//                       <FaPencilAlt />
-//                       edit
-//                     </button>
-//                   </td>
-//                 </tr>
-//                 <tr>
-//                   <td>
-//                     <input
-//                       type="text"
-                      
-//                       className="verilication"
-//                     />
-//                   </td>
-
-//                   <td>
-//                     <input type="file"  className="visa" />
-//                   </td>
-
-//                   <td>
-//                     <input type="text"  className="type-pay" />
-//                   </td>
-
-//                   <td>
-//                     <input type="text"  />
-//                   </td>
-
-//                   <td>
-//                     <input
-//                       type="number"
-                      
-//                       className="seat-number"
-//                     />
-//                   </td>
-
-//                   <td>
-//                     <input type="number"  className="number-bus" />
-//                   </td>
-
-//                   <td>
-//                     <input
-//                       type="text"
-                      
-//                       className="name-program"
-//                     />
-//                   </td>
-//                   <td>
-//                     <input
-//                       type="file"
-                      
-//                       className="almutamir-photo"
-//                     />
-//                   </td>
-//                   <td>
-//                     <input
-//                       type="file"
-                      
-//                       className="passport-photo"
-//                     />
-//                   </td>
-
-//                   <td>
-//                     <input
-//                       type="number"
-                      
-//                       className="passport-number"
-//                     />
-//                   </td>
-//                   <td>
-//                     <input type="text"  className="nationality" />
-//                   </td>
-//                   <td>
-//                     <input type="text"  className="gender" />
-//                   </td>
-//                   <td>
-//                     <input type="data"  className="birth" />
-//                   </td>
-//                   <td>
-//                     <input type="email"  className="the-email" />
-//                   </td>
-//                   <td>
-//                     <input type="text"  className="phone" />
-//                   </td>
-//                   <td>
-//                     <input type="text"  className="name_mother" />
-//                   </td>
-//                   <td>
-//                     <input type="text"  className="name_father" />
-//                   </td>
-//                   <td>
-//                     <input type="text"  className="full_travel" />
-//                   </td>
-//                   <td>
-//                     <button id="delete1" className="delete">
-//                       <FaTrashAlt />
-//                       delete
-//                     </button>
-//                   </td>
-//                 </tr>
-//               </tbody>
-//             </table>
-//           </div>
-//         </div>
-//      </div> 
-//         <div className="prog-umrah">
-//           <h2>برامج العمرة</h2>
-//           <div className="progr-parent">
-//             <div className="prog1">
-//               <h3>عمرة رمضان البرية</h3>
-
-//               <p>
-//                 مدة البرنامج <span>25 يوم</span>
-//               </p>
-//               <p>
-//                 <span>5</span> مدة الاقامة بمكة المكرمة
-//               </p>
-//               <p>
-//                 <span>5</span> مدة الاقامة بمكة المكرمة
-//               </p>
-
-//               <p>
-//                 {" "}
-//                 تاريخ السفر <span>11/5/2024</span> السفر برا
-//               </p>
-//               <p>
-//                 فنادق مكة المكرمة : <span>اعمار غراند</span> <span>فيوليت</span>
-//                 <span>انوار الاصيل </span>
-//               </p>
-
-//               <p>
-//                 فنادق المدينة المنورة : <span>روز الماسة</span>{" "}
-//                 <span>نجوم المدينة</span> <br />
-//                 <span>ارجوان روز</span>
-//               </p>
-
-//               <button className="update">تعديل</button>
-//               <button className="delet">حذف</button>
-//             </div>
-//             <div className="prog1">
-//               <h3>عمرة رمضان البرية</h3>
-
-//               <p>
-//                 مدة البرنامج <span>25 يوم</span>
-//               </p>
-//               <p>
-//                 <span>5</span> مدة الاقامة بمكة المكرمة
-//               </p>
-//               <p>
-//                 <span>5</span> مدة الاقامة بمكة المكرمة
-//               </p>
-
-//               <p>
-//                 {" "}
-//                 تاريخ السفر <span>11/5/2024</span> السفر برا
-//               </p>
-//               <p>
-//                 فنادق مكة المكرمة : <span>اعمار غراند</span>{" "}
-//                 <span>انوار الاصيل </span>
-//               </p>
-
-//               <p>
-//                 فنادق المدينة المنورة : <span>روز الماسة</span>{" "}
-//                 <span>نجوم المدينة</span> <br />
-//                 <span>ارجوان روز</span>
-//               </p>
-//               <button className="update">تعديل</button>
-//               <button className="delet">حذف</button>
-
-//               <button
-//                 className="btn btn-bus"
-//                 type="button"
-//                 data-toggle="collapse"
-//                 data-target="#collapseExample"
-//                 aria-expanded="false"
-//                 aria-controls="collapseExample"
-//               >
-//                 اضافة باص
-//               </button>
-
-//               <div className="collapse" id="collapseExample">
-//                 <div className="card card-body">
-//                   <input type="number" placeholder="رقم الباص" />
-//                   <input type="text" placeholder="اسم الشركة" />
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-
-//           <div className="prog-add">
-//             <div>
-//               {" "}
-//               <input type="number" />
-//               <label htmlFor=""> مدة البرنامج</label>
-//               <input type="text" className="name" />
-//               <label htmlFor="" className="name">
-//                 اسم البرنامج
-//               </label>
-//             </div>
-
-//             <div>
-//               {" "}
-//               <input type="number" className="numb" />
-//               <label htmlFor="">مدة الاقامة بمكة المكرمة</label>
-//               <input type="number" className="numb" />
-//               <label htmlFor="">مدة الاقامة بالمدينة المنورة</label>
-//             </div>
-
-//             <div>
-//               {" "}
-//               <input type="date" />
-//               <label htmlFor="">تاريخ السفر</label>
-//               <input type="text" />
-//               <label htmlFor="">نوع السفر</label>
-//             </div>
-
-//             <div className="hot">
-//               <h4>الفنادق</h4>
-//               <table>
-//                 <thead>
-//                   <td>الموقع</td>
-//                   <td>اسم الفندق</td>
-//                 </thead>
-
-//                 <tr>
-//                   <td></td>
-//                   <td></td>
-//                 </tr>
-//                 <tr>
-//                   <td></td>
-//                   <td></td>
-//                 </tr>
-//                 <tr>
-//                   <td></td>
-//                   <td></td>
-//                 </tr>
-//               </table>
-//             </div>
-//             <div className="room">
-//               <h4>السعر</h4>
-//               <table>
-//                 <thead>
-//                   <td>نوع الغرفة</td>
-//                   <td>السعر</td>
-//                 </thead>
-
-//                 <tr>
-//                   <td></td>
-//                   <td></td>
-//                 </tr>
-//                 <tr>
-//                   <td></td>
-//                   <td></td>
-//                 </tr>
-//                 <tr>
-//                   <td></td>
-//                   <td></td>
-//                 </tr>
-//               </table>
-//             </div>
-//             <div className="buss">
-//               <h4>الباصات الخاصة بالبرنامج</h4>
-//               <table>
-//                 <thead>
-//                   <td>اسم الشركة</td>
-//                   <td>رقم الباص</td>
-//                 </thead>
-//                 <tr>
-//                   <td></td>
-//                   <td></td>
-//                 </tr>
-//                 <tr>
-//                   <td></td>
-//                   <td></td>
-//                 </tr>
-             
-//               </table>
-//             </div>
-//             <button className="add-btn">اضافة </button>
-//           </div>
-//         </div>
-
-//         <div className="prog-hajj">
-//           <h2>برامج الحج</h2>
-//           <div className="progr-parent">
-//             <div className="prog1">
-//               <h3>عمرة رمضان البرية</h3>
-
-//               <p>
-//                 مدة البرنامج <span>25 يوم</span>
-//               </p>
-//               <p>
-//                 <span>5</span> مدة الاقامة بمكة المكرمة
-//               </p>
-//               <p>
-//                 <span>5</span> مدة الاقامة بمكة المكرمة
-//               </p>
-
-//               <p>
-//                 {" "}
-//                 تاريخ السفر <span>11/5/2024</span> السفر برا
-//               </p>
-//               <p>
-//                 فنادق مكة المكرمة : <span>اعمار غراند</span> <span>فيوليت</span>
-//                 <span>انوار الاصيل </span>
-//               </p>
-
-//               <p>
-//                 فنادق المدينة المنورة : <span>روز الماسة</span>{" "}
-//                 <span>نجوم المدينة</span> <br />
-//                 <span>ارجوان روز</span>
-//               </p>
-
-//               <button className="update">تعديل</button>
-//               <button className="delet">حذف</button>
-//             </div>
-//             <div className="prog1">
-//               <h3>عمرة رمضان البرية</h3>
-
-//               <p>
-//                 مدة البرنامج <span>25 يوم</span>
-//               </p>
-//               <p>
-//                 <span>5</span> مدة الاقامة بمكة المكرمة
-//               </p>
-//               <p>
-//                 <span>5</span> مدة الاقامة بمكة المكرمة
-//               </p>
-
-//               <p>
-//                 {" "}
-//                 تاريخ السفر <span>11/5/2024</span> السفر برا
-//               </p>
-//               <p>
-//                 فنادق مكة المكرمة : <span>اعمار غراند</span> <span>فيوليت</span>
-//                 <span>انوار الاصيل </span>
-//               </p>
-
-//               <p>
-//                 فنادق المدينة المنورة : <span>روز الماسة</span>{" "}
-//                 <span>نجوم المدينة</span> <br />
-//                 <span>ارجوان روز</span>
-//               </p>
-
-//               <button className="update">تعديل</button>
-//               <button className="delet">حذف</button>
-//             </div>
-//           </div>
-
-//           <div className="prog-add">
-//             <div>
-//               {" "}
-//               <input type="number" />
-//               <label htmlFor=""> مدة البرنامج</label>
-//               <input type="text" className="name" />
-//               <label htmlFor="" className="name">
-//                 اسم البرنامج
-//               </label>
-//             </div>
-
-//             <div>
-//               {" "}
-//               <input type="number" className="numb" />
-//               <label htmlFor="">مدة الاقامة بمكة المكرمة</label>
-//               <input type="number" className="numb" />
-//               <label htmlFor="">مدة الاقامة بالمدينة المنورة</label>
-//             </div>
-
-//             <div>
-//               {" "}
-//               <input type="date" />
-//               <label htmlFor="">تاريخ السفر</label>
-//               <input type="text" />
-//               <label htmlFor="">نوع السفر</label>
-//             </div>
-
-//             <div className="hot">
-//               <h4>الفنادق</h4>
-//               <table>
-//                 <thead>
-//                   <td>الموقع</td>
-//                   <td>اسم الفندق</td>
-//                 </thead>
-
-//                 <tr>
-//                   <td></td>
-//                   <td></td>
-//                 </tr>
-//                 <tr>
-//                   <td></td>
-//                   <td></td>
-//                 </tr>
-//                 <tr>
-//                   <td></td>
-//                   <td></td>
-//                 </tr>
-//               </table>
-//             </div>
-//             <div className="room">
-//               <h4>السعر</h4>
-//               <table>
-//                 <thead>
-//                   <td>نوع الغرفة</td>
-//                   <td>السعر</td>
-//                 </thead>
-
-//                 <tr>
-//                   <td></td>
-//                   <td></td>
-//                 </tr>
-//                 <tr>
-//                   <td></td>
-//                   <td></td>
-//                 </tr>
-//                 <tr>
-//                   <td></td>
-//                   <td></td>
-//                 </tr>
-//               </table>
-//             </div>
-           
-//             <button className="add-btn">اضافة </button>
-//           </div>
-//         </div>
-
-//         <div className="hotal-updat">
-//           <h2>الفنادق</h2>
-//           {/* <div className="table-hotal">
-//             <table className="table">
-//               <thead>
-//                 <tr>
-//                   <th>رابط الفندق</th>
-//                   <th> صور الفندق</th>
-//                   <th>الصورة الرئيسية</th>
-//                   <th>اماكن يمكن زيارتها</th>
-//                   <th>الخدمات</th>
-//                   <th>رتبة الفندق</th>
-//                   <th>التفاصيل</th>
-//                   <th>الموقع</th>
-//                   <th>اسم الفندق</th>
-//                 </tr>
-//               </thead>
-//               <tbody>
-//                 <tr>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                 </tr>
-//               </tbody>
-//             </table>
-
-//             <table>
-//               <thead>
-//                 <tr>
-//                   <th>رابط الفندق</th>
-//                   <th> صور الفندق</th>
-//                   <th>الصورة الرئيسية</th>
-//                   <th>اماكن يمكن زيارتها</th>
-//                   <th>الخدمات</th>
-//                   <th>رتبة الفندق</th>
-//                   <th>التفاصيل</th>
-//                   <th>الموقع</th>
-//                   <th>اسم الفندق</th>
-//                   <th></th>
-//                 </tr>
-//               </thead>
-//               <tbody>
-//                 <tr>
-//                   <td>
-//                     <input type="url" className="link-visit" />
-//                   </td>
-
-//                   <td>
-//                     <input type="file" id="hotal-photo1" className="hotal-photo" />
-//                   </td>
-//                   <td>
-//                     <input
-//                       type="file"
-//                       id="min-hotal-photo1"
-//                       className="min-hotal-photo"
-//                     />
-//                   </td>
-
-//                   <td>
-//                     <input type="text" id="visit-place1" className="visit-place" />
-//                   </td>
-//                   <td>
-//                     <input type="text" id="servers1" className="servers" />
-//                   </td>
-//                   <td>
-//                     <input type="number" id="star1" className="star" />
-//                   </td>
-//                   <td>
-//                     <input type="text" id="detil1" className="detil" />
-//                   </td>
-//                   <td>
-//                     <input type="text" id="location1" className="location" />
-//                   </td>
-//                   <td>
-//                     <input type="text" id="name-hota1" className="name_hota" />
-//                   </td>
-//                   <td>
-//                     <button className="add">اضافة</button>
-//                   </td>
-//                 </tr>
-//               </tbody>
-//             </table>
-//           </div> */}
-//         </div>
-
-//         <div className="transport-updat">
-//           <h2>النقل</h2>
-//           {/* <div className="table-transport">
-//             <table className="table">
-//               <thead>
-//                 <tr>
-//                   <th> سعر التكيت</th>
-//                   <th>نوع النقل</th>
-//                   <th>رابط الشركة</th>
-//                   <th>صور وسائل النقل</th>
-//                   <th>الصورة الرئيسية</th>
-//                   <th>هدف الشركة</th>
-//                   <th>الخدمات</th>
-//                   <th>اسم الشركة</th>
-//                 </tr>
-//               </thead>
-//               <tbody>
-//                 <tr>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                   <td></td>
-//                 </tr>
-//               </tbody>
-//             </table>
-
-//             <table>
-//               <thead>
-//                 <tr>
-//                   <th> سعر التكيت</th>
-//                   <th>نوع النقل</th>
-//                   <th>رابط الشركة</th>
-//                   <th>صور وسائل النقل</th>
-//                   <th>الصورة الرئيسية</th>
-//                   <th>هدف الشركة</th>
-//                   <th>الخدمات</th>
-//                   <th>اسم الشركة</th>
-//                 </tr>
-//               </thead>
-//               <tbody>
-//                 <tr>
-//                   <td>
-//                     <input type="number" id="pric1" className="pric" />
-//                   </td>
-
-//                   <td>
-//                     <input type="text" id="typ1" className="typ" />
-//                   </td>
-
-//                   <td>
-//                     <input type="url" className="link-visit" />
-//                   </td>
-//                   <td>
-//                     <input
-//                       type="file"
-//                       id="transport-photo1"
-//                       className="transport-photo"
-//                     />
-//                   </td>
-//                   <td>
-//                     <input
-//                       type="file"
-//                       id="min-transpot-photo1"
-//                       className="min-transpot-photo"
-//                     />
-//                   </td>
-//                   <td>
-//                     <input type="text" id="detil-trans1" className="detil-trans" />
-//                   </td>
-//                   <td>
-//                     <input
-//                       type="text"
-//                       id="servers-trans1"
-//                       className="servers-trans"
-//                     />
-//                   </td>
-//                   <td>
-//                     <input type="text" id="name-trans1" className="name_trans" />
-//                   </td>
-//                   <td>
-//                     <button className="add">اضافة</button>
-//                   </td>
-//                 </tr>
-//               </tbody>
-//             </table>
-//           </div> */}
-//         </div>
-
-//         <div className="seting">
-//           <h2>الاعدادات</h2>
-//           <div className="seting-detil">
-//             <h3>:اعادة تعيين كلمة المرور</h3>
-//           <div className="input-box seting-box1">
-//               <input type="password" className="input-filed" placeholder=" كلمة السر الحالية" />
-//             </div>
-//             <div className="input-box">
-//               <input type="password" className="input-filed" placeholder="كلمة السر الجديدة" />
-//             </div>
-//             <div className="input-box">
-//               <input type="password" className="input-filed" placeholder="تاكيد كلمة المرور" />
-//             </div>
-//             <div className="input-box">
-//               <input type="submit" className="submit" value="تغيير كلمة المرور" />
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-    
-//   );
-// };
-
-// export default DashBoardEmployee;
+export default DashBoardEmployee

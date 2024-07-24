@@ -61,15 +61,13 @@ body{
   }
   .min .btn {
     position: absolute;
-    bottom: 30px;
+    bottom: 0px;
     margin-left: 20px;
     color: wheat;
+    background-color: #ccaf71;
   }
   .min h5{
     color: white;
-  }
-  .min .btn{
-    background-color: #ccaf71;
   }
  
   .detiles {
@@ -96,7 +94,7 @@ body{
   }
   
  
- .contain-umrah , .contain-hajj{
+ .contain-umrah , .contain-hajj , .hotal-updat {
   width: 82%;
   display: flex;
   flex-direction: column;
@@ -111,24 +109,31 @@ body{
   box-shadow: 1px 1px 10px 1px rgb(0, 0, 0) , -1px -1px 10px 1px rgb(133, 130, 130);
 }
  
- .table-umrah , .table-hajj {
+ .table-umrah , .table-hajj , .table-hotal , .table-transport {
   max-width: 98%;
   overflow-x: auto; 
   direction: rtl;
 }
-.table-umrah table , .table-hajj table{
+.table-umrah table ,
+.table-hajj table ,
+.hotal-updat table ,
+.transport-updat table{
   width: 400%;
   direction: ltr;
   margin-bottom: 10px;
 }
 .table-umrah::-webkit-scrollbar ,
-.table-hajj::-webkit-scrollbar
+.table-hajj::-webkit-scrollbar ,
+.table-hotal::-webkit-scrollbar ,
+.table-transport::-webkit-scrollbar
  {
   height: 12px;
 }
 
 .table-umrah::-webkit-scrollbar-thumb ,
-.table-hajj::-webkit-scrollbar-thumb
+.table-hajj::-webkit-scrollbar-thumb,
+.table-hotal::-webkit-scrollbar-thumb ,
+.table-transport::-webkit-scrollbar-thumb
 {
   background-color: #ebcd94;
   border-radius: 10px;
@@ -197,22 +202,17 @@ body{
 }
 
 .progr-parent{
-  margin-left: 15%;
-  display: grid;
-  grid-template-columns: repeat(2,35%);
-  margin-top: 20px;
-  justify-content:space-around;
+  margin: 20px 25px 20px 21%
 }
 .prog1 {
-  width: 450px;
   height: 500px;
-
   box-shadow: 5px 10px 20px #a7952dda inset;
 }
 .prog1 p {
   color: #fffefb;
   text-align: right;
-  margin-right: 30px;
+  margin-right: 20px;
+  margin-bottom: 12px;
   font-size: 20px;
 
 }
@@ -230,12 +230,17 @@ body{
 }
 .prog-umrah .delet ,.prog-hajj .delet{
   background-color: rgba(212, 11, 11, 0.904);
-
   text-align: center;
   color: white;
   width: 25%;
   border: none;
   font-size: 20px;
+}
+.tableProgeam ul{
+  color:#fff;
+}
+.tableProgeam h5{
+  color:var(--color-gold);
 }
 .prog2{
   width: 450px;
@@ -257,44 +262,39 @@ body{
   position: relative;
   margin-top: 100px;
   margin-bottom: 50px;
+  padding: 20px;
 }
 .prog-add input{
-  margin-top: 70px;
   border-radius: 5px;
  text-align: right;
  color: black;
  width: 200px;
-margin-left: 100px;
+}
 
+.tableProgeam{
+  direction: rtl;
 }
-.prog-add .numb{
-  width: 50px;
-  margin-left: 150px;
+.tableProgeam tr{
+  padding: 10px;
+  text-align: right;
 }
-.prog-add .name{
-  margin-left: 70px;
+.tableProgeam tr td{
+  padding: 20px;
+}
 
-}
-.prog-add div{
-  margin-left: 100px;
-}
 .prog-add label{
-  /* position: absolute; */
   color: #fffefb;
   text-align: right;
   font-size: 20px;
-  margin-top: 50px;
-  margin-left: 10px;
-
 }
 
 
-.prog-add .room label ,.hot label{
+.hot label{
   padding: 10px;
  margin-bottom: 100px;
 }
 
-.room td ,.hot td ,.buss td
+.hot td ,.buss td
 {
   margin: 5px;
   background: linear-gradient(to left, #68541e, #b49a43c5, #ccba53, #ccaf71);
@@ -305,13 +305,13 @@ font-size: 25px;
   
 }
 
-.room h4 ,.hot h4 ,.buss h4{
+.hot h4 ,.buss h4{
 color: wheat;
 text-align: right;
 margin-top: 40px;
 margin-right: 50px;
 }
-  .room  table ,.hot table {
+   table ,.hot table {
     width: 75%;
     margin-top: 30px;
     margin-left: 50px;
@@ -353,6 +353,9 @@ margin-right: 50px;
  
 } 
 
+.seting{
+  margin-top: 50px;
+}
 .seting-detil{
   box-shadow: 5px 10px 20px  #a7952dda inset;
   height: 380px;
@@ -383,17 +386,4 @@ margin-right: 50px;
 .seting-box1{
   margin-top: 100px;
 }
-.travel-brog ,.total-number {
-text-align: right;
-margin-right: 50px;
-}
-.travel-brog select {
-width: 200px;
-height: 40px;
-text-align: right;
-padding: 10px;
-margin-left: 50px;
-}
-.date{
-  margin-right: 20px;
-}
+
