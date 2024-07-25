@@ -12,7 +12,7 @@ function Footer() {
         <div className="addres">
           <h2> عنوان</h2>
           <ul>
-            <li>  <FaLocationDot /> <span>الموقع</span></li>
+            <li>  <FaLocationDot /> <span>  الموقع حلب سيف الدولة نزلة مدرسة الرجاء</span></li>
             <li><MdAddIcCall/><span>اتصال +9630993642776</span></li>
             <li><MdOutlineAlternateEmail/><span>demo@gamil.com</span></li>
           </ul>
@@ -59,7 +59,7 @@ function Footer() {
           <div className="col-lg-12">
             <p className="p-2">
            
-              حقوق النشر © 2036 شركة <a href="">اجنحة الضيافة للحج</a> . كل الحقوق محفوظة.
+              حقوق النشر © 2024 شركة <a href="">اجنحة الضيافة للحج</a> . كل الحقوق محفوظة.
             </p>
           </div>
         </div>
