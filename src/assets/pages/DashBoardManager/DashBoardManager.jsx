@@ -124,7 +124,7 @@ const  DashBoardManager = ()=> {
         </div>
 
         <div class="contain-employee">
-          <h2>:الموظفين       <i><ImUsers /></i></h2>
+          <h2>:الموظفين  <i><ImUsers /></i></h2>
           <div class="table-employee">
             <table class="table">
               <thead>
