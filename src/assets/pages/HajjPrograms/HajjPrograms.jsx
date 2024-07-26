@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams ,Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { ImSpinner } from 'react-icons/im';
 import "./HajjPrograms.css";
 import Slider from 'react-slick';
@@ -15,7 +15,7 @@ const HajjPrograms = () => {
   const { id } = useParams();
   const [programHajj, setProgramHajj] = useState({});
   const [hotel, setHotel] = useState([]);
-  const [loading , setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [backgroundImage, setBackgroundImage] = useState('');
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -24,7 +24,7 @@ const HajjPrograms = () => {
 
   useEffect(() => {
     if (!loading && hotel.length > 0) {
-        setBackgroundImage(hotel[currentSlide]?.urlImagehotel);
+      setBackgroundImage(hotel[currentSlide]?.urlImagehotel);
     }
   }, [loading, hotel, currentSlide]);
 
@@ -38,7 +38,7 @@ const HajjPrograms = () => {
     autoplaySpeed: 5000,
     pauseOnHover: true,
     beforeChange: (current, next) => {
-        setCurrentSlide(next);
+      setCurrentSlide(next);
     }
   };
 
@@ -48,7 +48,7 @@ const HajjPrograms = () => {
         const program_Hajj = await axios.get(`https://officealhajandalumrah.adaptable.app/program-al-haj/${id}`).then(response => response.data);
         setProgramHajj(program_Hajj);
         const AllProgramHajjHotel = await axios.get('https://officealhajandalumrah.adaptable.app/prog-al-haj-hotel').then(response => response.data);
-        const ProgramHajj = AllProgramHajjHotel.filter((program) => program.id_ProgramAlHaj === id );
+        const ProgramHajj = AllProgramHajjHotel.filter((program) => program.id_ProgramAlHaj === id);
         const hotelRoom = await Promise.all(ProgramHajj.map((HotelRoomId) => {
           return axios.get(`https://officealhajandalumrah.adaptable.app/hotel-room/${HotelRoomId.id_HotelRoom}`).then(response => response.data);
         }));
@@ -79,7 +79,7 @@ const HajjPrograms = () => {
         <div className="par1">
           <h1>{programHajj[0]?.name_program}</h1>
           <p className="my-4">
-            تتشرف إدارة مجموعة اجنحة الضيافة بإشراف مديرها الحاج هشام محمد نادر
+            تتشرف إدارة مكتب أجنحة الضيافة بإشراف مديرها الحاج هشام محمد نادر
             عنبي وكادرها الديني والإداري بتقديم افضل برامج للحج عام 1445
           </p>
           <div className="detiles">
@@ -87,15 +87,15 @@ const HajjPrograms = () => {
             <div className="parent-chiled continer">
               <div className="chiled">
                 <span>
-                  تاشيرة الحج
-                  <br /> تذكرة طيران من مطار دمشق الى مطار جدة
+                  تأشيرة  الحج
+                  <br /> تذكرة طيران من مطار دمشق إلى مطار جدة
                 </span>
               </div>
               <div className="chiled">
-                <span>وجبتي فطور وعشاء يوميا لكل حاج</span>
+                <span>وجبتي فطور وعشاء يوميا لكل حاج   </span>
               </div>
               <div className="chiled">
-                <span>لاقامة بمكة المكرمة مدة<span> 9 ليالي </span> الاقامةبالمدينةالمنورة مدة<span>5 ليالي</span> </span>
+                <span>الإقامة بمكة المكرمة مدة 12 ليلة <span> . </span> الإقامة بالمدينة المنورة مدة 10 ليال</span> 
               </div>
               <div className="chiled">
                 <span>هدايا ورحلات متنوعة</span>
@@ -104,28 +104,28 @@ const HajjPrograms = () => {
                 <span>مزارات في مكة والمدينة يتخللها دروس دينية </span>
               </div>
               <div className="chiled">
-                <span>رحلة يوم تسوق في جدة بعد اداء مناسك الحج</span>
+                <span>رحلة يوم تسوق في جدة بعد أداء مناسك الحج  </span>
               </div>
               <div className="chiled">
-                <span>رحلة يوم الى الطائف خلال فترة الاقامة في مكة المكرمة</span>
+                <span>رحلة يوم إلى الطائف خلال فترة الإقامة في مكة المكرمة</span>
               </div>
               <div className="chiled">
                 <span> المرشد الديني الشيخ محمد شمسي</span>
               </div>
               <div className="chiled">
-                <span>اداء حج تجريبي قبل السفر و دروس تشرح اداء المناسك</span>
+                <span>أداء حج تجريبي قبل السفر وإعطاء دروس تشرح كيفية أداء المناسك</span>
               </div>
             </div>
           </div>
         </div>
 
-<div className='price-hajj'>
-  <div  className='pric   room-three-hajj'>سعر البرنامج في الغرفة الثلاثية <br /> $5100</div>
-  <div className=' pric   room-four-hajj'>  سعر البرنامج في الغرفة الرباعية <br /> 5000$</div>
-  <div className='  pric romm-five-hajj'>سعر البرنامج في الغرفة الخماسية<br />$ 4950</div>
-</div>
+        <div className='price-hajj'>
+          <div className='pric   room-three-hajj'>سعر البرنامج مع غرفة ثلاثية <br /> 5200$ </div>
+          <div className=' pric   room-four-hajj'> سعر البرنامج مع غرفة رباعية <br /> 5100$ </div>
+          <div className='  pric romm-five-hajj'>سعر البرنامج مع غرفة خماسية<br /> 5000$ </div>
+        </div>
         <div className='part2'>
-        <h2>:الفنادق الخاصة ب البرنامج</h2>
+          <h2>:الفنادق الخاصة ب البرنامج</h2>
           <div className="Hotel hotel-in-prog-haj" style={{ backgroundImage: `url(${backgroundImage})` }}>
             {!loading && (
               <div className='hotel-slider'>
@@ -177,7 +177,7 @@ const HajjPrograms = () => {
             <video controls src={vidio}></video>
           </div>
         </div>
-        
+
         <div className="book-trip">
           <button><Link to={`/RegisterProgramHajj`}>احجز رحلتك الآن</Link></button>
         </div>
