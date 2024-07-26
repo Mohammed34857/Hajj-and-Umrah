@@ -11,6 +11,10 @@ import axios from 'axios';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { MdDelete } from "react-icons/md";
+
+import { CiEdit } from "react-icons/ci";
+import { FaPlus } from "react-icons/fa";
 
 const DashBoardEmployee = () => {
 
@@ -1371,8 +1375,8 @@ useEffect(() => {
                     <td>{muta.name_mother}</td>
                     <td>{muta.full_name}</td>
                     <td>
-                      <button className="edit" onClick={() => handleEditMutamir(muta)}>Edit</button>
-                      <button className="delete" onClick={() => handleDeleteMutamir(muta._id)}>Delete</button>
+                      <button className="edit" onClick={() => handleEditMutamir(muta)}>تعديل <CiEdit /></button>
+                      <button className="delete" onClick={() => handleDeleteMutamir(muta._id)}>حذف<MdDelete /></button>
                     </td>
                   </tr>
                 ))}
@@ -1439,7 +1443,7 @@ useEffect(() => {
                     <td><input type="text" name="name_father" placeholder="اسم الام" value={mutamirData.name_father} onChange={handleChangeMutamir} /></td>
                     <td><input type="text" name="full_name" placeholder="الاسم الكامل" value={mutamirData.full_name} onChange={handleChangeMutamir} /></td>
                     <td>
-                    <button type="submit">{isEditingMutamir ? "تحديث" : "إضافة"}</button>
+                    <button type="submit">{isEditingMutamir ? "تحديث" : "إضافة"}<FaPlus /></button>
                     </td>
                   </tr>
               </tbody>
@@ -1491,8 +1495,8 @@ useEffect(() => {
                     <td>{haj.name_mother}</td>
                     <td>{haj.full_name}</td>
                     <td>
-                      <button className="edit" onClick={() => handleEditHajj(haj)}>Edit</button>
-                      <button className="delete" onClick={() => handleDeleteHajj(haj._id)}>Delete</button>
+                      <button className="edit" onClick={() => handleEditHajj(haj)}>تعديل <CiEdit /></button>
+                      <button className="delete" onClick={() => handleDeleteHajj(haj._id)}>حذف <MdDelete /></button>
                     </td>
                   </tr>
                 ))}
@@ -1556,7 +1560,7 @@ useEffect(() => {
                     <td><input type="text" name="name_father" placeholder="اسم الام" value={hajjData.name_father} onChange={handleChangeHajj} /></td>
                     <td><input type="text" name="full_name" placeholder="الاسم الكامل" value={hajjData.full_name} onChange={handleChangeHajj} /></td>
                     <td>
-                    <button type="submit">{isEditingHajj ? "تحديث" : "إضافة"}</button>
+                    <button type="submit">{isEditingHajj ? "تحديث" : "إضافة"}<FaPlus /></button>
                     </td>
                   </tr>
                   {companionOption === 'single' && (
@@ -1675,10 +1679,10 @@ useEffect(() => {
              ) : (
              <p></p>
               )}
-              <button className="update" onClick={()=> handleEditUmrahProgram(program)}>تعديل</button>
-              <button className="delet" onClick={()=> handleDeleteUmrahProgram(program._id)}>حذف</button>
-              <button className="update" onClick={()=> handleBusAddUmrahProgram(program._id)}>اضافة باص </button>
-              <button className="delet" onClick={()=> handleBusDeleteUmrahProgram(program._id)}> حذف باص </button>
+              <button className="update" onClick={()=> handleEditUmrahProgram(program)}>تعديل<CiEdit /></button>
+              <button className="delet" onClick={()=> handleDeleteUmrahProgram(program._id)}>حذف<MdDelete /></button>
+              <button className="update" onClick={()=> handleBusAddUmrahProgram(program._id)}>اضافة باص <FaPlus /></button>
+              <button className="delet" onClick={()=> handleBusDeleteUmrahProgram(program._id)}> حذف باص <MdDelete /></button>
             </div>
             ))}
            </Slider>
@@ -1768,7 +1772,7 @@ useEffect(() => {
                 </tr>
                 </tbody>
               </table>
-              <button type="submit" className="add-btn"> {isEditingUmrahProgram ? "تحديث" : "إضافة"} </button>
+              <button type="submit" className="add-btn"> {isEditingUmrahProgram ? "تحديث" : "إضافة"}<FaPlus /> </button>
             </form>
           </div>
         </div>
@@ -1800,8 +1804,8 @@ useEffect(() => {
              ) : (
              <p></p>
               )}
-              <button className="update" onClick={()=> handleEditHajjProgram(program)}>تعديل</button>
-              <button className="delet" onClick={()=> handleDeleteHajjProgram(program._id)}>حذف</button>
+              <button className="update" onClick={()=> handleEditHajjProgram(program)}>تعديل<CiEdit /></button>
+              <button className="delet" onClick={()=> handleDeleteHajjProgram(program._id)}><MdDelete />حذف</button>
             </div>
             ))}
            </Slider>
@@ -1883,7 +1887,7 @@ useEffect(() => {
                 </tr>
                 </tbody>
               </table>
-              <button type="submit" className="add-btn"> {isEditingHajjProgram ? "تحديث" : "إضافة"} </button>
+              <button type="submit" className="add-btn"> {isEditingHajjProgram ? "تحديث" : "إضافة"}<FaPlus /> </button>
             </form>
           </div>
          </div>
@@ -1948,7 +1952,7 @@ useEffect(() => {
                   <td><input type="text"   name="location"  value={hotelData.location} onChange={handelChangeHotel} /></td>
                   <td><input type="text"   name="name"  value={hotelData.name} onChange={handelChangeHotel} /></td>
                   <td>
-                    <button className="add" type="submit">اضافة</button>
+                    <button className="add" type="submit">اضافة<FaPlus /></button>
                   </td>
                 </tr>
               </tbody>
@@ -2013,7 +2017,7 @@ useEffect(() => {
                   <td><input type="text"   name="Services"  value={transportData.Services} onChange={handelChangeTransport} /></td>
                   <td><input type="text"   name="name_company"  value={transportData.name_company} onChange={handelChangeTransport} /></td>
                   <td>
-                    <button className="add" type="submit">اضافة</button>
+                    <button className="add" type="submit">اضافة<FaPlus /></button>
                   </td>
                 </tr>
               </tbody>

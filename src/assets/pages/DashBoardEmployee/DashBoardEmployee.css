@@ -153,10 +153,14 @@ body{
   .dashborde tr th{
     border-radius: 5px;
   }
+  .dashborde td{
+    color: white;
+  }
    .dashborde tr td,.dashborde th {
     background: linear-gradient(to left, #7e6624, #816b22, #a7942d, #dac08a);
     border: 3px solid rgb(255, 255, 255);
     padding: 10px;
+    font-size: 20px;
   }
    .dashborde input{
     width: 80%;
@@ -167,6 +171,7 @@ body{
     border: none;
     padding: 5px;
     border: none;
+    margin: 5px;
   background-color: #332b13;
   border-radius: 5px;
   font-size: 20px;
@@ -249,6 +254,7 @@ body{
   border: none;
   font-size: 20px;
   margin: 5px;
+  margin-top: 10px;
 }
 .tableProgeam ul{
   color:#fff;
