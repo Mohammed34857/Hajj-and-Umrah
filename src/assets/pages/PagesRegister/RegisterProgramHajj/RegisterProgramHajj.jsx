@@ -21,9 +21,9 @@ const RegisterProgramHajj = () => {
       full_name: "",
       name_father: "",
       name_mother: "",
-      email: "@gmail.com",
+      email: "",
       phone_number: "",
-      birth: "1950-06-15",
+      birth: "",
       gender: "",
       Health_status: healthsStatus,
       companion1: companion1Id,
@@ -44,12 +44,13 @@ const RegisterProgramHajj = () => {
         full_name: "",
         name_father: "",
         name_mother: "",
-        email: "@gmail.com",
+        email: "",
         phone_number: "",
-        birth: "1950-06-15",
+        birth: "",
         gender: "",
         Health_status: "سليم",
         iscompanion: true,
+        silat_alqaraba:"",
         Nationality: "",
         passport_number: "",
         passport_photo: "",
@@ -64,12 +65,13 @@ const RegisterProgramHajj = () => {
        full_name: "",
        name_father: "",
        name_mother: "",
-       email: "@gmail.com",
+       email: "",
        phone_number: "",
-       birth: "1950-06-15",
+       birth: "",
        gender: "",
        Health_status: "سليم",
        iscompanion: true,
+       silat_alqaraba:"",
        Nationality: "",
        passport_number: "",
        passport_photo: "",
@@ -259,8 +261,7 @@ const RegisterProgramHajj = () => {
           type_room: formData.type_room,
           name_program: formData.name_program
         }; 
-        console.log(dataCompanion1);
-
+        
         const dataCompanion2 = {
           full_name: companion2.full_name,
           name_father: companion2.name_father,
@@ -279,7 +280,7 @@ const RegisterProgramHajj = () => {
           payment_method: companion2.payment_method,
           Verification: companion2.Verification,
           type_room: formData.type_room,
-        name_program: formData.name_program
+          name_program: formData.name_program
         };
 
         if (selectedHealthState === 'good') {

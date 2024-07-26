@@ -18,6 +18,7 @@ const DashBoardEmployee = () => {
   const [isEditingMutamir, setIsEditingMutamir] = useState(false);
   const [editingIdMutamir, setEditingIdMutamir] = useState(null);
   const [mutamir,setMutamir]=useState([]);
+  const [availableSeats,setAvailableSeats]=useState([]);
   const [mutamirData,setMutamirData]=useState({
       full_name: "",
       name_father: "",
@@ -34,15 +35,16 @@ const DashBoardEmployee = () => {
       type_room: "",
       seatNumber: 0,
       payment_method: "",
-      Verification: true,
-      name_program:""
+      Verification: false,
+      name_program:"",
+      id_ProgramUmrah: ""
   });
- 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://officealhajandalumrah.adaptable.app/al-mutamir');
+        const response = await axios.get('https://officealhajandalumrah.adaptable.app/al-mutamir/VerificationNotTrue');
         setMutamir(response.data);
+     
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -67,17 +69,65 @@ const DashBoardEmployee = () => {
     }
   };
 
-  const handleChangeMutamir = (e) => {
+  const handleChangeMutamir = async (e) => {
     const { name, value, files } = e.target;
-    setMutamirData((prevFormData) => ({
-      ...prevFormData,
-      [name]: files ? files[0] : value,
-    }));
-  };   
+    if (name === 'name_program') {
+      const selectedProgram = umrahProgram.find(program => program.name_program === value);
+      if (selectedProgram) {
+        const id_ProgramUmrah = selectedProgram._id;
+        let number_bus = 0;
+        try {
+          const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-bus/all-ProgramBus-with-ProgramUmrah');
+          const programBusData = response.data;
+          const programBus = programBusData.find((ProgramUmrah) => ProgramUmrah.id_ProgramUmrah.name_program === value);
+          if (programBus) {
+            number_bus = programBus.count_bus;
+          }
+          const AvailableSeats = await axios.get(`https://officealhajandalumrah.adaptable.app/program-bus/${id_ProgramUmrah}/${number_bus}/available-seats`);
+          setAvailableSeats(AvailableSeats.data)
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+        setMutamirData((prevFormData) => ({
+          ...prevFormData,
+          name_program: value,
+          id_ProgramUmrah: id_ProgramUmrah,
+          number_bus: number_bus
+        }));
+      } else {
+        setMutamirData((prevFormData) => ({
+          ...prevFormData,
+          name_program: value,
+          id_ProgramUmrah: "",
+          number_bus: 0
+        }));
+      }
+    } else if (name === 'seatNumber') {
+      const seatNumber = value;
+      const { id_ProgramUmrah, number_bus, full_name } = mutamirData;
+
+      try {
+        await axios.patch(`https://officealhajandalumrah.adaptable.app/program-bus/${id_ProgramUmrah}/reserve-seat/${number_bus}/${seatNumber}/${full_name}`);
+        setMutamirData((prevFormData) => ({
+          ...prevFormData,
+          seatNumber: seatNumber
+        }));
+        alert("تم حجز المقعد بنجاح");
+      } catch (error) {
+        console.error("Error reserving seat:", error);
+        alert("حدث خطأ أثناء حجز المقعد");
+      }
+    } else {
+      setMutamirData((prevFormData) => ({
+        ...prevFormData,
+        [name]: files ? files[0] : value,
+      }));
+    }
+  };  
 
   const handleSubmitMutamir = async (e) => {
     e.preventDefault();
-    if (isEditing) {
+    if (isEditingMutamir) {
       try {
         await axios.patch(`https://officealhajandalumrah.adaptable.app/al-mutamir/${editingIdMutamir}`, mutamirData , {
           headers: {
@@ -160,25 +210,71 @@ const DashBoardEmployee = () => {
 // data form Hajj
     const [isEditingHajj, setIsEditingHajj] = useState(false);
     const [editingIdHajj, setEditingIdHajj] = useState(null);
+    const [companionOption, setCompanionOption] = useState(null);
+    const [companion1Id, setCompanion1Id] = useState("");
+    const [companion2Id, setCompanion2Id] = useState("");
+    const handleCompanionOption = (CompanionOption) => {
+      setCompanionOption(CompanionOption);
+       };
     const [hajj,setHajj]=useState([]);
     const [hajjData,setHajjData]=useState({
         full_name: "",
         name_father: "",
         name_mother: "",
-        phone_number: 0,
+        phone_number: "",
         email: "",
         birth: "",
         gender: "",
+        companion1: companion1Id,
+        companion2: companion2Id,
+        iscompanion: false,
         Nationality: "",
         passport_number: "",
         passport_photo: "",
         alhaj_photo: "",
-        number_bus: 0,
         type_room: "",
-        seatNumber: 0,
         payment_method: "",
-        Verification: true,
+        Verification: false,
         name_program:""
+    });
+     const [companion1, setCompanion1] = useState({
+        full_name: "",
+        name_father: "",
+        name_mother: "",
+        email: "",
+        phone_number: "",
+        birth: "",
+        gender: "",
+        iscompanion: true,
+        silat_alqaraba:"",
+        Nationality: "",
+        passport_number: "",
+        passport_photo: "",
+        alhaj_photo: "",
+        payment_method: "",
+        Verification: false,
+        type_room: "",
+        name_program: ""
+       });
+    
+      const [companion2, setCompanion2] = useState({
+        full_name: "",
+        name_father: "",
+        name_mother: "",
+        email: "",
+        phone_number: "",
+        birth: "",
+        gender: "",
+        iscompanion: true,
+        silat_alqaraba:"",
+        Nationality: "",
+        passport_number: "",
+        passport_photo: "",
+        alhaj_photo: "",
+        payment_method: "",
+        Verification: false,
+        type_room: "",
+        name_program: ""
     });
    
     useEffect(() => {
@@ -209,6 +305,54 @@ const DashBoardEmployee = () => {
         }
       }
     };
+    const handleChangeImageCompanion1 = async (e) => {
+      const { name, files } = e.target;
+      if (files && files[0]) {
+        const formData = new FormData();
+        formData.append('file', files[0]);
+        try {
+          const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+  
+          const imagePath = response.data.secure_url || response.data.url || response.data; // تأكد من أن response.data يحتوي على المسار الصحيح
+    
+          setCompanion1((prevFormData) => ({
+            ...prevFormData,
+            [name]: imagePath,
+          }));
+
+          } catch (error) {
+          console.error('Error uploading image:', error);
+        }
+      }
+    };
+    const handleChangeImageCompanion2 = async (e) => {
+      const { name, files } = e.target;
+      if (files && files[0]) {
+        const formDataCompanion2 = new FormData();
+        formDataCompanion2.append('file', files[0]);
+        try {
+          const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formDataCompanion2, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+  
+          const imagePath = response.data.secure_url || response.data.url || response.data; // تأكد من أن response.data يحتوي على المسار الصحيح
+    
+          setCompanion2((prevFormData) => ({
+            ...prevFormData,
+            [name]: imagePath,
+          }));
+
+          } catch (error) {
+          console.error('Error uploading image:', error);
+        }
+      }
+    };
   
     const handleChangeHajj = (e) => {
       const { name, value, files } = e.target;
@@ -217,6 +361,22 @@ const DashBoardEmployee = () => {
         [name]: files ? files[0] : value,
       }));
     };
+
+    const handleCompanionChange = (e, setCompanion) => {
+      const { name, value, files } = e.target;
+      if (files) {
+        setCompanion((prevData) => ({
+          ...prevData,
+          [name]: files[0]
+        }));
+      } else {
+        setCompanion((prevData) => ({
+          ...prevData,
+          [name]: value
+        }));
+      }
+    };
+  
   
     const handleSubmitHajj = async (e) => {
       e.preventDefault();
@@ -231,25 +391,106 @@ const DashBoardEmployee = () => {
           console.error('Error updating data:', error);
         }
       } else {
+        let companion1Id = '';
+        let companion2Id = '';
+
+        const dataCompanion1 = {
+          full_name: companion1.full_name,
+          name_father: companion1.name_father,
+          name_mother: companion1.name_mother,
+          email: companion1.email,
+          phone_number: companion1.phone_number,
+          birth: companion1.birth,
+          gender: companion1.gender,
+          Health_status: companion1.Health_status,
+          silat_alqaraba: companion1.silat_alqaraba,
+          iscompanion: companion1.iscompanion,
+          Nationality: companion1.Nationality,
+          passport_number: companion1.passport_number,
+          passport_photo: companion1.passport_photo,
+          alhaj_photo: companion1.alhaj_photo,
+          payment_method: companion1.payment_method,
+          Verification: companion1.Verification,
+          type_room: hajjData.type_room,
+          name_program: hajjData.name_program
+        }; 
+       
+
+        const dataCompanion2 = {
+          full_name: companion2.full_name,
+          name_father: companion2.name_father,
+          name_mother: companion2.name_mother,
+          email: companion2.email,
+          phone_number: companion2.phone_number,
+          birth: companion2.birth,
+          gender: companion2.gender,
+          Health_status: companion2.Health_status,
+          silat_alqaraba: companion2.silat_alqaraba,
+          iscompanion: companion2.iscompanion,
+          Nationality: companion2.Nationality,
+          passport_number: companion2.passport_number,
+          passport_photo: companion2.passport_photo,
+          alhaj_photo: companion2.alhaj_photo,
+          payment_method: companion2.payment_method,
+          Verification: companion2.Verification,
+          type_room: hajjData.type_room,
+          name_program: hajjData.name_program
+        };
+        if (companionOption === 'single') {
+          try {
+              const responseCompanion1 = await axios.post('https://officealhajandalumrah.adaptable.app/al-hajj', dataCompanion1, {
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              });
+              companion1Id = responseCompanion1.data._id;
+              setCompanion1Id(companion1Id);
+              console.log(responseCompanion1.data._id);
+          } catch (error) {
+            console.error('Error submitting companion1 data:', error);
+          }
+        }
+       else if(companionOption === 'multiple'){ 
+        try {
+          const responseCompanion1 = await axios.post('https://officealhajandalumrah.adaptable.app/al-hajj', dataCompanion1, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+          companion1Id = responseCompanion1.data._id;
+          setCompanion1Id(companion1Id);
+          const responseCompanion2 = await axios.post('https://officealhajandalumrah.adaptable.app/al-hajj', dataCompanion2, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+          companion2Id = responseCompanion2.data._id;
+          setCompanion2Id(companion2Id);
+      } catch (error) {
+        console.error('Error submitting companion1 data:', error);
+      }
+       }
         const dataHajj = {
           full_name: hajjData.full_name,
           name_father: hajjData.name_father,
           name_mother: hajjData.name_mother,
-          phone_number: Number(hajjData.phone_number) ,
+          phone_number: hajjData.phone_number,
           email: hajjData.email,
           birth: hajjData.birth,
           gender: hajjData.gender,
+          companion1: companionOption === 'multiple' || companionOption === 'single' ? companion1Id : undefined,
+          companion2: companionOption === 'multiple' ? companion2Id : undefined,  
           Nationality: hajjData.Nationality,
           passport_number: hajjData.passport_number,
           passport_photo: hajjData.passport_photo,
           alhaj_photo: hajjData.alhaj_photo,
           type_room: hajjData.type_room,
-          number_bus: Number(hajjData.number_bus),
-          seatNumber: Number(hajjData.seatNumber),
           payment_method: hajjData.payment_method,
           Verification: hajjData.Verification,
           name_program: hajjData.name_program
       };
+      if (!dataHajj.companion1) delete dataHajj.companion1;
+      if (!dataHajj.companion2) delete dataHajj.companion2;
       console.log(dataHajj);
         try {
           const responseHajj = await axios.post('https://officealhajandalumrah.adaptable.app/al-hajj', dataHajj, {
@@ -266,7 +507,7 @@ const DashBoardEmployee = () => {
         full_name: "",
         name_father: "",
         name_mother: "",
-        phone_number: 1,
+        phone_number: "",
         email: "",
         birth: "",
         gender: "",
@@ -274,9 +515,7 @@ const DashBoardEmployee = () => {
         passport_number: "",
         passport_photo: "",
         alhaj_photo: "",
-        number_bus: 1,
         type_room: "",
-        seatNumber: 1,
         payment_method: "",
         Verification: false,
         name_program:""
@@ -329,8 +568,10 @@ const DashBoardEmployee = () => {
          price1: "",
          price2: "",
          price3: "",
-         price4: ""
+         price4: "",
+         id_busCompany:""
     });
+    console.log(umrahProgramData)
     const [allProgramUmrahHotel, setAllProgramUmrahHotel] = useState([]);
     const [hotelsForProgram, setHotelsForProgram] = useState({});
     const [selectedHotelsForProgramUmrah, setSelectedHotelsForProgramUmrah] = useState([]);
@@ -448,8 +689,10 @@ const DashBoardEmployee = () => {
         price1: umrahProgramData.price1,
         price2: umrahProgramData.price2,
         price3: umrahProgramData.price3,
-        price4:umrahProgramData.price4
+        price4:umrahProgramData.price4,
+        id_busCompany:umrahProgramData.id_busCompany
       }
+      console.log(DataUmrahProgram)
       if (isEditingUmrahProgram) {
         try {
           await axios.patch(`https://officealhajandalumrah.adaptable.app/program-umrah/${editingIdUmrahProgram}`, DataUmrahProgram , {
@@ -486,7 +729,7 @@ const DashBoardEmployee = () => {
                 'Content-Type': 'application/json',
               },
             });
-          
+            await axios.post(`https://officealhajandalumrah.adaptable.app/program-bus/${id_ProgramUmrah}`);
         }
         
         } catch (error) {
@@ -497,14 +740,15 @@ const DashBoardEmployee = () => {
         name_program: "",
         Date_Travel: "",
         Date_Travel_Hijri: "",
-        total_stay: null,
-        stay_in_macca: null,
-        stay_in_madina:null,
+        total_stay: 0,
+        stay_in_macca: 0,
+        stay_in_madina:0,
         image: "",
         price1: "",
         price2: "",
         price3: "",
-        price4:""
+        price4:"",
+        id_busCompany:""
       });
       setIsEditingUmrahProgram(false);
       setEditingIdUmrahProgram(null);
@@ -1116,8 +1360,8 @@ useEffect(() => {
                 <tr>
                   <th>رقم التأكيد</th>
                   <th>نمط الدفع</th>
-                  <th>رقم المقعد</th>
                   <th>نمط الغرفة</th>
+                  <th>رقم المقعد</th>
                   <th>رقم الباص</th>
                   <th>اسم البرنامج</th>
                   <th>صورة شخصية</th>
@@ -1138,10 +1382,25 @@ useEffect(() => {
                   <tr >
                     <td><input type="text" name="Verification" placeholder="رقم التأكيد" value={mutamirData.Verification} onChange={handleChangeMutamir} /></td>
                     <td><input type="text" name="payment_method" placeholder="نمط الدفع" value={mutamirData.payment_method} onChange={handleChangeMutamir} /></td>
-                    <td><input type="number" name="seatNumber" placeholder="رقم المقعد" value={mutamirData.seatNumber} onChange={handleChangeMutamir} /></td>
                     <td><input type="text" name="type_room" placeholder="نمط الغرفة" value={mutamirData.type_room} onChange={handleChangeMutamir} /></td>
+                    <td>
+                      <select name="seatNumber" onChange={handleChangeMutamir}>
+                         {availableSeats.map((seat, index) => (
+                          <option key={index} value={seat}>
+                            {seat}
+                          </option>
+                          ))}
+                       </select>
+                    </td>
                     <td><input type="number" name="number_bus" placeholder="رقم الباص" value={mutamirData.number_bus} onChange={handleChangeMutamir} /></td>
-                    <td><input type="text" name="name_program" placeholder="اسم البرنامج" value={mutamirData.name_program} onChange={handleChangeMutamir} /></td>
+                    <td><select name="name_program" onChange={handleChangeMutamir}>
+                        {umrahProgram.map((name, index) => (
+                          <option key={index} value={name.name_program}>
+                            {name.name_program}
+                         </option>
+                        ))}
+                      </select>
+                    </td>
                     <td><input type="file" name="almutamir_photo" onChange={handleChangeImageMutamir} /></td>
                     <td><input type="file" name="passport_photo" onChange={handleChangeImageMutamir} /></td>
                     <td><input type="text" name="passport_number" placeholder="رقم الجواز" value={mutamirData.passport_number} onChange={handleChangeMutamir} /></td>
@@ -1172,8 +1431,6 @@ useEffect(() => {
                   <th>رقم التأكيد</th>
                   <th>نمط الدفع</th>
                   <th>نمط الغرفة</th>
-                  <th>رقم المقعد</th>
-                  <th>رقم الباص</th>
                   <th>اسم البرنامج</th>
                   <th>صورة شخصية</th>
                   <th>صورة جواز السفر</th>
@@ -1195,8 +1452,6 @@ useEffect(() => {
                     <td>{haj.Verification}</td>
                     <td>{haj.payment_method}</td>
                     <td>{haj.type_room}</td>
-                    <td>{haj.seatNumber}</td>
-                    <td>{haj.number_bus}</td>
                     <td>{haj.name_program}</td>
                     <td><img src={haj.alhaj_photo} alt="Personal" width="50" height="50" /></td>
                     <td><img src={haj.passport_photo} alt="Passport" width="50" height="50" /></td>
@@ -1217,7 +1472,16 @@ useEffect(() => {
                 ))}
               </tbody>
             </table>
-
+                <div >
+                 <label className="radio-container" onClick={()=>handleCompanionOption("single")}><input type="radio"  />
+                    <span className="checkmark"></span>
+                     اضافة مرافق 
+                    </label>
+                     <label className="radio-container" onClick={()=>handleCompanionOption("multiple")}><input type="radio"  />
+                    <span className="checkmark"></span>
+                      اضافة مرافقين 
+                    </label>
+                </div>
             <h3>{isEditingHajj ? "تعديل الحاج" : "إضافة الحاج جديد"}</h3>
             <form onSubmit={handleSubmitHajj}>
             <table className="table">
@@ -1225,9 +1489,7 @@ useEffect(() => {
                 <tr>
                   <th>رقم التأكيد</th>
                   <th>نمط الدفع</th>
-                  <th>رقم المقعد</th>
                   <th>نمط الغرفة</th>
-                  <th>رقم الباص</th>
                   <th>اسم البرنامج</th>
                   <th>صورة شخصية</th>
                   <th>صورة جواز السفر</th>
@@ -1247,10 +1509,15 @@ useEffect(() => {
                   <tr>
                     <td><input type="text" name="Verification" placeholder="رقم التأكيد" value={hajjData.Verification} onChange={handleChangeHajj} /></td>
                     <td><input type="text" name="payment_method" placeholder="نمط الدفع" value={hajjData.payment_method} onChange={handleChangeHajj} /></td>
-                    <td><input type="number" name="seatNumber" placeholder="رقم المقعد" value={hajjData.seatNumber} onChange={handleChangeHajj} /></td>
                     <td><input type="text" name="type_room" placeholder="نمط الغرفة" value={hajjData.type_room} onChange={handleChangeHajj} /></td>
-                    <td><input type="number" name="number_bus" placeholder="رقم الباص" value={hajjData.number_bus} onChange={handleChangeHajj} /></td>
-                    <td><input type="text" name="name_program" placeholder="اسم البرنامج" value={hajjData.name_program} onChange={handleChangeHajj} /></td>
+                    <td><select name="name_program" onChange={handleChangeHajj}>
+                        {hajjProgram.map((name, index) => (
+                          <option key={index} value={name.name_program}>
+                            {name.name_program}
+                         </option>
+                        ))}
+                      </select>
+                    </td>
                     <td><input type="file" name="alhaj_photo" onChange={handleChangeImageHajj} /></td>
                     <td><input type="file" name="passport_photo" onChange={handleChangeImageHajj} /></td>
                     <td><input type="text" name="passport_number" placeholder="رقم الجواز" value={hajjData.passport_number} onChange={handleChangeHajj} /></td>
@@ -1258,7 +1525,7 @@ useEffect(() => {
                     <td><input type="text" name="gender" placeholder="الجنس" value={hajjData.gender} onChange={handleChangeHajj} /></td>
                     <td><input type="date" name="birth" placeholder="تاريخ الميلاد" value={hajjData.birth} onChange={handleChangeHajj} /></td>
                     <td><input type="email" name="email" placeholder="البريد الإلكتروني" value={hajjData.email} onChange={handleChangeHajj} /></td>
-                    <td><input type="number" name="phone_number" placeholder="رقم الهاتف" value={hajjData.phone_number} onChange={handleChangeHajj} /></td>
+                    <td><input type="text" name="phone_number" placeholder="رقم الهاتف" value={hajjData.phone_number} onChange={handleChangeHajj} /></td>
                     <td><input type="text" name="name_mother" placeholder="اسم الأب" value={hajjData.name_mother} onChange={handleChangeHajj} /></td>
                     <td><input type="text" name="name_father" placeholder="اسم الام" value={hajjData.name_father} onChange={handleChangeHajj} /></td>
                     <td><input type="text" name="full_name" placeholder="الاسم الكامل" value={hajjData.full_name} onChange={handleChangeHajj} /></td>
@@ -1266,6 +1533,88 @@ useEffect(() => {
                     <button type="submit">{isEditingHajj ? "تحديث" : "إضافة"}</button>
                     </td>
                   </tr>
+                  {companionOption === 'single' && (
+                  <tr>
+                  <td><input type="text" name="Verification" placeholder="رقم التأكيد" value={companion1.Verification} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td><input type="text" name="payment_method" placeholder="نمط الدفع" value={companion1.payment_method} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td><input type="text" name="silat_alqaraba" placeholder="صلة القرابة" value={companion1.silat_alqaraba} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td><select name="name_program" onChange={(e) => handleCompanionChange(e, setCompanion1)} >
+                        {hajjProgram.map((name, index) => (
+                          <option key={index} value={name.name_program}>
+                            {name.name_program}
+                         </option>
+                        ))}
+                      </select>
+                    </td>
+                    <td><input type="file" name="alhaj_photo" onChange={handleChangeImageCompanion1} /></td>
+                    <td><input type="file" name="passport_photo" onChange={handleChangeImageCompanion1} /></td>
+                    <td><input type="text" name="passport_number" placeholder="رقم الجواز" value={companion1.passport_number} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td><input type="text" name="Nationality" placeholder="الجنسية" value={companion1.Nationality} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td><input type="text" name="gender" placeholder="الجنس" value={companion1.gender} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td><input type="date" name="birth" placeholder="تاريخ الميلاد" value={companion1.birth} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td><input type="email" name="email" placeholder="البريد الإلكتروني" value={companion1.email} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td><input type="text" name="phone_number" placeholder="رقم الهاتف" value={companion1.phone_number} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td><input type="text" name="name_mother" placeholder="اسم الأب" value={companion1.name_mother} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td><input type="text" name="name_father" placeholder="اسم الام" value={companion1.name_father} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td><input type="text" name="full_name" placeholder="الاسم الكامل" value={companion1.full_name} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td>بيانات المرافق الاول</td> 
+                   </tr>
+                   )}
+                  {companionOption === 'multiple' && (
+                  <>
+                  <tr>
+                  <td><input type="text" name="Verification" placeholder="رقم التأكيد" value={companion1.Verification} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td><input type="text" name="payment_method" placeholder="نمط الدفع" value={companion1.payment_method} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td><input type="text" name="silat_alqaraba" placeholder="صلة القرابة" value={companion1.silat_alqaraba} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td><select name="name_program" onChange={(e) => handleCompanionChange(e, setCompanion1)} >
+                        {hajjProgram.map((name, index) => (
+                          <option key={index} value={name.name_program}>
+                            {name.name_program}
+                         </option>
+                        ))}
+                      </select>
+                    </td>
+                    <td><input type="file" name="alhaj_photo" onChange={handleChangeImageCompanion1} /></td>
+                    <td><input type="file" name="passport_photo" onChange={handleChangeImageCompanion1} /></td>
+                    <td><input type="text" name="passport_number" placeholder="رقم الجواز" value={companion1.passport_number} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td><input type="text" name="Nationality" placeholder="الجنسية" value={companion1.Nationality} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td><input type="text" name="gender" placeholder="الجنس" value={companion1.gender} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td><input type="date" name="birth" placeholder="تاريخ الميلاد" value={companion1.birth} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td><input type="email" name="email" placeholder="البريد الإلكتروني" value={companion1.email} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td><input type="text" name="phone_number" placeholder="رقم الهاتف" value={companion1.phone_number} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td><input type="text" name="name_mother" placeholder="اسم الأب" value={companion1.name_mother} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td><input type="text" name="name_father" placeholder="اسم الام" value={companion1.name_father} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td><input type="text" name="full_name" placeholder="الاسم الكامل" value={companion1.full_name} onChange={(e) => handleCompanionChange(e, setCompanion1)}  /></td>
+                    <td>بيانات المرافق الاول</td> 
+                   </tr>
+                   <tr>
+                   <td><input type="text" name="Verification" placeholder="رقم التأكيد" value={companion2.Verification} onChange={(e) => handleCompanionChange(e, setCompanion2)} /></td>
+                     <td><input type="text" name="payment_method" placeholder="نمط الدفع" value={companion2.payment_method} onChange={(e) => handleCompanionChange(e, setCompanion2)} /></td>
+                     <td><input type="text" name="silat_alqaraba" placeholder="صلة القرابة" value={companion2.silat_alqaraba} onChange={(e) => handleCompanionChange(e, setCompanion2)} /></td>
+                     <td><select name="name_program" onChange={(e) => handleCompanionChange(e, setCompanion2)}>
+                         {hajjProgram.map((name, index) => (
+                           <option key={index} value={name.name_program}>
+                             {name.name_program}
+                          </option>
+                         ))}
+                       </select>
+                     </td>
+                     <td><input type="file" name="alhaj_photo" onChange={handleChangeImageCompanion2} /></td>
+                     <td><input type="file" name="passport_photo" onChange={handleChangeImageCompanion2} /></td>
+                     <td><input type="text" name="passport_number" placeholder="رقم الجواز" value={companion2.passport_number} onChange={(e) => handleCompanionChange(e, setCompanion2)} /></td>
+                     <td><input type="text" name="Nationality" placeholder="الجنسية" value={companion2.Nationality} onChange={(e) => handleCompanionChange(e, setCompanion2)} /></td>
+                     <td><input type="text" name="gender" placeholder="الجنس" value={companion2.gender} onChange={(e) => handleCompanionChange(e, setCompanion2)} /></td>
+                     <td><input type="date" name="birth" placeholder="تاريخ الميلاد" value={companion2.birth} onChange={(e) => handleCompanionChange(e, setCompanion2)} /></td>
+                     <td><input type="email" name="email" placeholder="البريد الإلكتروني" value={companion2.email} onChange={(e) => handleCompanionChange(e, setCompanion2)} /></td>
+                     <td><input type="text" name="phone_number" placeholder="رقم الهاتف" value={companion2.phone_number} onChange={(e) => handleCompanionChange(e, setCompanion2)} /></td>
+                     <td><input type="text" name="name_mother" placeholder="اسم الأب" value={companion2.name_mother} onChange={(e) => handleCompanionChange(e, setCompanion2)} /></td>
+                     <td><input type="text" name="name_father" placeholder="اسم الام" value={companion2.name_father} onChange={(e) => handleCompanionChange(e, setCompanion2)} /></td>
+                     <td><input type="text" name="full_name" placeholder="الاسم الكامل" value={companion2.full_name} onChange={(e) => handleCompanionChange(e, setCompanion2)} /></td>
+                     <td>بيانات المرافق الثاني</td> 
+                    </tr>
+                    </>
+                   
+                   )}
               </tbody>
             </table>            
             </form>
@@ -1329,14 +1678,13 @@ useEffect(() => {
                     <input type="file" name="image" onChange={handleChangeImageUmrahProgram} />
                   </td>
                   <td><label>شركة النقل</label></td> 
-                  <td><select>
+                  <td><select name="id_busCompany" onChange={handleChangeUmrahProgram}>
                         <option value="" hidden> شركات النقل</option>
-                        <option>السراج</option>
-                     </select></td>  
-                </tr>
-                <tr>
-                  <td><label >عدد الباصات</label></td>
-                  <td><input type="number" /></td>  
+                        {transports.map((transport, transportIndex) => (
+                        <option key={transportIndex}  value={transport._id}  >{transport.name_company}</option>
+                         ))}
+                     </select>
+                     </td>  
                 </tr>
                 <tr>
                   <td><label  >السنة الهجرية</label></td>
@@ -1451,16 +1799,7 @@ useEffect(() => {
                         </div>
                     )}
                     <input type="file" name="image" onChange={handleChangeImageHajjProgram} />
-                  </td>
-                  <td><label>شركة النقل</label></td> 
-                  <td><select>
-                        <option value="" hidden> شركات النقل</option>
-                        <option>السراج</option>
-                     </select></td>   
-                </tr>
-                <tr>
-                  <td><label >عدد الباصات</label></td>
-                  <td><input type="number" /></td>    
+                  </td> 
                 </tr>
                 <tr>
                   <td><label  >السنة الهجرية</label></td>
