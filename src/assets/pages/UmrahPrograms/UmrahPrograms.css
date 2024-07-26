@@ -13,7 +13,8 @@
 
 .titel-program {
     text-align: center;
-    color: #E09814;
+    text-shadow: #FC0 1px 0 10px;
+color: white;
     text-transform: capitalize;
     margin: 20px 0;
     font-size: 46px;
@@ -21,7 +22,7 @@
 }
 .details-trip2 h3 {
     border-radius: 10px;
-    background-color: #EBCD94;
+    background-color:  rgba(255, 198, 113, 0.726) ;
     text-align: center;
     margin: 5px;
     padding: 6px 0;

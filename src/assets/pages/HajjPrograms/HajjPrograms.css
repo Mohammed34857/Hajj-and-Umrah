@@ -129,7 +129,8 @@
    
   width: 200px;
   height: 150px;
-  background:linear-gradient(to right,rgba(248, 198, 89, 0.918),rgba(117, 86, 27, 0.925));
+  background:linear-gradient(to right, rgba(255, 198, 113, 0.726),rgba(117, 86, 29, 0.808));
+
   border-radius: 20px;
   text-align: right;
   padding: 20px;
@@ -186,8 +187,8 @@ margin-left: 10%;
    border-radius: 50%;
    width: 400px;
    height:150x;
-   background:linear-gradient(to top ,rgba(248, 198, 89, 0.904),rgb(117, 86, 27));
-color: white;
+   background:linear-gradient(to top, rgba(255, 198, 113, 0.726),rgba(117, 86, 29, 0.808));
+   color: white;
 font-size: 20px;
    text-align: center;
    padding: 20px;
@@ -462,10 +463,12 @@ text-align: center;
     border-radius: 50%;
     height: 50px;
     font-size: x-large;
-    background-color: rgb(121, 105, 42);
+    background-color:rgba(143, 107, 53, 0.808);
     color: rgb(27, 25, 25);
 }
 .book-trip  button:hover{
  width: 55%;
  height: 60px;
+ background-color: rgba(226, 187, 128, 0.788);
+
 }
