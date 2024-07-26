@@ -163,11 +163,22 @@ body{
     color: black;
   }
   .dashborde  td button{
-    color: black;
+    color: rgb(253, 249, 249);
     border: none;
-    padding: 2px;
+    padding: 5px;
     border: none;
-    background-color: transparent;
+  background-color: #332b13;
+  border-radius: 5px;
+  font-size: 20px;
+  }
+  .dashborde  td button:hover{
+    color: rgb(19, 18, 18);
+    border: none;
+    padding: 5px;
+  
+  background-color: #f5f4f0;
+  border-radius: 5px;
+  font-size: 22px;
   }
   
 .btn-bus{
@@ -323,7 +334,7 @@ margin-right: 50px;
   text-align: center;
  margin-left: 40%;
  background-color: #705a13;
- color: #332b13;
+ color: #f8f7f3;
  width: 20%;
  font-size: 25px;
  border-radius: 50%;
