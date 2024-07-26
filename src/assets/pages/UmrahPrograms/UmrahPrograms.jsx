@@ -14,7 +14,7 @@ const UmrahPrograms = () => {
   const [bus, setBus] = useState([]);
   const [loading , setLoading] = useState(true);
   const [activeLink, setActiveLink] = useState('Hotels');
-  console.log(bus);
+
 
   useEffect(() => {
     const fetchData = async () => {

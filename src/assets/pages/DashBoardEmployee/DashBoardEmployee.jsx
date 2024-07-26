@@ -571,7 +571,6 @@ const DashBoardEmployee = () => {
          price4: "",
          id_busCompany:""
     });
-    console.log(umrahProgramData)
     const [allProgramUmrahHotel, setAllProgramUmrahHotel] = useState([]);
     const [hotelsForProgram, setHotelsForProgram] = useState({});
     const [selectedHotelsForProgramUmrah, setSelectedHotelsForProgramUmrah] = useState([]);
@@ -639,6 +638,33 @@ const DashBoardEmployee = () => {
         console.error('Error deleting data:', error);
       }
   };
+  
+  const handleBusAddUmrahProgram = async (id) => {
+    try {
+      const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-bus/findAll'); 
+      const allProgramBus = response.data;
+      const program = allProgramBus.find((program) => program.id_ProgramUmrah === id);
+      const currentBusCount = program.count_bus;
+      const updatedBusCount = currentBusCount + 1;
+      console.log(updatedBusCount);
+      await axios.post(`https://officealhajandalumrah.adaptable.app/program-bus/${id}/${updatedBusCount}`);
+    } catch (error) {
+      console.error('Error add bud to program:', error);
+    }
+};
+
+const handleBusDeleteUmrahProgram = async (id) => {
+  try {
+    const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-bus/findAll'); 
+    const allProgramBus = response.data;
+    const program = allProgramBus.find((program) => program.id_ProgramUmrah === id);
+    const currentBusCount = program.count_bus;
+    console.log(currentBusCount);
+    await axios.delete(`https://officealhajandalumrah.adaptable.app/program-bus/${id}/${currentBusCount}`);
+  } catch (error) {
+    console.error('Error delete bud to program:', error);
+  }
+};
 
    const handleChangeUmrahProgram = (e) => {
     const { name, value } = e.target;
@@ -729,7 +755,7 @@ const DashBoardEmployee = () => {
                 'Content-Type': 'application/json',
               },
             });
-            await axios.post(`https://officealhajandalumrah.adaptable.app/program-bus/${id_ProgramUmrah}`);
+            await axios.post(`https://officealhajandalumrah.adaptable.app/program-bus/${id_ProgramUmrah}/${0}`);
         }
         
         } catch (error) {
@@ -1651,6 +1677,8 @@ useEffect(() => {
               )}
               <button className="update" onClick={()=> handleEditUmrahProgram(program)}>تعديل</button>
               <button className="delet" onClick={()=> handleDeleteUmrahProgram(program._id)}>حذف</button>
+              <button className="update" onClick={()=> handleBusAddUmrahProgram(program._id)}>اضافة باص </button>
+              <button className="delet" onClick={()=> handleBusDeleteUmrahProgram(program._id)}> حذف باص </button>
             </div>
             ))}
            </Slider>
