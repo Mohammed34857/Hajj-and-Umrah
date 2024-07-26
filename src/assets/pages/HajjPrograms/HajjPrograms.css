@@ -7,12 +7,15 @@
 }
 
 .par{
-    background-color: rgb(71, 69, 65);
+    background-color: #2a2b29;
+
     box-shadow: 5px 10px 20px rgba(255, 198, 113, 0.726) inset;
      height:fit-content ;
     margin: auto;
     margin-bottom: 50px;
-    border-radius: 50px;
+      border-radius: 10px;
+      padding: 90px 30px;
+
 }
 .par1 {
   padding-top: 50px;
