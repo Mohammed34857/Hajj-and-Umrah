@@ -10,7 +10,6 @@ const RegisterProgramUmrah = () => {
 
     const { id } = useParams();
     const [reservationCode, setReservationCode] = useState([]);
-    consol.log(reservationCode);
     const [error, setError] = useState("");
     const [programUmrah, setProgramUmrah] = useState({});
     const [reservedSeats, setReservedSeats] = useState([]);
@@ -33,7 +32,7 @@ const RegisterProgramUmrah = () => {
       verification: false ,
       reservationCode:""
     });
-
+console.log(formData);
     useEffect(() => {
 
       const handleFileChange = (inputId, outputPathId) => {
@@ -60,15 +59,24 @@ const RegisterProgramUmrah = () => {
           try {
               const program_umrah = await axios.get(`https://officealhajandalumrah.adaptable.app/program-umrah/${id}`).then(response => response.data);
                 setProgramUmrah(program_umrah);
-              const response = await axios.get("https://officealhajandalumrah.adaptable.app/program-bus/findAll");
-              const filteredPrograms = response.data.find((program) => program.id_ProgramUmrah === id);
-              const reserved = filteredPrograms.seat.filter(seat => seat.isReserved).map(seat => seat.seatNumber);
-              setReservedSeats(reserved);
+              // const response = await axios.get("https://officealhajandalumrah.adaptable.app/program-bus/findAll");
+              // const filteredPrograms = response.data.find((program) => program.id_ProgramUmrah === id);
+              // const reserved = filteredPrograms.seat.filter(seat => seat.isReserved).map(seat => seat.seatNumber);
+              // setReservedSeats(reserved);
 
               const ReservationCode = await axios.get('https://officealhajandalumrah.adaptable.app/employee');
                setReservationCode(ReservationCode.data.map((Code)=>{
               return Code.Reservation_code;
                }));
+          let number_bus = 0;
+          const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-bus/all-ProgramBus-with-ProgramUmrah');
+          const programBusData = response.data;
+          const programBus = programBusData.find((ProgramUmrah) => ProgramUmrah.id_ProgramUmrah.name_program === value);
+          if (programBus) {
+            number_bus = programBus.count_bus;
+          }
+          const AvailableSeats = await axios.get(`https://officealhajandalumrah.adaptable.app/program-bus/${id}/${number_bus}/available-seats`);
+          setReservedSeats(AvailableSeats.data)
           } catch (error) {
               console.error('Error fetching program data:', error);
           }
@@ -128,7 +136,7 @@ const RegisterProgramUmrah = () => {
           almutamir_photo: formData.almutamirPhoto,
           type_room: formData.typeRoom,
           number_bus: formData.numberBus,
-          seatNumber: formData.seatNumber,
+          seatNumber: Number(formData.seatNumber) ,
           payment_method: formData.paymentMethod,
           Verification: formData.verification,
         };
@@ -238,7 +246,7 @@ const RegisterProgramUmrah = () => {
 
           <h3>: احجز مقعدك في الحافلة <MdAirlineSeatReclineExtra /></h3>
           <div className="booking">
-          <select className='seat'>
+          <select className='seat' name='seatNumber' onChange={handleChangeImage}>
                 {reservedSeats.map((seatNumber, index) => (
                     <option key={index} value={seatNumber}>
                         Seat Number: {seatNumber}
