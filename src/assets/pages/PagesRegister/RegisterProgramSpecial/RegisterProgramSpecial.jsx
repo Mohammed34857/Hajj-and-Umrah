@@ -383,7 +383,7 @@ const RegisterProgramSpecial = () => {
                          onChange={handleChangeDataMutamir}
                         />
                     <span className="checkmark"></span>
-                    سعر البرنامج للغرفة الاحادية $200 
+                    غرفة احادية  
                     </label>
                     <label className="radio-container">
                        <input
@@ -393,7 +393,7 @@ const RegisterProgramSpecial = () => {
                          onChange={handleChangeDataMutamir}
                         />
                     <span className="checkmark"></span>
-                    سعر البرنامج للغرفة الثنائية $150 
+                  غرفة ثنائية  
                     </label>
                     <label className="radio-container">
                         <input
@@ -403,8 +403,7 @@ const RegisterProgramSpecial = () => {
                          onChange={handleChangeDataMutamir}
                         />
                     <span className="checkmark"></span>
-                    سعر البرنامج للغرفة الثلاثية$ 100 
-                    </label>
+                    غرفة ثلاثية                     </label>
             </div>
           </div>
 
