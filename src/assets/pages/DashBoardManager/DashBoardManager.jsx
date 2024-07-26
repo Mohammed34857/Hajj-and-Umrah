@@ -1,21 +1,125 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import './DashBoardManager.css'
 import manger from "../../images/dashbord/img_avatar3.png";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { AiTwotoneCheckCircle } from "react-icons/ai";
+import { AiTwotoneCheckCircle , AiFillLike } from "react-icons/ai";
 import { FaUsers } from "react-icons/fa6";
-import { ImCogs } from "react-icons/im";
-import { ImFolderOpen } from "react-icons/im";
-import { ImLibrary } from "react-icons/im";
-import { ImBubbles4 } from "react-icons/im";
-import { ImAirplane } from "react-icons/im";
-import { ImUsers } from "react-icons/im";
+import { ImCogs ,ImFolderOpen , ImLibrary , ImBubbles4 , ImAirplane , ImUsers } from "react-icons/im";
 import { GrServices } from "react-icons/gr";
 import imghaj from "../../images/register3.jpg";
-import { FaPencil } from "react-icons/fa6";
-import { AiFillLike } from "react-icons/ai";
+import axios from 'axios';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const  DashBoardManager = ()=> {
+
+  // data form empmer
+  const [isEditingEmployee, setIsEditingEmployee] = useState(false);
+  const [editingIdEmployee, setEditingIdEmployee] = useState(null);
+  const [employee,setEmployee]=useState([]);
+  const [employeeData,setEmployeeData]=useState({
+    firstname: "",
+    lastname: "",
+    birth: "",
+    specialty: "",
+    mobile: 0,
+    email: "",
+    Educational_attainment: "",
+    adress: "",
+    dateEmployee: "",
+    Reservation_code: "",
+    id_office: ""
+  });
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://officealhajandalumrah.adaptable.app/employee');
+        setEmployee(response.data);
+     
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleChangeEmployee = async (e) => {
+    const { name, value, files } = e.target;
+      setEmployeeData((prevFormData) => ({
+        ...prevFormData,
+        [name]: files ? files[0] : value,
+      }));
+  };  
+
+  const handleSubmitEmployee = async (e) => {
+    e.preventDefault();
+    if (isEditingEmployee) {
+      try {
+        await axios.patch(`https://officealhajandalumrah.adaptable.app/employee/${editingIdEmployee}`, employeeData , {
+          headers: {
+              'Content-Type': 'application/json',
+          },
+        });
+      } catch (error) {
+        console.error('Error updating data:', error);
+      }
+    } else {
+      const dataEmployee = {
+        firstname: employeeData.firstname,
+        lastname: employeeData.lastname,
+        birth: employeeData.birth,
+        specialty: employeeData.specialty,
+        mobile: Number(employeeData.mobile) ,
+        email: employeeData.email,
+        Educational_attainment: employeeData.Educational_attainment,
+        adress: employeeData.adress,
+        dateEmployee: employeeData.dateEmployee,
+        Reservation_code: employeeData.Reservation_code,
+    };
+    console.log(dataEmployee);
+      try {
+        const responseEmployee = await axios.post('https://officealhajandalumrah.adaptable.app/employee', dataEmployee, {
+          headers: {
+              'Content-Type': 'application/json',
+          },
+        });
+      
+      } catch (error) {
+        console.error('Error adding data:', error);
+      }
+    }
+    setEmployeeData({
+      firstname: "",
+      lastname: "",
+      birth: "",
+      specialty: "",
+      mobile: 0,
+      email: "",
+      Educational_attainment: "",
+      adress: "",
+      dateEmployee: "",
+      Reservation_code: "",
+      id_office: ""
+    });
+    setIsEditingEmployee(false);
+    setEditingIdEmployee(null);
+  };
+
+  const handleEditEmployee = (emp) => {
+    setEmployeeData(emp);
+    setIsEditingEmployee(true);
+    setEditingIdEmployee(emp._id);
+  };
+
+  const handleDeleteEmployee = async (id) => {
+    try {
+      await axios.delete(`https://officealhajandalumrah.adaptable.app/employee/${id}`);
+    } catch (error) {
+      console.error('Error deleting data:', error);
+    }
+  }
+
   return (
     <div className='Dash-board-manager'>
           <div class="min  ">
@@ -123,7 +227,7 @@ const  DashBoardManager = ()=> {
           </div>
         </div>
 
-        <div class="contain-employee">
+        {/* <div class="contain-employee">
           <h2>:الموظفين  <i><ImUsers /></i></h2>
           <div class="table-employee">
             <table class="table">
@@ -216,8 +320,87 @@ const  DashBoardManager = ()=> {
             </table>
         
           </div>
-        </div>
+        </div> */}
+        <div className="contain-employee">
+        <h2>:الموظفين  <i><ImUsers /></i></h2>
+          <div className="table-employee">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>الكود الخاص</th>
+                  <th>العنوان</th>
+                  <th> تارخ التعيين </th>
+                  <th>التحصيل العلمي</th>
+                  <th>البريد الالكتروني</th>
+                  <th>رقم الهاتف</th>
+                  <th>الحالة الاجتماعية</th>
+                  <th>التولد</th>
+                  <th>الكنية</th>
+                  <th>الاسم</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {employee.map((emp, index) => (
+                  <tr key={index}>
+                    <td>{emp.Reservation_code}</td>
+                    <td>{emp.adress}</td>
+                    <td>{emp.dateEmployee}</td>
+                    <td>{emp.Educational_attainment}</td>
+                    <td>{emp.email}</td>
+                    <td>{emp.mobile}</td>
+                    <td>{emp.specialty}</td>
+                    <td>{emp.birth}</td>
+                    <td>{emp.lastname}</td>
+                    <td>{emp.firstname}</td>
+                    <td>
+                      <button className="edit" onClick={() => handleEditEmployee(emp)}>Edit</button>
+                      <button className="delet" onClick={() => handleDeleteEmployee(emp._id)}>Delete</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
 
+            <h3>{isEditingEmployee ? "تعديل معتمر" : "إضافة معتمر جديد"}</h3>
+            <form onSubmit={handleSubmitEmployee}>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>الكود الخاص</th>
+                  <th>العنوان</th>
+                  <th> تارخ التعيين </th>
+                  <th>التحصيل العلمي</th>
+                  <th>البريد الالكتروني</th>
+                  <th>رقم الهاتف</th>
+                  <th>الحالة الاجتماعية</th>
+                  <th>التولد</th>
+                  <th>الكنية</th>
+                  <th>الاسم</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr >
+                    <td><input type="text" name="Reservation_code" placeholder="الكود الخاص" value={employeeData.Reservation_code} onChange={handleChangeEmployee} /></td>
+                    <td><input type="text" name="adress" placeholder=" العنوان" value={employeeData.adress} onChange={handleChangeEmployee} /></td>
+                    <td><input type="date" name="dateEmployee" placeholder="تارخ التعيين  " value={employeeData.dateEmployee} onChange={handleChangeEmployee} /></td>
+                    <td><input type="text" name="Educational_attainment" placeholder="التحصيل العلمي" value={employeeData.Educational_attainment} onChange={handleChangeEmployee} /></td>
+                    <td><input type="email" name="email" placeholder="البريد الإلكتروني" value={employeeData.email} onChange={handleChangeEmployee} /></td>
+                    <td><input type="number" name="mobile" placeholder="رقم الهاتف"value={employeeData.mobile} onChange={handleChangeEmployee} /></td>
+                    <td><input type="text" name="specialty" placeholder="الحالة الاجتماعية " value={employeeData.specialty} onChange={handleChangeEmployee} /></td>
+                    <td><input type="date" name="birth" placeholder=" التولد" value={employeeData.birth} onChange={handleChangeEmployee} /></td>
+                    <td><input type="text" name="lastname" placeholder="الكنية " value={employeeData.lastname} onChange={handleChangeEmployee} /></td>
+                    <td><input type="text" name="firstname" placeholder="الاسم " value={employeeData.firstname} onChange={handleChangeEmployee} /></td>
+                    <td>
+                    <button className="add" type="submit">{isEditingEmployee ? "تحديث" : "إضافة"}</button>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>            
+            </form>
+          </div>
+        </div>
 
         <div class="maneger-hajj">
           <h2>:تحديد شروط الحج  <i><GrServices /></i></h2>
