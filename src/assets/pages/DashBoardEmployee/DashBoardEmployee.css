@@ -235,7 +235,7 @@ body{
 }
 
 .prog-umrah .update ,.prog-hajj .update{
-  background-color: rgba(82, 71, 71, 0.904);
+  background-color: rgba(68, 110, 1, 0.363);
   text-align: center;
   margin-left: 100px;
   margin-right: 80px;
@@ -244,7 +244,14 @@ body{
   font-size: 20px;
   color: white;
   margin-bottom: 5px;
+  border-radius: 5px;
   
+}
+.prog-umrah .update:hover ,.prog-hajj .update:hover{
+background-color: white;
+color: green;
+font-size: 22px;
+
 }
 .prog-umrah .delet ,.prog-hajj .delet{
   background-color: rgba(212, 11, 11, 0.904);
@@ -255,6 +262,12 @@ body{
   font-size: 20px;
   margin: 5px;
   margin-top: 10px;
+  border-radius: 5px;
+}
+.prog-umrah .delet:hover ,.prog-hajj .delet:hover{
+background-color: white;
+color: red;
+font-size: 22px;
 }
 .tableProgeam ul{
   color:#fff;
