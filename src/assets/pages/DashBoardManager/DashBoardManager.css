@@ -26,6 +26,34 @@
     width: 80%;
     font-size: 20px;
 }
+.contain-umrah , .contain-hajj , .hotal-updat {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 50px;
+  margin-left: 18%;
+ }
+.table-employee  {
+    max-width: 98%;
+    overflow-x: auto; 
+  }
+.table-employee::-webkit-scrollbar
+ {
+  height: 12px;
+}
+
+.table-employee::-webkit-scrollbar-thumb
+{
+  background-color: #8f8d8b;
+  border-radius: 10px;
+  border: 3px solid #f1f1f1;
+}
+
+ .contain-employee .table-umrah , .show-travel .table{
+  overflow-x: scroll;
+ }
 /* .Dash-board-manager .contain-employee h2 {
     color: #fffefb;
     text-align: center;
@@ -48,8 +76,9 @@
 .contain-employee input{
     width: 90px;
     font-size: 14px;
+    width: 107px;
 }
-.contain-employee .edit{
+.contain-employee .edit , .editminimumAge{
     border: none;
     background-color: rgb(212, 200, 144);
     border-radius: 5px;
@@ -124,6 +153,7 @@ margin-right: 50px;
 .edit-hajj input{
     width: 80%;
     margin-top: 20px;
+    margin-bottom: 20px;
     margin-right: 10px;
     height: 50px;
     border: none;
@@ -138,6 +168,9 @@ margin-right: 50px;
 }
 .show-travel ,.show-transport ,.show-hotal ,.seting-manager{
     margin-top: 50px;
+}
+.show-travel {
+   direction: ltr;
 }
 .show-travel table { 
     

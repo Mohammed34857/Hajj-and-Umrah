@@ -14,7 +14,7 @@ import 'slick-carousel/slick/slick-theme.css';
 
 const  DashBoardManager = ()=> {
 
-  // data form empmer
+  // employee
   const [isEditingEmployee, setIsEditingEmployee] = useState(false);
   const [editingIdEmployee, setEditingIdEmployee] = useState(null);
   const [employee,setEmployee]=useState([]);
@@ -119,10 +119,251 @@ const  DashBoardManager = ()=> {
       console.error('Error deleting data:', error);
     }
   }
+// minimumAge
+const [idMinimumAge, setIdMinimumAge] = useState(null);
+const [minimumAge, setMinimumAge] = useState({
+  minimumAge:""
+});
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('https://officealhajandalumrah.adaptable.app/minimumAge');
+      setIdMinimumAge(response.data[0]._id);
+   
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  fetchData();
+}, []);
+const handleChangeMinimumAge = async (e) => {
+  const { name, value, files } = e.target;
+  setMinimumAge((prevFormData) => ({
+      ...prevFormData,
+      [name]: files ? files[0] : value,
+    }));
+};  
+const handleEditminimumAge = async () => {
+  try {
+    await axios.patch(`https://officealhajandalumrah.adaptable.app/minimumAge/${idMinimumAge}`, minimumAge , {
+      headers: {
+          'Content-Type': 'application/json',
+      },
+    });
+    
+  } catch (error) {
+    console.error('Error updating data:', error);
+  }
+}
+// UmrahProgram
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 2,
+  slidesToScroll: 1,
+  autoplay: false,
+  autoplaySpeed: 2000,
+  pauseOnHover: true,
+  centerMode: true,
+  centerPadding: '0px',
+  adaptiveHeight: true
+};
+
+const [umrahProgram,setUmrahProgram]= useState([]);
+const [allProgramUmrahHotel, setAllProgramUmrahHotel] = useState([]);
+const [hotelsForProgram, setHotelsForProgram] = useState({});
+
+useEffect(() => {
+const fetchData = async () => {
+try {
+  const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-umrah');
+  setUmrahProgram(response.data);
+  const allProgramUmrahHotelResponse = await axios.get('https://officealhajandalumrah.adaptable.app/prog-umrah-hotel');
+  setAllProgramUmrahHotel(allProgramUmrahHotelResponse.data);
+} catch (error) {
+  console.error('Error fetching data:', error);
+}
+};
+fetchData();
+}, []);
+
+useEffect(() => {
+const fetchHotels = async () => {
+try {
+  const programHotelRooms = {};
+
+  allProgramUmrahHotel.forEach((hotelRoom) => {
+    const { id_ProgramUmrah, id_HotelRoom } = hotelRoom;
+    if (!programHotelRooms[id_ProgramUmrah]) {
+      programHotelRooms[id_ProgramUmrah] = [];
+    }
+    programHotelRooms[id_ProgramUmrah].push(id_HotelRoom);
+  });
+
+  const hotelData = {};
+  for (const programId in programHotelRooms) {
+    const hotelRooms = await Promise.all(
+      programHotelRooms[programId].map((hotelRoomId) =>
+        axios.get(`https://officealhajandalumrah.adaptable.app/hotel-room/${hotelRoomId}`)
+          .then(response => response.data)
+      )
+    );
+
+    const hotels = await Promise.all(
+      hotelRooms.map(hotelRoom =>
+        axios.get(`https://officealhajandalumrah.adaptable.app/Hotel/${hotelRoom.id_hotel}`)
+          .then(response => response.data)
+      )
+    );
+
+    hotelData[programId] = hotels;
+  }
+
+  setHotelsForProgram(hotelData);
+} catch (error) {
+  console.error('Error fetching hotels for program:', error);
+}
+};
+
+fetchHotels();
+}, [allProgramUmrahHotel]);
+
+
+
+// data form mutamer
+const [mutamir,setMutamir]=useState([]);
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('https://officealhajandalumrah.adaptable.app/al-mutamir');
+      setMutamir(response.data);
+   
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  fetchData();
+}, []);
+
+    // Hajj Porgram
+
+    const [hajjProgram,setHajjProgram]= useState([]);
+    const [allProgramHajjHotel, setAllProgramHajjHotel] = useState([]);
+    const [hotelsForProgramHajj, setHotelsForProgramHajj] = useState({});
+    
+    useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-al-haj');
+        setHajjProgram(response.data);
+        const allProgramHajjHotelResponse = await axios.get('https://officealhajandalumrah.adaptable.app/prog-al-haj-hotel');
+        setAllProgramHajjHotel(allProgramHajjHotelResponse.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+    }, []);
+    
+    useEffect(() => {
+      const fetchHotels = async () => {
+        try {
+          const programHotelRooms = {};
+          allProgramHajjHotel.forEach((hotelRoom) => {
+           
+            const { id_ProgramAlHaj, id_HotelRoom } = hotelRoom;
+            if (!programHotelRooms[id_ProgramAlHaj]) {
+              programHotelRooms[id_ProgramAlHaj] = [];
+            }
+            programHotelRooms[id_ProgramAlHaj].push(id_HotelRoom);
+          });
+        
+          const hotelData = {};
+          for (const programId in programHotelRooms) {
+            const hotelRooms = await Promise.all(
+              programHotelRooms[programId].map((hotelRoomId) =>
+                axios.get(`https://officealhajandalumrah.adaptable.app/hotel-room/${hotelRoomId}`)
+                  .then(response => response.data)
+              )
+            );
+    
+            const hotels = await Promise.all(
+              hotelRooms.map(hotelRoom =>
+                axios.get(`https://officealhajandalumrah.adaptable.app/Hotel/${hotelRoom.id_hotel}`)
+                  .then(response => response.data)
+              )
+            );
+    
+            hotelData[programId] = hotels;
+          }
+    
+          setHotelsForProgramHajj(hotelData);
+        } catch (error) {
+          console.error('Error fetching hotels for program:', error);
+        }
+      };
+    
+      fetchHotels();
+    }, [allProgramHajjHotel]);
+    
+
+    // data form Hajj
+  
+    const [hajj,setHajj]=useState([]);   
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get('https://officealhajandalumrah.adaptable.app/al-hajj');
+          setHajj(response.data);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+      fetchData();
+    }, []);
+
+
+    
+// Hotel
+
+const [hotels,setHotels]=useState([]);
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('https://officealhajandalumrah.adaptable.app/Hotel');
+      setHotels(response.data);
+     } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  fetchData();
+  }, []);
+
+
+//  transport
+
+
+const [transports,setTransports]=useState([]);
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('https://officealhajandalumrah.adaptable.app/BusCompany');
+      setTransports(response.data);
+     } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  fetchData();
+  }, []);
+
+
 
   return (
     <div className='Dash-board-manager'>
-          <div class="min  ">
+          <div className="min">
           <nav>
             <ul>
               <li>
@@ -204,21 +445,21 @@ const  DashBoardManager = ()=> {
         </div>
 
         
-        <div class="detil">
-          <div class="alert " role="alert">
+        <div className="detil">
+          <div className="alert " role="alert">
             <h5>
               عدد برامج الحج خلال السنوات <br /> 2022-2024
             </h5>
             <p> 15 برنامج</p>
           </div>
-          <div class="alert " role="alert">
+          <div className="alert " role="alert">
             <h5>
               عدد برامج العمرة خلال السنوات <br />
               2022-2024
             </h5>
             <p> 15 برنامج</p>
           </div>
-          <div class="alert " role="alert">
+          <div className="alert " role="alert">
             <h5>
               عدد المسافرين من المكتب خلال السنوات
               <br /> 2022-2024
@@ -227,100 +468,6 @@ const  DashBoardManager = ()=> {
           </div>
         </div>
 
-        {/* <div class="contain-employee">
-          <h2>:الموظفين  <i><ImUsers /></i></h2>
-          <div class="table-employee">
-            <table class="table">
-              <thead>
-                <tr>
-               <th>الكود الخاص</th>
-                  <th>العنوان</th>
-                  <th>التحصيل العلمي</th>
-                  <th>البريد الالكتروني</th>
-                  <th>رقم الهاتف</th>
-                  <th>الحالة الاجتماعية</th>
-                  <th>التولد</th>
-                  <th>الكنية</th>
-                  <th>الاسم</th>
-                  
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-             <td></td>
-                  <td>ssssssssssssss</td>
-                  <td></td>
-                  <th></th>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-               
-                </tr>
-              </tbody>
-            </table>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th><i><FaPencil /></i></th>
-               <th>الكود الخاص</th>
-                  <th>العنوان</th>
-                  <th>التحصيل العلمي</th>
-                  <th>البريد الالكتروني</th>
-                  <th>رقم الهاتف</th>
-                  <th>الحالة الاجتماعية</th>
-                  <th>التولد</th>
-                  <th>الكنية</th>
-                  <th>الاسم</th>
-                  
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th><button class="add">اضافة</button></th>
-             <td><input type="number" /></td>
-                  <td><input type="text" /></td>
-                  <td><input type="text" /></td>
-           
-                  <td><input type="email" /></td>
-                  <td><input type="number"  /></td>
-                  <td><input type="text" /></td>
-                  <td><input type="date" name="" id="" /></td>
-                  <td><input type="text" /></td>
-               <td><input type="text" /></td>
-                </tr>
-                <tr>
-                  <th><button class="delet">حذف</button></th>
-             <td><input type="number" /></td>
-                  <td><input type="text" /></td>
-                  <td><input type="text" /></td>
-           
-                  <td><input type="email" /></td>
-                  <td><input type="number"  /></td>
-                  <td><input type="text" /></td>
-                  <td><input type="date" name="" id="" /></td>
-                  <td><input type="text" /></td>
-               <td><input type="text" /></td>
-                </tr>
-                <tr>
-                  <th><button class="edit">تعديل</button></th>
-             <td><input type="number" /></td>
-                  <td><input type="text" /></td>
-                  <td><input type="text" /></td>
-           
-                  <td><input type="email" /></td>
-                  <td><input type="number"  /></td>
-                  <td><input type="text" /></td>
-                  <td><input type="date" name="" id="" /></td>
-                  <td><input type="text" /></td>
-               <td><input type="text" /></td>
-                </tr>
-              </tbody>
-            </table>
-        
-          </div>
-        </div> */}
         <div className="contain-employee">
         <h2>:الموظفين  <i><ImUsers /></i></h2>
           <div className="table-employee">
@@ -402,24 +549,52 @@ const  DashBoardManager = ()=> {
           </div>
         </div>
 
-        <div class="maneger-hajj">
+        <div className="maneger-hajj">
           <h2>:تحديد شروط الحج  <i><GrServices /></i></h2>
-          <div class="maneger-hajj-detil">
+          <div className="maneger-hajj-detil">
           <div >
             <img src={imghaj} alt="" />
           </div>
-          <div class="edit-hajj">
+          <div className="edit-hajj">
             <label htmlFor="">:مواليد الحجاج المقبولين حسب  وزارة الحج السعودية</label>
-            <input type="date" />
+            <input type="date" name="minimumAge" value={minimumAge.minimumAge} onChange={handleChangeMinimumAge}  /> <br />
+            <button className="editminimumAge" onClick={() => handleEditminimumAge()}>Edit</button>
           </div>
         </div>
         </div>
 
+        <div className="manager-prog-umrah">
+        <h2>:برامج العمرة <i><ImFolderOpen />{" "}</i></h2>
+          <div className="progr-parent">
+          <Slider {...settings}>
+            {umrahProgram.map((program,index)=>(
+              <div key={index} className="prog1" >
+              <h3> {program.name_program} </h3>
+              <p> مدة البرنامج <span> {program.total_stay} </span>يوم</p>
+              <p>
+                <span> {program.stay_in_macca} </span> مدة الاقامة بمكة المكرمة
+              </p>
+              <p>
+                <span> {program.stay_in_madina} </span> مدة الاقامة بمكة المكرمة
+              </p>
 
-
-
-        
-        <div class=" manager-prog-umrah">
+              <p> <span> {program.Date_Travel} </span> تاريخ السفر </p>
+              <p> : الفنادق   </p>
+              {hotelsForProgram[program._id] ? (
+               <p> 
+                {hotelsForProgram[program._id].map((hotel, hotelIndex) => (
+                <span key={hotelIndex}>{hotel.name}: {hotel.location}<br/></span>
+                 ))}
+              </p>
+             ) : (
+             <p></p>
+              )}
+            </div>
+            ))}
+           </Slider>
+          </div>
+        </div>
+        {/* <div className=" manager-prog-umrah">
           <h2>:برامج العمرة    <i>
                     <ImFolderOpen />{" "}
                   </i></h2>
@@ -454,7 +629,7 @@ const  DashBoardManager = ()=> {
 
             
            
-           <button class="btn">  عرض المسافرين في هذا البرنامج</button>
+           <button className="btn">  عرض المسافرين في هذا البرنامج</button>
            
             </div>
             <div className="prog1">
@@ -485,29 +660,25 @@ const  DashBoardManager = ()=> {
                 <span>ارجوان روز</span>
               </p>
              
-           <button class="btn">  عرض المسافرين في هذا البرنامج</button> </div>
+           <button className="btn">  عرض المسافرين في هذا البرنامج</button> </div>
           </div>
 
         
-        </div>
+        </div> */}
 
-
-        <div class="show-travel">
-          <h2>:المعتمرين     <i>
-          <FaUsers />
-                  </i></h2>
-        <table class="table">
+        <div className="show-travel">
+           <h2>:المعتمرين<i> <FaUsers /></i></h2>
+            <table className="table">
               <thead>
                 <tr>
                   <th>رقم التأكيد</th>
-                  <th> التأشيرة</th>
                   <th>نمط الدفع</th>
                   <th>نمط الغرفة</th>
                   <th>رقم المقعد</th>
                   <th>رقم الباص</th>
                   <th>اسم البرنامج</th>
                   <th>صورة شخصية</th>
-                  <th>صورة جواز السفر </th>
+                  <th>صورة جواز السفر</th>
                   <th>رقم الجواز</th>
                   <th>الجنسية</th>
                   <th>الجنس</th>
@@ -520,120 +691,75 @@ const  DashBoardManager = ()=> {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>fffff</td>
-                </tr>
+                {mutamir.map((muta, index) => (
+                  <tr key={index}>
+                    <td>{muta.Verification}</td>
+                    <td>{muta.payment_method}</td>
+                    <td>{muta.type_room}</td>
+                    <td>{muta.seatNumber}</td>
+                    <td>{muta.number_bus}</td>
+                    <td>{muta.name_program}</td>
+                    <td><img src={muta.almutamir_photo} alt="Personal" width="50" height="50" /></td>
+                    <td><img src={muta.passport_photo} alt="Passport" width="50" height="50" /></td>
+                    <td>{muta.passport_number}</td>
+                    <td>{muta.Nationality}</td>
+                    <td>{muta.gender}</td>
+                    <td>{muta.birth}</td>
+                    <td>{muta.email}</td>
+                    <td>{muta.phone_number}</td>
+                    <td>{muta.name_father}</td>
+                    <td>{muta.name_mother}</td>
+                    <td>{muta.full_name}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
-            </div>
-        <div class=" manager-prog-hajj">
-          <h2>:برامج الحج   <i>
-                    <ImFolderOpen />{" "}
-                  </i></h2>
-          <div className="progr-parent">
-          <div className="prog1">
-              <h3>برنامج الحج الاكبر</h3>
-
-              <p>
-                مدة البرنامج <span>25 يوم</span>
-              </p>
-              <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-              <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-
-              <p>
-                {" "}
-                تاريخ السفر <span>11/5/2024</span> السفر برا
-              </p>
-              <p>
-                فنادق مكة المكرمة : <span>اعمار غراند</span> <span>فيوليت</span>
-                <span>انوار الاصيل </span>
-              </p>
-
-              <p>
-                فنادق المدينة المنورة : <span>روز الماسة</span>{" "}
-                <span>نجوم المدينة</span> <br />
-                <span>ارجوان روز</span>
-              </p>
-
-            
-           
-           <button class="btn">  عرض المسافرين في هذا البرنامج</button>
-           
-            </div> <div className="prog1">
-              <h3> vip برنامج الحج  </h3>
-
-              <p>
-                مدة البرنامج <span>25 يوم</span>
-              </p>
-              <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-              <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-
-              <p>
-                {" "}
-                تاريخ السفر <span>11/5/2024</span> السفر برا
-              </p>
-              <p>
-                فنادق مكة المكرمة : <span>اعمار غراند</span> <span>فيوليت</span>
-                <span>انوار الاصيل </span>
-              </p>
-
-              <p>
-                فنادق المدينة المنورة : <span>روز الماسة</span>{" "}
-                <span>نجوم المدينة</span> <br />
-                <span>ارجوان روز</span>
-              </p>
-
-            
-           
-           <button class="btn">  عرض المسافرين في هذا البرنامج</button>
-           
-            </div>
-          </div>
-
-        
         </div>
+      
+        <div className=" manager-prog-hajj">
+          <h2>:برامج الحج<i><ImFolderOpen />{" "}</i></h2>
+          <div className="progr-parent">
+          <Slider {...settings}>
+            {hajjProgram.map((program,index)=>(
+              <div key={index} className="prog1" >
+              <h3> {program.name_program} </h3>
+              <p> مدة البرنامج <span> {program.total_stay} </span>يوم</p>
+              <p>
+                <span> {program.stay_in_macca} </span> مدة الاقامة بمكة المكرمة
+              </p>
+              <p>
+                <span> {program.stay_in_madina} </span> مدة الاقامة بمكة المكرمة
+              </p>
 
-
-        <div class="show-travel">
-          <h2>:الحجاج     <i>
-          <FaUsers />
-                  </i></h2>
-        <table class="table">
+              <p> <span> {program.Date_Travel} </span> تاريخ السفر </p>
+              <p> : الفنادق   </p>
+              {hotelsForProgramHajj[program._id] ? (
+                
+               <p> 
+                {hotelsForProgramHajj[program._id].map((hotel, hotelIndex) => (
+                <span key={hotelIndex}>{hotel.name}: {hotel.location}<br/></span>
+                 ))}
+              </p>
+             ) : (
+             <p></p>
+              )}
+            </div>
+            ))}
+           </Slider>
+          </div>
+         </div>
+      
+        <div className="show-travel">
+          <h2>:الحجاج<i><FaUsers /></i></h2>
+          <table className="table">
               <thead>
                 <tr>
                   <th>رقم التأكيد</th>
-                  <th> التأشيرة</th>
                   <th>نمط الدفع</th>
                   <th>نمط الغرفة</th>
-                  <th>رقم المقعد في الطائرة</th>
                   <th>اسم البرنامج</th>
                   <th>صورة شخصية</th>
-                  <th>صورة جواز السفر </th>
+                  <th>صورة جواز السفر</th>
                   <th>رقم الجواز</th>
                   <th>الجنسية</th>
                   <th>الجنس</th>
@@ -646,25 +772,27 @@ const  DashBoardManager = ()=> {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>fffff</td>
-                </tr>
+                {hajj.map((haj, index) => (
+                  <tr key={index}>
+                    <td>{haj.Verification}</td>
+                    <td>{haj.payment_method}</td>
+                    <td>{haj.type_room}</td>
+                    <td>{haj.name_program}</td>
+                    <td><img src={haj.alhaj_photo} alt="Personal" width="50" height="50" /></td>
+                    <td><img src={haj.passport_photo} alt="Passport" width="50" height="50" /></td>
+                    <td>{haj.passport_number}</td>
+                    <td>{haj.Nationality}</td>
+                    <td>{haj.gender}</td>
+                    <td>{haj.birth}</td>
+                    <td>{haj.email}</td>
+                    <td>{haj.phone_number}</td>
+                    <td>{haj.name_father}</td>
+                    <td>{haj.name_mother}</td>
+                    <td>{haj.full_name}</td>
+                    <td>
+                   </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
             </div>
@@ -673,75 +801,70 @@ const  DashBoardManager = ()=> {
 
 
 
-<div class="show-hotal">
-            <h2 > :الفنادق  <i>
-                    <ImLibrary />
-                  </i></h2>
-          <div class="table-hotal">
-            <table class="table">
+       <div className="show-hotal">
+            <h2 > :الفنادق  <i><ImLibrary /></i></h2>
+          <div className="table-hotal">
+          <table className="table">
               <thead>
                 <tr>
-                  <th>رابط الفندق</th>
-                  <th> صور الفندق</th>
-                  <th>الصورة الرئيسية</th>
-                  <th>اماكن يمكن زيارتها</th>
-                  <th>الخدمات</th>
-                  <th>رتبة الفندق</th>
-                  <th>التفاصيل</th>
-                  <th>الموقع</th>
-                  <th>اسم الفندق</th>
+                <th>اسم الفندق</th>
+                <th>الموقع</th>
+                <th>التفاصيل</th>
+                <th>رتبة الفندق</th>
+                <th>الخدمات</th>
+                <th>اماكن يمكن زيارتها</th>
+                <th>الصورة الرئيسية</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
+              {hotels.map((hotel, index) => (
+                  <tr key={index}>
+                     <td>{hotel.name}</td>
+                     <td>{hotel.location}</td>
+                     <td>{hotel.  details}</td>
+                     <td>{hotel.Number_stars}</td>
+                     <td>{hotel.Services}</td>
+                     <td>{hotel.Places_available_visit}</td>
+                     <td><img src={hotel.urlImagehotel} width="50" height="50" /></td>
+                   </tr>
+                ))}
               </tbody>
             </table>
             </div>
             </div>
-            <div class=" show-transport">
-         
-          <h2> :النقل <i>
-                    <ImAirplane />
-                  </i></h2>
-          <div class="table-transport">
-            <table class="table">
+
+
+
+
+       <div className=" show-transport">
+        <h2> :النقل <i><ImAirplane /></i></h2>
+          <div className="table-transport">
+          <table className="table">
               <thead>
                 <tr>
-                  <th> سعر التكيت</th>
-                  <th>نوع النقل</th>
-                  <th>رابط الشركة</th>
-                  <th>صور وسائل النقل</th>
-                  <th>الصورة الرئيسية</th>
-                  <th>هدف الشركة</th>
-                  <th>الخدمات</th>
-                  <th>اسم الشركة</th>
-                </tr>
+                <th>اسم الشركة</th>
+                <th>الخدمات</th>
+                <th>هدف الشركة</th>
+                <th>الصورة الرئيسية</th>
+                <th>رابط الشركة</th>
+                <th>نوع النقل</th>
+                <th> سعر التكيت</th>
+               </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
+                {transports.map((Transport, index) => (
+                  <tr key={index}>
+                    <td>{Transport.name_company}</td>
+                    <td>{Transport.Services}</td>
+                    <td>{Transport.goals_company}</td>
+                    <td><img src={Transport.urlImageCompany} width="50" height="50" /></td>
+                    <td>{Transport.link}</td>
+                    <td>{Transport.type_bus}</td>
+                    <td>{Transport.price_tecket}</td>
+                    </tr>
+                ))}
               </tbody>
             </table>
-
-          
           </div>
         </div>
 
@@ -750,14 +873,14 @@ const  DashBoardManager = ()=> {
 
 
 
-        <div class="seting-manager">
+        <div className="seting-manager">
           <h2>:الاعدادات  <i>
                     
                     <ImCogs />
                   </i></h2>
 
-                  <div class="parent-seting">
-          <div class="seting-detil-maneger">
+                  <div className="parent-seting">
+          <div className="seting-detil-maneger">
             <h3>:اعادة تعيين كلمة المرور</h3>
           <div className="input-box seting-box1">
               <input type="password" className="input-filed" placeholder=" كلمة السر الحالية" />
@@ -772,30 +895,30 @@ const  DashBoardManager = ()=> {
               <input type="submit" className="submit" value="تغيير كلمة المرور" />
             </div>
             </div>
-            <div class="edit-logo">
+            <div className="edit-logo">
             <h3>: تعيين لوغو المكتب</h3>
             <input type="file" />
             <button><AiFillLike /></button>
           </div>
 
-          <div class="edit-titel">
+          <div className="edit-titel">
             <h3> :تعيين اسم المكتب</h3>
             <input type="text" />
             <button><AiFillLike /></button>
           </div>
           
-          <div class="edit-phon">
+          <div className="edit-phon">
             <h3>: تعيين رقم الهاتف للمكتب</h3>
             <input type="number"  placeholder='ادخل رقم المكتب'/>
             <button><AiFillLike /></button>
           </div>
-          <div class="edit-location">
+          <div className="edit-location">
             <h3> :تعيين موقع المكتب</h3>
             <input type="text" />
 
             <button><AiFillLike /></button>
           </div>
-          <div class="edit-about">
+          <div className="edit-about">
             <h3> :حول المكتب</h3>
             <input type="text" />
             <button><AiFillLike /></button>
