@@ -15,11 +15,14 @@
     background: linear-gradient(to right, #444442, #6e6c61, #69675c, #4b4742);
     height: 150px;
     border-radius: 50%;
-    width: 300px;
+    width: 250px;
     margin-left: 40px;
     margin-top: 120px;
     text-align: center;
     color: white;
+}
+.Dash-board-manager .detil{
+    margin-left: 18%;
 }
 .contain-employee table{
     margin-left: 19%;
@@ -127,7 +130,7 @@
 }
 
 .Dash-board-manager h2{
-margin-right: 50px;
+padding: 30px;
 }
 .manager-prog-umrah{
     margin-top: 40px;
@@ -233,7 +236,7 @@ color: wheat;
     margin-left: 140px;
     color: white;
     background-color: #444442;
-
+  
   }
   .edit-logo input ,.edit-titel input ,.edit-phon input ,.edit-location input ,.edit-about input{
     width: 50%;
@@ -242,4 +245,16 @@ color: wheat;
     margin-top: 20px;
     border-radius: 20px;
   }
-  
+ 
+.seting-manager .submit {
+    margin: 10px;
+}
+.seting-box1 {
+    margin-top: 0px;
+    width: 400px;
+    margin-left: 33%;
+}
+.input-box{
+    width: 400px;
+    margin-left: 33%;
+}
