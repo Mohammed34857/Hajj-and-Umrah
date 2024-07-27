@@ -1694,7 +1694,7 @@ useEffect(() => {
               <p> <span> {program.Date_Travel} </span> تاريخ السفر </p>
               <p><span></span> :التاريخ الهجري</p>
 
-              <p> : الفنادق  <p><span></span>الرتبة:</p> </p>
+              <p> : الفنادق  <p><span></span> :الرتبة</p> </p>
               <div className="hotelsForProgram">
               <button className="delet" onClick={()=> handleDeleteUmrahProgramFromMain(program._id)}> حذف البرنامج من الصفحة الرئيسية </button>
               {hotelsForProgram[program._id] ? (
@@ -1830,7 +1830,7 @@ useEffect(() => {
               <p><span></span> :التاريخ الهجري</p>
               <p><span></span> :عدد الوجبات</p>
               <p><span></span>:المرشد الديني</p>
-              <p> : الفنادق <p><span></span>الرتبة:</p>  </p>
+              <p> : الفنادق <p><span></span > :الرتبة</p>  </p>
               <div className="hotelsForProgram">
               <button className="delet" onClick={()=> handleDeleteHajjProgramFromMain(program._id)}> حذف البرنامج من الصفحة الرئيسية </button>
               {hotelsForProgramHajj[program._id] ? (
