@@ -1,10 +1,28 @@
 import './Header.css'
 import logo from '../../images/logo.png'
-import React, {useState} from 'react'
+import React, {useState , useEffect} from 'react'
 import { CiMenuFries } from "react-icons/ci";
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Header = () => {
+
+
+const [office,setOffice]=useState([]);
+console.log(office)
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('https://officealhajandalumrah.adaptable.app/office');
+      setOffice(response.data);
+   
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  fetchData();
+}, []);
+
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -40,10 +58,14 @@ const Header = () => {
         <nav id='navbar'>
             <div id='logo'>
              <div className='logo-name'>
-              <p id='arb'> أجنحة الضيافة</p>
-              <p id='eng'>AJNIHAT ALDIYAFA</p>
+               {office.length > 0
+               ?  <>
+                 <p  id='arb'>{office[0].name}</p>
+                 <p id='eng'>{office[0].nameEnglish}</p>
+                 </>
+                : <p>Loading...</p>}
               </div> 
-             <img src={logo} alt="" />
+              {office.length > 0 ? <img src={office[0].logoImage} alt=""/> : <p></p>}
             </div>
             <ul  style={{ top: isMenuOpen ? '90px' : '-350px' }}>
                 <li><Link to="/"> الرئيسية </Link></li>

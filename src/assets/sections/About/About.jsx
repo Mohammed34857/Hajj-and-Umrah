@@ -1,8 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import './About.css'
 import about from '../../images/about.jpg' 
+import axios from 'axios';
 
 const About =() =>{
+
+const [office,setOffice]=useState([]);
+console.log(office)
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('https://officealhajandalumrah.adaptable.app/office');
+      setOffice(response.data);
+   
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  fetchData();
+}, []);
+
+
   return (
     <div className='about'>
 
@@ -17,15 +35,10 @@ const About =() =>{
         <div className="about-us">
             <h1 > من نحن:</h1>
             <div className="lin"></div>
-            <p>الأساس الذي تقوم عليه خدماتنا هو رضا العملاء، <br />
-            ومن هنا نسعى جاهدين لتقديم أفضل العروض <br />
-            مع أفضل الخدمات للأفراد والمجموعات <br />
-            ويتم اختيار جميع رحلاتنا مسبقًا بواسطة <br />
-            فريقنا المتميز بعناية ودقة  وفي النهاية <br />
-            قبل تقديم أي رحلة، يتأكد الرئيس التنفيذي للشركة بنفسه <br />
-            من أن جميع الخدمات على مستوى من التميز.</p>
-        </div>
-        
+            {office.length > 0 && office[0].aboutOffice
+          ? <p>{office[0].aboutOffice}</p>
+          : <p>Loading...</p>}
+              </div>
     </div>
   )
 }

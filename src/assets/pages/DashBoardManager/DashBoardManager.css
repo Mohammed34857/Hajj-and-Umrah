@@ -25,6 +25,7 @@
     margin-left: 19%;
     width: 80%;
     font-size: 20px;
+    direction: ltr;
 }
 .contain-umrah , .contain-hajj , .hotal-updat {
   width: 80%;
@@ -35,16 +36,20 @@
   margin-bottom: 50px;
   margin-left: 18%;
  }
-.table-employee  {
+.table-employee , .show-travel  {
     max-width: 98%;
     overflow-x: auto; 
+    direction: rtl;
   }
-.table-employee::-webkit-scrollbar
+  
+.table-employee::-webkit-scrollbar ,
+.show-travel::-webkit-scrollbar
  {
   height: 12px;
 }
 
-.table-employee::-webkit-scrollbar-thumb
+.table-employee::-webkit-scrollbar-thumb,
+.show-travel::-webkit-scrollbar-thumb
 {
   background-color: #8f8d8b;
   border-radius: 10px;
@@ -166,17 +171,18 @@ margin-right: 50px;
 .manager-prog-umrah .prog1 ,.manager-prog-hajj .prog1{
     box-shadow: 5px 10px 20px #968f69da inset;  
 }
-.show-travel ,.show-transport ,.show-hotal ,.seting-manager{
+.show-transport ,.show-hotal ,.seting-manager{
     margin-top: 50px;
 }
 .show-travel {
-   direction: ltr;
+   direction: rtl;
 }
 .show-travel table { 
     
     margin-left: 20%;
     text-align: right;
     font-size: 18px;
+    direction: ltr;
 }
 .show-hotal table ,.show-transport table {
     font-size: 18px;

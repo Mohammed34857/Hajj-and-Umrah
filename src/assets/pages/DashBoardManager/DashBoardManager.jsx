@@ -359,7 +359,81 @@ useEffect(() => {
   fetchData();
   }, []);
 
+// office
 
+const [idOfficeData, setIdOfficeData] = useState(null);
+const [officeData,setOfficeData]=useState({
+  name: "",
+  nameEnglish: "",
+  logoImage: "",
+  aboutOffice: "",
+  address: "",
+  password: "",
+  mobile: 0,
+  password: "",
+});
+console.log(officeData);
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('https://officealhajandalumrah.adaptable.app/office');
+      setIdOfficeData(response.data[0]._id);
+      console.log(response.data[0]._id);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  fetchData();
+}, []);
+
+
+const handleChangeImageOffice = async (e) => {
+  const { name, files } = e.target;
+  if (files && files[0]) {
+    const formData = new FormData();
+    formData.append('file', files[0]);
+    try {
+      const response = await axios.post('https://officealhajandalumrah.adaptable.app/CloudinaryController/image', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      const imagePath = response.data;
+      setOfficeData((prevFormData) => ({ ...prevFormData, [name]: imagePath }));
+    } catch (error) {
+      console.error('Error uploading image:', error);
+    }
+  }
+};
+
+const handleChangeOffice = async (e) => {
+  const { name, value, files } = e.target;
+    setOfficeData((prevFormData) => ({
+      ...prevFormData,
+      [name]: files ? files[0] : value,
+    }));
+};  
+
+const handleUpdateField = async (fieldName) => {
+  try {
+    await axios.patch(`https://officealhajandalumrah.adaptable.app/office/${idOfficeData}`, { [fieldName]: officeData[fieldName] }, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  } catch (error) {
+    console.error(`Error updating ${fieldName}:`, error);
+  }
+    setOfficeData({
+      name: "",
+      nameEnglish: "",
+      logoImage: "",
+      aboutOffice: "",
+      address: "",
+      password: "",
+      mobile: 0,
+      password: "",
+  });
+    };
 
   return (
     <div className='Dash-board-manager'>
@@ -666,8 +740,8 @@ useEffect(() => {
         
         </div> */}
 
+      <h2>:المعتمرين<i> <FaUsers /></i></h2>
         <div className="show-travel">
-           <h2>:المعتمرين<i> <FaUsers /></i></h2>
             <table className="table">
               <thead>
                 <tr>
@@ -789,17 +863,11 @@ useEffect(() => {
                     <td>{haj.name_father}</td>
                     <td>{haj.name_mother}</td>
                     <td>{haj.full_name}</td>
-                    <td>
-                   </td>
                   </tr>
                 ))}
               </tbody>
             </table>
             </div>
-
-
-
-
 
        <div className="show-hotal">
             <h2 > :الفنادق  <i><ImLibrary /></i></h2>
@@ -833,9 +901,6 @@ useEffect(() => {
             </div>
             </div>
 
-
-
-
        <div className=" show-transport">
         <h2> :النقل <i><ImAirplane /></i></h2>
           <div className="table-transport">
@@ -868,18 +933,9 @@ useEffect(() => {
           </div>
         </div>
 
-
-
-
-
-
-        <div className="seting-manager">
-          <h2>:الاعدادات  <i>
-                    
-                    <ImCogs />
-                  </i></h2>
-
-                  <div className="parent-seting">
+ى      <div className="seting-manager">
+          <h2>:الاعدادات  <i><ImCogs /> </i></h2>
+          <div className="parent-seting">
           <div className="seting-detil-maneger">
             <h3>:اعادة تعيين كلمة المرور</h3>
           <div className="input-box seting-box1">
@@ -895,54 +951,46 @@ useEffect(() => {
               <input type="submit" className="submit" value="تغيير كلمة المرور" />
             </div>
             </div>
-            <div className="edit-logo">
-            <h3>: تعيين لوغو المكتب</h3>
-            <input type="file" />
-            <button><AiFillLike /></button>
-          </div>
-
-          <div className="edit-titel">
-            <h3> :تعيين اسم المكتب</h3>
-            <input type="text" />
-            <button><AiFillLike /></button>
-          </div>
-          
-          <div className="edit-phon">
-            <h3>: تعيين رقم الهاتف للمكتب</h3>
-            <input type="number"  placeholder='ادخل رقم المكتب'/>
-            <button><AiFillLike /></button>
-          </div>
-          <div className="edit-location">
-            <h3> :تعيين موقع المكتب</h3>
-            <input type="text" />
-
-            <button><AiFillLike /></button>
-          </div>
-          <div className="edit-about">
-            <h3> :حول المكتب</h3>
-            <input type="text" />
-            <button><AiFillLike /></button>
-            v
-          </div>
-          </div>
-
-         
+   <form>
+        <div className="edit-logo">
+          <h3>: تعيين لوغو المكتب</h3>
+          <input type="file" name="logoImage" onChange={handleChangeImageOffice} />
+          <button type="button" onClick={() => handleUpdateField('logoImage')}><AiFillLike /></button>
         </div>
 
+        <div className="edit-titel">
+          <h3>:تعيين اسم المكتب</h3>
+          <input type="text" name="name" value={officeData.name} onChange={handleChangeOffice} />
+          <button type="button" onClick={() => handleUpdateField('name')}><AiFillLike /></button>
+        </div>
 
+        <div className="edit-titel">
+          <h3>: Office Name</h3>
+          <input type="text" name="nameEnglish" value={officeData.nameEnglish} onChange={handleChangeOffice} />
+          <button type="button" onClick={() => handleUpdateField('nameEnglish')}><AiFillLike /></button>
+        </div>
 
+        <div className="edit-phon">
+          <h3>: تعيين رقم الهاتف للمكتب</h3>
+          <input type="number" name="mobile" value={officeData.mobile} placeholder='ادخل رقم المكتب' onChange={handleChangeOffice} />
+          <button type="button" onClick={() => handleUpdateField('mobile')}><AiFillLike /></button>
+        </div>
 
+        <div className="edit-location">
+          <h3>:تعيين موقع المكتب</h3>
+          <input type="text" name="address" value={officeData.address} onChange={handleChangeOffice} />
+          <button type="button" onClick={() => handleUpdateField('address')}><AiFillLike /></button>
+        </div>
 
+        <div className="edit-about">
+          <h3>:حول المكتب</h3>
+          <input type="text" name="aboutOffice" value={officeData.aboutOffice} onChange={handleChangeOffice} />
+          <button type="button" onClick={() => handleUpdateField('aboutOffice')}><AiFillLike /></button>
+        </div>
+      </form>
 
-  
-
-
-
-
-
-
-
-
+     </div>  
+    </div>
     </div>
   )
 }
