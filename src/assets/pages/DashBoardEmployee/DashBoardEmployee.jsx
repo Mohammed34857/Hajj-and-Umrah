@@ -1692,7 +1692,9 @@ useEffect(() => {
               </p>
 
               <p> <span> {program.Date_Travel} </span> تاريخ السفر </p>
-              <p> : الفنادق   </p>
+              <p><span></span> :التاريخ الهجري</p>
+
+              <p> : الفنادق  <p><span></span> :الرتبة</p> </p>
               <div className="hotelsForProgram">
               <button className="delet" onClick={()=> handleDeleteUmrahProgramFromMain(program._id)}> حذف البرنامج من الصفحة الرئيسية </button>
               {hotelsForProgram[program._id] ? (
@@ -1705,6 +1707,12 @@ useEffect(() => {
              <p></p>
               )}
               </div>
+
+              <p><span></span > :السعر</p>
+              <p><span></span > :السعر</p>
+              <p><span></span > :السعر</p>
+              <p><span></span > :السعر</p>
+
               <button className="update" onClick={()=> handleEditUmrahProgram(program)}>تعديل<CiEdit /></button>
               <button className="delet" onClick={()=> handleDeleteUmrahProgram(program._id)}>حذف<MdDelete /></button>
               <button className="update" onClick={()=> handleBusAddUmrahProgram(program._id)}>اضافة باص <FaPlus /></button>
@@ -1761,15 +1769,15 @@ useEffect(() => {
                   <td><input type="number" name="stay_in_madina" value={umrahProgramData.stay_in_madina} onChange={handleChangeUmrahProgram} /></td>
                 </tr>
                 <tr>
-                <td><label > النوع الاول </label></td>
+                <td><label >  السعر الاول للبرنامج حسب نوع الغرفة</label></td>
                   <td><input type="text" name="price1" value={umrahProgramData.price1} onChange={handleChangeUmrahProgram} /></td>
-                  <td><label> النوع الثاني </label></td>
+                  <td><label>السعر الثاني للبرنامج حسب نوع الغرفة</label></td>
                   <td><input type="text" name="price2" value={umrahProgramData.price2} onChange={handleChangeUmrahProgram} /></td> 
                 </tr>
                 <tr>
-                  <td><label >  النوع الثالث </label></td>
+                  <td><label > السعر الثالث للبرنامج حسب نوع الغرفة</label></td>
                   <td><input type="text" name="price3" value={umrahProgramData.price3} onChange={handleChangeUmrahProgram} /></td>
-                  <td><label > النوع الرابع </label></td>
+                  <td><label > السعر الرابع للبرنامج حسب نوع الغرفة</label></td>
                   <td><input type="text" name="price4" value={umrahProgramData.price4} onChange={handleChangeUmrahProgram} /></td>      
                 </tr>
                 <tr>
@@ -1819,7 +1827,10 @@ useEffect(() => {
               </p>
 
               <p> <span> {program.Date_Travel} </span> تاريخ السفر </p>
-              <p> : الفنادق   </p>
+              <p><span></span> :التاريخ الهجري</p>
+              <p><span></span> :عدد الوجبات</p>
+              <p><span></span>:المرشد الديني</p>
+              <p> : الفنادق <p><span></span > :الرتبة</p>  </p>
               <div className="hotelsForProgram">
               <button className="delet" onClick={()=> handleDeleteHajjProgramFromMain(program._id)}> حذف البرنامج من الصفحة الرئيسية </button>
               {hotelsForProgramHajj[program._id] ? (
@@ -1832,6 +1843,11 @@ useEffect(() => {
              <p></p>
               )}
               </div>
+              
+              <p><span></span > :السعر</p>
+              <p><span></span > :السعر</p>
+              <p><span></span > :السعر</p>
+              <p><span></span > :السعر</p>
               <button className="update" onClick={()=> handleEditHajjProgram(program)}>تعديل<CiEdit /></button>
               <button className="delet" onClick={()=> handleDeleteHajjProgram(program._id)}><MdDelete />حذف</button>
             </div>
@@ -1877,16 +1893,27 @@ useEffect(() => {
                   <td><label >مدة الاقامة بالمدينة المنورة</label></td>
                   <td><input type="number" name="stay_in_madina" value={hajjProgramData.stay_in_madina} onChange={handleChangeHajjProgram} /></td>
                 </tr>
+
                 <tr>
-                <td><label > النوع الاول </label></td>
+                  <td><label >المرشد الديني</label></td>
+                  <td><input type="text"  /></td>
+                  <td><label >عدد الوجبات</label></td>
+                  <td><input type="number" /></td>
+                </tr>
+
+
+
+
+                <tr>
+                <td><label >السعر الاول للبرنامج حسب نوع الغرفة</label></td>
                   <td><input type="text" name="price1" value={hajjProgramData.price1} onChange={handleChangeHajjProgram} /></td>
-                  <td><label> النوع الثاني </label></td>
+                  <td><label> السعر الثاني للبرنامج حسب نوع الغرفة</label></td>
                   <td><input type="text" name="price2" value={hajjProgramData.price2} onChange={handleChangeHajjProgram} /></td> 
                 </tr>
                 <tr>
-                  <td><label >  النوع الثالث </label></td>
+                  <td><label >السعر الثالث للبرنامج حسب نوع الغرفة</label></td>
                   <td><input type="text" name="price3" value={hajjProgramData.price3} onChange={handleChangeHajjProgram} /></td>
-                  <td><label > النوع الرابع </label></td>
+                  <td><label >  السعر الرابع للبرنامج حسب نوع الغرفة</label></td>
                   <td><input type="text" name="price4" value={hajjProgramData.price4} onChange={handleChangeHajjProgram} /></td>      
                 </tr>
                 <tr>
