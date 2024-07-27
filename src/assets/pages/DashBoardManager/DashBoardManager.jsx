@@ -11,6 +11,9 @@ import axios from 'axios';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { MdEditSquare } from "react-icons/md";
+import { MdDeleteSweep } from "react-icons/md";
+import { FaRegPlusSquare } from "react-icons/fa";
 
 const  DashBoardManager = ()=> {
 
@@ -575,8 +578,8 @@ const handleUpdateField = async (fieldName) => {
                     <td>{emp.lastname}</td>
                     <td>{emp.firstname}</td>
                     <td>
-                      <button className="edit" onClick={() => handleEditEmployee(emp)}>Edit</button>
-                      <button className="delet" onClick={() => handleDeleteEmployee(emp._id)}>Delete</button>
+                      <button className="edit" onClick={() => handleEditEmployee(emp)}>تعديل<MdEditSquare /></button>
+                      <button className="delet" onClick={() => handleDeleteEmployee(emp._id)}>حذف<MdDeleteSweep /></button>
                     </td>
                   </tr>
                 ))}
@@ -614,7 +617,7 @@ const handleUpdateField = async (fieldName) => {
                     <td><input type="text" name="lastname" placeholder="الكنية " value={employeeData.lastname} onChange={handleChangeEmployee} /></td>
                     <td><input type="text" name="firstname" placeholder="الاسم " value={employeeData.firstname} onChange={handleChangeEmployee} /></td>
                     <td>
-                    <button className="add" type="submit">{isEditingEmployee ? "تحديث" : "إضافة"}</button>
+                    <button className="add" type="submit">{isEditingEmployee ? "تحديث" : "إضافة"}<FaRegPlusSquare /></button>
                     </td>
                   </tr>
               </tbody>

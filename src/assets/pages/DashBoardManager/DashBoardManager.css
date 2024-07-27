@@ -85,31 +85,35 @@
 }
 .contain-employee .edit , .editminimumAge{
     border: none;
-    background-color: rgb(212, 200, 144);
+    background-color: rgb(119, 124, 51);
     border-radius: 5px;
     width: 70px;
+    color: white;
  
 }
+
 .contain-employee .edit:hover{
     border: none;
-    background-color: rgb(77, 73, 59);
+    background-color: rgb(250, 249, 246);
     border-radius: 5px;
     width: 80px;
-    color: white;
+    color: rgb(102, 112, 13);
 }
 .contain-employee .delet{
     border: none;
-    background-color: rgb(219, 142, 119);
+    background-color: rgb(141, 36, 4);
     border-radius: 5px;
     width: 70px;
+    margin-top: 10px;
+    color: white;
  
 }
 .contain-employee .delet:hover{
     border: none;
-    background-color: rgb(87, 63, 60);
+    background-color: rgb(247, 243, 243);
     border-radius: 5px;
     width: 80px;
-    color: white;
+    color: rgb(230, 9, 9);
 }
 .contain-employee .add{
     border: none;
