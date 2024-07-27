@@ -10,7 +10,7 @@ const HajjPrograms = () => {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.get("https://officealhajandalumrah.adaptable.app/program-al-haj");
+          const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-al-haj/AvailablePrograms');
           setHajjProgramsData(response.data);
          
         } catch (error) {

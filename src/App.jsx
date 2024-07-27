@@ -30,7 +30,7 @@ function App() {
         <Route path='/RegisterProgramUmrah/:id' element={<Layout><RegisterProgramUmrah /></Layout>} />
         <Route path='/RegisterProgramHajj/' element={<Layout><RegisterProgramHajj /></Layout>} />
         <Route path='/RegisterProgramSpecial/' element={<Layout><RegisterProgramSpecial /></Layout>} />
-
+        
         <Route path='/DashBoardEmployee/' element={<DashBoardEmployee />} />
         <Route path='/DashBoardManager/' element={<DashBoardManager />} />
         <Route path='/LogInDashBoard/' element={<LogInDashBoard />} />

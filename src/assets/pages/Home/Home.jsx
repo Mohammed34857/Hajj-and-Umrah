@@ -9,9 +9,9 @@ const Home = () => {
     <SectionMain/>
     <UmrahPrograms/>
     <HajjPrograms/>
-    <Hotel/>
     <PlacesInMacca/>
     <PlacesInMadena/>
+    <Hotel/>
     <About/>
     </div> 
   )

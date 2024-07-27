@@ -573,7 +573,8 @@ const DashBoardEmployee = () => {
          price2: "",
          price3: "",
          price4: "",
-         id_busCompany:""
+         id_busCompany:"",
+         Available_viewing: true,
     });
     const [allProgramUmrahHotel, setAllProgramUmrahHotel] = useState([]);
     const [hotelsForProgram, setHotelsForProgram] = useState({});
@@ -642,7 +643,18 @@ const DashBoardEmployee = () => {
         console.error('Error deleting data:', error);
       }
   };
-  
+  const handleDeleteUmrahProgramFromMain= async (id) => {
+      try {
+        await axios.patch(`https://officealhajandalumrah.adaptable.app/program-umrah/${id}`, {Available_viewing: false} , {
+          headers: {
+              'Content-Type': 'application/json',
+          },
+        });
+        } catch (error) {
+        console.error('Error deleting data:', error);
+      }
+  };
+
   const handleBusAddUmrahProgram = async (id) => {
     try {
       const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-bus/findAll'); 
@@ -650,7 +662,6 @@ const DashBoardEmployee = () => {
       const program = allProgramBus.find((program) => program.id_ProgramUmrah === id);
       const currentBusCount = program.count_bus;
       const updatedBusCount = currentBusCount + 1;
-      console.log(updatedBusCount);
       await axios.post(`https://officealhajandalumrah.adaptable.app/program-bus/${id}/${updatedBusCount}`);
     } catch (error) {
       console.error('Error add bud to program:', error);
@@ -663,7 +674,6 @@ const handleBusDeleteUmrahProgram = async (id) => {
     const allProgramBus = response.data;
     const program = allProgramBus.find((program) => program.id_ProgramUmrah === id);
     const currentBusCount = program.count_bus;
-    console.log(currentBusCount);
     await axios.delete(`https://officealhajandalumrah.adaptable.app/program-bus/${id}/${currentBusCount}`);
   } catch (error) {
     console.error('Error delete bud to program:', error);
@@ -805,7 +815,8 @@ const [hajjProgramData,setHajjProgramData]=useState({
      price1: "",
      price2: "",
      price3: "",
-     price4: ""
+     price4: "",
+     Available_viewing: true,
 });
 const [allProgramHajjHotel, setAllProgramHajjHotel] = useState([]);
 const [hotelsForProgramHajj, setHotelsForProgramHajj] = useState({});
@@ -871,6 +882,18 @@ const handleDeleteHajjProgram = async (id) => {
   try {
     await axios.delete(`https://officealhajandalumrah.adaptable.app/program-al-haj//${id}`);
   } catch (error) {
+    console.error('Error deleting data:', error);
+  }
+};
+
+const handleDeleteHajjProgramFromMain= async (id) => {
+  try {
+    await axios.patch(`https://officealhajandalumrah.adaptable.app/program-al-haj/${id}`, {Available_viewing: false} , {
+      headers: {
+          'Content-Type': 'application/json',
+      },
+    });
+    } catch (error) {
     console.error('Error deleting data:', error);
   }
 };
@@ -1670,6 +1693,8 @@ useEffect(() => {
 
               <p> <span> {program.Date_Travel} </span> تاريخ السفر </p>
               <p> : الفنادق   </p>
+              <div className="hotelsForProgram">
+              <button className="delet" onClick={()=> handleDeleteUmrahProgramFromMain(program._id)}> حذف البرنامج من الصفحة الرئيسية </button>
               {hotelsForProgram[program._id] ? (
                <p> 
                 {hotelsForProgram[program._id].map((hotel, hotelIndex) => (
@@ -1679,6 +1704,7 @@ useEffect(() => {
              ) : (
              <p></p>
               )}
+              </div>
               <button className="update" onClick={()=> handleEditUmrahProgram(program)}>تعديل<CiEdit /></button>
               <button className="delet" onClick={()=> handleDeleteUmrahProgram(program._id)}>حذف<MdDelete /></button>
               <button className="update" onClick={()=> handleBusAddUmrahProgram(program._id)}>اضافة باص <FaPlus /></button>
@@ -1794,8 +1820,9 @@ useEffect(() => {
 
               <p> <span> {program.Date_Travel} </span> تاريخ السفر </p>
               <p> : الفنادق   </p>
+              <div className="hotelsForProgram">
+              <button className="delet" onClick={()=> handleDeleteHajjProgramFromMain(program._id)}> حذف البرنامج من الصفحة الرئيسية </button>
               {hotelsForProgramHajj[program._id] ? (
-                
                <p> 
                 {hotelsForProgramHajj[program._id].map((hotel, hotelIndex) => (
                 <span key={hotelIndex}>{hotel.name}: {hotel.location}<br/></span>
@@ -1804,6 +1831,7 @@ useEffect(() => {
              ) : (
              <p></p>
               )}
+              </div>
               <button className="update" onClick={()=> handleEditHajjProgram(program)}>تعديل<CiEdit /></button>
               <button className="delet" onClick={()=> handleDeleteHajjProgram(program._id)}><MdDelete />حذف</button>
             </div>
