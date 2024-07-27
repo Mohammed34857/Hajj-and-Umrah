@@ -1694,7 +1694,7 @@ useEffect(() => {
               <p> <span> {program.Date_Travel} </span> تاريخ السفر </p>
               <p><span></span> :التاريخ الهجري</p>
 
-              <p> : الفنادق   </p>
+              <p> : الفنادق  <p><span></span>الرتبة:</p> </p>
               <div className="hotelsForProgram">
               <button className="delet" onClick={()=> handleDeleteUmrahProgramFromMain(program._id)}> حذف البرنامج من الصفحة الرئيسية </button>
               {hotelsForProgram[program._id] ? (
@@ -1708,7 +1708,11 @@ useEffect(() => {
               )}
               </div>
 
-              <p><span></span></p>
+              <p><span></span > :السعر</p>
+              <p><span></span > :السعر</p>
+              <p><span></span > :السعر</p>
+              <p><span></span > :السعر</p>
+
               <button className="update" onClick={()=> handleEditUmrahProgram(program)}>تعديل<CiEdit /></button>
               <button className="delet" onClick={()=> handleDeleteUmrahProgram(program._id)}>حذف<MdDelete /></button>
               <button className="update" onClick={()=> handleBusAddUmrahProgram(program._id)}>اضافة باص <FaPlus /></button>
@@ -1826,7 +1830,7 @@ useEffect(() => {
               <p><span></span> :التاريخ الهجري</p>
               <p><span></span> :عدد الوجبات</p>
               <p><span></span>:المرشد الديني</p>
-              <p> : الفنادق   </p>
+              <p> : الفنادق <p><span></span>الرتبة:</p>  </p>
               <div className="hotelsForProgram">
               <button className="delet" onClick={()=> handleDeleteHajjProgramFromMain(program._id)}> حذف البرنامج من الصفحة الرئيسية </button>
               {hotelsForProgramHajj[program._id] ? (
@@ -1839,6 +1843,11 @@ useEffect(() => {
              <p></p>
               )}
               </div>
+              
+              <p><span></span > :السعر</p>
+              <p><span></span > :السعر</p>
+              <p><span></span > :السعر</p>
+              <p><span></span > :السعر</p>
               <button className="update" onClick={()=> handleEditHajjProgram(program)}>تعديل<CiEdit /></button>
               <button className="delet" onClick={()=> handleDeleteHajjProgram(program._id)}><MdDelete />حذف</button>
             </div>
