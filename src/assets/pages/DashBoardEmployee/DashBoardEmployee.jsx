@@ -12,7 +12,6 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { MdDelete } from "react-icons/md";
-
 import { CiEdit } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa";
 
@@ -579,7 +578,7 @@ const DashBoardEmployee = () => {
     const [allProgramUmrahHotel, setAllProgramUmrahHotel] = useState([]);
     const [hotelsForProgram, setHotelsForProgram] = useState({});
     const [selectedHotelsForProgramUmrah, setSelectedHotelsForProgramUmrah] = useState([]);
-
+console.log(hotelsForProgram)
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -1241,6 +1240,7 @@ useEffect(() => {
   setUploadedImagesTransport([]);
 };
 
+
   return (
     <div className="DashBoardEmployee">
 
@@ -1692,15 +1692,15 @@ useEffect(() => {
               </p>
 
               <p> <span> {program.Date_Travel} </span> تاريخ السفر </p>
-              <p><span></span> :التاريخ الهجري</p>
+              <p><span> {program.Date_Travel_Hijri}  </span> :التاريخ الهجري</p>
 
-              <p> : الفنادق  <p><span></span> :الرتبة</p> </p>
+              <p> : الفنادق  </p>
               <div className="hotelsForProgram">
               <button className="delet" onClick={()=> handleDeleteUmrahProgramFromMain(program._id)}> حذف البرنامج من الصفحة الرئيسية </button>
               {hotelsForProgram[program._id] ? (
                <p> 
                 {hotelsForProgram[program._id].map((hotel, hotelIndex) => (
-                <span key={hotelIndex}>{hotel.name}: {hotel.location}<br/></span>
+                <span key={hotelIndex}> {hotel.name}: {hotel.location} : الرتبة  {hotel.Number_stars}  <br/></span>
                  ))}
               </p>
              ) : (
@@ -1708,10 +1708,10 @@ useEffect(() => {
               )}
               </div>
 
-              <p><span></span > :السعر</p>
-              <p><span></span > :السعر</p>
-              <p><span></span > :السعر</p>
-              <p><span></span > :السعر</p>
+              <p><span> {program.price1} </span > </p>
+              <p><span> {program.price2} </span > </p>
+              <p><span> {program.price3} </span > </p>
+              <p><span> {program.price4} </span > </p>
 
               <button className="update" onClick={()=> handleEditUmrahProgram(program)}>تعديل<CiEdit /></button>
               <button className="delet" onClick={()=> handleDeleteUmrahProgram(program._id)}>حذف<MdDelete /></button>
@@ -1827,27 +1827,26 @@ useEffect(() => {
               </p>
 
               <p> <span> {program.Date_Travel} </span> تاريخ السفر </p>
-              <p><span></span> :التاريخ الهجري</p>
-              <p><span></span> :عدد الوجبات</p>
-              <p><span></span>:المرشد الديني</p>
-              <p> : الفنادق <p><span></span > :الرتبة</p>  </p>
+              <p><span> {program.Date_Travel_Hijri} </span> :التاريخ الهجري</p>
+              <p> عدد الوجبات :<span> {program.Number_meals} </span> </p>
+              <p> المرشد الديني :<span> {program.Religious_guide} </span></p>
+              <p> : الفنادق   </p>
               <div className="hotelsForProgram">
               <button className="delet" onClick={()=> handleDeleteHajjProgramFromMain(program._id)}> حذف البرنامج من الصفحة الرئيسية </button>
               {hotelsForProgramHajj[program._id] ? (
                <p> 
                 {hotelsForProgramHajj[program._id].map((hotel, hotelIndex) => (
-                <span key={hotelIndex}>{hotel.name}: {hotel.location}<br/></span>
+                <span key={hotelIndex}>{hotel.name}: {hotel.location} : الرتبة  {hotel.Number_stars}  <br/></span>
                  ))}
               </p>
              ) : (
              <p></p>
               )}
               </div>
-              
-              <p><span></span > :السعر</p>
-              <p><span></span > :السعر</p>
-              <p><span></span > :السعر</p>
-              <p><span></span > :السعر</p>
+              <p><span> {program.price1} </span > </p>
+              <p><span> {program.price2} </span > </p>
+              <p><span> {program.price3} </span > </p>
+              <p><span> {program.price4} </span > </p>
               <button className="update" onClick={()=> handleEditHajjProgram(program)}>تعديل<CiEdit /></button>
               <button className="delet" onClick={()=> handleDeleteHajjProgram(program._id)}><MdDelete />حذف</button>
             </div>
@@ -1893,17 +1892,12 @@ useEffect(() => {
                   <td><label >مدة الاقامة بالمدينة المنورة</label></td>
                   <td><input type="number" name="stay_in_madina" value={hajjProgramData.stay_in_madina} onChange={handleChangeHajjProgram} /></td>
                 </tr>
-
                 <tr>
                   <td><label >المرشد الديني</label></td>
-                  <td><input type="text"  /></td>
+                  <td><input type="text" name="Religious_guide" value={hajjProgramData.Religious_guide} onChange={handleChangeHajjProgram} /></td>
                   <td><label >عدد الوجبات</label></td>
-                  <td><input type="number" /></td>
+                  <td><input type="text" name="Number_meals" value={hajjProgramData.Number_meals} onChange={handleChangeHajjProgram} /></td>
                 </tr>
-
-
-
-
                 <tr>
                 <td><label >السعر الاول للبرنامج حسب نوع الغرفة</label></td>
                   <td><input type="text" name="price1" value={hajjProgramData.price1} onChange={handleChangeHajjProgram} /></td>
