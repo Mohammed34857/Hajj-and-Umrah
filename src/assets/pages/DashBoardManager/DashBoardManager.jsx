@@ -365,6 +365,10 @@ useEffect(() => {
 // office
 
 const [idOfficeData, setIdOfficeData] = useState(null);
+const [currentPassword, setCurrentPassword] = useState("");
+const [newPassword, setNewPassword] = useState("");
+const [confirmPassword, setConfirmPassword] = useState("");
+const [currentDbPassword, setCurrentDbPassword] = useState("");
 const [officeData,setOfficeData]=useState({
   name: "",
   nameEnglish: "",
@@ -382,7 +386,7 @@ useEffect(() => {
     try {
       const response = await axios.get('https://officealhajandalumrah.adaptable.app/office');
       setIdOfficeData(response.data[0]._id);
-      console.log(response.data[0]._id);
+      setCurrentDbPassword(response.data[0].password);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -410,10 +414,14 @@ const handleChangeImageOffice = async (e) => {
 
 const handleChangeOffice = async (e) => {
   const { name, value, files } = e.target;
-    setOfficeData((prevFormData) => ({
+  if (name === "currentPassword") setCurrentPassword(value);
+  if (name === "newPassword") setNewPassword(value);
+  if (name === "confirmPassword") setConfirmPassword(value);
+  else{  setOfficeData((prevFormData) => ({
       ...prevFormData,
       [name]: files ? files[0] : value,
     }));
+  }
 };  
 
 const handleUpdateField = async (fieldName) => {
@@ -436,6 +444,36 @@ const handleUpdateField = async (fieldName) => {
       mobile: 0,
       password: "",
   });
+    };
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      if (currentPassword !== currentDbPassword) {
+        alert("كلمة السر الحالية غير صحيحة");
+        return;
+      }
+      if (newPassword !== confirmPassword) {
+        alert("كلمتا السر الجديدتين غير متطابقتين");
+        return;
+      }
+      try {
+        await axios.patch(`https://officealhajandalumrah.adaptable.app/office/${idOfficeData}`, { password: newPassword }, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        alert("تم تغيير كلمة المرور بنجاح");
+        setCurrentPassword("");
+        setNewPassword("");
+        setConfirmPassword("");
+        setOfficeData((prevData) => ({
+          ...prevData,
+          password: newPassword,
+        }));
+      } catch (error) {
+        console.error('Error updating password:', error);
+        alert("حدث خطأ أثناء تحديث كلمة المرور");
+      }
     };
 
   return (
@@ -936,24 +974,48 @@ const handleUpdateField = async (fieldName) => {
           </div>
         </div>
 
-ى      <div className="seting-manager">
+     <div className="seting-manager">
+        <div className="parent-seting">
           <h2>:الاعدادات  <i><ImCogs /> </i></h2>
-          <div className="parent-seting">
-          <div className="seting-detil-maneger">
-            <h3>:اعادة تعيين كلمة المرور</h3>
-          <div className="input-box seting-box1">
-              <input type="password" className="input-filed" placeholder=" كلمة السر الحالية" />
+          <form onSubmit={handleSubmit}>
+            <div className="input-box seting-box1">
+              <input 
+                type="password" 
+                name="currentPassword" 
+                className="input-filed" 
+                placeholder=" كلمة السر الحالية" 
+                value={currentPassword} 
+                onChange={handleChangeOffice} 
+              />
             </div>
             <div className="input-box">
-              <input type="password" className="input-filed" placeholder="كلمة السر الجديدة" />
+              <input 
+                type="password" 
+                name="newPassword" 
+                className="input-filed" 
+                placeholder="كلمة السر الجديدة" 
+                value={newPassword} 
+                onChange={handleChangeOffice} 
+              />
             </div>
             <div className="input-box">
-              <input type="password" className="input-filed" placeholder="تاكيد كلمة المرور" />
+              <input 
+                type="password" 
+                name="confirmPassword" 
+                className="input-filed" 
+                placeholder="تاكيد كلمة المرور" 
+                value={confirmPassword} 
+                onChange={handleChangeOffice} 
+              />
             </div>
             <div className="input-box">
-              <input type="submit" className="submit" value="تغيير كلمة المرور" />
+              <input 
+                type="submit" 
+                className="submit" 
+                value="تغيير كلمة المرور" 
+              />
             </div>
-            </div>
+          </form>
    <form>
         <div className="edit-logo">
           <h3>: تعيين لوغو المكتب</h3>
