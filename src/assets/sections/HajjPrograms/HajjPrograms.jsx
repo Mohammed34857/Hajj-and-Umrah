@@ -34,8 +34,7 @@ const HajjPrograms = () => {
           <CardHajj program1={hajjProgramsData[0]} program2={hajjProgramsData[1]} />
         )}  
           </div>
-    <div className="fixed">
-  </div>
+   
     </>
   )
 }

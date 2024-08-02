@@ -35,7 +35,7 @@ const RegisterProgramSpecial = () => {
         typeRoom: "string",
         seatNumber: 0,
         paymentMethod: "string",
-        verification: true,
+        verification: false,
         reservationCode:""
     });
 

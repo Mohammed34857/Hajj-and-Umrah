@@ -473,6 +473,31 @@ const handleUpdateField = async (fieldName) => {
       }
     };
 
+const [countHajjProgram,setCountHajjProgram]= useState([]);
+const [countUmrahProgram,setCountUmrahProgram]= useState([]);
+const [countUmrahSpecialProgram,setCountUmrahSpecialProgram]= useState([]);
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      
+      const programUmrahSpecial = await axios.get('https://officealhajandalumrah.adaptable.app/program-umrah-special').then(response => response.data);
+      const countProgramUmrahSpecial=programUmrahSpecial.length;
+      setCountUmrahSpecialProgram(countProgramUmrahSpecial);
+
+      const programUmrah = await axios.get('https://officealhajandalumrah.adaptable.app/program-umrah').then(response => response.data);
+      const countProgramUmrah=programUmrah.length;
+      setCountUmrahProgram(countProgramUmrah);
+      
+      const programHajj = await axios.get('https://officealhajandalumrah.adaptable.app/program-al-haj').then(response => response.data);
+      const countProgramHajj=programHajj.length;
+      setCountHajjProgram(countProgramHajj);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  fetchData();
+}, []);
+
   return (
     <div className='Dash-board-manager'>
           <div className="min">
@@ -560,23 +585,23 @@ const handleUpdateField = async (fieldName) => {
         <div className="detil">
           <div className="alert " role="alert">
             <h5>
-              عدد برامج الحج خلال السنوات <br /> 2022-2024
+              عدد برامج الحج  <br /> 
             </h5>
-            <p> 15 برنامج</p>
+            <p> {countHajjProgram} برنامج</p>
           </div>
           <div className="alert " role="alert">
             <h5>
-              عدد برامج العمرة خلال السنوات <br />
-              2022-2024
+              عدد برامج العمرة  <br />
+              
             </h5>
-            <p> 15 برنامج</p>
+            <p> {countUmrahProgram} برنامج</p>
           </div>
           <div className="alert " role="alert">
             <h5>
-              عدد المسافرين من المكتب خلال السنوات
-              <br /> 2022-2024
+               عدد البرامج الخاصة   
+              <br /> 
             </h5>
-            <p> 15 برنامج</p>
+            <p> {countUmrahSpecialProgram} برنامج</p>
           </div>
         </div>
 

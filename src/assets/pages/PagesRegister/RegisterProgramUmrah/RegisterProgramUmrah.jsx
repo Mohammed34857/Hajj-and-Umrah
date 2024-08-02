@@ -12,27 +12,29 @@ const RegisterProgramUmrah = () => {
     const [reservationCode, setReservationCode] = useState([]);
     const [error, setError] = useState("");
     const [programUmrah, setProgramUmrah] = useState({});
+    const [programUmrahId, setProgramUmrahId] = useState("");
+    const [fullName, setFullName] = useState("");
     const [reservedSeats, setReservedSeats] = useState([]);
     const [formData, setFormData] = useState({
-      fullName: "string",
-      nameFather: "string",
-      nameMother: "string",
+      fullName: "",
+      nameFather: "",
+      nameMother: "",
       phoneNumber: 0,
-      email: "abedalrahaman@gmail.com",
-      birth: "2024-05-20T23:27:58.385Z",
-      gender: "string",
-      nationality: "string",
-      passportNumber: "string",
-      passportPhoto: "https://res.cloudinary.com/dj05jeavk/image/upload/v1714507309/hotels/%D9%86%D8%B3%D9%83%20%D8%A7%D9%84%D9%87%D8%AC%D8%B1%D8%A9/449441863_cusyvs.jpg",
-      almutamirPhoto: "https://res.cloudinary.com/dj05jeavk/image/upload/v1714507309/hotels/%D9%86%D8%B3%D9%83%20%D8%A7%D9%84%D9%87%D8%AC%D8%B1%D8%A9/449441863_cusyvs.jpg",
-      numberBus: 0,
-      typeRoom: "string",
+      email: "",
+      birth: "",
+      gender: "",
+      nationality: "",
+      passportNumber: "",
+      passportPhoto: "",
+      almutamirPhoto: "",
+      busNumber: 0,
+      typeRoom: "",
       seatNumber: 0,
-      paymentMethod: "string",
+      paymentMethod: "",
       verification: false ,
       reservationCode:""
     });
-console.log(formData);
+    
     useEffect(() => {
 
       const handleFileChange = (inputId, outputPathId) => {
@@ -42,7 +44,7 @@ console.log(formData);
             document.getElementById(outputPathId).textContent = filePath;
         };
     };
-    const fileInputs = [
+       const fileInputs = [
         { inputId: 'file-img', outputPathId: 'file-path' },
         { inputId: 'passport', outputPathId: 'passport-path' }
     ];
@@ -59,24 +61,21 @@ console.log(formData);
           try {
               const program_umrah = await axios.get(`https://officealhajandalumrah.adaptable.app/program-umrah/${id}`).then(response => response.data);
                 setProgramUmrah(program_umrah);
-              // const response = await axios.get("https://officealhajandalumrah.adaptable.app/program-bus/findAll");
-              // const filteredPrograms = response.data.find((program) => program.id_ProgramUmrah === id);
-              // const reserved = filteredPrograms.seat.filter(seat => seat.isReserved).map(seat => seat.seatNumber);
-              // setReservedSeats(reserved);
-
+                setProgramUmrahId(program_umrah._id)
               const ReservationCode = await axios.get('https://officealhajandalumrah.adaptable.app/employee');
                setReservationCode(ReservationCode.data.map((Code)=>{
               return Code.Reservation_code;
                }));
-          let number_bus = 0;
+
+        
           const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-bus/all-ProgramBus-with-ProgramUmrah');
           const programBusData = response.data;
-          const programBus = programBusData.find((ProgramUmrah) => ProgramUmrah.id_ProgramUmrah.name_program === value);
-          if (programBus) {
-            number_bus = programBus.count_bus;
-          }
-          const AvailableSeats = await axios.get(`https://officealhajandalumrah.adaptable.app/program-bus/${id}/${number_bus}/available-seats`);
-          setReservedSeats(AvailableSeats.data)
+          const programBus = programBusData.find((ProgramUmrah) => ProgramUmrah.id_ProgramUmrah.name_program === program_umrah.name_program);
+          const availableSeats = programBus.seat
+          .filter(seat => seat.isReserved === true)
+          .map(seat => ({ busNumber: seat.number_bus, seatNumber: seat.seatNumber }));
+           setReservedSeats(availableSeats);
+           console.log(availableSeats);
           } catch (error) {
               console.error('Error fetching program data:', error);
           }
@@ -107,13 +106,39 @@ console.log(formData);
     };
        
 
-    const handleChange = (e) => {
-        const { name, value, files } = e.target;
+    const handleChange = async (e) => {
+    const { name, value, files } = e.target;
+    setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: files ? files[0] : value,
+    }));
+    if(name === 'fullName'){
+      setFullName(value);
+    }
+    
+};
+
+    const handleSeatChange = async (e) => {
+      const { value } = e.target;
+      const [seatNumber, busNumber] = value.split(',').map(Number);
+      console.log(typeof programUmrahId ,typeof busNumber , typeof seatNumber , typeof fullName)
+      try {
+        // await axios.patch(`https://officealhajandalumrah.adaptable.app/program-bus/${programUmrahId}/reserve-seat/${busNumber}/${seatNumber}/${fullName}`);
+        // setFormData((prevFormData) => ({
+        //   ...prevFormData,
+        //   seatNumber: seatNumber
+        // }));
+        // alert("تم حجز المقعد بنجاح");
         setFormData((prevFormData) => ({
-            ...prevFormData,
-            [name]: files ? files[0] : value,
-        }));
-    };
+          ...prevFormData,
+          seatNumber,
+          busNumber,
+      }));
+      } catch (error) {
+        console.error("Error reserving seat:", error);
+        alert("حدث خطأ أثناء حجز المقعد");
+      }
+  };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -135,7 +160,7 @@ console.log(formData);
           passport_photo: formData.passportPhoto,
           almutamir_photo: formData.almutamirPhoto,
           type_room: formData.typeRoom,
-          number_bus: formData.numberBus,
+          number_bus: formData.busNumber,
           seatNumber: Number(formData.seatNumber) ,
           payment_method: formData.paymentMethod,
           Verification: formData.verification,
@@ -146,7 +171,6 @@ console.log(formData);
                     'Content-Type': 'application/json',
                 },
             });
-            console.log('Data submitted successfully:', response.data);
             window.location.reload();
         } catch (error) {
             console.error('Error submitting data:', error);
@@ -246,14 +270,13 @@ console.log(formData);
 
           <h3>: احجز مقعدك في الحافلة <MdAirlineSeatReclineExtra /></h3>
           <div className="booking">
-          <select className='seat' name='seatNumber' onChange={handleChangeImage}>
-                {reservedSeats.map((seatNumber, index) => (
-                    <option key={index} value={seatNumber}>
-                        Seat Number: {seatNumber}
-                    </option>
-   
-                ))}
-            </select>
+          <select className='seat' name='seatNumber' onChange={handleSeatChange}>
+             {reservedSeats.map((seat, index) => (
+              <option key={index} value={`${seat.seatNumber},${seat.busNumber}`}>
+                 رقم الباص : {seat.busNumber} , رقم المقعد : {seat.seatNumber}
+                </option>
+              ))}
+          </select>
           </div>
           <div className="room">
             <h3> :اختر غرفتك من الفندق <FaBed /></h3>
@@ -266,7 +289,7 @@ console.log(formData);
                          onChange={handleChange}
                         />
                     <span className="checkmark"></span>
-                    سعر البرنامج للغرفة الاحادية $200 
+                    {programUmrah.price1}
                     </label>
                     <label className="radio-container">
                        <input
@@ -276,7 +299,7 @@ console.log(formData);
                          onChange={handleChange}
                         />
                     <span className="checkmark"></span>
-                    سعر البرنامج للغرفة الثنائية $150 
+                       {programUmrah.price2}
                     </label>
                     <label className="radio-container">
                         <input
@@ -286,7 +309,7 @@ console.log(formData);
                          onChange={handleChange}
                         />
                     <span className="checkmark"></span>
-                    سعر البرنامج للغرفة الثلاثية$ 100 
+                      {programUmrah.price3} 
                     </label>
             </div>
           

@@ -1,20 +1,34 @@
 import "./Footer.css";
 import { FaLocationDot } from "react-icons/fa6";
 import { MdAddIcCall ,MdOutlineAlternateEmail } from "react-icons/md";
-
-
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
 
 function Footer() {
+
+  const [office,setOffice]=useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://officealhajandalumrah.adaptable.app/office');
+        setOffice(response.data);
+     
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <footer>
       <div className="parent">
         <div className="addres">
           <h2> عنوان</h2>
           <ul>
-            <li>  <FaLocationDot /> <span>  الموقع حلب سيف الدولة نزلة مدرسة الرجاء</span></li>
-            <li><MdAddIcCall/><span>اتصال +9630993642776</span></li>
-            <li><MdOutlineAlternateEmail/><span>demo@gamil.com</span></li>
+            <li>  <FaLocationDot /> <span> {office.address} </span></li>
+            <li><MdAddIcCall/><span>اتصال +963{office.phone}</span></li>
+            <li><MdOutlineAlternateEmail/><span>{office.email}</span></li>
           </ul>
         </div>
         <div className="info">

@@ -108,7 +108,7 @@ const DashBoardEmployee = () => {
     } else if (name === 'seatNumber') {
       const seatNumber = value;
       const { id_ProgramUmrah, number_bus, full_name } = mutamirData;
-
+       console.log()
       try {
         await axios.patch(`https://officealhajandalumrah.adaptable.app/program-bus/${id_ProgramUmrah}/reserve-seat/${number_bus}/${seatNumber}/${full_name}`);
         setMutamirData((prevFormData) => ({
@@ -578,7 +578,7 @@ const DashBoardEmployee = () => {
     const [allProgramUmrahHotel, setAllProgramUmrahHotel] = useState([]);
     const [hotelsForProgram, setHotelsForProgram] = useState({});
     const [selectedHotelsForProgramUmrah, setSelectedHotelsForProgramUmrah] = useState([]);
-console.log(hotelsForProgram)
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -653,6 +653,18 @@ console.log(hotelsForProgram)
         console.error('Error deleting data:', error);
       }
   };
+
+  const handleAddUmrahProgramFromMain= async (id) => {
+    try {
+      await axios.patch(`https://officealhajandalumrah.adaptable.app/program-umrah/${id}`, {Available_viewing: true} , {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+      });
+      } catch (error) {
+      console.error('Error deleting data:', error);
+    }
+};
 
   const handleBusAddUmrahProgram = async (id) => {
     try {
@@ -896,6 +908,19 @@ const handleDeleteHajjProgramFromMain= async (id) => {
     console.error('Error deleting data:', error);
   }
 };
+
+const handleAddHajjProgramFromMain= async (id) => {
+  try {
+    await axios.patch(`https://officealhajandalumrah.adaptable.app/program-al-haj/${id}`, {Available_viewing: true} , {
+      headers: {
+          'Content-Type': 'application/json',
+      },
+    });
+    } catch (error) {
+    console.error('Error deleting data:', error);
+  }
+};
+
 
 const handleChangeHajjProgram = (e) => {
 const { name, value } = e.target;
@@ -1240,6 +1265,31 @@ useEffect(() => {
   setUploadedImagesTransport([]);
 };
 
+const [countHajjProgram,setCountHajjProgram]= useState([]);
+const [countUmrahProgram,setCountUmrahProgram]= useState([]);
+const [countUmrahSpecialProgram,setCountUmrahSpecialProgram]= useState([]);
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      
+      const programUmrahSpecial = await axios.get('https://officealhajandalumrah.adaptable.app/program-umrah-special').then(response => response.data);
+      const countProgramUmrahSpecial=programUmrahSpecial.length;
+      setCountUmrahSpecialProgram(countProgramUmrahSpecial);
+
+      const programUmrah = await axios.get('https://officealhajandalumrah.adaptable.app/program-umrah').then(response => response.data);
+      const countProgramUmrah=programUmrah.length;
+      setCountUmrahProgram(countProgramUmrah);
+      
+      const programHajj = await axios.get('https://officealhajandalumrah.adaptable.app/program-al-haj').then(response => response.data);
+      const countProgramHajj=programHajj.length;
+      setCountHajjProgram(countProgramHajj);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  fetchData();
+}, []);
+
 
   return (
     <div className="DashBoardEmployee">
@@ -1331,23 +1381,23 @@ useEffect(() => {
         <div className="detil">
           <div className="alert " role="alert">
             <h5>
-              عدد برامج الحج خلال السنوات <br /> 2022-2024
+              عدد برامج الحج  <br /> 
             </h5>
-            <p> 15 برنامج</p>
+            <p> {countHajjProgram} برنامج</p>
           </div>
           <div className="alert " role="alert">
             <h5>
-              عدد برامج العمرة خلال السنوات <br />
-              2022-2024
+              عدد برامج العمرة  <br />
+              
             </h5>
-            <p> 15 برنامج</p>
+            <p> {countUmrahProgram} برنامج</p>
           </div>
           <div className="alert " role="alert">
             <h5>
-              عدد البرامج الخاصة خلال السنوات
-              <br /> 2022-2024
+              عدد البرامج الخاصة 
+              <br /> 
             </h5>
-            <p> 15 برنامج</p>
+            <p> {countUmrahSpecialProgram} برنامج</p>
           </div>
         </div>
 
@@ -1696,7 +1746,10 @@ useEffect(() => {
 
               <p> : الفنادق  </p>
               <div className="hotelsForProgram">
-              <button className="delet" onClick={()=> handleDeleteUmrahProgramFromMain(program._id)}> حذف البرنامج من الصفحة الرئيسية </button>
+                <div className="btnADDandDelete">
+                <button className="delet" onClick={()=> handleDeleteUmrahProgramFromMain(program._id)}> حذف البرنامج من الصفحة الرئيسية </button>
+                <button className="update" onClick={()=> handleAddUmrahProgramFromMain(program._id)}> اضافة البرنامج الى الصفحة الرئيسية </button>
+                </div>
               {hotelsForProgram[program._id] ? (
                <p> 
                 {hotelsForProgram[program._id].map((hotel, hotelIndex) => (
@@ -1832,7 +1885,10 @@ useEffect(() => {
               <p> المرشد الديني :<span> {program.Religious_guide} </span></p>
               <p> : الفنادق   </p>
               <div className="hotelsForProgram">
-              <button className="delet" onClick={()=> handleDeleteHajjProgramFromMain(program._id)}> حذف البرنامج من الصفحة الرئيسية </button>
+                <div className="btnADDandDelete">
+                <button className="delet" onClick={()=> handleDeleteHajjProgramFromMain(program._id)}> حذف البرنامج من الصفحة الرئيسية </button>
+                <button className="update" onClick={()=> handleAddHajjProgramFromMain(program._id)}> اضافة البرنامج الى الصفحة الرئيسية </button>
+                </div>
               {hotelsForProgramHajj[program._id] ? (
                <p> 
                 {hotelsForProgramHajj[program._id].map((hotel, hotelIndex) => (
@@ -1943,66 +1999,130 @@ useEffect(() => {
 
 
          <div className="dashborde">
-        <div className="hotal-updat">
-          <h2>الفنادق</h2>
+        
+        <div className="show-hotal">
+            <h2 > :الفنادق  <i><ImLibrary /></i></h2>
           <div className="table-hotal">
-            <table className="table">
+          <table className="table">
               <thead>
                 <tr>
-                  <th>الصورة الرئيسية</th>
-                  <th>اماكن يمكن زيارتها</th>
-                  <th>الخدمات</th>
-                  <th>رتبة الفندق</th>
-                  <th>التفاصيل</th>
-                  <th>الموقع</th>
-                  <th>اسم الفندق</th>
+                <th>اسم الفندق</th>
+                <th>الموقع</th>
+                <th>التفاصيل</th>
+                <th>رتبة الفندق</th>
+                <th>الخدمات</th>
+                <th>اماكن يمكن زيارتها</th>
+                <th>الصورة الرئيسية</th>
                 </tr>
               </thead>
               <tbody>
               {hotels.map((hotel, index) => (
                   <tr key={index}>
-                    <td><img src={hotel.urlImagehotel} width="50" height="50" /></td>
-                    <td>{hotel.Places_available_visit}</td>
-                    <td>{hotel.Services}</td>
-                    <td>{hotel.Number_stars}</td>
-                    <td>{hotel.  details}</td>
-                    <td>{hotel.location}</td>
-                    <td>{hotel.name}</td>
-                  </tr>
+                     <td>{hotel.name}</td>
+                     <td>{hotel.location}</td>
+                     <td>{hotel.  details}</td>
+                     <td>{hotel.Number_stars}</td>
+                     <td>{hotel.Services}</td>
+                     <td>{hotel.Places_available_visit}</td>
+                     <td><img src={hotel.urlImagehotel} width="50" height="50" /></td>
+                   </tr>
                 ))}
               </tbody>
             </table>
-
             <form onSubmit={handleSubmitHotel}>
             <table>
               <thead>
                 <tr>
-                  <th>رابط الفندق</th>
-                  <th> صور الفندق</th>
-                  <th>الصورة الرئيسية</th>
-                  <th>اماكن يمكن زيارتها</th>
-                  <th>الخدمات</th>
-                  <th>رتبة الفندق</th>
-                  <th>التفاصيل</th>
-                  <th>الموقع</th>
-                  <th>اسم الفندق</th>
                   <th>{}</th>
+                  <th>اسم الفندق</th>
+                  <th>الموقع</th>
+                  <th>التفاصيل</th>
+                  <th>رتبة الفندق</th>
+                  <th>الخدمات</th>
+                  <th>اماكن يمكن زيارتها</th>
+                  <th>الصورة الرئيسية</th>
+                  <th> صور الفندق</th>
+                  <th>رابط الفندق</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><input type="url"    name="link"  value={hotelData.link}  onChange={handelChangeHotel} /></td>
-                  <td><input type="file"   name="urlImage"  value={hotelData.urlImage} onChange={handleChangeArrayImageHotel} /></td>
-                  <td><input type="file"   name="urlImagehotel"   onChange={handleChangeImageHotel} /></td> 
-                  <td><input type="text"   name="Places_available_visit"  value={hotelData.Places_available_visit} onChange={handelChangeHotel} /></td>
-                  <td><input type="text"   name="Services"  value={hotelData.Services} onChange={handelChangeHotel} /></td>
-                  <td><input type="number"   name="Number_stars"  value={hotelData.Number_stars} onChange={handelChangeHotel} /></td>
-                  <td><input type="text" name="details"  value={hotelData.details} onChange={handelChangeHotel} /></td>
-                  <td><input type="text"   name="location"  value={hotelData.location} onChange={handelChangeHotel} /></td>
-                  <td><input type="text"   name="name"  value={hotelData.name} onChange={handelChangeHotel} /></td>
                   <td>
                     <button className="add" type="submit">اضافة<FaPlus /></button>
                   </td>
+                  <td><input type="text"   name="name"  value={hotelData.name} onChange={handelChangeHotel} /></td>
+                  <td><input type="text"   name="location"  value={hotelData.location} onChange={handelChangeHotel} /></td>
+                  <td><input type="text" name="details"  value={hotelData.details} onChange={handelChangeHotel} /></td>
+                  <td><input type="number"   name="Number_stars"  value={hotelData.Number_stars} onChange={handelChangeHotel} /></td>
+                  <td><input type="text"   name="Services"  value={hotelData.Services} onChange={handelChangeHotel} /></td>
+                  <td><input type="text"   name="Places_available_visit"  value={hotelData.Places_available_visit} onChange={handelChangeHotel} /></td>
+                  <td><input type="file"   name="urlImagehotel"   onChange={handleChangeImageHotel} /></td> 
+                  <td><input type="file"   name="urlImage"  value={hotelData.urlImage} onChange={handleChangeArrayImageHotel} /></td>
+                  <td><input type="url"    name="link"  value={hotelData.link}  onChange={handelChangeHotel} /></td>
+                </tr>
+              </tbody>
+            </table>
+            </form>
+            </div>
+            </div>
+
+            <div className=" show-transport">
+        <h2> :النقل <i><ImAirplane /></i></h2>
+          <div className="table-transport">
+          <table className="table">
+              <thead>
+                <tr>
+                <th>اسم الشركة</th>
+                <th>الخدمات</th>
+                <th>هدف الشركة</th>
+                <th>الصورة الرئيسية</th>
+                <th>رابط الشركة</th>
+                <th>نوع النقل</th>
+                <th> سعر التكيت</th>
+               </tr>
+              </thead>
+              <tbody>
+                {transports.map((Transport, index) => (
+                  <tr key={index}>
+                    <td>{Transport.name_company}</td>
+                    <td>{Transport.Services}</td>
+                    <td>{Transport.goals_company}</td>
+                    <td><img src={Transport.urlImageCompany} width="50" height="50" /></td>
+                    <td>{Transport.link}</td>
+                    <td>{Transport.type_bus}</td>
+                    <td>{Transport.price_tecket}</td>
+                    </tr>
+                ))}
+              </tbody>
+            </table>
+            <form onSubmit={handleSubmitTransport}>
+            <table>
+              <thead>
+                <tr>
+                 <th></th>
+                 <th>اسم الشركة</th>
+                 <th>الخدمات</th>
+                 <th>هدف الشركة</th>
+                 <th>الصورة الرئيسية</th>
+                 <th>صور وسائل النقل</th>
+                 <th>رابط الشركة</th>
+                 <th>نوع النقل</th>
+                <th> سعر التكيت</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <button className="add" type="submit">اضافة<FaPlus /></button>
+                  </td>
+                  <td><input type="text"   name="name_company"  value={transportData.name_company} onChange={handelChangeTransport} /></td>
+                  <td><input type="text"   name="Services"  value={transportData.Services} onChange={handelChangeTransport} /></td>
+                  <td><input type="text" name="goals_company"  value={transportData.goals_company} onChange={handelChangeTransport} /></td>
+                  <td><input type="file"   name="urlImageCompany"   onChange={handleChangeImageTransport} /></td>
+                  <td><input type="file"   name="urlImage"  value={transportData.urlImage} onChange={handleChangeArrayImageTransport} /></td>
+                  <td><input type="url"   name="link"  value={transportData.link} onChange={handelChangeTransport} /></td>
+                  <td><input type="text"   name="type_bus"  value={transportData.type_bus}  onChange={handelChangeTransport} /></td> 
+                  <td><input type="text"   name="price_tecket"  value={transportData.price_tecket} onChange={handelChangeTransport} /></td>
                 </tr>
               </tbody>
             </table>
@@ -2010,70 +2130,7 @@ useEffect(() => {
           </div>
         </div>
 
-        <div className="transport-updat">
-          <h2>النقل</h2>
-          <div className="table-transport">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th> سعر التكيت</th>
-                  <th>نوع النقل</th>
-                  <th>رابط الشركة</th>
-                  <th>الصورة الرئيسية</th>
-                  <th>هدف الشركة</th>
-                  <th>الخدمات</th>
-                  <th>اسم الشركة</th>
-                </tr>
-              </thead>
-              <tbody>
-                {transports.map((Transport, index) => (
-                  <tr key={index}>
-                    <td>{Transport.price_tecket}</td>
-                    <td>{Transport.type_bus}</td>
-                    <td>{Transport.link}</td>
-                    <td><img src={Transport.urlImageCompany} width="50" height="50" /></td>
-                    <td>{Transport.goals_company}</td>
-                    <td>{Transport.Services}</td>
-                    <td>{Transport.name_company}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-  
-          <form onSubmit={handleSubmitTransport}>
-            <table>
-              <thead>
-                <tr>
-                  <th> سعر التكيت</th>
-                  <th>نوع النقل</th>
-                  <th>رابط الشركة</th>
-                  <th>صور وسائل النقل</th>
-                  <th>الصورة الرئيسية</th>
-                  <th>هدف الشركة</th>
-                  <th>الخدمات</th>
-                  <th>اسم الشركة</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><input type="text"   name="price_tecket"  value={transportData.price_tecket} onChange={handelChangeTransport} /></td>
-                  <td><input type="text"   name="type_bus"  value={transportData.type_bus}  onChange={handelChangeTransport} /></td> 
-                  <td><input type="url"   name="link"  value={transportData.link} onChange={handelChangeTransport} /></td>
-                  <td><input type="file"   name="urlImage"  value={transportData.urlImage} onChange={handleChangeArrayImageTransport} /></td>
-                  <td><input type="file"   name="urlImageCompany"   onChange={handleChangeImageTransport} /></td>
-                  <td><input type="text" name="goals_company"  value={transportData.goals_company} onChange={handelChangeTransport} /></td>
-                  <td><input type="text"   name="Services"  value={transportData.Services} onChange={handelChangeTransport} /></td>
-                  <td><input type="text"   name="name_company"  value={transportData.name_company} onChange={handelChangeTransport} /></td>
-                  <td>
-                    <button className="add" type="submit">اضافة<FaPlus /></button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            </form>
-          </div>
-        </div>
+    
         </div>
         <div className="seting">
           <h2>الاعدادات</h2>

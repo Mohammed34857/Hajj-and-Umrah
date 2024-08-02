@@ -76,7 +76,7 @@ body{
   }
   .dashborde .alert {
     height: 150px;
-    background: linear-gradient(to left, #9b7f34, #a88f3e, #a7942d, #dac08a);
+    background: linear-gradient(to right, #444442, #6e6c61, #69675c, #4b4742);
     border-radius: 8px;
     width: 250px;
     margin-left: 40px;
@@ -135,7 +135,7 @@ body{
 .table-hotal::-webkit-scrollbar-thumb ,
 .table-transport::-webkit-scrollbar-thumb
 {
-  background-color: #ebcd94;
+  background-color: #8f8d8b;
   border-radius: 10px;
   border: 3px solid #f1f1f1;
 }
@@ -157,7 +157,7 @@ body{
     color: white;
   }
    .dashborde tr td,.dashborde th {
-    background: linear-gradient(to left, #7e6624, #816b22, #a7942d, #dac08a);
+    background: linear-gradient(to right, #444442, #6e6c61, #69675c, #4b4742);
     border: 3px solid rgb(255, 255, 255);
     padding: 10px;
     font-size: 20px;
@@ -198,7 +198,7 @@ body{
     border-radius: 50%;
     padding: 3px;
     width: 75%;
-    border: 3px solid #a7942d;
+    border: 3px solid #5a5852;
   }
   ::-webkit-scrollbar-button {
     display: none; 
@@ -210,7 +210,7 @@ body{
   border-radius: 50%;
   padding: 3px;
   width: 75%;
-  border: 3px solid #a7942d;
+  border: 3px solid #5a5852;
   margin-left: 20%;
 }
 .seting{
@@ -223,7 +223,7 @@ body{
 }
 .prog1 {
   height: auto;
-  box-shadow: 5px 10px 20px #a7952dda inset;
+  box-shadow: 5px 10px 20px 5px #968f69da inset;
   padding-bottom: 50px;
 }
 .prog1 p {
@@ -277,10 +277,14 @@ margin-bottom: 50px;
 .tableProgeam h5{
   color:var(--color-gold);
 }
+.contain-umrah h3 , .contain-hajj h3{
+  color: wheat;
+  margin-top:30px ;
+}
 .prog2{
   width: 450px;
   height: auto;
-  box-shadow: 5px 10px 0px 20px #a7952dda inset;
+  box-shadow: 5px 10px 20px 5px #968f69da inset;
 
 }
 .progr-parent h3{
@@ -291,7 +295,7 @@ margin-bottom: 50px;
   font-weight: 700;
 }
 .prog-add{
-  box-shadow: 5px 10px 20px  #a7952dda inset;
+  box-shadow: 5px 10px 20px 5px #968f69da inset;
   height: auto;
   width: 70%;
   margin-left: 23%;
@@ -393,7 +397,7 @@ margin-right: 50px;
   margin-top: 50px;
 }
 .seting-detil{
-  box-shadow: 5px 10px 20px  #a7952dda inset;
+  box-shadow: 5px 10px 20px 5px #968f69da inset;
   height: 380px;
   width: 70%;
   margin-left: 23%;
@@ -427,7 +431,10 @@ margin-right: 50px;
   align-items: center;
   justify-content: space-between;
 }
-.hotelsForProgram .delet{
+.hotelsForProgram .delet , .hotelsForProgram .update {
   margin-left: 20px;
     width: 150px;
+}
+.hotelsForProgram .btnADDandDelete{
+  width: 180px;
 }

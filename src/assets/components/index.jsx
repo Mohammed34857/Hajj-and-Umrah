@@ -5,3 +5,4 @@ export {default as BusInUmrahProgram} from './BusInUmrahProgram/BusInUmrahProgra
 export {default as CardHajj} from './CardHajj/CardHajj'
 export {default as SliderHotel} from './SliderHotel/SliderHotel'
 export {default as Button} from './Button/Button'
+export {default as SnackbarComponent} from './SnackbarComponent '

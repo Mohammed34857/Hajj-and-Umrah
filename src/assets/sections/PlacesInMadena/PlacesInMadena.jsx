@@ -142,6 +142,7 @@ const PlacesInMadena = () => {
           </section>
         </div>
       </div>
+      <div className="fixed"> </div>
     </div>
   );
 };
