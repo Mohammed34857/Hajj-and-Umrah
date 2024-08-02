@@ -34,7 +34,11 @@ const HajjPrograms = () => {
           <CardHajj program1={hajjProgramsData[0]} program2={hajjProgramsData[1]} />
         )}  
           </div>
+<<<<<<< HEAD
    
+=======
+ 
+>>>>>>> 8864ccca0395f7bb4e87d2c7d9ce6c821a8009db
     </>
   )
 }

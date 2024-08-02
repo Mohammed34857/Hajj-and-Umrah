@@ -8,11 +8,11 @@
     height: 450px;
 }
 .Dash-board-manager .min{
-    background-image: url(../../images/about.jpg);
+    background-image: url(../../images/dashbord/1715458080642.jpg);
 }
 
 .Dash-board-manager .detil .alert{
-    background: linear-gradient(to right, #444442, #6e6c61, #69675c, #4b4742);
+    background: linear-gradient(to left, #9b7f34, #a88f3e, #a7942d, #dac08a);
     height: 150px;
     border-radius: 50%;
     width: 250px;
@@ -54,7 +54,7 @@
 .table-employee::-webkit-scrollbar-thumb,
 .show-travel::-webkit-scrollbar-thumb
 {
-  background-color: #8f8d8b;
+  background-color:  #ebcd94;
   border-radius: 10px;
   border: 3px solid #f1f1f1;
 }
@@ -75,7 +75,7 @@
 
 .Dash-board-manager .contain-employee tr td ,.contain-employee th {
     margin: 5px;
-    background: linear-gradient(to right, #444442, #6e6c61, #69675c, #837563);
+    background: linear-gradient(to left, #9b7f34, #a88f3e, #a7942d, #dac08a);
     border: 3px solid rgb(255, 255, 255);
     padding: 4px;
     text-align: right;
@@ -88,31 +88,35 @@
 }
 .contain-employee .edit , .editminimumAge{
     border: none;
-    background-color: rgb(212, 200, 144);
+    background-color: rgb(119, 124, 51);
     border-radius: 5px;
     width: 70px;
+    color: white;
  
 }
+
 .contain-employee .edit:hover{
     border: none;
-    background-color: rgb(77, 73, 59);
+    background-color: rgb(250, 249, 246);
     border-radius: 5px;
     width: 80px;
-    color: white;
+    color: rgb(102, 112, 13);
 }
 .contain-employee .delet{
     border: none;
-    background-color: rgb(219, 142, 119);
+    background-color: rgb(141, 36, 4);
     border-radius: 5px;
     width: 70px;
+    margin-top: 10px;
+    color: white;
  
 }
 .contain-employee .delet:hover{
     border: none;
-    background-color: rgb(87, 63, 60);
+    background-color: rgb(247, 243, 243);
     border-radius: 5px;
     width: 80px;
-    color: white;
+    color: rgb(230, 9, 9);
 }
 .contain-employee .add{
     border: none;
@@ -140,7 +144,7 @@ padding: 30px;
     display: flex;
     flex-direction: row;
     gap: 13%;
-  box-shadow: 5px 10px 20px 5px #968f69da inset;
+  box-shadow: 5px 10px 20px  #a7952dda inset;;
   width: 78%;
 }
 
@@ -172,7 +176,7 @@ padding: 30px;
     margin-top: 100px;
 }
 .manager-prog-umrah .prog1 ,.manager-prog-hajj .prog1{
-    box-shadow: 5px 10px 20px #968f69da inset;  
+    box-shadow:5px 10px 20px  #a7952dda inset;  
 }
 .show-transport ,.show-hotal ,.seting-manager{
     margin-top: 50px;
@@ -196,7 +200,7 @@ padding: 30px;
 }
 .show-travel table th ,.show-travel table td ,.show-hotal table td ,.show-hotal table th ,.show-transport table td ,.show-transport table th{
 margin: 5px;
-background: linear-gradient(to right, #444442, #6e6c61, #69675c, #837563);
+background: linear-gradient(to left, #9b7f34, #a88f3e, #a7942d, #dac08a);
 border: 2px solid rgb(255, 255, 255);
 padding: 4px;
 color: wheat;
@@ -204,14 +208,14 @@ color: wheat;
 .seting-manager .seting-detil{
     width: 78%;
     margin-left: 20%;
-    box-shadow: 5px 10px 20px 5px #968f69da inset;
+    box-shadow: 5px 10px 20px  #a7952dda inset;
 }
  .seting-manager .submit{
     background-color: #969592da;
     color:black;
 }
 .parent-seting {
-    box-shadow: 5px 10px 20px 5px #968f69da inset;
+    box-shadow:5px 10px 20px  #a7952dda inset;
     height: 1200px;
     width: 75%;
     margin-left: 23%;
