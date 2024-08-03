@@ -69,7 +69,7 @@ const UmrahPrograms = () => {
   }else
   content = (
     <div className='buses'>
-      <p>البرنامج جوي لا يحوي شركات نقل</p>
+      <p>{programUmrah.Airline.name}</p>
     </div>
   );
   }
