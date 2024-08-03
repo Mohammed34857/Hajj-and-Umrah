@@ -21,10 +21,10 @@ const UmrahPrograms = () => {
 
     const getMinPrice = (program) => {
       const prices = [program.price1, program.price2, program.price3, program.price4]
-        .map(price => parseInt(price.replace(/\D/g, '')))
-        .filter(price => !isNaN(price)); 
+        .map(price => price ? parseInt(price.replace(/\D/g, '')) : NaN)
+        .filter(price => !isNaN(price));
   
-      return Math.min(...prices);
+      return prices.length > 0 ? Math.min(...prices) : 0;
     };
 
   const Cards=umrahProgramsData.map(Card =>{

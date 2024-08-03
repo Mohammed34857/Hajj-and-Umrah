@@ -7,11 +7,12 @@ import axios from 'axios';
 function Footer() {
 
   const [office,setOffice]=useState([]);
+  console.log(office)
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('https://officealhajandalumrah.adaptable.app/office');
-        setOffice(response.data);
+        setOffice(response.data[0]);
      
       } catch (error) {
         console.error('Error fetching data:', error);

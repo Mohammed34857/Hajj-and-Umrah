@@ -5,6 +5,18 @@ import { FaHotel ,FaAppleAlt } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 const CardHajj = ({ program1, program2 }) => {
 
+
+  const getMinPrice = (program) => {
+    const prices = [program.price1, program.price2, program.price3, program.price4]
+      .map(price => price ? parseInt(price.replace(/\D/g, '')) : NaN)
+      .filter(price => !isNaN(price));
+
+    return prices.length > 0 ? Math.min(...prices) : 0;
+  };
+
+  const minPrice1 = getMinPrice(program1);
+  const minPrice2 = getMinPrice(program2);
+
   return (
     <div className='card-hajj-item   '>
         <div className='card-hajj-program card-news'>
@@ -22,7 +34,7 @@ const CardHajj = ({ program1, program2 }) => {
             </ul>
             <Link className="btn btn-dark btn-1" to={`/HajjPrograms/${program1._id}`}> تفاصيل البرنامج</Link>
           
-            <span>الاسعار تبدأ من $4900</span>
+            <span>الأسعار تبدأ من ${minPrice1}</span>
        
         </div>
         <div className="right">
@@ -47,7 +59,7 @@ const CardHajj = ({ program1, program2 }) => {
             </ul>
             <Link className="btn btn-dark btn-1" to={`/HajjPrograms/${program2._id}`} > تفاصيل البرنامج</Link>
            
-            <span>الاسعار تبدأ من $5000</span>
+            <span>الأسعار تبدأ من ${minPrice2}</span>
         </div>
     </div>
             </div>
