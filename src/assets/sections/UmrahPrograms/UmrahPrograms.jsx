@@ -19,8 +19,17 @@ const UmrahPrograms = () => {
       fetchData();
     }, []);
 
+    const getMinPrice = (program) => {
+      const prices = [program.price1, program.price2, program.price3, program.price4]
+        .map(price => parseInt(price.replace(/\D/g, '')))
+        .filter(price => !isNaN(price)); 
+  
+      return Math.min(...prices);
+    };
+
   const Cards=umrahProgramsData.map(Card =>{
-    return <CardUmrahProgram key={Card._id} id={Card._id} image={Card.image} ProgramName={Card.name_program} Duration={Card.total_stay} DurationInMakaa={Card.stay_in_macca} DurationInMedina={Card.stay_in_madina} />
+    const minPrice = getMinPrice(Card);
+    return <CardUmrahProgram key={Card._id} id={Card._id} image={Card.image} ProgramName={Card.name_program} Duration={Card.total_stay} DurationInMakaa={Card.stay_in_macca} DurationInMedina={Card.stay_in_madina} price={minPrice} />
  })
 
   return (

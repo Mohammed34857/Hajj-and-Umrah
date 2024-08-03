@@ -1,0 +1,150 @@
+.login-dash-board {
+  background-image: url(../../images/sign/1715458080642.jpg);
+  height: 800px;
+  background-repeat: no-repeat;
+  justify-content: center;
+  align-items: center;
+  padding-top: 100px;
+}
+
+.btn-sign {
+  width: 40%;
+  padding-top: 120px;
+  text-align: right;
+  margin-left: 50%;
+}
+.top i {
+  font-size: 25px;
+  margin-right: 25px;
+}
+.btn-sign .sign {
+  width: 150px;
+  height: 50px;
+  font-weight: 700;
+  font-size: 20px;
+  background-color: rgba(131, 114, 68, 0.685);
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+  color: white;
+  border-radius: 25%;
+}
+#sign-btn {
+  margin-left: 15px;
+}
+.btn-sign .sign-in {
+  background-color: rgba(97, 77, 10, 0.89);
+}
+.btn-sign .sign-in:hover {
+  background-color: rgba(165, 156, 125, 0.5);
+}
+.btn-sign .sign-up:hover {
+  background-color: rgba(253, 228, 146, 0.411);
+}
+
+.form-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 512px;
+  height: 500px;
+  overflow: hidden;
+  text-align: center;
+  z-index: 2;
+  margin-left: 35%;
+  margin-top: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0px 0px 20px rgb(255, 247, 247);
+  border-radius: 25%;
+}
+
+.register-continer,
+.login-continer {
+  position: absolute;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  transition: 0.5s ease-in-out;
+}
+.login-continer{
+  opacity: 0;
+}
+
+.top h1 {
+  color: white;
+  font-size: 30px;
+  text-align: center;
+  padding: 10px 0 30px 0;
+}
+
+.input-filed {
+  font-size: 15px;
+  background-color: rgba(255, 248, 248, 0.795);
+  color: rgb(2, 2, 2);
+  height: 50px;
+  width: 80%;
+  padding: 0px 10px 0px 45px;
+  border: none;
+  border-radius: 30px;
+  outline: none;
+  transition: 0.2s ease;
+  margin: 10px;
+}
+
+.input-filed:hover,
+.input-filed:focus {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+::-webkit-input-placeholder {
+  color: rgb(15, 15, 15);
+  text-align: right;
+  padding: 10px;
+}
+
+.submit {
+  font-size: 20px;
+  font-weight: 500;
+  color: rgb(253, 248, 248);
+  height: 45px;
+  width: 80%;
+  border: none;
+  border-radius: 30px;
+  outline: none;
+  background: rgba(124, 96, 3, 0.788);
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.submit:hover {
+  background-color: rgba(253, 228, 146, 0.5);
+  box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.2);
+  color: black;
+}
+
+.two-col {
+  display: flex;
+  justify-content: space-between;
+  color: rgb(34, 34, 34);
+  margin-top: 10px;
+}
+
+.two-col .one {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 10px;
+  margin-left: 70px;
+  margin-right: 60px;
+}
+
+.two label a {
+  text-decoration: none;
+  color: rgb(3, 3, 3);
+  margin-right: 70px;
+  margin-bottom: 10px;
+}
+
+.two label a:hover {
+  text-decoration: underline;
+}

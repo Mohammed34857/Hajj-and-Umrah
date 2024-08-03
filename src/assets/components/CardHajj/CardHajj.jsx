@@ -17,7 +17,7 @@ const CardHajj = ({ program1, program2 }) => {
                 <li> (الاقامة بمكة المكرمة والمدينة المنورة بفنادق فئة ثلاث نجوم )     
               <i> <FaHotel /></i> 
                 </li>
-                <li> (وجبتي فطور وعشاء يوميا لكل حاج) <i ><FaAppleAlt /></i></li>
+                <li> ({program1.Number_meals}) <i ><FaAppleAlt /></i></li>
                 <li> (هدايا ورحلات متنوعة )  <i>  <ImHeart /></i></li>
             </ul>
             <Link className="btn btn-dark btn-1" to={`/HajjPrograms/${program1._id}`}> تفاصيل البرنامج</Link>
@@ -42,7 +42,7 @@ const CardHajj = ({ program1, program2 }) => {
                 <li> (     الاقامة بمكة المكرمة والمدينة المنورة بفنادق فئة خمس نجوم مطلة على الحرم والمدينة المنورة)
                 <i> <FaHotel /></i>
                 </li>
-                <li> (ثلاث وجبات فطور وغداء وعشاء يوميا لكل حاج) <i ><FaAppleAlt /></i></li>
+                <li> ({program2.Number_meals}) <i ><FaAppleAlt /></i></li>
                 <li> (هدايا ورحلات متنوعة ) <i>  <ImHeart /></i></li>
             </ul>
             <Link className="btn btn-dark btn-1" to={`/HajjPrograms/${program2._id}`} > تفاصيل البرنامج</Link>

@@ -8,4 +8,5 @@ export {default as RegisterProgramHajj} from './PagesRegister/RegisterProgramHaj
 export {default as RegisterProgramSpecial} from './PagesRegister/RegisterProgramSpecial/RegisterProgramSpecial'
 export {default as DashBoardEmployee} from './DashBoardEmployee/DashBoardEmployee'
 export {default as DashBoardManager} from './DashBoardManager/DashBoardManager'
-export {default as LogInDashBoard} from './LogInDashBoard/LogInDashBoard'
+export {default as LogInDashBoardManager} from './LogInDashBoardManager/LogInDashBoardManager'
+export {default as LogInDashBoardEmployee} from './LogInDashBoardEmployee/LogInDashBoardEmployee'

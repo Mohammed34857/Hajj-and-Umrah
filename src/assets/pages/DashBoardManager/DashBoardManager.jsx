@@ -32,6 +32,7 @@ const  DashBoardManager = ()=> {
     adress: "",
     dateEmployee: "",
     Reservation_code: "",
+    password:"",
     id_office: ""
   });
   useEffect(() => {
@@ -78,6 +79,7 @@ const  DashBoardManager = ()=> {
         Educational_attainment: employeeData.Educational_attainment,
         adress: employeeData.adress,
         dateEmployee: employeeData.dateEmployee,
+        password: employeeData.password,
         Reservation_code: employeeData.Reservation_code,
     };
     console.log(dataEmployee);
@@ -232,6 +234,11 @@ try {
 fetchHotels();
 }, [allProgramUmrahHotel]);
 
+const [showTravel,setShowTravel]= useState(false);
+
+const ShowTravelInProgram= (id)=> {
+   
+}
 
 
 // data form mutamer
@@ -476,6 +483,31 @@ const handleUpdateField = async (fieldName) => {
       }
     };
 
+const [countHajjProgram,setCountHajjProgram]= useState([]);
+const [countUmrahProgram,setCountUmrahProgram]= useState([]);
+const [countUmrahSpecialProgram,setCountUmrahSpecialProgram]= useState([]);
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      
+      const programUmrahSpecial = await axios.get('https://officealhajandalumrah.adaptable.app/program-umrah-special').then(response => response.data);
+      const countProgramUmrahSpecial=programUmrahSpecial.length;
+      setCountUmrahSpecialProgram(countProgramUmrahSpecial);
+
+      const programUmrah = await axios.get('https://officealhajandalumrah.adaptable.app/program-umrah').then(response => response.data);
+      const countProgramUmrah=programUmrah.length;
+      setCountUmrahProgram(countProgramUmrah);
+      
+      const programHajj = await axios.get('https://officealhajandalumrah.adaptable.app/program-al-haj').then(response => response.data);
+      const countProgramHajj=programHajj.length;
+      setCountHajjProgram(countProgramHajj);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  fetchData();
+}, []);
+
   return (
     <div className='Dash-board-manager'>
           <div className="min">
@@ -563,23 +595,23 @@ const handleUpdateField = async (fieldName) => {
         <div className="detil">
           <div className="alert " role="alert">
             <h5>
-              عدد برامج الحج خلال السنوات <br /> 2022-2024
+              عدد برامج الحج  <br /> 
             </h5>
-            <p> 15 برنامج</p>
+            <p> {countHajjProgram} برنامج</p>
           </div>
           <div className="alert " role="alert">
             <h5>
-              عدد برامج العمرة خلال السنوات <br />
-              2022-2024
+              عدد برامج العمرة  <br />
+              
             </h5>
-            <p> 15 برنامج</p>
+            <p> {countUmrahProgram} برنامج</p>
           </div>
           <div className="alert " role="alert">
             <h5>
-              عدد المسافرين من المكتب خلال السنوات
-              <br /> 2022-2024
+               عدد البرامج الخاصة   
+              <br /> 
             </h5>
-            <p> 15 برنامج</p>
+            <p> {countUmrahSpecialProgram} برنامج</p>
           </div>
         </div>
 
@@ -590,6 +622,7 @@ const handleUpdateField = async (fieldName) => {
               <thead>
                 <tr>
                   <th>الكود الخاص</th>
+                  <th>كلمة المرور</th>
                   <th>العنوان</th>
                   <th> تارخ التعيين </th>
                   <th>التحصيل العلمي</th>
@@ -606,6 +639,7 @@ const handleUpdateField = async (fieldName) => {
                 {employee.map((emp, index) => (
                   <tr key={index}>
                     <td>{emp.Reservation_code}</td>
+                    <td>{emp.password}</td>
                     <td>{emp.adress}</td>
                     <td>{emp.dateEmployee}</td>
                     <td>{emp.Educational_attainment}</td>
@@ -630,6 +664,7 @@ const handleUpdateField = async (fieldName) => {
               <thead>
                 <tr>
                   <th>الكود الخاص</th>
+                  <th>كلمة المرور</th>
                   <th>العنوان</th>
                   <th> تارخ التعيين </th>
                   <th>التحصيل العلمي</th>
@@ -645,6 +680,7 @@ const handleUpdateField = async (fieldName) => {
               <tbody>
                   <tr >
                     <td><input type="text" name="Reservation_code" placeholder="الكود الخاص" value={employeeData.Reservation_code} onChange={handleChangeEmployee} /></td>
+                    <td><input type="text" name="password" placeholder=" كلمة المرور" value={employeeData.password} onChange={handleChangeEmployee} /></td>
                     <td><input type="text" name="adress" placeholder=" العنوان" value={employeeData.adress} onChange={handleChangeEmployee} /></td>
                     <td><input type="date" name="dateEmployee" placeholder="تارخ التعيين  " value={employeeData.dateEmployee} onChange={handleChangeEmployee} /></td>
                     <td><input type="text" name="Educational_attainment" placeholder="التحصيل العلمي" value={employeeData.Educational_attainment} onChange={handleChangeEmployee} /></td>
@@ -704,82 +740,12 @@ const handleUpdateField = async (fieldName) => {
              ) : (
              <p></p>
               )}
+                    {/* <button className="btn" onClick={ShowTravelInProgram(program._id)}>  عرض المسافرين في هذا البرنامج</button> */}
             </div>
             ))}
            </Slider>
           </div>
         </div>
-        {/* <div className=" manager-prog-umrah">
-          <h2>:برامج العمرة    <i>
-                    <ImFolderOpen />{" "}
-                  </i></h2>
-          <div className="progr-parent">
-            <div className="prog1">
-              <h3>عمرة رمضان البرية</h3>
-
-              <p>
-                مدة البرنامج <span>25 يوم</span>
-              </p>
-              <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-              <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-
-              <p>
-                {" "}
-                تاريخ السفر <span>11/5/2024</span> السفر برا
-              </p>
-              <p>
-                فنادق مكة المكرمة : <span>اعمار غراند</span> <span>فيوليت</span>
-                <span>انوار الاصيل </span>
-              </p>
-
-              <p>
-                فنادق المدينة المنورة : <span>روز الماسة</span>{" "}
-                <span>نجوم المدينة</span> <br />
-                <span>ارجوان روز</span>
-              </p>
-
-            
-           
-           <button className="btn">  عرض المسافرين في هذا البرنامج</button>
-           
-            </div>
-            <div className="prog1">
-              <h3>عمرة رمضان البرية</h3>
-
-              <p>
-                مدة البرنامج <span>25 يوم</span>
-              </p>
-              <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-              <p>
-                <span>5</span> مدة الاقامة بمكة المكرمة
-              </p>
-
-              <p>
-                {" "}
-                تاريخ السفر <span>11/5/2024</span> السفر برا
-              </p>
-              <p>
-                فنادق مكة المكرمة : <span>اعمار غراند</span>{" "}
-                <span>انوار الاصيل </span>
-              </p>
-
-              <p>
-                فنادق المدينة المنورة : <span>روز الماسة</span>{" "}
-                <span>نجوم المدينة</span> <br />
-                <span>ارجوان روز</span>
-              </p>
-             
-           <button className="btn">  عرض المسافرين في هذا البرنامج</button> </div>
-          </div>
-
-        
-        </div> */}
 
       <h2>:المعتمرين<i> <FaUsers /></i></h2>
         <div className="show-travel">

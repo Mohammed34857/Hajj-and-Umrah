@@ -144,7 +144,7 @@ padding: 30px;
     display: flex;
     flex-direction: row;
     gap: 13%;
-  box-shadow: 5px 10px 20px  #a7952dda inset;;
+  box-shadow: 5px 10px 20px  #a7952dda inset;
   width: 78%;
 }
 
