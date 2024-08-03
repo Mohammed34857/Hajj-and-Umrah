@@ -120,7 +120,11 @@ b {
     color: #000000;
 
 }
-
+.buses p {
+    text-align: center;
+    font-weight: 500;
+    font-size: 34px;
+}
 
 .buttons ul{
     font-size: 28px;

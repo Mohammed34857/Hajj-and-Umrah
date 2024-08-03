@@ -59,12 +59,19 @@ const UmrahPrograms = () => {
        <HotelInUmrahProgram hotels={hotel} />
       </div>
     );
-  } else if (activeLink === 'Buses') {
+  } else if (activeLink === 'Buses'  ) {
+    if(!programUmrah.Is_airline){
     content = (
       <div className='buses'>
         <BusInUmrahProgram busCompany={bus} />
       </div>
     );
+  }else
+  content = (
+    <div className='buses'>
+      <p>البرنامج جوي لا يحوي شركات نقل</p>
+    </div>
+  );
   }
   return (
     <div className='umrah-programs'>
