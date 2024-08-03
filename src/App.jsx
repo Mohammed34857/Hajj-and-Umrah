@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ScrollToTop from './ScrollToTop';
 
 import { Header , Footer } from './assets/sections'
-import { Home , UmrahPrograms , HajjPrograms , Hotel, Transport , RegisterProgramUmrah , RegisterProgramHajj , RegisterProgramSpecial , DashBoardEmployee , DashBoardManager , LogInDashBoard} from './assets/pages'
+import { Home , UmrahPrograms , HajjPrograms , Hotel, Transport , RegisterProgramUmrah , RegisterProgramHajj , RegisterProgramSpecial , DashBoardEmployee , DashBoardManager , LogInDashBoardManager , LogInDashBoardEmployee } from './assets/pages'
 
 
 const Layout = ({ children }) => (
@@ -31,9 +31,11 @@ function App() {
         <Route path='/RegisterProgramHajj/' element={<Layout><RegisterProgramHajj /></Layout>} />
         <Route path='/RegisterProgramSpecial/' element={<Layout><RegisterProgramSpecial /></Layout>} />
         
-        <Route path='/DashBoardEmployee/' element={<DashBoardEmployee />} />
-        <Route path='/DashBoardManager/' element={<DashBoardManager />} />
-        <Route path='/LogInDashBoard/' element={<LogInDashBoard />} />
+        <Route path='/DashBoardEmployee/' element={<LogInDashBoardEmployee />} />
+        <Route path='/DashBoardManager/' element={<LogInDashBoardManager />} />
+        <Route path='/DashBoardManager/DashBoardManager' element={<DashBoardManager />} />
+        <Route path='/DashBoardEmployee/DashBoardEmployee' element={<DashBoardEmployee />} />
+
       </Routes>
     </Router>
     </>
