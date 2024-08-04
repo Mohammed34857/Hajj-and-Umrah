@@ -277,7 +277,7 @@ margin-bottom: 50px;
 .tableProgeam h5{
   color:var(--color-gold);
 }
-.contain-umrah h3 , .contain-hajj h3{
+.contain-umrah h3 , .contain-hajj h3 , .show-hotal h3 , .show-transport h3{
   color: wheat;
   margin-top:30px ;
 }

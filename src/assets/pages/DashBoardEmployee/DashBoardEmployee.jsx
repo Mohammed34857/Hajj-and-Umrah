@@ -533,9 +533,12 @@ const DashBoardEmployee = () => {
       setEditingIdHajj(haj._id);
     };
   
-    const handleDeleteHajj = async (id) => {
+    const handleDeleteHajj = async (id , id_companion1 , id_companion2) => {
       try {
         await axios.delete(`https://officealhajandalumrah.adaptable.app/al-hajj/${id}`);
+        await axios.delete(`https://officealhajandalumrah.adaptable.app/al-hajj/${id_companion1}`);
+        await axios.delete(`https://officealhajandalumrah.adaptable.app/al-hajj/${id_companion2}`);
+
       } catch (error) {
         console.error('Error deleting data:', error);
       }
@@ -1035,6 +1038,8 @@ const handleSubmitHajjProgram = async (e) => {
 
 // Hotel
 
+const [isEditingHotel, setIsEditingHotel] = useState(false);
+const [editingIdHotel, setEditingIdHotel] = useState(null);
 const [hotels,setHotels]=useState([]);
 const [uploadedImages, setUploadedImages] = useState([]);
 const [hotelData,setHotelData]=useState({
@@ -1108,6 +1113,20 @@ useEffect(() => {
         setUploadedImages((prevImages) => [...prevImages, ...images.filter(image => image !== null)]);
       }
     };
+    const handleEditHotel = (hotel) => {
+      setHotelData(hotel);
+      setIsEditingHotel(true);
+      setEditingIdHotel(hotel._id);
+    };
+  
+    const handleDeleteHotel = async (id) => {
+      try {
+        await axios.delete(`https://officealhajandalumrah.adaptable.app/Hotel/${id}`);
+      } catch (error) {
+        console.error('Error deleting data:', error);
+      }
+  };
+
 
     
   const handleSubmitHotel = async (e) => {
@@ -1123,7 +1142,17 @@ useEffect(() => {
     Places_available_visit:hotelData.Places_available_visit.split(','),
     link:hotelData.link
   }
-  
+  if (isEditingHotel) {
+    try {
+      await axios.patch(`https://officealhajandalumrah.adaptable.app/Hotel/${editingIdHotel}`, DataHotel , {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+      });
+    } catch (error) {
+      console.error('Error updating data:', error);
+    }
+  } else {  
     try {
       const responseHotel = await axios.post('https://officealhajandalumrah.adaptable.app/Hotel/', DataHotel, {
         headers: {
@@ -1147,12 +1176,14 @@ useEffect(() => {
     link:""
   });
   setUploadedImages([]);
+}
 };
 
 
 //  transport
 
-
+const [isEditingTransport, setIsEditingTransport] = useState(false);
+const [editingIdTransport, setEditingIdTransport] = useState(null);
 const [transports,setTransports]=useState([]);
 const [uploadedImagesTransport, setUploadedImagesTransport] = useState([]);
 const [transportData,setTransportData]=useState({
@@ -1226,7 +1257,19 @@ useEffect(() => {
       }
     };
 
-
+    const handleEditTransport = (Transport) => {
+      setTransportData(Transport);
+      setIsEditingTransport(true);
+      setEditingIdTransport(Transport._id);
+    };
+  
+    const handleDeleteTransport = async (id) => {
+      try {
+        await axios.delete(`https://officealhajandalumrah.adaptable.app/BusCompany/${id}`);
+      } catch (error) {
+        console.error('Error deleting data:', error);
+      }
+  };
     
   const handleSubmitTransport = async (e) => {
   e.preventDefault();
@@ -1240,7 +1283,17 @@ useEffect(() => {
       type_bus: transportData.type_bus ,
       price_tecket: transportData.price_tecket 
   }
-  
+  if (isEditingTransport) {
+    try {
+      await axios.patch(`https://officealhajandalumrah.adaptable.app/BusCompany/${editingIdTransport}`, DataTransport , {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+      });
+    } catch (error) {
+      console.error('Error updating data:', error);
+    }
+  } else {  
     try {
       const responseTransport = await axios.post('https://officealhajandalumrah.adaptable.app/BusCompany', DataTransport, {
         headers: {
@@ -1263,6 +1316,7 @@ useEffect(() => {
     price_tecket:"" 
   });
   setUploadedImagesTransport([]);
+}
 };
 
 const [countHajjProgram,setCountHajjProgram]= useState([]);
@@ -1569,7 +1623,7 @@ useEffect(() => {
                     <td>{haj.full_name}</td>
                     <td>
                       <button className="edit" onClick={() => handleEditHajj(haj)}>تعديل <CiEdit /></button>
-                      <button className="delete" onClick={() => handleDeleteHajj(haj._id)}>حذف <MdDelete /></button>
+                      <button className="delete" onClick={() => handleDeleteHajj(haj._id, haj.companion1 , haj.companion1)}>حذف <MdDelete /></button>
                     </td>
                   </tr>
                 ))}
@@ -2006,6 +2060,7 @@ useEffect(() => {
           <table className="table">
               <thead>
                 <tr>
+                <th>إجراءات</th>
                 <th>اسم الفندق</th>
                 <th>الموقع</th>
                 <th>التفاصيل</th>
@@ -2018,6 +2073,10 @@ useEffect(() => {
               <tbody>
               {hotels.map((hotel, index) => (
                   <tr key={index}>
+                     <td>
+                      <button className="edit" onClick={() => handleEditHotel(hotel)}>تعديل <CiEdit /></button>
+                      <button className="delete" onClick={() => handleDeleteHotel(hotel._id)}>حذف <MdDelete /></button>
+                     </td>
                      <td>{hotel.name}</td>
                      <td>{hotel.location}</td>
                      <td>{hotel.  details}</td>
@@ -2029,11 +2088,12 @@ useEffect(() => {
                 ))}
               </tbody>
             </table>
+            <h3>{isEditingHotel ? "تعديل الفندق" : "إضافة فندق جديد"}</h3>
             <form onSubmit={handleSubmitHotel}>
             <table>
               <thead>
                 <tr>
-                  <th>{}</th>
+                  <th>الاجراء</th>
                   <th>اسم الفندق</th>
                   <th>الموقع</th>
                   <th>التفاصيل</th>
@@ -2048,7 +2108,7 @@ useEffect(() => {
               <tbody>
                 <tr>
                   <td>
-                    <button className="add" type="submit">اضافة<FaPlus /></button>
+                    <button className="add" type="submit">{isEditingHotel ? "تحديث" : "إضافة"}<FaPlus /></button>
                   </td>
                   <td><input type="text"   name="name"  value={hotelData.name} onChange={handelChangeHotel} /></td>
                   <td><input type="text"   name="location"  value={hotelData.location} onChange={handelChangeHotel} /></td>
@@ -2063,6 +2123,7 @@ useEffect(() => {
               </tbody>
             </table>
             </form>
+
             </div>
             </div>
 
@@ -2072,6 +2133,7 @@ useEffect(() => {
           <table className="table">
               <thead>
                 <tr>
+                <th>إجراءات</th>
                 <th>اسم الشركة</th>
                 <th>الخدمات</th>
                 <th>هدف الشركة</th>
@@ -2084,6 +2146,10 @@ useEffect(() => {
               <tbody>
                 {transports.map((Transport, index) => (
                   <tr key={index}>
+                     <td>
+                      <button className="edit" onClick={() => handleEditTransport(Transport)}>تعديل <CiEdit /></button>
+                      <button className="delete" onClick={() => handleDeleteTransport(Transport._id)}>حذف <MdDelete /></button>
+                     </td>
                     <td>{Transport.name_company}</td>
                     <td>{Transport.Services}</td>
                     <td>{Transport.goals_company}</td>
@@ -2095,11 +2161,12 @@ useEffect(() => {
                 ))}
               </tbody>
             </table>
+            <h3>{isEditingTransport ? "تعديل الفندق" : "إضافة فندق جديد"}</h3>
             <form onSubmit={handleSubmitTransport}>
             <table>
               <thead>
                 <tr>
-                 <th></th>
+                <th></th>
                  <th>اسم الشركة</th>
                  <th>الخدمات</th>
                  <th>هدف الشركة</th>
@@ -2113,7 +2180,7 @@ useEffect(() => {
               <tbody>
                 <tr>
                   <td>
-                    <button className="add" type="submit">اضافة<FaPlus /></button>
+                    <button className="add" type="submit">{isEditingTransport ? "تحديث" : "إضافة"}<FaPlus /></button>
                   </td>
                   <td><input type="text"   name="name_company"  value={transportData.name_company} onChange={handelChangeTransport} /></td>
                   <td><input type="text"   name="Services"  value={transportData.Services} onChange={handelChangeTransport} /></td>

@@ -59,7 +59,7 @@ const UmrahPrograms = () => {
        <HotelInUmrahProgram hotels={hotel} />
       </div>
     );
-  } else if (activeLink === 'Buses'  ) {
+  } else if (activeLink === 'Buses') {
     if(!programUmrah.Is_airline){
     content = (
       <div className='buses'>
