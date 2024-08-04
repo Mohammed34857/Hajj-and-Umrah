@@ -1,4 +1,4 @@
-import React, { useEffect,  useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './RegisterProgramUmrah.css';
 import { FaPencilAlt, FaBook, FaBed } from "react-icons/fa";
@@ -15,6 +15,8 @@ const RegisterProgramUmrah = () => {
     const [programUmrahId, setProgramUmrahId] = useState("");
     const [fullName, setFullName] = useState("");
     const [reservedSeats, setReservedSeats] = useState([]);
+    const [alertMessage, setAlertMessage] = useState("");
+    const [roomCost, setRoomCost] = useState(0);
     const [formData, setFormData] = useState({
       fullName: "",
       nameFather: "",
@@ -112,23 +114,54 @@ const RegisterProgramUmrah = () => {
         ...prevFormData,
         [name]: files ? files[0] : value,
     }));
+
     if(name === 'fullName'){
       setFullName(value);
     }
-    
-};
+
+    if (name === 'roomPrice') {
+      let cost = 0;
+      switch (value) {
+        case 'single room':
+          cost = programUmrah.price1;
+          break;
+        case 'double room':
+          cost = programUmrah.price2;
+          break;
+        case 'triple room':
+          cost = programUmrah.price3;
+          break;
+        default:
+          cost = 0;
+      }
+      setRoomCost(cost);
+    }
+
+    if (name === 'paymentMethod') {
+      if (value === 'electronic') {
+        setAlertMessage(`تم إرسال رقم حساب بنكي إلى بريدك الإلكتروني لتسديد تكاليف الرحلة وقدرها ${roomCost}`);
+        try {
+          await axios.post(API_SEND_EMAIL_ENDPOINT, {
+            to: formData.email,
+            subject: 'تفاصيل الدفع للرحلة',
+            text: `تم إرسال رقم حساب بنكي إلى بريدك الإلكتروني لتسديد تكاليف الرحلة وقدرها ${roomCost}`
+          });
+        } catch (error) {
+          console.error('Error sending email:', error);
+        }
+      } else if (value === 'cash') {
+        setAlertMessage(`يرجى مراجعة المكتب لتسديد تكاليف الرحلة وقدرها ${roomCost}`);
+      } else {
+        setAlertMessage("");
+      }
+    }
+  };
 
     const handleSeatChange = async (e) => {
       const { value } = e.target;
       const [seatNumber, busNumber] = value.split(',').map(Number);
       console.log(typeof programUmrahId ,typeof busNumber , typeof seatNumber , typeof fullName)
       try {
-        // await axios.patch(`https://officealhajandalumrah.adaptable.app/program-bus/${programUmrahId}/reserve-seat/${busNumber}/${seatNumber}/${fullName}`);
-        // setFormData((prevFormData) => ({
-        //   ...prevFormData,
-        //   seatNumber: seatNumber
-        // }));
-        // alert("تم حجز المقعد بنجاح");
         setFormData((prevFormData) => ({
           ...prevFormData,
           seatNumber,
@@ -339,11 +372,13 @@ const RegisterProgramUmrah = () => {
                      الدفع كاش 
                     </label>
             </div>
+            {alertMessage && <div className="alert-message">{alertMessage}</div>}
           </div>
 
           <div className='Reservation_code'>
               <table className='table1'>
                  <tbody>
+                            <tr><th><label> للحصول على كود تاكيد الحجز يرجى التواصل معنا على رقم الوتس 0993642776 </label></th></tr>
                             <tr>
                                 <th><input
                                      type="text"
@@ -354,6 +389,7 @@ const RegisterProgramUmrah = () => {
                                     />
                                 </th>
                                 <th><label> : ادخل كود تأكيد الحجز </label></th>
+                               
                             </tr>
                             <tr>
                               <th>
