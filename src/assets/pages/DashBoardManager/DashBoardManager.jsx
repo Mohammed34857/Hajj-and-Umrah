@@ -517,7 +517,7 @@ useEffect(() => {
               <img src={manger} />
                 <h5>مدير المكتب</h5>
               </li>
-              <a href="" className="navbar-brand">
+              <a href="#" className="navbar-brand">
                 <li>   <i>
                     <AiTwotoneCheckCircle />
                   </i>
@@ -525,19 +525,19 @@ useEffect(() => {
                
                 </li>
               </a>
-              <a href="">
+              <a href="#employee">
                 <li>
                <i><ImUsers /></i>
                  الموظفين
                 </li>
               </a>
-              <a href="">
+              <a href="#">
                 <li>
                   <i><GrServices /></i>
                   شروط الحج
                 </li>
               </a>
-              <a href="">
+              <a href="#programs">
                 <li>      <i>
                     <ImFolderOpen />{" "}
                   </i>
@@ -545,7 +545,7 @@ useEffect(() => {
                 
                 </li>
               </a>
-              <a href="">
+              <a href="#travel">
                 <li>
                 <i>
                 <FaUsers />
@@ -553,7 +553,7 @@ useEffect(() => {
                   المسافرين
                 </li>
               </a>
-              <a href="">
+              <a href="#hotel">
                 <li>
                 <i>
                     <ImLibrary />
@@ -561,7 +561,7 @@ useEffect(() => {
                   الفنادق
                 </li>
               </a>
-              <a href="">
+              <a href="#transport">
                 <li>
                 <i>
                     <ImAirplane />
@@ -569,15 +569,8 @@ useEffect(() => {
                   النقل
                 </li>
               </a>
-              <a href="">
-                <li> 
-                <i>
-                    <ImBubbles4 />
-                  </i>
-                  الرسائل الواردة
-                </li>
-              </a>
-              <a href="https://web.whatsapp.com/">
+             
+              <a href="#seting">
                 <li>
                 <i>
                     
@@ -615,7 +608,7 @@ useEffect(() => {
           </div>
         </div>
 
-        <div className="contain-employee">
+        <div className="contain-employee" id="employee">
         <h2>:الموظفين  <i><ImUsers /></i></h2>
           <div className="table-employee">
             <table className="table">
@@ -714,7 +707,7 @@ useEffect(() => {
         </div>
         </div>
 
-        <div className="manager-prog-umrah">
+        <div className="manager-prog-umrah" id="programs">
         <h2>:برامج العمرة <i><ImFolderOpen />{" "}</i></h2>
           <div className="progr-parent">
           <Slider {...settings}>
@@ -748,7 +741,7 @@ useEffect(() => {
         </div>
 
       <h2>:المعتمرين<i> <FaUsers /></i></h2>
-        <div className="show-travel">
+        <div className="show-travel" id="travel">
             <table className="table">
               <thead>
                 <tr>
@@ -797,7 +790,7 @@ useEffect(() => {
             </table>
         </div>
       
-        <div className=" manager-prog-hajj">
+        <div className=" manager-prog-hajj" >
           <h2>:برامج الحج<i><ImFolderOpen />{" "}</i></h2>
           <div className="progr-parent">
           <Slider {...settings}>
@@ -876,7 +869,7 @@ useEffect(() => {
             </table>
             </div>
 
-       <div className="show-hotal">
+       <div className="show-hotal" id="hotel">
             <h2 > :الفنادق  <i><ImLibrary /></i></h2>
           <div className="table-hotal">
           <table className="table">
@@ -908,7 +901,7 @@ useEffect(() => {
             </div>
             </div>
 
-       <div className=" show-transport">
+       <div className=" show-transport" id="transport">
         <h2> :النقل <i><ImAirplane /></i></h2>
           <div className="table-transport">
           <table className="table">
@@ -940,7 +933,7 @@ useEffect(() => {
           </div>
         </div>
 
-     <div className="seting-manager">
+     <div className="seting-manager" id="seting">
         <div className="parent-seting">
           <h2>:الاعدادات  <i><ImCogs /> </i></h2>
           <form onSubmit={handleSubmit}>

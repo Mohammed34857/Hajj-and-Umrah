@@ -22,6 +22,7 @@ const DashBoardEmployee = () => {
   const [editingIdMutamir, setEditingIdMutamir] = useState(null);
   const [mutamir,setMutamir]=useState([]);
   const [availableSeats,setAvailableSeats]=useState([]);
+  const [programNames, setProgramNames] = useState({});
   const [mutamirData,setMutamirData]=useState({
       full_name: "",
       name_father: "",
@@ -46,12 +47,33 @@ const DashBoardEmployee = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get('https://officealhajandalumrah.adaptable.app/al-mutamir/VerificationNotTrue');
-        setMutamir(response.data);
+        const mutamirs = response.data;
+        setMutamir(mutamirs);
+
+        const programNames = await fetchProgramNames(mutamirs);
+        setProgramNames(programNames);
      
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
+
+    // const fetchProgramNames = async (mutamirs) => {
+    //   const names = {};
+    //   for (const muta of mutamirs) {
+    //     try {
+    //       const hotelResponse = await axios.get(`https://officealhajandalumrah.adaptable.app/prog-umrah-hotel/${muta.id_ProgUmrahHotel}`);
+    //       const idProgramUmrah = hotelResponse.data.id_ProgramUmrah;
+    //       const programResponse = await axios.get(`https://officealhajandalumrah.adaptable.app/program-umrah/${idProgramUmrah}`);
+    //       const programName = programResponse.data.name_program;
+
+    //       names[muta._id] = programName;
+    //     } catch (error) {
+    //       console.error('Error fetching program name:', error);
+    //     }
+    //   }
+    //   return names;
+    // };
     fetchData();
   }, []);
 
@@ -1355,7 +1377,7 @@ useEffect(() => {
                 <img src={min} />
                 <h5>اسم المستخدم</h5>
               </li>
-              <a href="" className="navbar-brand">
+              <a href="#" className="navbar-brand">
                 <li>
                   {" "}
                   <i>
@@ -1364,7 +1386,7 @@ useEffect(() => {
                   لوحة التحكم{" "}
                 </li>
               </a>
-              <a href="">
+              <a href="#contain-umrah">
                 <li>
                   {" "}
                   <i>
@@ -1374,7 +1396,7 @@ useEffect(() => {
                 </li>
               </a>
 
-              <a href="">
+              <a href="#programs">
                 <li>
                   {" "}
                   <i>
@@ -1383,7 +1405,7 @@ useEffect(() => {
                   البرامج
                 </li>
               </a>
-              <a href="">
+              <a href="#hotel">
                 <li>
                   {" "}
                   <i>
@@ -1392,7 +1414,7 @@ useEffect(() => {
                   الفنادق
                 </li>
               </a>
-              <a href="">
+              <a href="#transport">
                 <li>
                   {" "}
                   <i>
@@ -1409,7 +1431,7 @@ useEffect(() => {
                   الرسائل الواردة
                 </li>
               </a>
-              <a href="https://web.whatsapp.com/">
+              <a href="#seting">
                 <li>
                   <i>
                     {" "}
@@ -1455,7 +1477,7 @@ useEffect(() => {
           </div>
         </div>
 
-        <div className="contain-umrah">
+        <div className="contain-umrah" id="contain-umrah">
           <h2>تسجيل المعتمرين</h2>
           <div className="table-umrah">
             <table className="table">
@@ -1489,6 +1511,7 @@ useEffect(() => {
                     <td>{muta.type_room}</td>
                     <td>{muta.seatNumber}</td>
                     <td>{muta.number_bus}</td>
+                    {/* <td>{programNames[muta._id] || 'Loading...'}</td> */}
                     <td>{muta.name_program}</td>
                     <td><img src={muta.almutamir_photo} alt="Personal" width="50" height="50" /></td>
                     <td><img src={muta.passport_photo} alt="Passport" width="50" height="50" /></td>
@@ -1780,7 +1803,7 @@ useEffect(() => {
         
      </div> 
 
-        <div className="prog-umrah">
+        <div className="prog-umrah" id="programs">
           <h2>برامج العمرة</h2>
           <div className="progr-parent">
           <Slider {...settings}>
@@ -2054,7 +2077,7 @@ useEffect(() => {
 
          <div className="dashborde">
         
-        <div className="show-hotal">
+        <div className="show-hotal" id="hotel">
             <h2 > :الفنادق  <i><ImLibrary /></i></h2>
           <div className="table-hotal">
           <table className="table">
@@ -2127,7 +2150,7 @@ useEffect(() => {
             </div>
             </div>
 
-            <div className=" show-transport">
+            <div className=" show-transport" id="transport">
         <h2> :النقل <i><ImAirplane /></i></h2>
           <div className="table-transport">
           <table className="table">
@@ -2199,7 +2222,7 @@ useEffect(() => {
 
     
         </div>
-        <div className="seting">
+        <div className="seting" id="seting">
           <h2>الاعدادات</h2>
           <div className="seting-detil">
             <h3>:اعادة تعيين كلمة المرور</h3>
