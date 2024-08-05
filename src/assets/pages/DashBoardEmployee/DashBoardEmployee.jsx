@@ -244,6 +244,7 @@ const DashBoardEmployee = () => {
 // data form Hajj
     const [isEditingHajj, setIsEditingHajj] = useState(false);
     const [editingIdHajj, setEditingIdHajj] = useState(null);
+    const [programNamesHajj, setProgramNamesHajj] = useState({});
     const [companionOption, setCompanionOption] = useState(null);
     const [companion1Id, setCompanion1Id] = useState("");
     const [companion2Id, setCompanion2Id] = useState("");
