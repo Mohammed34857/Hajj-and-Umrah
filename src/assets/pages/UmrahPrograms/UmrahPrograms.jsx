@@ -13,14 +13,23 @@ const UmrahPrograms = () => {
   const [hotel, setHotel] = useState([]);
   const [bus, setBus] = useState([]);
   const [loading , setLoading] = useState(true);
+  const [availableProgram , setAvailableProgram] = useState({});
   const [activeLink, setActiveLink] = useState('Hotels');
-
+  console.log(availableProgram)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const program_umrah = await axios.get(`https://officealhajandalumrah.adaptable.app/program-umrah/${id}`).then(response => response.data);
         setProgramUmrah(program_umrah);
+        const DateTravel = new Date(program_umrah.Date_Travel);
+        const currentDate = new Date(); 
+        if (DateTravel > currentDate && DateTravel.getFullYear() === currentDate.getFullYear() && DateTravel.getMonth() === currentDate.getMonth()) {
+          setAvailableProgram(true);
+        } else {
+          setAvailableProgram(false);
+        }
+        console.log(DateTravel)
         const AllProgramUmrahHotel = await axios.get('https://officealhajandalumrah.adaptable.app/prog-umrah-hotel');
         const ProgramUmrah = AllProgramUmrahHotel.data.filter((program) => program.id_ProgramUmrah === id );
         const hotelRoom = await Promise.all(ProgramUmrah.map((HotelRoomId) => {
@@ -120,8 +129,12 @@ const UmrahPrograms = () => {
 
             </div>
             <div className="book-trip">
-                <button> <Link to={`/RegisterProgramUmrah/${id}`}>احجز رحلتك الآن</Link> </button>
-            </div>
+              {availableProgram?
+                 <button> <Link to={`/RegisterProgramUmrah/${id}`}>احجز رحلتك الآن</Link> </button>
+              :
+              <p>انتهت فترة الحجز على البرنامج </p>
+              }
+                </div>
        </div>
     </div>      
   )

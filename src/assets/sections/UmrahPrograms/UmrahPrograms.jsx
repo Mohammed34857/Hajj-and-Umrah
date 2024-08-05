@@ -10,7 +10,7 @@ const UmrahPrograms = () => {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-umrah/AvailablePrograms');
+          const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-umrah');
           setUmrahProgramsData(response.data);
         } catch (error) {
           console.error('Error fetching Umrah Programs data:', error);

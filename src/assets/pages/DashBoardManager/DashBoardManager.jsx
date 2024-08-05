@@ -243,15 +243,35 @@ const ShowTravelInProgram= (id)=> {
 
 // data form mutamer
 const [mutamir,setMutamir]=useState([]);
+const [programNames, setProgramNames] = useState({});
 useEffect(() => {
   const fetchData = async () => {
     try {
       const response = await axios.get('https://officealhajandalumrah.adaptable.app/al-mutamir');
-      setMutamir(response.data);
+      const mutamirs = response.data;
+      setMutamir(mutamirs);
    
+      const programNames = await fetchProgramNames(mutamirs);
+      setProgramNames(programNames);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
+  };
+  const fetchProgramNames = async (mutamirs) => {
+    const names = {};
+    for (const muta of mutamirs) {
+      try {
+        const hotelResponse = await axios.get(`https://officealhajandalumrah.adaptable.app/prog-umrah-hotel/${muta.id_ProgUmrahHotel}`);
+        const idProgramUmrah = hotelResponse.data.id_ProgramUmrah;
+        const programResponse = await axios.get(`https://officealhajandalumrah.adaptable.app/program-umrah/${idProgramUmrah}`);
+        const programName = programResponse.data.name_program;
+        
+        names[muta._id] = programName;
+      } catch (error) {
+        console.error('Error fetching program name:', error);
+      }
+    }
+    return names;
   };
   fetchData();
 }, []);
@@ -261,6 +281,7 @@ useEffect(() => {
     const [hajjProgram,setHajjProgram]= useState([]);
     const [allProgramHajjHotel, setAllProgramHajjHotel] = useState([]);
     const [hotelsForProgramHajj, setHotelsForProgramHajj] = useState({});
+    
     
     useEffect(() => {
     const fetchData = async () => {
@@ -321,14 +342,37 @@ useEffect(() => {
     // data form Hajj
   
     const [hajj,setHajj]=useState([]);   
+    const [programNamesHajj, setProgramNamesHajj] = useState({});
     useEffect(() => {
       const fetchData = async () => {
         try {
           const response = await axios.get('https://officealhajandalumrah.adaptable.app/al-hajj');
-          setHajj(response.data);
+          const hajjs = response.data;
+          setHajj(hajjs);
+  
+          const programNames = await fetchProgramNamesHajj(hajjs);
+          setProgramNamesHajj(programNames);
+       
         } catch (error) {
           console.error('Error fetching data:', error);
         }
+      };
+  
+      const fetchProgramNamesHajj = async (hajjs) => {
+        const names = {};
+        for (const haj of hajjs) {
+          try {
+            const hotelResponse = await axios.get(`https://officealhajandalumrah.adaptable.app/prog-al-haj-hotel/${haj.id_ProgHajjHotel}`);
+            const idProgramHajj = hotelResponse.data.id_ProgramHajj;
+            const programResponse = await axios.get(`https://officealhajandalumrah.adaptable.app/program-al-haj/${idProgramHajj}`);
+            const programName = programResponse.data.name_program;
+            
+            names[haj._id] = programName;
+          } catch (error) {
+            console.error('Error fetching program name:', error);
+          }
+        }
+        return names;
       };
       fetchData();
     }, []);
@@ -772,7 +816,7 @@ useEffect(() => {
                     <td>{muta.type_room}</td>
                     <td>{muta.seatNumber}</td>
                     <td>{muta.number_bus}</td>
-                    <td>{muta.name_program}</td>
+                    <td>{programNames[muta._id] || 'Loading...'}</td>
                     <td><img src={muta.almutamir_photo} alt="Personal" width="50" height="50" /></td>
                     <td><img src={muta.passport_photo} alt="Passport" width="50" height="50" /></td>
                     <td>{muta.passport_number}</td>
@@ -851,7 +895,7 @@ useEffect(() => {
                     <td>{haj.Verification}</td>
                     <td>{haj.payment_method}</td>
                     <td>{haj.type_room}</td>
-                    <td>{haj.name_program}</td>
+                    <td>{programNamesHajj[haj._id] || 'Loading...'}</td>
                     <td><img src={haj.alhaj_photo} alt="Personal" width="50" height="50" /></td>
                     <td><img src={haj.passport_photo} alt="Passport" width="50" height="50" /></td>
                     <td>{haj.passport_number}</td>

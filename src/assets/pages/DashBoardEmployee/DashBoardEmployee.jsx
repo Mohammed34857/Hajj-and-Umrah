@@ -270,7 +270,9 @@ const DashBoardEmployee = () => {
         type_room: "",
         payment_method: "",
         Verification: false,
-        name_program:""
+        name_program:"",
+        id_ProgAlHajHotel:""
+
     });
      const [companion1, setCompanion1] = useState({
         full_name: "",
@@ -316,10 +318,32 @@ const DashBoardEmployee = () => {
       const fetchData = async () => {
         try {
           const response = await axios.get('https://officealhajandalumrah.adaptable.app/al-hajj');
-          setHajj(response.data);
+          const hajjs = response.data;
+          setHajj(hajjs);
+  
+          const programNames = await fetchProgramNamesHajj(hajjs);
+          setProgramNamesHajj(programNames);
+       
         } catch (error) {
           console.error('Error fetching data:', error);
         }
+      };
+  
+      const fetchProgramNamesHajj = async (hajjs) => {
+        const names = {};
+        for (const haj of hajjs) {
+          try {
+            const hotelResponse = await axios.get(`https://officealhajandalumrah.adaptable.app/prog-al-haj-hotel/${haj.id_ProgHajjHotel}`);
+            const idProgramHajj = hotelResponse.data.id_ProgramHajj;
+            const programResponse = await axios.get(`https://officealhajandalumrah.adaptable.app/program-al-haj/${idProgramHajj}`);
+            const programName = programResponse.data.name_program;
+            console.log(programName)
+            names[haj._id] = programName;
+          } catch (error) {
+            console.error('Error fetching program name:', error);
+          }
+        }
+        return names;
       };
       fetchData();
     }, []);
@@ -352,7 +376,7 @@ const DashBoardEmployee = () => {
             },
           });
   
-          const imagePath = response.data.secure_url || response.data.url || response.data; // تأكد من أن response.data يحتوي على المسار الصحيح
+          const imagePath = response.data.secure_url || response.data.url || response.data; 
     
           setCompanion1((prevFormData) => ({
             ...prevFormData,
@@ -376,7 +400,7 @@ const DashBoardEmployee = () => {
             },
           });
   
-          const imagePath = response.data.secure_url || response.data.url || response.data; // تأكد من أن response.data يحتوي على المسار الصحيح
+          const imagePath = response.data.secure_url || response.data.url || response.data; 
     
           setCompanion2((prevFormData) => ({
             ...prevFormData,
@@ -389,12 +413,25 @@ const DashBoardEmployee = () => {
       }
     };
   
-    const handleChangeHajj = (e) => {
+    const handleChangeHajj = async (e) => {
       const { name, value, files } = e.target;
+      if (name === 'name_program') {
+        const selectedProgram = hajjProgram.find(program => program.name_program === value);
+        if (selectedProgram) {
+          const id_ProgramHajj = selectedProgram._id;
+          const allProgramHajjHotel = await axios.get('https://officealhajandalumrah.adaptable.app/prog-al-haj-hotel');
+          const id_ProgramHajjHotel = allProgramHajjHotel.data.find((program)=> program.id_ProgramHajj === id_ProgramHajj)._id;
+          setHajjData((prevFormData) => ({
+            ...prevFormData,
+            id_ProgAlHajHotel: id_ProgramHajjHotel,
+          }));
+      }
+     } else{
       setHajjData((prevFormData) => ({
         ...prevFormData,
         [name]: files ? files[0] : value,
       }));
+    }
     };
 
     const handleCompanionChange = (e, setCompanion) => {
@@ -448,6 +485,7 @@ const DashBoardEmployee = () => {
           Verification: companion1.Verification,
           type_room: hajjData.type_room,
           name_program: hajjData.name_program
+          
         }; 
        
 
@@ -522,7 +560,8 @@ const DashBoardEmployee = () => {
           type_room: hajjData.type_room,
           payment_method: hajjData.payment_method,
           Verification: hajjData.Verification,
-          name_program: hajjData.name_program
+          name_program: hajjData.name_program,
+          id_ProgAlHajHotel:hajjData.id_ProgAlHajHotel
       };
       if (!dataHajj.companion1) delete dataHajj.companion1;
       if (!dataHajj.companion2) delete dataHajj.companion2;
@@ -617,7 +656,7 @@ const DashBoardEmployee = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-umrah');
+        const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-umrah/AvailablePrograms');
         setUmrahProgram(response.data);
         const allProgramUmrahHotelResponse = await axios.get('https://officealhajandalumrah.adaptable.app/prog-umrah-hotel');
         setAllProgramUmrahHotel(allProgramUmrahHotelResponse.data);
@@ -1641,7 +1680,7 @@ useEffect(() => {
                     <td>{haj.Verification}</td>
                     <td>{haj.payment_method}</td>
                     <td>{haj.type_room}</td>
-                    <td>{haj.name_program}</td>
+                    <td>{programNamesHajj[haj._id] || 'Loading...'}</td>
                     <td><img src={haj.alhaj_photo} alt="Personal" width="50" height="50" /></td>
                     <td><img src={haj.passport_photo} alt="Passport" width="50" height="50" /></td>
                     <td>{haj.passport_number}</td>
