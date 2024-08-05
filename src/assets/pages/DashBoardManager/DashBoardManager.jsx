@@ -26,7 +26,7 @@ const  DashBoardManager = ()=> {
     lastname: "",
     birth: "",
     specialty: "",
-    mobile: 0,
+    mobile: "",
     email: "",
     Educational_attainment: "",
     adress: "",
@@ -74,7 +74,7 @@ const  DashBoardManager = ()=> {
         lastname: employeeData.lastname,
         birth: employeeData.birth,
         specialty: employeeData.specialty,
-        mobile: Number(employeeData.mobile) ,
+        mobile: employeeData.mobile,
         email: employeeData.email,
         Educational_attainment: employeeData.Educational_attainment,
         adress: employeeData.adress,
@@ -427,7 +427,7 @@ const [officeData,setOfficeData]=useState({
   aboutOffice: "",
   address: "",
   password: "",
-  mobile: 0,
+  mobile: "",
   password: "",
 });
 console.log(officeData);
@@ -492,7 +492,7 @@ const handleUpdateField = async (fieldName) => {
       aboutOffice: "",
       address: "",
       password: "",
-      mobile: 0,
+      mobile: "",
       password: "",
   });
     };
@@ -722,7 +722,7 @@ useEffect(() => {
                     <td><input type="date" name="dateEmployee" placeholder="تارخ التعيين  " value={employeeData.dateEmployee} onChange={handleChangeEmployee} /></td>
                     <td><input type="text" name="Educational_attainment" placeholder="التحصيل العلمي" value={employeeData.Educational_attainment} onChange={handleChangeEmployee} /></td>
                     <td><input type="email" name="email" placeholder="البريد الإلكتروني" value={employeeData.email} onChange={handleChangeEmployee} /></td>
-                    <td><input type="number" name="mobile" placeholder="رقم الهاتف"value={employeeData.mobile} onChange={handleChangeEmployee} /></td>
+                    <td><input type="text" name="mobile" placeholder="رقم الهاتف"value={employeeData.mobile} onChange={handleChangeEmployee} /></td>
                     <td><input type="text" name="specialty" placeholder="الحالة الاجتماعية " value={employeeData.specialty} onChange={handleChangeEmployee} /></td>
                     <td><input type="date" name="birth" placeholder=" التولد" value={employeeData.birth} onChange={handleChangeEmployee} /></td>
                     <td><input type="text" name="lastname" placeholder="الكنية " value={employeeData.lastname} onChange={handleChangeEmployee} /></td>
@@ -1040,7 +1040,7 @@ useEffect(() => {
 
         <div className="edit-phon">
           <h3>: تعيين رقم الهاتف للمكتب</h3>
-          <input type="number" name="mobile" value={officeData.mobile} placeholder='ادخل رقم المكتب' onChange={handleChangeOffice} />
+          <input type="text" name="mobile" value={officeData.mobile} placeholder='ادخل رقم المكتب' onChange={handleChangeOffice} />
           <button type="button" onClick={() => handleUpdateField('mobile')}><AiFillLike /></button>
         </div>
 

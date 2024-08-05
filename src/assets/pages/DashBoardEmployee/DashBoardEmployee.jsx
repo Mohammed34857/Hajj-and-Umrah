@@ -27,7 +27,7 @@ const DashBoardEmployee = () => {
       full_name: "",
       name_father: "",
       name_mother: "",
-      phone_number: 0,
+      phone_number: "",
       email: "",
       birth: "",
       gender: "",
@@ -175,7 +175,7 @@ const DashBoardEmployee = () => {
         full_name: mutamirData.full_name,
         name_father: mutamirData.name_father,
         name_mother: mutamirData.name_mother,
-        phone_number: Number(mutamirData.phone_number) ,
+        phone_number: mutamirData.phone_number,
         email: mutamirData.email,
         birth: mutamirData.birth,
         gender: mutamirData.gender,
@@ -207,7 +207,7 @@ const DashBoardEmployee = () => {
       full_name: "",
       name_father: "",
       name_mother: "",
-      phone_number: 1,
+      phone_number: "",
       email: "",
       birth: "",
       gender: "",
@@ -1636,7 +1636,7 @@ useEffect(() => {
                     <td><input type="text" name="gender" placeholder="الجنس" value={mutamirData.gender} onChange={handleChangeMutamir} /></td>
                     <td><input type="date" name="birth" placeholder="تاريخ الميلاد" value={mutamirData.birth} onChange={handleChangeMutamir} /></td>
                     <td><input type="email" name="email" placeholder="البريد الإلكتروني" value={mutamirData.email} onChange={handleChangeMutamir} /></td>
-                    <td><input type="number" name="phone_number" placeholder="رقم الهاتف" value={mutamirData.phone_number} onChange={handleChangeMutamir} /></td>
+                    <td><input type="tect" name="phone_number" placeholder="رقم الهاتف" value={mutamirData.phone_number} onChange={handleChangeMutamir} /></td>
                     <td><input type="text" name="name_mother" placeholder="اسم الأب" value={mutamirData.name_mother} onChange={handleChangeMutamir} /></td>
                     <td><input type="text" name="name_father" placeholder="اسم الام" value={mutamirData.name_father} onChange={handleChangeMutamir} /></td>
                     <td><input type="text" name="full_name" placeholder="الاسم الكامل" value={mutamirData.full_name} onChange={handleChangeMutamir} /></td>

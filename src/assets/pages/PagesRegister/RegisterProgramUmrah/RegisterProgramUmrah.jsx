@@ -23,7 +23,7 @@ const RegisterProgramUmrah = () => {
       fullName: "",
       nameFather: "",
       nameMother: "",
-      phoneNumber: 0,
+      phoneNumber: "",
       email: "",
       birth: "",
       gender: "",
@@ -193,7 +193,7 @@ const RegisterProgramUmrah = () => {
           full_name: formData.fullName,
           name_father: formData.nameFather,
           name_mother: formData.nameMother,
-          phone_number: Number(formData.phoneNumber),
+          phone_number: formData.phoneNumber,
           email: formData.email,
           birth: formData.birth,
           gender: formData.gender,
@@ -331,7 +331,6 @@ const RegisterProgramUmrah = () => {
           </div>
           <div className="room">
           <h3><FaHotel  />   اختر الفندق : </h3>
-            <h2> موقع الفندق : </h2> 
             <div className="radio-hotel">
                 <label className="radio-container" onClick={()=> handlePositionChange("inMakaa")}>
                 <input type="radio" name='positionHotel' value={"inMakaa"}  />

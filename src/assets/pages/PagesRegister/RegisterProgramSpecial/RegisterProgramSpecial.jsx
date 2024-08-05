@@ -23,7 +23,7 @@ const RegisterProgramSpecial = () => {
         fullName: "",
         nameFather: "",
         nameMother: "",
-        phoneNumber: 0,
+        phoneNumber: "",
         email: "",
         birth: "",
         gender: "",
@@ -139,7 +139,7 @@ const RegisterProgramSpecial = () => {
             full_name: formDataMutamir.fullName,
             name_father: formDataMutamir.nameFather,
             name_mother: formDataMutamir.nameMother,
-            phone_number: Number(formDataMutamir.phoneNumber) ,
+            phone_number: formDataMutamir.phoneNumber ,
             email: formDataMutamir.email,
             birth: formDataMutamir.birth,
             gender: formDataMutamir.gender,
@@ -386,7 +386,7 @@ const RegisterProgramSpecial = () => {
                 </label>
                 {selectedPosition === "inMadena" && (
                     <div className='madena-hotel'>
-                        <select name="madena-hotel">
+                        <select name="madena-hotel" onChange={handleChangeDataMutamir}>
                             {inMadenaHotel.length > 0 ? (
                              inMadenaHotel.map((hotel, index) => (
                              <option key={index} value={hotel.name}>
