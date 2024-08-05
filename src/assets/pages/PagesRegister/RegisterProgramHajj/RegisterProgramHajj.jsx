@@ -12,6 +12,7 @@ const RegisterProgramHajj = () => {
     const [companion1Id, setCompanion1Id] = useState("");
     const [companion2Id, setCompanion2Id] = useState("");
     const [healthsStatus,setHealthsStatus]=useState("");
+    const [alertMessage, setAlertMessage] = useState("");
     const [selectedHealthState, setSelectedHealthState] = useState(null);
     const handleHealthStateChange = (HealthState) => {
     setSelectedHealthState(HealthState);
@@ -193,8 +194,26 @@ const RegisterProgramHajj = () => {
   
     
     
-      const handleChange = (e) => {
+      const handleChange = async (e) => {
         const { name, value, files } = e.target;
+        if (name === 'payment_method') {
+          if (value === 'electronic') {
+            setAlertMessage(`تم إرسال رقم حساب بنكي إلى بريدك الإلكتروني لتسديد تكاليف الرحلة  `);
+            try {
+              await axios.post(API_SEND_EMAIL_ENDPOINT, {
+                to: formData.email,
+                subject: 'تفاصيل الدفع للرحلة',
+                text: `تم إرسال رقم حساب بنكي إلى بريدك الإلكتروني لتسديد تكاليف الرحلة  `
+              });
+            } catch (error) {
+              console.error('Error sending email:', error);
+            }
+          } else if (value === 'cash') {
+            setAlertMessage(`يرجى مراجعة المكتب لتسديد تكاليف الرحلة  `);
+          } else {
+            setAlertMessage("");
+          }
+        }
         if (files) {
           setFormData((prevFormData) => ({
             ...prevFormData,
@@ -206,6 +225,7 @@ const RegisterProgramHajj = () => {
             [name]: value
           }));
         }
+       
       };
     
       const handleCompanionChange = (e, setCompanion) => {
@@ -361,7 +381,7 @@ const RegisterProgramHajj = () => {
           alert('تم إرسال البيانات بنجاح!');
           const timer = setTimeout(() => {
               window.location.reload();
-          }, 10000);
+          }, 5000);
           return () => clearTimeout(timer);
       } catch (error) {
         if (error.response) {
@@ -661,20 +681,24 @@ const RegisterProgramHajj = () => {
           <div className="paying-off">
             <h3> : طريقة الدفع <MdEmojiTransportation/></h3>
             <div className="paying">
-                    <label className="radio-container"><input type="radio" name="payment_method" value={"الكتروني"} onChange={handleCombinedChange} />
+                    <label className="radio-container"><input type="radio" name="payment_method" value={"electronic"} onChange={handleCombinedChange} />
                     <span className="checkmark"></span>
                     الالكتروني
                     </label>
-                    <label className="radio-container"><input type="radio" name="payment_method" value={"كاش"} onChange={handleCombinedChange} />
+                    <label className="radio-container"><input type="radio" name="payment_method" value={"cash"} onChange={handleCombinedChange} />
                     <span className="checkmark"></span>
                      الدفع كاش 
                     </label>
             </div>
+            {alertMessage && <div className="alert-message">{alertMessage}</div>}
+
           </div>
 
           <div className='Reservation_code'>
               <table className='table1'>
                  <tbody>
+                 <tr><th><label> للحصول على كود تاكيد الحجز يرجى التواصل معنا على رقم الوتس 0993642776 </label></th></tr>
+
                             <tr>
                                 <th><input
                                      type="text"

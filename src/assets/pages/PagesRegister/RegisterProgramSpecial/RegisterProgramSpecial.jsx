@@ -8,33 +8,34 @@ import axios from 'axios';
 const RegisterProgramSpecial = () => {
     const [reservationCode, setReservationCode] = useState([]);
     const [error, setError] = useState("");
+    const [alertMessage, setAlertMessage] = useState("");
     const [inMakaaHotel,setInMakaaHotel] = useState([{}]);
     const [inMadenaHotel,setInMadenaHotel] = useState([]);
     console.log(inMakaaHotel);
     console.log(inMadenaHotel);
     const [formData, setFormData] = useState({
-        "Airline": {},
-        "Date_Travel": "2024-06-04",
-        "total_stay": 0 ,
-        "stay_in_macca": 0 ,
-        "stay_in_madina": 0 
+        Airline: {},
+        Date_Travel: "",
+        total_stay: 0 ,
+        stay_in_macca: 0 ,
+        stay_in_madina: 0 
     });
     const [formDataMutamir, setFormDataMutamir] = useState({
-        fullName: "string",
-        nameFather: "string",
-        nameMother: "string",
-        phoneNumber: 95678,
-        email: "abedalrahaman@gmail.com",
-        birth: "2024-05-20T23:27:58.385Z",
-        gender: "string",
-        nationality: "string",
-        passportNumber: "string",
+        fullName: "",
+        nameFather: "",
+        nameMother: "",
+        phoneNumber: 0,
+        email: "",
+        birth: "",
+        gender: "",
+        nationality: "",
+        passportNumber: "",
         passportPhoto: "",
         almutamirPhoto: "",
         numberBus: 0,
-        typeRoom: "string",
+        typeRoom: "",
         seatNumber: 0,
-        paymentMethod: "string",
+        paymentMethod: "",
         verification: false,
         reservationCode:""
     });
@@ -90,12 +91,34 @@ const RegisterProgramSpecial = () => {
         }));
     };
     
-    const handleChangeDataMutamir = (e) => {
+    const handleChangeDataMutamir = async (e) => {
         const { name, value} = e.target;
         setFormDataMutamir((prevFormDataMutamir) => ({
             ...prevFormDataMutamir,
             [name]:value,
         }));
+        if(name === 'fullName'){
+          setFullName(value);
+        }
+    
+        if (name === 'paymentMethod') {
+          if (value === 'electronic') {
+            setAlertMessage(`تم إرسال رقم حساب بنكي إلى بريدك الإلكتروني لتسديد تكاليف الرحلة  `);
+            try {
+              await axios.post(API_SEND_EMAIL_ENDPOINT, {
+                to: formData.email,
+                subject: 'تفاصيل الدفع للرحلة',
+                text: `تم إرسال رقم حساب بنكي إلى بريدك الإلكتروني لتسديد تكاليف الرحلة  `
+              });
+            } catch (error) {
+              console.error('Error sending email:', error);
+            }
+          } else if (value === 'cash') {
+            setAlertMessage(`يرجى مراجعة المكتب لتسديد تكاليف الرحلة  `);
+          } else {
+            setAlertMessage("");
+          }
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -146,7 +169,11 @@ const RegisterProgramSpecial = () => {
             console.log(dataProgramSpecial);
             console.log('Data submitted successfully:', responseProgramSpecial.data);
             console.log('Data submitted successfully:', responseMutamir.data);
-            // window.location.reload();
+            alert('تم إرسال البيانات بنجاح!');
+            const timer = setTimeout(() => {
+                window.location.reload();
+            }, 5000);
+            return () => clearTimeout(timer);
         } catch (error) {
             console.error('Error fetching program data:', error);
         }
@@ -430,12 +457,17 @@ const RegisterProgramSpecial = () => {
                     <span className="checkmark"></span>
                      الدفع كاش 
                     </label>
+
             </div>
+            {alertMessage && <div className="alert-message">{alertMessage}</div>}
+
           </div>
 
           <div className='Reservation_code'>
               <table className='table1'>
                  <tbody>
+                 <tr><th><label> للحصول على كود تاكيد الحجز يرجى التواصل معنا على رقم الوتس 0993642776 </label></th></tr>
+
                             <tr>
                                 <th><input
                                      type="text"

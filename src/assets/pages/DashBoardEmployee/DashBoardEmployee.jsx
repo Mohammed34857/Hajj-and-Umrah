@@ -1694,7 +1694,7 @@ useEffect(() => {
                     <td>{haj.full_name}</td>
                     <td>
                       <button className="edit" onClick={() => handleEditHajj(haj)}>تعديل <CiEdit /></button>
-                      <button className="delete" onClick={() => handleDeleteHajj(haj._id, haj.companion1 , haj.companion1)}>حذف <MdDelete /></button>
+                      <button className="delete" onClick={() => handleDeleteHajj(haj._id, haj.companion1 , haj.companion2)}>حذف <MdDelete /></button>
                     </td>
                   </tr>
                 ))}
