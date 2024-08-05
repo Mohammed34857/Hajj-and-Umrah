@@ -41,8 +41,10 @@ const DashBoardEmployee = () => {
       payment_method: "",
       Verification: false,
       name_program:"",
-      id_ProgramUmrah: ""
+      id_ProgramUmrah: "",
+      id_ProgUmrahHotel:""
   });
+  console.log(mutamirData);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -58,22 +60,22 @@ const DashBoardEmployee = () => {
       }
     };
 
-    // const fetchProgramNames = async (mutamirs) => {
-    //   const names = {};
-    //   for (const muta of mutamirs) {
-    //     try {
-    //       const hotelResponse = await axios.get(`https://officealhajandalumrah.adaptable.app/prog-umrah-hotel/${muta.id_ProgUmrahHotel}`);
-    //       const idProgramUmrah = hotelResponse.data.id_ProgramUmrah;
-    //       const programResponse = await axios.get(`https://officealhajandalumrah.adaptable.app/program-umrah/${idProgramUmrah}`);
-    //       const programName = programResponse.data.name_program;
-
-    //       names[muta._id] = programName;
-    //     } catch (error) {
-    //       console.error('Error fetching program name:', error);
-    //     }
-    //   }
-    //   return names;
-    // };
+    const fetchProgramNames = async (mutamirs) => {
+      const names = {};
+      for (const muta of mutamirs) {
+        try {
+          const hotelResponse = await axios.get(`https://officealhajandalumrah.adaptable.app/prog-umrah-hotel/${muta.id_ProgUmrahHotel}`);
+          const idProgramUmrah = hotelResponse.data.id_ProgramUmrah;
+          const programResponse = await axios.get(`https://officealhajandalumrah.adaptable.app/program-umrah/${idProgramUmrah}`);
+          const programName = programResponse.data.name_program;
+          
+          names[muta._id] = programName;
+        } catch (error) {
+          console.error('Error fetching program name:', error);
+        }
+      }
+      return names;
+    };
     fetchData();
   }, []);
 
@@ -100,6 +102,12 @@ const DashBoardEmployee = () => {
       const selectedProgram = umrahProgram.find(program => program.name_program === value);
       if (selectedProgram) {
         const id_ProgramUmrah = selectedProgram._id;
+        const allProgramUmrahHotel = await axios.get('https://officealhajandalumrah.adaptable.app/prog-umrah-hotel');
+        const id_ProgramUmrahHotel = allProgramUmrahHotel.data.find((program)=> program.id_ProgramUmrah === id_ProgramUmrah)._id;
+        setMutamirData((prevFormData) => ({
+          ...prevFormData,
+          id_ProgUmrahHotel: id_ProgramUmrahHotel,
+        }));
         let number_bus = 0;
         try {
           const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-bus/all-ProgramBus-with-ProgramUmrah');
@@ -180,7 +188,8 @@ const DashBoardEmployee = () => {
         seatNumber: Number(mutamirData.seatNumber),
         payment_method: mutamirData.payment_method,
         Verification: mutamirData.Verification,
-        name_program: mutamirData.name_program
+        name_program: mutamirData.name_program,
+        id_ProgUmrahHotel:mutamirData.id_ProgUmrahHotel
     };
     console.log(dataMutamir);
       try {
@@ -1511,8 +1520,7 @@ useEffect(() => {
                     <td>{muta.type_room}</td>
                     <td>{muta.seatNumber}</td>
                     <td>{muta.number_bus}</td>
-                    {/* <td>{programNames[muta._id] || 'Loading...'}</td> */}
-                    <td>{muta.name_program}</td>
+                    <td>{programNames[muta._id] || 'Loading...'}</td>
                     <td><img src={muta.almutamir_photo} alt="Personal" width="50" height="50" /></td>
                     <td><img src={muta.passport_photo} alt="Passport" width="50" height="50" /></td>
                     <td>{muta.passport_number}</td>
