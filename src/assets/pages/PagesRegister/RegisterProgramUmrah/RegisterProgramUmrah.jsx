@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './RegisterProgramUmrah.css';
-import { FaPencilAlt, FaBook, FaBed } from "react-icons/fa";
+import { FaPencilAlt, FaBook, FaBed , FaHotel } from "react-icons/fa";
 import { MdAirlineSeatReclineExtra } from "react-icons/md";
 import { GiCash } from "react-icons/gi";
 import axios from 'axios';
@@ -13,6 +13,8 @@ const RegisterProgramUmrah = () => {
     const [error, setError] = useState("");
     const [programUmrah, setProgramUmrah] = useState({});
     const [programUmrahId, setProgramUmrahId] = useState("");
+    const [inMakaaHotel,setInMakaaHotel] = useState([{}]);
+    const [inMadenaHotel,setInMadenaHotel] = useState([]);
     const [fullName, setFullName] = useState("");
     const [reservedSeats, setReservedSeats] = useState([]);
     const [alertMessage, setAlertMessage] = useState("");
@@ -61,6 +63,13 @@ const RegisterProgramUmrah = () => {
 
       const fetchData = async () => {
           try {
+
+            const allHotels = await axios.get("https://officealhajandalumrah.adaptable.app/Hotel");
+            const inMakaaHotels = allHotels.data.filter( inMakaHotel => inMakaHotel.location === "مكة المكرمة");
+            setInMakaaHotel(inMakaaHotels)
+            const inMadenaHotels = allHotels.data.filter( inMadenaHotel => inMadenaHotel.location === "المدينة المنورة");
+            setInMadenaHotel(inMadenaHotels)
+
               const program_umrah = await axios.get(`https://officealhajandalumrah.adaptable.app/program-umrah/${id}`).then(response => response.data);
                 setProgramUmrah(program_umrah);
                 setProgramUmrahId(program_umrah._id)
@@ -204,12 +213,21 @@ const RegisterProgramUmrah = () => {
                     'Content-Type': 'application/json',
                 },
             });
-            window.location.reload();
+            alert('تم التسجيل على البرنامج بنجاح!');
+            alert('سيتم الغاء طلبك في حال عدم تسديد المكيلغ خلال مدة اقصاها 24 ساعة');
+            const timer = setTimeout(() => {
+                window.location.reload();
+            }, 5000);
+            return () => clearTimeout(timer);
         } catch (error) {
             console.error('Error submitting data:', error);
         }
     };
   }
+  const [selectedPosition, setSelectedPosition] = useState(null);
+  const handlePositionChange = (positionHotel) => {
+      setSelectedPosition(positionHotel);
+  };
 
   return (
     <div className='register-program-umrah'>
@@ -312,6 +330,50 @@ const RegisterProgramUmrah = () => {
           </select>
           </div>
           <div className="room">
+          <h3><FaHotel  />   اختر الفندق : </h3>
+            <h2> موقع الفندق : </h2> 
+            <div className="radio-hotel">
+                <label className="radio-container" onClick={()=> handlePositionChange("inMakaa")}>
+                <input type="radio" name='positionHotel' value={"inMakaa"}  />
+                <span className="checkmark"></span>
+                  في مكة 
+                </label>
+                {selectedPosition === "inMakaa" && (
+                    <div className='makaa-hotel'>
+                        <select name="makaa-hotel">
+                          {inMakaaHotel.length > 0 ? (
+                             inMakaaHotel.map((hotel, index) => (
+                             <option key={index} value={hotel.name}>
+                                 {hotel.name}
+                            </option>
+                           ))
+                           ) : (
+                           <option>لا توجد فنادق في مكة المكرمة</option>
+                             )}
+                        </select>
+                    </div>
+                )}
+                <label className="radio-container" onClick={()=> handlePositionChange("inMadena")}>
+                <input type="radio" name='positionHotel' value={"inMadena"} />
+                <span className="checkmark"></span>
+                 في المدينة 
+                </label>
+                {selectedPosition === "inMadena" && (
+                    <div className='madena-hotel'>
+                        <select name="madena-hotel">
+                            {inMadenaHotel.length > 0 ? (
+                             inMadenaHotel.map((hotel, index) => (
+                             <option key={index} value={hotel.name}>
+                                 {hotel.name}
+                            </option>
+                           ))
+                           ) : (
+                           <option>لا توجد فنادق في المدينة المنورة</option>
+                             )}
+                        </select>
+                    </div>
+                )}
+            </div>
             <h3> :اختر غرفتك من الفندق <FaBed /></h3>
             <div className="radio-room">
                     <label className="radio-container">

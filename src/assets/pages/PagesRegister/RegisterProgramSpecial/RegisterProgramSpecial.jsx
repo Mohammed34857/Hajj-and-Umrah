@@ -11,8 +11,7 @@ const RegisterProgramSpecial = () => {
     const [alertMessage, setAlertMessage] = useState("");
     const [inMakaaHotel,setInMakaaHotel] = useState([{}]);
     const [inMadenaHotel,setInMadenaHotel] = useState([]);
-    console.log(inMakaaHotel);
-    console.log(inMadenaHotel);
+ 
     const [formData, setFormData] = useState({
         Airline: {},
         Date_Travel: "",
@@ -169,7 +168,8 @@ const RegisterProgramSpecial = () => {
             console.log(dataProgramSpecial);
             console.log('Data submitted successfully:', responseProgramSpecial.data);
             console.log('Data submitted successfully:', responseMutamir.data);
-            alert('تم إرسال البيانات بنجاح!');
+            alert('تم التسجيل على البرنامج بنجاح!');
+            alert('سيتم الغاء طلبك في حال عدم تسديد المكيلغ خلال مدة اقصاها 24 ساعة');
             const timer = setTimeout(() => {
                 window.location.reload();
             }, 5000);
@@ -366,7 +366,7 @@ const RegisterProgramSpecial = () => {
                 </label>
                 {selectedPosition === "inMakaa" && (
                     <div className='makaa-hotel'>
-                        <select name="makaa-hotel">
+                        <select name="makaa-hotel" onChange={handleChangeDataMutamir}>
                           {inMakaaHotel.length > 0 ? (
                              inMakaaHotel.map((hotel, index) => (
                              <option key={index} value={hotel.name}>

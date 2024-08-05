@@ -378,7 +378,8 @@ const RegisterProgramHajj = () => {
             },
           });
           console.log('Data submitted successfully:', response.data);
-          alert('تم إرسال البيانات بنجاح!');
+          alert('تم التسجيل على البرنامج بنجاح!');
+          alert('سيتم الغاء طلبك في حال عدم تسديد المكيلغ خلال مدة اقصاها 24 ساعة');
           const timer = setTimeout(() => {
               window.location.reload();
           }, 5000);
