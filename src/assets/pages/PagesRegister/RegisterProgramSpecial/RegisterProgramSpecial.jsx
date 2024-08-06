@@ -96,22 +96,11 @@ const RegisterProgramSpecial = () => {
             ...prevFormDataMutamir,
             [name]:value,
         }));
-        if(name === 'fullName'){
-          setFullName(value);
-        }
+       
     
         if (name === 'paymentMethod') {
           if (value === 'electronic') {
-            setAlertMessage(`تم إرسال رقم حساب بنكي إلى بريدك الإلكتروني لتسديد تكاليف الرحلة  `);
-            try {
-              await axios.post(API_SEND_EMAIL_ENDPOINT, {
-                to: formData.email,
-                subject: 'تفاصيل الدفع للرحلة',
-                text: `تم إرسال رقم حساب بنكي إلى بريدك الإلكتروني لتسديد تكاليف الرحلة  `
-              });
-            } catch (error) {
-              console.error('Error sending email:', error);
-            }
+            setAlertMessage(`يرجى تسديد تكاليف الرحلة الى رقم الحساب الموجود في نهاية الصفحة`);
           } else if (value === 'cash') {
             setAlertMessage(`يرجى مراجعة المكتب لتسديد تكاليف الرحلة  `);
           } else {

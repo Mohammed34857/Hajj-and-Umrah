@@ -135,10 +135,11 @@ const DashBoardEmployee = () => {
           number_bus: 0
         }));
       }
-    } else if (name === 'seatNumber') {
-      const seatNumber = value;
+    }
+     if (name === 'seatNumber') {
+      const  seatNumber = value;
       const { id_ProgramUmrah, number_bus, full_name } = mutamirData;
-       console.log()
+       console.log(id_ProgramUmrah, seatNumber, number_bus, full_name )
       try {
         await axios.patch(`https://officealhajandalumrah.adaptable.app/program-bus/${id_ProgramUmrah}/reserve-seat/${number_bus}/${seatNumber}/${full_name}`);
         setMutamirData((prevFormData) => ({
@@ -148,14 +149,13 @@ const DashBoardEmployee = () => {
         alert("تم حجز المقعد بنجاح");
       } catch (error) {
         console.error("Error reserving seat:", error);
-        alert("حدث خطأ أثناء حجز المقعد");
       }
-    } else {
+    }  
       setMutamirData((prevFormData) => ({
         ...prevFormData,
         [name]: files ? files[0] : value,
       }));
-    }
+    
   };  
 
   const handleSubmitMutamir = async (e) => {

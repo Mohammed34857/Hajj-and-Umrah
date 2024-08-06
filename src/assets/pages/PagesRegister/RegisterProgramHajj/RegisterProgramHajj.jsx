@@ -198,16 +198,7 @@ const RegisterProgramHajj = () => {
         const { name, value, files } = e.target;
         if (name === 'payment_method') {
           if (value === 'electronic') {
-            setAlertMessage(`تم إرسال رقم حساب بنكي إلى بريدك الإلكتروني لتسديد تكاليف الرحلة  `);
-            try {
-              await axios.post(API_SEND_EMAIL_ENDPOINT, {
-                to: formData.email,
-                subject: 'تفاصيل الدفع للرحلة',
-                text: `تم إرسال رقم حساب بنكي إلى بريدك الإلكتروني لتسديد تكاليف الرحلة  `
-              });
-            } catch (error) {
-              console.error('Error sending email:', error);
-            }
+            setAlertMessage(`يرجى تسديد تكاليف الرحلة الى رقم الحساب الموجود في نهاية الصفحة`);
           } else if (value === 'cash') {
             setAlertMessage(`يرجى مراجعة المكتب لتسديد تكاليف الرحلة  `);
           } else {

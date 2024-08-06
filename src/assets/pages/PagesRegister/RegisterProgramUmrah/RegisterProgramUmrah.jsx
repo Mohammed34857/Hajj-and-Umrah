@@ -15,7 +15,6 @@ const RegisterProgramUmrah = () => {
     const [programUmrahId, setProgramUmrahId] = useState("");
     const [inMakaaHotel,setInMakaaHotel] = useState([{}]);
     const [inMadenaHotel,setInMadenaHotel] = useState([]);
-    const [fullName, setFullName] = useState("");
     const [reservedSeats, setReservedSeats] = useState([]);
     const [alertMessage, setAlertMessage] = useState("");
     const [roomCost, setRoomCost] = useState(0);
@@ -124,63 +123,54 @@ const RegisterProgramUmrah = () => {
         [name]: files ? files[0] : value,
     }));
 
-    if(name === 'fullName'){
-      setFullName(value);
-    }
-
-    if (name === 'roomPrice') {
-      let cost = 0;
-      switch (value) {
-        case 'single room':
-          cost = programUmrah.price1;
-          break;
-        case 'double room':
-          cost = programUmrah.price2;
-          break;
-        case 'triple room':
-          cost = programUmrah.price3;
-          break;
-        default:
-          cost = 0;
+   
+    if (name === 'seatNumber') {
+      const [seatNumber, busNumber] = value.split(',').map(Number);
+      const {fullName} = formData
+       console.log(seatNumber, busNumber , id ,  fullName)
+      try {
+        await axios.patch(`https://officealhajandalumrah.adaptable.app/program-bus/${id}/reserve-seat/${busNumber}/${seatNumber}/${fullName}`);
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          seatNumber: seatNumber
+        }));
+        alert("تم حجز المقعد بنجاح");
+      } catch (error) {
+        console.error("Error reserving seat:", error);
+        
       }
-      setRoomCost(cost);
-    }
+    }  
+
+    // if (name === 'roomPrice') {
+    //   let cost = 0;
+    //   switch (value) {
+    //     case 'single room':
+    //       cost = programUmrah.price1 
+    //       break;
+    //     case 'double room':
+    //       cost = programUmrah.price2;
+    //       break;
+    //     case 'triple room':
+    //       cost = programUmrah.price3;
+    //       break;
+    //     default:
+    //       cost = 0;
+    //   }
+    //   setRoomCost(cost);
+    // }
 
     if (name === 'paymentMethod') {
       if (value === 'electronic') {
-        setAlertMessage(`تم إرسال رقم حساب بنكي إلى بريدك الإلكتروني لتسديد تكاليف الرحلة وقدرها ${roomCost}`);
-        try {
-          await axios.post(API_SEND_EMAIL_ENDPOINT, {
-            to: formData.email,
-            subject: 'تفاصيل الدفع للرحلة',
-            text: `تم إرسال رقم حساب بنكي إلى بريدك الإلكتروني لتسديد تكاليف الرحلة وقدرها ${roomCost}`
-          });
-        } catch (error) {
-          console.error('Error sending email:', error);
-        }
+        setAlertMessage(`يرجى تسديد تكاليف الرحلة الى رقم الحساب الموجود في نهاية الصفحة`);
       } else if (value === 'cash') {
-        setAlertMessage(`يرجى مراجعة المكتب لتسديد تكاليف الرحلة وقدرها ${roomCost}`);
+        setAlertMessage(`يرجى مراجعة المكتب لتسديد تكاليف الرحلة  `);
       } else {
         setAlertMessage("");
       }
     }
   };
 
-    const handleSeatChange = async (e) => {
-      const { value } = e.target;
-      const [seatNumber, busNumber] = value.split(',').map(Number);
-      console.log(typeof programUmrahId ,typeof busNumber , typeof seatNumber , typeof fullName)
-      try {
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          seatNumber,
-          busNumber,
-      }));
-      } catch (error) {
-        console.error("Error reserving seat:", error);
-        alert("حدث خطأ أثناء حجز المقعد");
-      }
-  };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -321,7 +311,7 @@ const RegisterProgramUmrah = () => {
 
           <h3>: احجز مقعدك في الحافلة <MdAirlineSeatReclineExtra /></h3>
           <div className="booking">
-          <select className='seat' name='seatNumber' onChange={handleSeatChange}>
+          <select className='seat' name='seatNumber' onChange={handleChange}>
              {reservedSeats.map((seat, index) => (
               <option key={index} value={`${seat.seatNumber},${seat.busNumber}`}>
                  رقم الباص : {seat.busNumber} , رقم المقعد : {seat.seatNumber}
