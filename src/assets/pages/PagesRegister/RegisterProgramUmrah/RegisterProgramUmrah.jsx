@@ -181,22 +181,16 @@ const RegisterProgramUmrah = () => {
         else{
         const data = {
           full_name: formData.fullName,
-          name_father: formData.nameFather,
-          name_mother: formData.nameMother,
           phone_number: formData.phoneNumber,
           email: formData.email,
-          birth: formData.birth,
-          gender: formData.gender,
-          Nationality: formData.nationality,
-          passport_number: formData.passportNumber,
           passport_photo: formData.passportPhoto,
           almutamir_photo: formData.almutamirPhoto,
           type_room: formData.typeRoom,
-          number_bus: formData.busNumber,
-          seatNumber: Number(formData.seatNumber) ,
+    
           payment_method: formData.paymentMethod,
           Verification: formData.verification,
         };
+        console.log(data);
         try {
             const response = await axios.post('https://officealhajandalumrah.adaptable.app/al-mutamir', data, {
                 headers: {

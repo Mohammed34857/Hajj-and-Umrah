@@ -594,6 +594,44 @@ const DashBoardEmployee = () => {
         Verification: false,
         name_program:""
       });
+      setCompanion1 ({
+        full_name: "",
+        name_father: "",
+        name_mother: "",
+        email: "",
+        phone_number: "",
+        birth: "",
+        gender: "",
+        iscompanion: true,
+        silat_alqaraba:"",
+        Nationality: "",
+        passport_number: "",
+        passport_photo: "",
+        alhaj_photo: "",
+        payment_method: "",
+        Verification: false,
+        type_room: "",
+        name_program: ""
+       });
+       setCompanion2 ({
+        full_name: "",
+        name_father: "",
+        name_mother: "",
+        email: "",
+        phone_number: "",
+        birth: "",
+        gender: "",
+        iscompanion: true,
+        silat_alqaraba:"",
+        Nationality: "",
+        passport_number: "",
+        passport_photo: "",
+        alhaj_photo: "",
+        payment_method: "",
+        Verification: false,
+        type_room: "",
+        name_program: ""
+       });
       setIsEditingHajj(false);
       setEditingIdHajj(null);
     };
@@ -656,7 +694,7 @@ const DashBoardEmployee = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-umrah/AvailablePrograms');
+        const response = await axios.get('https://officealhajandalumrah.adaptable.app/program-umrah');
         setUmrahProgram(response.data);
         const allProgramUmrahHotelResponse = await axios.get('https://officealhajandalumrah.adaptable.app/prog-umrah-hotel');
         setAllProgramUmrahHotel(allProgramUmrahHotelResponse.data);
